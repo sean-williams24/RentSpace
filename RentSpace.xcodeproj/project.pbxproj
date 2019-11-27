@@ -16,6 +16,8 @@
 		CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */; };
 		CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */; };
 		CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */; };
+		CE084094238EA79700DA57C8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084093238EA79700DA57C8 /* DataController.swift */; };
+		CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotosViewController.swift; sourceTree = "<group>"; };
 		CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentSpaceViewController.swift; sourceTree = "<group>"; };
 		CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE084093238EA79700DA57C8 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +68,8 @@
 			children = (
 				CE084079238D40B200DA57C8 /* AppDelegate.swift */,
 				CE08407B238D40B200DA57C8 /* SceneDelegate.swift */,
-				CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */,
-				CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */,
-				CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */,
+				CE084098238EA95800DA57C8 /* Model */,
+				CE084097238EA93700DA57C8 /* View Controllers */,
 				CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */,
 				CE08407F238D40B200DA57C8 /* Main.storyboard */,
 				CE084082238D40B500DA57C8 /* Assets.xcassets */,
@@ -74,6 +77,25 @@
 				CE084087238D40B500DA57C8 /* Info.plist */,
 			);
 			path = RentSpace;
+			sourceTree = "<group>";
+		};
+		CE084097238EA93700DA57C8 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */,
+				CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */,
+				CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		CE084098238EA95800DA57C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE084093238EA79700DA57C8 /* DataController.swift */,
+				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,12 +169,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
 				CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */,
 				CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */,
 				CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */,
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
+				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

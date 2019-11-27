@@ -25,9 +25,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             images.append(image!)
         }
         
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-        
         let space: CGFloat = 3.0
         let size = (view.frame.size.width - (2 * space)) / 3.0
 
@@ -76,7 +73,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
         
-        images.append(image)
+        images.insert(image, at: 0)
+        images.removeLast()
         collectionView.reloadData()
         dismiss(animated: true)
     }
@@ -85,11 +83,13 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     //MARK: - Collection View delegates and data source
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        images.count
+        return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo cell", for: indexPath) as! PhotoCollectionViewCell
+        
+        
         cell.cellImageView.image = images[indexPath.row]
         return cell
     }

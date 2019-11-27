@@ -11,10 +11,12 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    let dataController = DataController(modelName: "RentSpace")
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        dataController.load()
+        Global.dataController = dataController
         return true
     }
 
@@ -32,6 +34,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        saveViewContext()
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        saveViewContext()
+    }
+    
+    func saveViewContext () {
+          try? dataController.viewContext.save()
+      }
 
 }
 
