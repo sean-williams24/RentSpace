@@ -74,7 +74,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Location"/>
+                                        <state key="normal" title="Location &amp; Contact Details"/>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -101,15 +101,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPg-WJ-wvP">
+                                <rect key="frame" x="0.0" y="653" width="414" height="160"/>
+                                <state key="normal" title="Add Photos"/>
+                                <connections>
+                                    <action selector="addPhotosButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pZM-l7-w3Y"/>
+                                    <segue destination="Ru3-vt-OBJ" kind="show" id="cUM-WG-uWI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.91680336673639329" blue="0.88581494173249564" alpha="0.86114083908219174" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="AIF-4g-oTh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7lR-rM-mzU"/>
+                            <constraint firstItem="JPg-WJ-wvP" firstAttribute="top" secondItem="bni-hu-Fa6" secondAttribute="bottom" constant="10" id="BDq-W6-XNi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bni-hu-Fa6" secondAttribute="trailing" constant="5" id="Eab-Zg-9S3"/>
                             <constraint firstItem="bni-hu-Fa6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="LO9-SK-V3r"/>
+                            <constraint firstItem="JPg-WJ-wvP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LWF-xr-9g5"/>
+                            <constraint firstItem="JPg-WJ-wvP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="NEc-F4-Wfx"/>
                             <constraint firstItem="AIF-4g-oTh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="TpN-Os-bwx"/>
                             <constraint firstItem="AIF-4g-oTh" firstAttribute="top" secondItem="bni-hu-Fa6" secondAttribute="bottom" constant="10" id="YWB-gB-QwV"/>
                             <constraint firstItem="bni-hu-Fa6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="aKV-qK-k2X"/>
+                            <constraint firstItem="JPg-WJ-wvP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="i9z-zR-Ip4"/>
                             <constraint firstItem="AIF-4g-oTh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kwA-Rf-68T"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -124,6 +136,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addPhotosButton" destination="JPg-WJ-wvP" id="syd-I4-Unz"/>
                         <outlet property="collectionView" destination="AIF-4g-oTh" id="bL8-p8-eWk"/>
                         <outlet property="currencyTextView" destination="PYL-sV-fyn" id="gph-u8-eLH"/>
                         <outlet property="descriptionTextView" destination="RlH-8n-5av" id="KLG-fb-4t7"/>
@@ -139,6 +152,92 @@
             </objects>
             <point key="canvasLocation" x="1953.6231884057972" y="214.95535714285714"/>
         </scene>
+        <!--Add Photos View Controller-->
+        <scene sceneID="4rR-u6-Tfd">
+            <objects>
+                <viewController id="Ru3-vt-OBJ" customClass="AddPhotosViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pn4-SB-b1p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="DQX-SC-Dlv">
+                                <rect key="frame" x="0.0" y="88" width="414" height="632"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nPm-rx-yH1">
+                                    <size key="itemSize" width="135" height="135"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Photo cell" id="HGt-Jp-IaJ" customClass="PhotoCollectionViewCell" customModule="RentSpace" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="2Oi-CT-5ML">
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aKB-yZ-oMf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="aKB-yZ-oMf" secondAttribute="trailing" id="5Pi-KT-izF"/>
+                                                <constraint firstItem="aKB-yZ-oMf" firstAttribute="leading" secondItem="2Oi-CT-5ML" secondAttribute="leading" id="l6I-9y-qov"/>
+                                                <constraint firstAttribute="bottom" secondItem="aKB-yZ-oMf" secondAttribute="bottom" id="pWZ-A7-jpn"/>
+                                                <constraint firstItem="aKB-yZ-oMf" firstAttribute="top" secondItem="2Oi-CT-5ML" secondAttribute="top" id="v8v-2o-ucD"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="130" height="130"/>
+                                        <connections>
+                                            <outlet property="cellImageView" destination="aKB-yZ-oMf" id="2gi-25-gcL"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Ru3-vt-OBJ" id="R7t-WM-ltH"/>
+                                    <outlet property="delegate" destination="Ru3-vt-OBJ" id="0d2-lp-sJq"/>
+                                </connections>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQT-Sm-Kfw">
+                                <rect key="frame" x="84" y="730" width="246" height="73"/>
+                                <string key="text">Upload up to 9 photos.
+Tap a photo to edit or delete it.
+Drag to reorder.</string>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6dh-Mi-1NR" firstAttribute="trailing" secondItem="vQT-Sm-Kfw" secondAttribute="trailing" constant="84" id="AjN-Rp-C76"/>
+                            <constraint firstItem="DQX-SC-Dlv" firstAttribute="top" secondItem="6dh-Mi-1NR" secondAttribute="top" id="Dvs-cV-bb5"/>
+                            <constraint firstItem="DQX-SC-Dlv" firstAttribute="trailing" secondItem="6dh-Mi-1NR" secondAttribute="trailing" id="HV7-J3-BXe"/>
+                            <constraint firstItem="vQT-Sm-Kfw" firstAttribute="top" secondItem="DQX-SC-Dlv" secondAttribute="bottom" constant="10" id="Knv-uI-f7A"/>
+                            <constraint firstItem="DQX-SC-Dlv" firstAttribute="leading" secondItem="6dh-Mi-1NR" secondAttribute="leading" id="N0p-K4-kba"/>
+                            <constraint firstItem="6dh-Mi-1NR" firstAttribute="bottom" secondItem="vQT-Sm-Kfw" secondAttribute="bottom" constant="10" id="SBQ-QT-RMO"/>
+                            <constraint firstItem="vQT-Sm-Kfw" firstAttribute="leading" secondItem="6dh-Mi-1NR" secondAttribute="leading" constant="84" id="VZT-t6-tT0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6dh-Mi-1NR"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z6w-0z-Ipf">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="camera" catalog="system" id="GiK-Wl-vCq">
+                            <connections>
+                                <action selector="addPhotosTapped:" destination="Ru3-vt-OBJ" id="Jcc-AA-19V"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="DQX-SC-Dlv" id="39s-pI-Kcz"/>
+                        <outlet property="flowLayout" destination="nPm-rx-yH1" id="IQR-nB-Ma8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7qw-KD-5PX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2942.0289855072465" y="569.86607142857144"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="FAT-cn-s3K">
             <objects>
@@ -149,19 +248,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="YRc-DE-pac" kind="relationship" relationship="viewControllers" id="OJT-dh-G1w"/>
                         <segue destination="d8u-Aa-oNO" kind="relationship" relationship="viewControllers" id="i9q-58-uUO"/>
+                        <segue destination="YRc-DE-pac" kind="relationship" relationship="viewControllers" id="OJT-dh-G1w"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYi-Tb-5pI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
-        <!--Item-->
+        <!--Post Space-->
         <scene sceneID="t25-wg-0oy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YRc-DE-pac" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="lVT-b8-n7d"/>
+                    <tabBarItem key="tabBarItem" title="Post Space" image="studentdesk" catalog="system" id="lVT-b8-n7d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DGn-48-iiF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -169,7 +268,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="S5G-7Y-ZMO"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="C4r-wX-cbJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Xn-Az-zBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -179,7 +278,7 @@
         <!--Rent Space-->
         <scene sceneID="beK-k1-9QH">
             <objects>
-                <viewController title="Rent Space" id="T2e-aY-bb6" customClass="PostSpaceViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Rent Space" id="T2e-aY-bb6" customClass="RentSpaceViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4xk-Cf-RQD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -192,11 +291,11 @@
             </objects>
             <point key="canvasLocation" x="1999" y="-449"/>
         </scene>
-        <!--Item-->
+        <!--Rent Space-->
         <scene sceneID="K6O-EV-dmd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d8u-Aa-oNO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="uj0-as-IS3"/>
+                    <tabBarItem key="tabBarItem" title="Rent Space" image="eyeglasses" catalog="system" id="uj0-as-IS3"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="0jz-ox-ACf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tF4-K0-ztZ">
@@ -213,4 +312,9 @@
             <point key="canvasLocation" x="1087" y="-449"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="eyeglasses" catalog="system" width="64" height="26"/>
+        <image name="studentdesk" catalog="system" width="62" height="64"/>
+    </resources>
 </document>

@@ -20,6 +20,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet var priceRatePicker: UIPickerView!
     @IBOutlet var locationButton: UIButton!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var addPhotosButton: UIButton!
     
     var spaceTypePickerContent = [String]()
     var priceRatePickerContent = [String]()
@@ -53,6 +54,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     //MARK: - Picker View Delegates and Data Sources
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        // Hide borders of picker view
         pickerView.subviews.forEach({
             $0.isHidden = $0.frame.height < 1.0
         })
@@ -99,7 +101,10 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBAction func postButtonTapped(_ sender: Any) {
     }
     
-
+    @IBAction func addPhotosButtonTapped(_ sender: Any) {
+        
+    }
+    
     
     
     @IBAction func locationButtonTapped(_ sender: Any) {
