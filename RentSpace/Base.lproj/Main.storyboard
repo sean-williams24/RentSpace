@@ -232,6 +232,7 @@ Drag to reorder.</string>
                     <connections>
                         <outlet property="collectionView" destination="DQX-SC-Dlv" id="39s-pI-Kcz"/>
                         <outlet property="flowLayout" destination="nPm-rx-yH1" id="IQR-nB-Ma8"/>
+                        <outlet property="imagesButton" destination="GiK-Wl-vCq" id="EVh-GN-xHI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qw-KD-5PX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -244,6 +245,7 @@ Drag to reorder.</string>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="wXc-mm-7Pb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GfW-wh-rZ2">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

@@ -18,6 +18,8 @@
 		CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */; };
 		CE084094238EA79700DA57C8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084093238EA79700DA57C8 /* DataController.swift */; };
 		CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */; };
+		CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */; };
+		CE5D27CF238EC8AA0098B0FA /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27CE238EC8AA0098B0FA /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE084093238EA79700DA57C8 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
+		CE08409A238EAA7500DA57C8 /* RentSpace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RentSpace.xcdatamodel; sourceTree = "<group>"; };
+		CE5D27CE238EC8AA0098B0FA /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +96,10 @@
 		CE084098238EA95800DA57C8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */,
 				CE084093238EA79700DA57C8 /* DataController.swift */,
 				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
+				CE5D27CE238EC8AA0098B0FA /* Photo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,7 +177,9 @@
 			files = (
 				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
+				CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */,
 				CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */,
+				CE5D27CF238EC8AA0098B0FA /* Photo.swift in Sources */,
 				CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */,
 				CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */,
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
@@ -374,6 +382,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CE08409A238EAA7500DA57C8 /* RentSpace.xcdatamodel */,
+			);
+			currentVersion = CE08409A238EAA7500DA57C8 /* RentSpace.xcdatamodel */;
+			path = RentSpace.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CE08406E238D40B200DA57C8 /* Project object */;
 }
