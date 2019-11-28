@@ -12,7 +12,9 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     
     @IBOutlet var postButton: UIBarButtonItem!
-    @IBOutlet var titleTextView: UITextView!
+    @IBOutlet var titleTextField: UITextField!
+    
+    
     @IBOutlet var descriptionTextView: UITextView!
     @IBOutlet var spaceTypePicker: UIPickerView!
     @IBOutlet var currencyTextView: UITextView!
@@ -24,18 +26,27 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     var spaceTypePickerContent = [String]()
     var priceRatePickerContent = [String]()
+    var images = [Image]()
+    
+    let itemsPerRow = 5
 
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
+        titleTextField.leftView = leftPadView
+        titleTextField.leftViewMode = .always
+        
         // Title TextView
-        NSLayoutConstraint.activate([titleTextView.heightAnchor.constraint(equalToConstant: 50)])
-        titleTextView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+//        NSLayoutConstraint.activate([titleTextView.heightAnchor.constraint(equalToConstant: 50)])
+//        titleTextView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         
         // Description textField
-        descriptionTextView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+//        descriptionTextView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         
+        // Location Button
+        locationButton.layer.cornerRadius = 15
         
         // Space type picker
         spaceTypePicker.dataSource = self
@@ -46,10 +57,35 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly"]
         
         
-        
+//        loadUDImages()
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        loadUDImages()
+        collectionView.reloadData()
+    }
+    
+    
+    //MARK: - Private Methods
+    
+    func getDocumentsDirectory() -> URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return path[0]
+    }
+    
+    fileprivate func loadUDImages() {
+        if let imageData = UserDefaults.standard.data(forKey: "Images") {
+            do {
+                let jsonDecoder = JSONDecoder()
+                images = try jsonDecoder.decode([Image].self, from: imageData)
+            } catch {
+                print("Data could not be decoder: \(error)")
+            }
+        }
+    }
     
     //MARK: - Picker View Delegates and Data Sources
     
@@ -111,3 +147,31 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
 }
 
+
+
+// MARK: - Collection view delegates 
+
+
+extension PostSpaceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PreviewPhotoCollectionViewCell
+        
+        let image = images[indexPath.item]
+        let imageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
+        cell.imageView.image = UIImage(contentsOfFile: imageFile.path)
+        
+        return cell
+    }
+    
+    
+    
+}
+
+extension PostSpaceViewController: UICollectionViewDelegateFlowLayout {
+    
+    
+}

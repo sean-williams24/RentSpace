@@ -20,6 +20,7 @@
 		CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */; };
 		CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */; };
 		CE5D27CF238EC8AA0098B0FA /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27CE238EC8AA0098B0FA /* Photo.swift */; };
+		CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
 		CE08409A238EAA7500DA57C8 /* RentSpace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RentSpace.xcdatamodel; sourceTree = "<group>"; };
 		CE5D27CE238EC8AA0098B0FA /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				CE084098238EA95800DA57C8 /* Model */,
 				CE084097238EA93700DA57C8 /* View Controllers */,
 				CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */,
+				CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */,
 				CE08407F238D40B200DA57C8 /* Main.storyboard */,
 				CE084082238D40B500DA57C8 /* Assets.xcassets */,
 				CE084084238D40B500DA57C8 /* LaunchScreen.storyboard */,
@@ -184,6 +187,7 @@
 				CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */,
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
+				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,
 				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

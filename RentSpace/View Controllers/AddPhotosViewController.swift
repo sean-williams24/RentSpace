@@ -12,27 +12,19 @@ import CoreData
 class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet var imagesButton: UIBarButtonItem!
     
     var images = [Image]()
-    
+    let placeHolderImage = UIImage(named: "imagePlaceholder")
+    private let itemsPerRow: CGFloat = 3
+    private let sectionInsets = UIEdgeInsets(top: 15.0,
+                                             left: 15.0,
+                                             bottom: 15.0,
+                                             right: 15.0)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let space: CGFloat = 3.0
-        let size = (view.frame.size.width - (2 * space)) / 3.0
 
-        flowLayout.minimumLineSpacing = space
-        flowLayout.minimumInteritemSpacing = space
-        flowLayout.itemSize = CGSize(width: size, height: size)
-          
-        if images.isEmpty {
-            for _ in 0...8 {
-                let image = UIImage(named: "imagePlaceholder")
-                writeImageFileToDisk(image: image!, name: "placeholder")
-            }
-        }
 
         // Load saved images into images array
         if let imageData = UserDefaults.standard.data(forKey: "Images") {
@@ -43,15 +35,29 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                 print("Data could not be decoder: \(error)")
             }
         }
+        
+        // If there are no saved images, load in 9 placeholders
+        if images.isEmpty {
+            for _ in 0...8 {
+                writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: 0)
+            }
+        }
+
+        print(images.count)
+        
 
         
         if !photoAlbumIsFull() {
             addPhotosAlertController()
-            print("Were in")
         } else {
             imagesButton.isEnabled = false
         }
+        imagesButton.isEnabled = true
     }
+    
+
+    
+    
     
     //MARK: - Private methods
     
@@ -62,6 +68,13 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
         ac.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: addPhotosFromLibrary(action:)))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        if let popoverController = ac.popoverPresentationController {
+                       popoverController.sourceView = self.view //to set the source of your alert
+                       popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY + 20, width: 30, height: 30) // you can set this as per your requirement.
+                       popoverController.permittedArrowDirections = [] //to hide the arrow of any particular direction
+                   }
+        
         present(ac, animated: true)
     }
     
@@ -79,15 +92,15 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
     }
     
-    func writeImageFileToDisk(image: UIImage, name imageName: String) {
+    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int) {
         let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
         
         if let imageData = image.jpegData(compressionQuality: 1.0) {
             try? imageData.write(to: filePath)
         }
-        
+        print(images.count)
         let savingImage = Image(imageName: imageName)
-        images.insert(savingImage, at: 0)
+        images.insert(savingImage, at: position)
     }
     
     fileprivate func photoAlbumIsFull() -> Bool {
@@ -129,7 +142,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         guard let image = info[.editedImage] as? UIImage else { return }
         let imageName = UUID().uuidString
 
-        writeImageFileToDisk(image: image, name: imageName)
+        writeImageFileToDisk(image: image, name: imageName, at: 0)
 
         images.removeLast()
         save()
@@ -150,7 +163,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo cell", for: indexPath) as! PhotoCollectionViewCell
-        let image = images[indexPath.row]
+        let image = images[indexPath.item]
     
         let savedImageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
         cell.cellImageView.image = UIImage(contentsOfFile: savedImageFile.path)
@@ -158,7 +171,20 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let tappedImage = images[indexPath.item]
+        
+        if tappedImage.imageName != "placeholder" {
+            images.remove(at: indexPath.item)
+            save()
+            writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
+            collectionView.reloadData()
+        }
+    }
     
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        
+    }
     
     //MARK: - Action Methods
     
@@ -178,4 +204,36 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     }
     */
 
+}
+
+
+// MARK: - Collection View Flow Layout Delegate
+
+extension AddPhotosViewController : UICollectionViewDelegateFlowLayout {
+    
+  //1
+  func collectionView(_ collectionView: UICollectionView,
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //2
+    let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+    let availableWidth = view.frame.width - paddingSpace
+    let widthPerItem = availableWidth / itemsPerRow
+    
+    return CGSize(width: widthPerItem, height: widthPerItem)
+  }
+  
+  //3
+  func collectionView(_ collectionView: UICollectionView,
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      insetForSectionAt section: Int) -> UIEdgeInsets {
+    return sectionInsets
+  }
+  
+  // 4
+  func collectionView(_ collectionView: UICollectionView,
+                      layout collectionViewLayout: UICollectionViewLayout,
+                      minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return sectionInsets.left
+  }
 }
