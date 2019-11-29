@@ -82,7 +82,7 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         if let postalAddress = address.postalAddress {
             let formattedAddress = formatter.string(from: postalAddress)
             
-            handleAddressSelectionDelegate?.addAddress(address: formattedAddress)
+            handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress)
 
         }
         

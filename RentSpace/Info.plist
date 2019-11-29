@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location required to taylor search results to your area.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,6 +22,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>RentSpace requires camera access for you to add photos to your ad.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location required to taylor search results to your area.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>RentSpace requires access to your photo library for you to add photos to your ad.</string>
 	<key>UIApplicationSceneManifest</key>

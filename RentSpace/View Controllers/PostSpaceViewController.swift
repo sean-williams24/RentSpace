@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
     
     @IBOutlet var postButton: UIBarButtonItem!
@@ -38,9 +38,13 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
         titleTextField.leftView = leftPadView
         titleTextField.leftViewMode = .always
+        titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         // Description textView
-        descriptionTextView.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 4, right: 4)
+        descriptionTextView.textColor = .lightGray
+        descriptionTextView.text = "Description"
+        descriptionTextView.delegate = self
         
         // Location Button
         locationButton.layer.cornerRadius = 15
@@ -53,6 +57,17 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         spaceTypePickerContent = ["Art Studio", "Photography Studio", "Music Studio", "Desk Space"]
         priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly"]
         
+        // Price textFields
+        let leftPadView1 = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
+        currencyTextField.leftView = leftPadView1
+        currencyTextField.leftViewMode = .always
+        currencyTextField.attributedPlaceholder = NSAttributedString(string: "Currency", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        
+        let leftPadView2 = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
+
+        priceTextField.leftView = leftPadView2
+        priceTextField.leftViewMode = .always
+        priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             collectionViewHeightConstraint.constant = 420
@@ -99,6 +114,23 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
     }
     
+    //MARK: - Text delegates
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if descriptionTextView.text == "Description" {
+            descriptionTextView.text = ""
+            descriptionTextView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if descriptionTextView.text == "" {
+            descriptionTextView.text = "Description"
+            descriptionTextView.textColor = .lightGray
+        }
+    }
+    
+    
     //MARK: - Picker View Delegates and Data Sources
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -126,13 +158,14 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
 //    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-//
+//        
 //    }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 21, weight: .light)
         label.textAlignment = .center
+        label.textColor = .systemPurple
         label.layer.borderWidth = .zero
         
         if pickerView.tag == 1 {
