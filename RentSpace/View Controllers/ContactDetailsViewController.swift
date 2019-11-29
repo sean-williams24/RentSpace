@@ -9,7 +9,16 @@
 import UIKit
 import MapKit
 
-class ContactDetailsViewController: UIViewController {
+protocol HandleAddressSelection {
+    func addAddress(address: String)
+}
+
+class ContactDetailsViewController: UIViewController, HandleAddressSelection {
+    
+    func addAddress(address: String) {
+        addressTextView.text = address
+    }
+    
     
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var phoneNumberTextField: UITextField!
@@ -20,7 +29,7 @@ class ContactDetailsViewController: UIViewController {
     
     let searchRequest = MKLocalSearch.Request()
     var resultsSearchController: UISearchController?
-    static var selectedAddress = ""
+    var selectedAddress = ""
     
     
     override func viewDidLoad() {
@@ -31,7 +40,7 @@ class ContactDetailsViewController: UIViewController {
         let addressSearchTable = storyboard!.instantiateViewController(identifier: "AddressSearchTableVC") as! AddressSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable
-        
+        addressSearchTable.handleAddressSelectionDelegate = self
         
         let searchBar1 = resultsSearchController!.searchBar
         searchBar1.sizeToFit()
@@ -41,13 +50,15 @@ class ContactDetailsViewController: UIViewController {
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         
-    
+        
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addressTextView.text = ContactDetailsViewController.selectedAddress
+        addressTextView.text = selectedAddress
+        
+        print(selectedAddress)
     }
     
 

@@ -17,6 +17,7 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
     let formatter = CNPostalAddressFormatter()
     let locationManager = CLLocationManager()
     var userLocation = CLLocation()
+    var handleAddressSelectionDelegate: HandleAddressSelection? = nil
     
 
     override func viewDidLoad() {
@@ -80,7 +81,9 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         let address = matchingItems[indexPath.row].placemark
         if let postalAddress = address.postalAddress {
             let formattedAddress = formatter.string(from: postalAddress)
-            ContactDetailsViewController.selectedAddress = formattedAddress
+            
+            handleAddressSelectionDelegate?.addAddress(address: formattedAddress)
+
         }
         
         dismiss(animated: true)

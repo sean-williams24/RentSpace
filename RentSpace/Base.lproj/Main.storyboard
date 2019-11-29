@@ -190,7 +190,7 @@
         <!--Contact Details View Controller-->
         <scene sceneID="abN-du-kw8">
             <objects>
-                <viewController id="q4m-nT-3we" customClass="ContactDetailsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactDetailsVC" id="q4m-nT-3we" customClass="ContactDetailsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vNt-5k-VzV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
