@@ -87,6 +87,9 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         loadUDImages()
         collectionView.reloadData()
         
+        let email = UserDefaults.standard.string(forKey: "Email")
+        locationButton.titleLabel?.text = "  \(email ?? "Contact & Address")"
+        
         // Add Photos Button
         if images.isEmpty == false {
             UIView.animate(withDuration: 0.5) {
@@ -135,9 +138,9 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         // Hide borders of picker view
-        pickerView.subviews.forEach({
-            $0.isHidden = $0.frame.height < 1.0
-        })
+//        pickerView.subviews.forEach({
+//            $0.isHidden = $0.frame.height < 1.0
+//        })
         return 1
     }
     
@@ -157,13 +160,9 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
     }
     
-//    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-//        
-//    }
-    
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 21, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
         label.textAlignment = .center
         label.textColor = .systemPurple
         label.layer.borderWidth = .zero

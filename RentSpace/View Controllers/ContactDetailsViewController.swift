@@ -18,9 +18,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var phoneNumberTextField: UITextField!
-    @IBOutlet var addressSearchButton: UIButton!
     @IBOutlet var addressTextView: UITextView!
-    @IBOutlet var searchBar: UISearchBar!
     
     let searchRequest = MKLocalSearch.Request()
     var resultsSearchController: UISearchController?
@@ -35,9 +33,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         resultsSearchController?.searchResultsUpdater = addressSearchTable
         addressSearchTable.handleAddressSelectionDelegate = self
         
-        let searchBar1 = resultsSearchController!.searchBar
-        searchBar1.sizeToFit()
-        searchBar1.placeholder = "Search Address"
+        let searchBar = resultsSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search Address"
         navigationItem.titleView = resultsSearchController?.searchBar
         
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
@@ -45,15 +43,26 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         
         addressTextView.layer.cornerRadius = 5
         
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: "Phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        emailTextField.text = UserDefaults.standard.string(forKey: "Email")
+        phoneNumberTextField.text = UserDefaults.standard.string(forKey: "Phone")
+        addressTextView.text = UserDefaults.standard.string(forKey: "Address")
         
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addressTextView.text = selectedAddress
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
-        print(selectedAddress)
+        UserDefaults.standard.set(emailTextField.text, forKey: "Email")
+        UserDefaults.standard.set(phoneNumberTextField.text, forKey: "Phone")
+        UserDefaults.standard.set(addressTextView.text, forKey: "Address")
     }
     
     // MARK: - Action Methods
@@ -67,7 +76,11 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     // MARK: - Private Methods
 
     func addAddress(name: String, address: String) {
-        addressTextView.text = "\(name) \n\(address)"
+        if address.contains(name) {
+            addressTextView.text = address
+        } else {
+            addressTextView.text = "\(name) \n\(address)"
+        }
     }
 
 }
