@@ -36,6 +36,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         let searchBar = resultsSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Search Address"
+        searchBar.keyboardAppearance = .dark    
         navigationItem.titleView = resultsSearchController?.searchBar
         
         resultsSearchController?.hidesNavigationBarDuringPresentation = false

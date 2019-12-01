@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
+class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate {
     
     
     @IBOutlet var postButton: UIBarButtonItem!
@@ -73,13 +73,20 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             collectionViewHeightConstraint.constant = 420
         }
         
+        
+        // Keyboard dismissal
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
+        
+        let notificationCenter = NotificationCenter()
+        notificationCenter.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-
-
+        subscribeToKeyboardNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -88,7 +95,10 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         collectionView.reloadData()
         
         let email = UserDefaults.standard.string(forKey: "Email")
-        locationButton.titleLabel?.text = "  \(email ?? "Contact & Address")"
+        locationButton.titleLabel?.text = "  \(email ?? "Contact & Address ->")"
+        if email == "" {
+            locationButton.titleLabel?.text = "  Contact & Address ->"
+        }
         
         // Add Photos Button
         if images.isEmpty == false {
@@ -98,6 +108,12 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
+    
+  
     
     //MARK: - Private Methods
     
@@ -117,21 +133,48 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
     }
     
-    //MARK: - Text delegates
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if descriptionTextView.text == "Description" {
-            descriptionTextView.text = ""
-            descriptionTextView.textColor = .black
+  @objc func keyboardWillShow(notification: NSNotification) {
+    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
         }
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if descriptionTextView.text == "" {
-            descriptionTextView.text = "Description"
-            descriptionTextView.textColor = .lightGray
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
         }
     }
+    
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardEndFrame = keyboardValue.cgRectValue
+        // Convert frame from size of screen which will now be the correct size of the keyboard
+        let keyboardViewEndFrame = view.convert(keyboardEndFrame, to: view.window)
+        
+        //Check if we are hiding
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y = 0
+            }
+        } else {
+//            descriptionTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+            
+            if view.frame.origin.y == 0 {
+                view.frame.origin.y -= keyboardViewEndFrame.height
+            }
+
+        }
+        
+        descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
+        
+        //Make scroll view scroll down to show what user has just tapped on
+        let selectedRange = descriptionTextView.selectedRange
+        descriptionTextView.scrollRangeToVisible(selectedRange)
+    }
+
     
     
     //MARK: - Picker View Delegates and Data Sources
@@ -175,6 +218,11 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         return label
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        view.endEditing(true)
+    }
+    
+
     
     //MARK: - Action Methods
 
@@ -191,6 +239,30 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
 }
 
+
+//MARK: - Text Delegates
+
+extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if descriptionTextView.text == "Description" {
+            descriptionTextView.text = ""
+            descriptionTextView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if descriptionTextView.text == "" {
+            descriptionTextView.text = "Description"
+            descriptionTextView.textColor = .lightGray
+        }
+        descriptionTextView.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
+    }
+}
 
 
 // MARK: - Collection view delegates 
@@ -214,6 +286,8 @@ extension PostSpaceViewController: UICollectionViewDelegate, UICollectionViewDat
     
     
 }
+
+//MARK: - Collection View Flow Layout Delegates
 
 extension PostSpaceViewController: UICollectionViewDelegateFlowLayout {
     

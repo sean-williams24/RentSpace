@@ -23,6 +23,7 @@
 		CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */; };
 		CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */; };
 		CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */; };
+		CE6583A123941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A023941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchTableViewController.swift; sourceTree = "<group>"; };
+		CE6583A023941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostSpaceVC-KeyboardExtension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +97,9 @@
 			children = (
 				CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */,
 				CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */,
-				CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */,
 				CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */,
 				CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */,
+				CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -109,6 +111,7 @@
 				CE084093238EA79700DA57C8 /* DataController.swift */,
 				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
 				CE5D27CE238EC8AA0098B0FA /* Photo.swift */,
+				CE6583A023941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				CE5D27CF238EC8AA0098B0FA /* Photo.swift in Sources */,
 				CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */,
 				CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */,
+				CE6583A123941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift in Sources */,
 				CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */,
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
