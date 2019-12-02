@@ -15,16 +15,29 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet var imagesButton: UIBarButtonItem!
     
     var images = [Image]()
+    var selectedImages: [Image] = []
+    var selectedImagesIndexPathes: [IndexPath] = []
+    var deleting: Bool = false {
+        didSet {
+            if deleting {
+                navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil), animated: true)
+//                imagesButton.image = UIImage(systemName: "trash")
+            } else {
+//                imagesButton.image = UIImage(systemName: "camera")
+                navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: nil), animated: true)
+            }
+        }
+    }
+    
+    var selectedPhotoIndexPath: IndexPath?
     let placeHolderImage = UIImage(named: "imagePlaceholder")
     private let itemsPerRow: CGFloat = 3
-    private let sectionInsets = UIEdgeInsets(top: 15.0,
-                                             left: 15.0,
-                                             bottom: 15.0,
-                                             right: 15.0)
+    private let sectionInsets = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        collectionView.allowsMultipleSelection = true
+        collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = true
         collectionView.dragInteractionEnabled = true
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
@@ -53,9 +66,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
         imagesButton.isEnabled = true
     }
-    
-
-    
     
     
     //MARK: - Private methods
@@ -97,7 +107,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         if let imageData = image.jpegData(compressionQuality: 1.0) {
             try? imageData.write(to: filePath)
         }
-        print(images.count)
+
         let savingImage = Image(imageName: imageName)
         images.insert(savingImage, at: position)
     }
@@ -115,28 +125,25 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     
-    
-    
-    
-    
     //MARK: - Action Methods
     
     
     @IBAction func addPhotosTapped(_ sender: Any) {
-        addPhotosAlertController()
+        if deleting {
+            for indexPath in selectedImagesIndexPathes.reversed() {
+                print("Index pathes to remove \(indexPath)")
+                images.remove(at: indexPath.item)
+                writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
+            }
+            collectionView.reloadData()
+            save()
+            deleting = false
+            selectedImagesIndexPathes.removeAll()
+        } else {
+            addPhotosAlertController()
+        }
     }
-    
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     //MARK: - Image Picker Delegates
     
@@ -193,15 +200,29 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tappedImage = images[indexPath.item]
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard images[indexPath.item].imageName != "placeholder" else { return false }
         
-//        if tappedImage.imageName != "placeholder" {
-//            images.remove(at: indexPath.item)
-//            save()
-//            writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
-//            collectionView.reloadData()
-//        }
+        if let selectedItems = collectionView.indexPathsForSelectedItems {
+            if selectedItems.contains(indexPath) {
+                collectionView.deselectItem(at: indexPath, animated: true)
+                return false
+            }
+        }
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        deleting = true
+        selectedImagesIndexPathes.append(indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        selectedImagesIndexPathes.removeAll(where: {$0 == indexPath})
+        print(selectedImagesIndexPathes)
+        if selectedImagesIndexPathes.isEmpty {
+            deleting = false
+        }
     }
 }
 
@@ -253,15 +274,20 @@ extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionVie
         
         coordinator.items.forEach { dropItem in
             guard let sourceIndexPath = dropItem.sourceIndexPath else { return }
-            
+    
+            let image = images[sourceIndexPath.item]
+            let destinationImage = images[destinationIndexPath.item]
+            guard destinationImage.imageName != "placeholder" else { return }
+
             collectionView.performBatchUpdates({
-                let image = images[sourceIndexPath.item]
                 images.remove(at: sourceIndexPath.item)
                 images.insert(image, at: destinationIndexPath.item)
                 collectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
             }) { _ in
                 coordinator.drop(dropItem.dragItem, toItemAt: destinationIndexPath)
+                self.save()
+
             }
         }
     }
