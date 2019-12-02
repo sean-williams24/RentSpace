@@ -66,11 +66,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         UserDefaults.standard.set(addressTextView.text, forKey: "Address")
     }
     
-    // MARK: - Action Methods
-
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
-    }
 
 
 

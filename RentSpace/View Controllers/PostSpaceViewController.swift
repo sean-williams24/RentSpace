@@ -77,10 +77,6 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         // Keyboard dismissal
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
-        
-        let notificationCenter = NotificationCenter()
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
     }
     
@@ -133,47 +129,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
     }
     
-  @objc func keyboardWillShow(notification: NSNotification) {
-    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    }
-    
-    @objc func adjustForKeyboard(notification: Notification) {
-        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        
-        let keyboardEndFrame = keyboardValue.cgRectValue
-        // Convert frame from size of screen which will now be the correct size of the keyboard
-        let keyboardViewEndFrame = view.convert(keyboardEndFrame, to: view.window)
-        
-        //Check if we are hiding
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            if self.view.frame.origin.y != 0 {
-                self.view.frame.origin.y = 0
-            }
-        } else {
-//            descriptionTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
-            
-            if view.frame.origin.y == 0 {
-                view.frame.origin.y -= keyboardViewEndFrame.height
-            }
-
-        }
-        
-        descriptionTextView.scrollIndicatorInsets = descriptionTextView.contentInset
-        
-        //Make scroll view scroll down to show what user has just tapped on
-        let selectedRange = descriptionTextView.selectedRange
-        descriptionTextView.scrollRangeToVisible(selectedRange)
-    }
 
     
     

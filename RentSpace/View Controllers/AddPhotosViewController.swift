@@ -24,7 +24,10 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        collectionView.allowsMultipleSelection = true
+        collectionView.dragInteractionEnabled = true
+        collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
 
         // Load saved images into images array
         if let imageData = UserDefaults.standard.data(forKey: "Images") {
@@ -43,10 +46,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
 
-        print(images.count)
-        
-
-        
         if !photoAlbumIsFull() {
             addPhotosAlertController()
         } else {
@@ -116,6 +115,29 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     
+    
+    
+    
+    
+    //MARK: - Action Methods
+    
+    
+    @IBAction func addPhotosTapped(_ sender: Any) {
+        addPhotosAlertController()
+    }
+    
+    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
+    
     //MARK: - Image Picker Delegates
     
     func addPhotosFromCamera(action: UIAlertAction) {
@@ -174,36 +196,13 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let tappedImage = images[indexPath.item]
         
-        if tappedImage.imageName != "placeholder" {
-            images.remove(at: indexPath.item)
-            save()
-            writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
-            collectionView.reloadData()
-        }
+//        if tappedImage.imageName != "placeholder" {
+//            images.remove(at: indexPath.item)
+//            save()
+//            writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
+//            collectionView.reloadData()
+//        }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        
-    }
-    
-    //MARK: - Action Methods
-    
-    
-    @IBAction func addPhotosTapped(_ sender: Any) {
-        addPhotosAlertController()
-    }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
@@ -226,4 +225,49 @@ extension AddPhotosViewController : UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return sectionInsets.left
   }
+}
+
+
+// MARK: - Collection View Drag & Drop Delegates
+
+
+extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let image = images[indexPath.item]
+        
+        if image.imageName == "placeholder" {
+            return []
+        } else {
+            let savedImageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
+            
+            let item = NSItemProvider(object: UIImage(contentsOfFile: savedImageFile.path)!)
+            let dragItem = UIDragItem(itemProvider: item)
+            return[dragItem]
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
+        
+        coordinator.items.forEach { dropItem in
+            guard let sourceIndexPath = dropItem.sourceIndexPath else { return }
+            
+            collectionView.performBatchUpdates({
+                let image = images[sourceIndexPath.item]
+                images.remove(at: sourceIndexPath.item)
+                images.insert(image, at: destinationIndexPath.item)
+                collectionView.deleteItems(at: [sourceIndexPath])
+                collectionView.insertItems(at: [destinationIndexPath])
+            }) { _ in
+                coordinator.drop(dropItem.dragItem, toItemAt: destinationIndexPath)
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+    
 }
