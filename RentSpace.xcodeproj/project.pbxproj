@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28F98941BC87A29428B1FA01 /* Pods_RentSpace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */; };
 		CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084079238D40B200DA57C8 /* AppDelegate.swift */; };
 		CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407B238D40B200DA57C8 /* SceneDelegate.swift */; };
 		CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */; };
@@ -27,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.release.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.release.xcconfig"; sourceTree = "<group>"; };
+		6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RentSpace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.debug.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.debug.xcconfig"; sourceTree = "<group>"; };
 		CE084076238D40B200DA57C8 /* RentSpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RentSpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE084079238D40B200DA57C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE08407B238D40B200DA57C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,17 +57,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28F98941BC87A29428B1FA01 /* Pods_RentSpace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8196D7B40550ABD2C336BD7A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */,
+				47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9999E9AF206C130EB94AB04D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CE08406D238D40B200DA57C8 = {
 			isa = PBXGroup;
 			children = (
 				CE084078238D40B200DA57C8 /* RentSpace */,
 				CE084077238D40B200DA57C8 /* Products */,
+				8196D7B40550ABD2C336BD7A /* Pods */,
+				9999E9AF206C130EB94AB04D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,9 +148,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE08408A238D40B500DA57C8 /* Build configuration list for PBXNativeTarget "RentSpace" */;
 			buildPhases = (
+				00044EF3AC4074BE38AB6227 /* [CP] Check Pods Manifest.lock */,
 				CE084072238D40B200DA57C8 /* Sources */,
 				CE084073238D40B200DA57C8 /* Frameworks */,
 				CE084074238D40B200DA57C8 /* Resources */,
+				C61997BB55C8603B20DE9081 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -181,6 +208,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00044EF3AC4074BE38AB6227 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RentSpace-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C61997BB55C8603B20DE9081 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE084072238D40B200DA57C8 /* Sources */ = {
@@ -342,6 +411,7 @@
 		};
 		CE08408B238D40B500DA57C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -360,6 +430,7 @@
 		};
 		CE08408C238D40B500DA57C8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

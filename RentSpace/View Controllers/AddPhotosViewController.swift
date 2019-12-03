@@ -8,40 +8,49 @@
 
 import UIKit
 import CoreData
+import YPImagePicker
 
 class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var imagesButton: UIBarButtonItem!
+    //    @IBOutlet var imagesButton: UIBarButtonItem!
     
+    let placeHolderImage = UIImage(named: "imagePlaceholder")
+    private let itemsPerRow: CGFloat = 3
+    private let sectionInsets = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
     var images = [Image]()
     var selectedImages: [Image] = []
     var selectedImagesIndexPathes: [IndexPath] = []
+    var trashButton = UIBarButtonItem()
+    var cameraButton = UIBarButtonItem()
+    
     var deleting: Bool = false {
         didSet {
             if deleting {
-                navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil), animated: true)
-//                imagesButton.image = UIImage(systemName: "trash")
+                navigationItem.setRightBarButton(trashButton, animated: true)
+                print("didSet trash Button")
             } else {
-//                imagesButton.image = UIImage(systemName: "camera")
-                navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: nil), animated: true)
+                navigationItem.setRightBarButton(cameraButton, animated: true)
             }
         }
     }
     
-    var selectedPhotoIndexPath: IndexPath?
-    let placeHolderImage = UIImage(named: "imagePlaceholder")
-    private let itemsPerRow: CGFloat = 3
-    private let sectionInsets = UIEdgeInsets(top: 15.0, left: 15.0, bottom: 15.0, right: 15.0)
-
+    var pickedImages = [UIImage]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = true
         collectionView.dragInteractionEnabled = true
         collectionView.dragDelegate = self
         collectionView.dropDelegate = self
-
+        
+        trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(addOrDeletePhotosTapped(_:)))
+        cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addOrDeletePhotosTapped(_:)))
+        trashButton.tintColor = .systemPurple
+        cameraButton.tintColor = .systemPurple
+        navigationItem.setRightBarButton(cameraButton, animated: true)
+        
         // Load saved images into images array
         if let imageData = UserDefaults.standard.data(forKey: "Images") {
             do {
@@ -58,34 +67,16 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                 writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: 0)
             }
         }
-
+        
         if !photoAlbumIsFull() {
-            addPhotosAlertController()
+            cameraButton.isEnabled = true
         } else {
-            imagesButton.isEnabled = false
+            cameraButton.isEnabled = false
         }
-        imagesButton.isEnabled = true
     }
     
     
     //MARK: - Private methods
-    
-    fileprivate func addPhotosAlertController() {
-        let ac = UIAlertController(title: "Add some photos", message: nil, preferredStyle: .actionSheet)
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            ac.addAction(UIAlertAction(title: "Camera", style: .default, handler: addPhotosFromCamera))
-        }
-        ac.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: addPhotosFromLibrary(action:)))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        
-        if let popoverController = ac.popoverPresentationController {
-                       popoverController.sourceView = self.view //to set the source of your alert
-                       popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY + 20, width: 30, height: 30) // you can set this as per your requirement.
-                       popoverController.permittedArrowDirections = [] //to hide the arrow of any particular direction
-                   }
-        
-        present(ac, animated: true)
-    }
     
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -107,13 +98,13 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         if let imageData = image.jpegData(compressionQuality: 1.0) {
             try? imageData.write(to: filePath)
         }
-
+        
         let savingImage = Image(imageName: imageName)
         images.insert(savingImage, at: position)
     }
     
     fileprivate func photoAlbumIsFull() -> Bool {
-        var imageNames = [String]()
+        var imageNames: [String] = []
         for image in images {
             imageNames.append(image.imageName)
         }
@@ -124,14 +115,9 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         return false
     }
     
-    
-    //MARK: - Action Methods
-    
-    
-    @IBAction func addPhotosTapped(_ sender: Any) {
+    @objc func addOrDeletePhotosTapped(_ sender: Any) {
         if deleting {
             for indexPath in selectedImagesIndexPathes.reversed() {
-                print("Index pathes to remove \(indexPath)")
                 images.remove(at: indexPath.item)
                 writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
             }
@@ -139,49 +125,74 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             save()
             deleting = false
             selectedImagesIndexPathes.removeAll()
+            if !photoAlbumIsFull() {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            }
         } else {
-            addPhotosAlertController()
+            addPhotos()
         }
     }
-
+    
     
     //MARK: - Image Picker Delegates
     
-    func addPhotosFromCamera(action: UIAlertAction) {
+    func addPhotos() {
+        var config = YPImagePickerConfiguration()
+        let attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .light) ]
+        UINavigationBar.appearance().titleTextAttributes = attributes // Title fonts
+        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal) // Bar Button fonts
+    
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.systemPurple ] // Title color
+        UINavigationBar.appearance().tintColor = .darkGray // Left. bar buttons
         
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.allowsEditing = true
-        picker.cameraCaptureMode = .photo
-        picker.sourceType = .camera
-        present(picker, animated: true)
-    }
-    
-    func addPhotosFromLibrary(action: UIAlertAction) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.allowsEditing = true
-        picker.sourceType = .photoLibrary
-        present(picker, animated: true)
-    }
-    
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.editedImage] as? UIImage else { return }
-        let imageName = UUID().uuidString
-
-        writeImageFileToDisk(image: image, name: imageName, at: 0)
-
-        images.removeLast()
-        save()
-        collectionView.reloadData()
-        dismiss(animated: true)
-        
-        if photoAlbumIsFull() {
-            imagesButton.isEnabled = false
+        config.colors.tintColor = .systemPurple // Right bar buttons (actions)
+        config.icons.multipleSelectionOnIcon.withTintColor(.systemPurple)
+        config.colors.multipleItemsSelectedCircleColor = .systemPurple
+        config.showsCrop = .rectangle(ratio: 1.0)
+        config.icons.capturePhotoImage = UIImage(named: "Shutter")!
+        config.hidesStatusBar = false
+        config.preferredStatusBarStyle = .lightContent
+        config.startOnScreen = .library
+        if UIImagePickerController.isSourceTypeAvailable(.camera) == false {
+            config.screens = [.library]
         }
+        
+        var maxImages = 0
+        for image in images {
+            if image.imageName == "placeholder" {
+                maxImages += 1
+            }
+        }
+        config.wordings.warningMaxItemsLimit = "No more remaining spaces"
+        config.library.maxNumberOfItems = maxImages
+        
+        let picker = YPImagePicker(configuration: config)
+        picker.didFinishPicking { [unowned picker] items, cancelled in
+            for item in items {
+                switch item {
+                case .photo(let photo):
+                    let imageName = UUID().uuidString
+                    self.writeImageFileToDisk(image: photo.image, name: imageName, at: 0)
+                    self.images.removeLast()
+                    self.save()
+                    
+                case .video:
+                    print("Video")
+                    
+                }
+            }
+            self.collectionView.reloadData()
+            picker.dismiss(animated: true, completion: nil)
+            if self.photoAlbumIsFull() {
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+        }
+
+        
+        present(picker, animated: true)
     }
+    
+    
     
     
     //MARK: - Collection View delegates and data source
@@ -193,7 +204,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo cell", for: indexPath) as! PhotoCollectionViewCell
         let image = images[indexPath.item]
-    
+        
         let savedImageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
         cell.cellImageView.image = UIImage(contentsOfFile: savedImageFile.path)
         
@@ -202,7 +213,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard images[indexPath.item].imageName != "placeholder" else { return false }
-        
         if let selectedItems = collectionView.indexPathsForSelectedItems {
             if selectedItems.contains(indexPath) {
                 collectionView.deselectItem(at: indexPath, animated: true)
@@ -215,6 +225,9 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         deleting = true
         selectedImagesIndexPathes.append(indexPath)
+        print(selectedImagesIndexPathes)
+        print("Deleting: \(deleting)")
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -231,21 +244,21 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
 
 extension AddPhotosViewController : UICollectionViewDelegateFlowLayout {
     
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-    let availableWidth = view.frame.width - paddingSpace
-    let widthPerItem = availableWidth / itemsPerRow
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
     
-    return CGSize(width: widthPerItem, height: widthPerItem)
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    return sectionInsets
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return sectionInsets.left
-  }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
 }
 
 
@@ -253,7 +266,8 @@ extension AddPhotosViewController : UICollectionViewDelegateFlowLayout {
 
 
 extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
-
+    
+    
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let image = images[indexPath.item]
         
@@ -274,11 +288,11 @@ extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionVie
         
         coordinator.items.forEach { dropItem in
             guard let sourceIndexPath = dropItem.sourceIndexPath else { return }
-    
+            
             let image = images[sourceIndexPath.item]
             let destinationImage = images[destinationIndexPath.item]
             guard destinationImage.imageName != "placeholder" else { return }
-
+            
             collectionView.performBatchUpdates({
                 images.remove(at: sourceIndexPath.item)
                 images.insert(image, at: destinationIndexPath.item)
@@ -287,7 +301,7 @@ extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionVie
             }) { _ in
                 coordinator.drop(dropItem.dragItem, toItemAt: destinationIndexPath)
                 self.save()
-
+                
             }
         }
     }
@@ -296,4 +310,13 @@ extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionVie
         return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
     
+}
+
+extension UIColor {
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(origin: .zero, size: size))
+        }
+    }
 }

@@ -343,11 +343,11 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQT-Sm-Kfw">
-                                <rect key="frame" x="84" y="742" width="246" height="61"/>
+                                <rect key="frame" x="10" y="742" width="394" height="61"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                <string key="text">Upload up to 9 photos.
-Tap a photo to edit or delete it.
-Drag to reorder.</string>
+                                <string key="text">Add up to 9 photos.
+Tap photos to delete.
+Long press and drag to reorder.</string>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -355,26 +355,19 @@ Drag to reorder.</string>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6dh-Mi-1NR" firstAttribute="trailing" secondItem="vQT-Sm-Kfw" secondAttribute="trailing" constant="84" id="AjN-Rp-C76"/>
+                            <constraint firstItem="6dh-Mi-1NR" firstAttribute="trailing" secondItem="vQT-Sm-Kfw" secondAttribute="trailing" constant="10" id="AjN-Rp-C76"/>
                             <constraint firstItem="DQX-SC-Dlv" firstAttribute="top" secondItem="6dh-Mi-1NR" secondAttribute="top" id="LU2-oH-UVa"/>
                             <constraint firstItem="6dh-Mi-1NR" firstAttribute="bottom" secondItem="vQT-Sm-Kfw" secondAttribute="bottom" constant="10" id="SBQ-QT-RMO"/>
-                            <constraint firstItem="vQT-Sm-Kfw" firstAttribute="leading" secondItem="6dh-Mi-1NR" secondAttribute="leading" constant="84" id="VZT-t6-tT0"/>
+                            <constraint firstItem="vQT-Sm-Kfw" firstAttribute="leading" secondItem="6dh-Mi-1NR" secondAttribute="leading" constant="10" id="VZT-t6-tT0"/>
                             <constraint firstItem="DQX-SC-Dlv" firstAttribute="leading" secondItem="6dh-Mi-1NR" secondAttribute="leading" id="tNg-0b-0OJ"/>
                             <constraint firstItem="6dh-Mi-1NR" firstAttribute="trailing" secondItem="DQX-SC-Dlv" secondAttribute="trailing" id="uxz-pe-9MP"/>
                             <constraint firstItem="vQT-Sm-Kfw" firstAttribute="top" secondItem="DQX-SC-Dlv" secondAttribute="bottom" constant="20" id="wU1-i5-tOa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6dh-Mi-1NR"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Z6w-0z-Ipf">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="camera" catalog="system" id="GiK-Wl-vCq">
-                            <connections>
-                                <action selector="addPhotosTapped:" destination="Ru3-vt-OBJ" id="Jcc-AA-19V"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Z6w-0z-Ipf"/>
                     <connections>
                         <outlet property="collectionView" destination="DQX-SC-Dlv" id="39s-pI-Kcz"/>
-                        <outlet property="imagesButton" destination="GiK-Wl-vCq" id="EVh-GN-xHI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qw-KD-5PX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -466,7 +459,6 @@ Drag to reorder.</string>
     </scenes>
     <resources>
         <image name="addPhotos1" width="80" height="80"/>
-        <image name="camera" catalog="system" width="64" height="48"/>
         <image name="eyeglasses" catalog="system" width="64" height="26"/>
         <image name="imagePlaceholder" width="200" height="200"/>
         <image name="phone.badge.plus" catalog="system" width="64" height="58"/>
