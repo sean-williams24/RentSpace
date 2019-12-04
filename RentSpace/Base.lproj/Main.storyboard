@@ -518,6 +518,9 @@ Long press and drag to reorder.</string>
                         <viewLayoutGuide key="safeArea" id="Euz-Rl-Tla"/>
                     </view>
                     <navigationItem key="navigationItem" id="O8h-gD-a2c"/>
+                    <connections>
+                        <outlet property="tableView" destination="2qf-2o-eez" id="r2m-ei-gvF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jo6-mY-iJr" sceneMemberID="firstResponder"/>
             </objects>

@@ -10,6 +10,9 @@ import Firebase
 import UIKit
 
 class RentSpaceViewController: UIViewController {
+    
+    @IBOutlet var tableView: UITableView!
+    
 
     var ref: DatabaseReference!
     fileprivate var _refHandle: DatabaseHandle!
@@ -26,6 +29,7 @@ class RentSpaceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print(adverts)
+        tableView.reloadData()
     }
     
 
@@ -54,7 +58,14 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
-     
+        
+        let advertSnapshot = adverts[indexPath.row]
+        let advert = advertSnapshot.value as! [String : String]
+        cell.descriptionLabel.text = advert[Advert.description]
+        cell.categoryLabel.text = advert[Advert.category]
+        cell.locationLabel.text = advert[Advert.address]
+        cell.priceLabel.text = advert[Advert.price]
+        
         
         return cell
     }
