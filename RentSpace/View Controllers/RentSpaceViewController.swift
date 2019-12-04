@@ -6,25 +6,59 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 class RentSpaceViewController: UIViewController {
 
+    var ref: DatabaseReference!
+    fileprivate var _refHandle: DatabaseHandle!
+    
+    var adverts: [DataSnapshot] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureDatabase()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print(adverts)
     }
     
 
-    /*
-    // MARK: - Navigation
+    
+    // MARK: - Config
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func configureDatabase() {
+        ref = Database.database().reference()
+        _refHandle = ref.child("adverts").observe(.childAdded, with: { (snapshot) in
+            self.adverts.append(snapshot)
+            print(self.adverts)
+        })
+        
     }
-    */
 
+}
+
+
+// MARK: - TableView Delegates & Datasource
+
+
+extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        adverts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
+     
+        
+        return cell
+    }
+    
+    
+    
 }

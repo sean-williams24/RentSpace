@@ -149,7 +149,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         config.icons.multipleSelectionOnIcon.withTintColor(.systemPurple)
         config.colors.multipleItemsSelectedCircleColor = .systemPurple
         config.showsCrop = .rectangle(ratio: 1.0)
-        config.icons.capturePhotoImage = UIImage(named: "Shutter")!
+        config.icons.capturePhotoImage = UIImage(named: "Shutter-Black")!
         config.hidesStatusBar = false
         config.preferredStatusBarStyle = .lightContent
         config.startOnScreen = .library
@@ -164,6 +164,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
         config.wordings.warningMaxItemsLimit = "No more remaining spaces"
+        
+//        config.wordings.warningMaxItemsLimit = NSAttributedString(string: "NO MORE", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
         config.library.maxNumberOfItems = maxImages
         
         let picker = YPImagePicker(configuration: config)

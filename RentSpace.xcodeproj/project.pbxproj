@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,9 @@
 		CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */; };
 		CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */; };
 		CE6583A123941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A023941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift */; };
+		CE6583A32397C0E6001FFA8A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE6583A22397C0E6001FFA8A /* GoogleService-Info.plist */; };
+		CE6583A52397E26C001FFA8A /* Advert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A42397E26C001FFA8A /* Advert.swift */; };
+		CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +53,9 @@
 		CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchTableViewController.swift; sourceTree = "<group>"; };
 		CE6583A023941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostSpaceVC-KeyboardExtension.swift"; sourceTree = "<group>"; };
+		CE6583A22397C0E6001FFA8A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE6583A42397E26C001FFA8A /* Advert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advert.swift; sourceTree = "<group>"; };
+		CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +76,6 @@
 				CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */,
 				47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -107,12 +112,12 @@
 				CE08407B238D40B200DA57C8 /* SceneDelegate.swift */,
 				CE084098238EA95800DA57C8 /* Model */,
 				CE084097238EA93700DA57C8 /* View Controllers */,
-				CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */,
-				CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */,
+				CE6583A623981451001FFA8A /* Cells */,
 				CE08407F238D40B200DA57C8 /* Main.storyboard */,
 				CE084082238D40B500DA57C8 /* Assets.xcassets */,
 				CE084084238D40B500DA57C8 /* LaunchScreen.storyboard */,
 				CE084087238D40B500DA57C8 /* Info.plist */,
+				CE6583A22397C0E6001FFA8A /* GoogleService-Info.plist */,
 			);
 			path = RentSpace;
 			sourceTree = "<group>";
@@ -137,8 +142,19 @@
 				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
 				CE5D27CE238EC8AA0098B0FA /* Photo.swift */,
 				CE6583A023941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift */,
+				CE6583A42397E26C001FFA8A /* Advert.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CE6583A623981451001FFA8A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */,
+				CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */,
+				CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE084086238D40B500DA57C8 /* LaunchScreen.storyboard in Resources */,
+				CE6583A32397C0E6001FFA8A /* GoogleService-Info.plist in Resources */,
 				CE084083238D40B500DA57C8 /* Assets.xcassets in Resources */,
 				CE084081238D40B200DA57C8 /* Main.storyboard in Resources */,
 			);
@@ -258,6 +275,7 @@
 			files = (
 				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
+				CE6583A52397E26C001FFA8A /* Advert.swift in Sources */,
 				CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */,
 				CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */,
 				CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */,
@@ -268,6 +286,7 @@
 				CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */,
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
+				CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */,
 				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,
 				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,
 			);

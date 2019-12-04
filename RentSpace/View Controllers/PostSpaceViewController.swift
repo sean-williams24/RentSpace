@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate {
@@ -29,7 +30,9 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     let itemsPerRow: CGFloat = 5
     let collectionViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-
+    var ref: DatabaseReference!
+    var category = ""
+    var priceRate = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +46,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         // Description textView
         descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 4, right: 4)
         descriptionTextView.textColor = .lightGray
-        descriptionTextView.text = "Description"
+        descriptionTextView.text = "Describe your studio space here..."
         descriptionTextView.delegate = self
         
         // Location Button
@@ -73,10 +76,11 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             collectionViewHeightConstraint.constant = 420
         }
         
-        
         // Keyboard dismissal
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
+        
+        ref = Database.database().reference()
 
     }
     
@@ -124,7 +128,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 let jsonDecoder = JSONDecoder()
                 images = try jsonDecoder.decode([Image].self, from: imageData)
             } catch {
-                print("Data could not be decoder: \(error)")
+                print("Data could not be decoded: \(error)")
             }
         }
     }
@@ -176,6 +180,12 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         view.endEditing(true)
+        
+        if pickerView.tag == 1 {
+            category = spaceTypePickerContent[row]
+        } else {
+            priceRate = priceRatePickerContent[row]
+        }
     }
     
 
@@ -183,16 +193,24 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     //MARK: - Action Methods
 
     @IBAction func postButtonTapped(_ sender: Any) {
+        let price = currencyTextField.text! + priceTextField.text! + priceRate
+        
+        let data = [Advert.title: titleTextField.text!,
+                    Advert.description: descriptionTextView.text!,
+                    Advert.category: category,
+                    Advert.price: price,
+                    Advert.phone: UserDefaults.standard.string(forKey: "Phone"),
+                    Advert.email: UserDefaults.standard.string(forKey: "Email"),
+                    Advert.address: UserDefaults.standard.string(forKey: "Address")
+        ]
+        ref.child("adverts").childByAutoId().setValue(data)
+        
     }
     
     @IBAction func addPhotosButtonTapped(_ sender: Any) {
         
     }
     
-    
-    
-    @IBAction func locationButtonTapped(_ sender: Any) {
-    }
 }
 
 
@@ -201,7 +219,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if descriptionTextView.text == "Description" {
+        if descriptionTextView.text == "Describe your studio space here..." {
             descriptionTextView.text = ""
             descriptionTextView.textColor = .black
         }
@@ -209,7 +227,7 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if descriptionTextView.text == "" {
-            descriptionTextView.text = "Description"
+            descriptionTextView.text = "Describe your studio space here..."
             descriptionTextView.textColor = .lightGray
         }
         descriptionTextView.resignFirstResponder()
