@@ -388,8 +388,8 @@ Long press and drag to reorder.</string>
                         <color key="selectedImageTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="YRc-DE-pac" kind="relationship" relationship="viewControllers" id="OJT-dh-G1w"/>
                         <segue destination="d8u-Aa-oNO" kind="relationship" relationship="viewControllers" id="i9q-58-uUO"/>
+                        <segue destination="YRc-DE-pac" kind="relationship" relationship="viewControllers" id="OJT-dh-G1w"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AYi-Tb-5pI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -446,10 +446,10 @@ Long press and drag to reorder.</string>
                                                         <constraint firstAttribute="width" constant="128" id="SZt-K4-luD"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descritpion Descritpion DescritpionDescritpion Descritpion" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJg-X2-CRW">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descritpion Descritpion Descritpion Descritpion Descritpion" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJg-X2-CRW">
                                                     <rect key="frame" x="148" y="11" width="256" height="49.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJa-tm-dhh">
@@ -458,41 +458,38 @@ Long press and drag to reorder.</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="126" translatesAutoresizingMaskIntoConstraints="NO" id="JfG-58-Wse">
-                                                    <rect key="frame" x="148" y="107" width="236" height="21"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-EC-Ofs">
-                                                            <rect key="frame" x="0.0" y="0.0" width="71" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPF-BI-oAz">
-                                                            <rect key="frame" x="197" y="0.0" width="39" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="243" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-EC-Ofs">
+                                                    <rect key="frame" x="148" y="117" width="207" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPF-BI-oAz">
+                                                    <rect key="frame" x="365" y="118" width="39" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="nPF-BI-oAz" firstAttribute="leading" secondItem="FU5-EC-Ofs" secondAttribute="trailing" constant="10" id="3eL-qf-YQe"/>
                                                 <constraint firstAttribute="bottom" secondItem="qgQ-vU-FRv" secondAttribute="bottom" constant="10" id="9oJ-3y-mDt"/>
+                                                <constraint firstItem="FU5-EC-Ofs" firstAttribute="bottom" secondItem="B8r-6I-XsZ" secondAttribute="bottomMargin" id="Bgi-J6-Qjx"/>
                                                 <constraint firstItem="jJa-tm-dhh" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="Cuc-iN-d2G"/>
                                                 <constraint firstItem="jJa-tm-dhh" firstAttribute="top" secondItem="mJg-X2-CRW" secondAttribute="bottom" constant="4" id="ENA-hI-JCe"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="JfG-58-Wse" secondAttribute="bottom" constant="10" id="GUl-I3-qnd"/>
                                                 <constraint firstItem="mJg-X2-CRW" firstAttribute="trailing" secondItem="B8r-6I-XsZ" secondAttribute="trailingMargin" constant="10" id="Ggq-u7-IRB"/>
                                                 <constraint firstItem="mJg-X2-CRW" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="LXc-dy-WgA"/>
-                                                <constraint firstItem="JfG-58-Wse" firstAttribute="top" secondItem="jJa-tm-dhh" secondAttribute="bottom" constant="22" id="Qf4-rD-RAX"/>
+                                                <constraint firstAttribute="trailing" secondItem="nPF-BI-oAz" secondAttribute="trailing" constant="10" id="Uhq-cm-rJn"/>
                                                 <constraint firstItem="jJa-tm-dhh" firstAttribute="centerY" secondItem="qgQ-vU-FRv" secondAttribute="centerY" id="XLg-bR-Pk0"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="JfG-58-Wse" secondAttribute="trailing" constant="10" id="jpz-DY-9hw"/>
                                                 <constraint firstItem="qgQ-vU-FRv" firstAttribute="leading" secondItem="B8r-6I-XsZ" secondAttribute="leading" constant="10" id="kKd-oH-Dge"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="jJa-tm-dhh" secondAttribute="trailing" constant="10" id="pJy-SN-qj7"/>
                                                 <constraint firstItem="qgQ-vU-FRv" firstAttribute="top" secondItem="B8r-6I-XsZ" secondAttribute="top" constant="10" id="peO-Ip-8NG"/>
-                                                <constraint firstItem="JfG-58-Wse" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="wD1-6X-1uX"/>
+                                                <constraint firstItem="FU5-EC-Ofs" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="v6r-ar-2r1"/>
                                                 <constraint firstItem="mJg-X2-CRW" firstAttribute="top" secondItem="B8r-6I-XsZ" secondAttribute="topMargin" id="wnc-68-NAN"/>
+                                                <constraint firstAttribute="bottom" secondItem="nPF-BI-oAz" secondAttribute="bottom" constant="10" id="xoF-tX-HNT"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="categoryLabel" destination="FU5-EC-Ofs" id="BAs-EI-axz"/>
                                             <outlet property="customImageView" destination="qgQ-vU-FRv" id="xlV-pl-T7M"/>
@@ -517,7 +514,9 @@ Long press and drag to reorder.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Euz-Rl-Tla"/>
                     </view>
-                    <navigationItem key="navigationItem" id="O8h-gD-a2c"/>
+                    <navigationItem key="navigationItem" id="O8h-gD-a2c">
+                        <barButtonItem key="backBarButtonItem" title="-" id="B1F-vg-xxF"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2qf-2o-eez" id="r2m-ei-gvF"/>
                     </connections>
@@ -536,6 +535,8 @@ Long press and drag to reorder.</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tF4-K0-ztZ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

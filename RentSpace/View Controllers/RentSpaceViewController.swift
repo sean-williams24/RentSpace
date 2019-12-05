@@ -23,6 +23,9 @@ class RentSpaceViewController: UIViewController {
         super.viewDidLoad()
 
         configureDatabase()
+        
+        let locale = Locale.current
+        print(locale.regionCode)
 
     }
     
@@ -37,12 +40,17 @@ class RentSpaceViewController: UIViewController {
     // MARK: - Config
 
     func configureDatabase() {
-        ref = Database.database().reference()
-        _refHandle = ref.child("adverts").observe(.childAdded, with: { (snapshot) in
-            self.adverts.append(snapshot)
-            print(self.adverts)
-        })
+//        ref = Database.database().reference()
+//        _refHandle = ref.child("adverts/UK/Art Studio").observe(.childAdded, with: { (snapshot) in
+//            self.adverts.append(snapshot)
+//            self.tableView.insertRows(at: [IndexPath(row: self.adverts.count - 1, section: 0)], with: .automatic)
+//            print(self.adverts)
+//        })
         
+    }
+    
+    deinit {
+        ref.child("adverts").removeObserver(withHandle: _refHandle)
     }
 
 }

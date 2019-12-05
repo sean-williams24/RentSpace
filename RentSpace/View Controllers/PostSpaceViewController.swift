@@ -27,11 +27,13 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     var spaceTypePickerContent = [String]()
     var priceRatePickerContent = [String]()
     var images = [Image]()
+    var imagesToUpload: [Image] = []
     
     let itemsPerRow: CGFloat = 5
     let collectionViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var ref: DatabaseReference!
-    var category = ""
+    var storageRef: StorageReference!
+    var category = "Art Studio"
     var priceRate = ""
     
     override func viewDidLoad() {
@@ -81,6 +83,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         view.addGestureRecognizer(tap)
         
         ref = Database.database().reference()
+        storageRef = Storage.storage().reference()
 
     }
     
@@ -193,19 +196,54 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     //MARK: - Action Methods
 
     @IBAction func postButtonTapped(_ sender: Any) {
-        let price = currencyTextField.text! + priceTextField.text! + priceRate
-        
-        let data = [Advert.title: titleTextField.text!,
-                    Advert.description: descriptionTextView.text!,
-                    Advert.category: category,
-                    Advert.price: price,
-                    Advert.phone: UserDefaults.standard.string(forKey: "Phone"),
-                    Advert.email: UserDefaults.standard.string(forKey: "Email"),
-                    Advert.address: UserDefaults.standard.string(forKey: "Address")
-        ]
-        ref.child("adverts").childByAutoId().setValue(data)
-        
+
+        uploadMultipleImagesToFirebase { (imageURLs) in
+            let price = self.currencyTextField.text! + self.priceTextField.text! + self.priceRate
+            
+            let data: [String : Any] = [Advert.title: self.titleTextField.text!,
+                                        Advert.description: self.descriptionTextView.text!,
+                                        Advert.category: self.category,
+                                        Advert.price: price,
+                                        Advert.phone: UserDefaults.standard.string(forKey: "Phone")!,
+                                        Advert.email: UserDefaults.standard.string(forKey: "Email") as Any,
+                                        Advert.address: UserDefaults.standard.string(forKey: "Address") as Any,
+                                        Advert.photos: imageURLs
+                ]
+            let query = "adverts/UK/\(self.category)"
+            self.ref.child(query).childByAutoId().setValue(data)
+        }
     }
+    
+    func uploadMultipleImagesToFirebase(completion: @escaping ([String : String]) -> ()) {
+        var imageURLs: [String : String] = [:]
+        var uploadedImagesCount = 0
+        
+        for image in imagesToUpload {
+            let imageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
+            let UIImageVersion = UIImage(contentsOfFile: imageFile.path)
+            if let imageData = UIImageVersion?.jpegData(compressionQuality: 0.2) {
+                let imagePath = "advertPhotos/\(Double(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+                let metaData = StorageMetadata()
+                metaData.contentType = "image/jpeg"
+                
+                storageRef!.child(imagePath).putData(imageData, metadata: metaData) { (metadata, error) in
+                    if let error = error {
+                        print("Error uploading: \(error)")
+                        return
+                    }
+                    let url = self.storageRef!.child((metadata?.path)!).description
+                    imageURLs["image \(uploadedImagesCount)"] = url
+                    uploadedImagesCount += 1
+                    
+                    if uploadedImagesCount == self.imagesToUpload.count {
+                        completion(imageURLs)
+                    }
+                }
+            }
+        }
+    }
+    
+
     
     @IBAction func addPhotosButtonTapped(_ sender: Any) {
         
@@ -251,6 +289,10 @@ extension PostSpaceViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PreviewPhotoCollectionViewCell
         
         let image = images[indexPath.item]
+        if image.imageName != "placeholder" {
+            imagesToUpload.append(image)
+        }
+        
         let imageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
         cell.imageView.image = UIImage(contentsOfFile: imageFile.path)
         
