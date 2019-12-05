@@ -197,7 +197,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 
     @IBAction func postButtonTapped(_ sender: Any) {
 
-        uploadMultipleImagesToFirebase { (imageURLs) in
+        postAdvertWithMultipleImagesToFirebase { (imageURLs) in
             let price = self.currencyTextField.text! + self.priceTextField.text! + self.priceRate
             
             let data: [String : Any] = [Advert.title: self.titleTextField.text!,
@@ -214,7 +214,8 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
     }
     
-    func uploadMultipleImagesToFirebase(completion: @escaping ([String : String]) -> ()) {
+    
+    func postAdvertWithMultipleImagesToFirebase(completion: @escaping ([String : String]) -> ()) {
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
         
@@ -235,6 +236,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                     imageURLs["image \(uploadedImagesCount)"] = url
                     uploadedImagesCount += 1
                     
+                    // Call completion handler once all images are uplaoded, passing in imageURLs
                     if uploadedImagesCount == self.imagesToUpload.count {
                         completion(imageURLs)
                     }
@@ -244,11 +246,6 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
 
-    
-    @IBAction func addPhotosButtonTapped(_ sender: Any) {
-        
-    }
-    
 }
 
 

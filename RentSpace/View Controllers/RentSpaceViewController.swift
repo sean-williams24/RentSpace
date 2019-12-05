@@ -15,6 +15,7 @@ class RentSpaceViewController: UIViewController {
     
 
     var ref: DatabaseReference!
+    var storageRef: StorageReference!
     fileprivate var _refHandle: DatabaseHandle!
     
     var adverts: [DataSnapshot] = []
@@ -23,9 +24,10 @@ class RentSpaceViewController: UIViewController {
         super.viewDidLoad()
 
         configureDatabase()
-        
+        storageRef = Storage.storage().reference()
+
         let locale = Locale.current
-        print(locale.regionCode)
+        print(locale.regionCode!)
 
     }
     
@@ -40,12 +42,12 @@ class RentSpaceViewController: UIViewController {
     // MARK: - Config
 
     func configureDatabase() {
-//        ref = Database.database().reference()
-//        _refHandle = ref.child("adverts/UK/Art Studio").observe(.childAdded, with: { (snapshot) in
-//            self.adverts.append(snapshot)
-//            self.tableView.insertRows(at: [IndexPath(row: self.adverts.count - 1, section: 0)], with: .automatic)
-//            print(self.adverts)
-//        })
+        ref = Database.database().reference()
+        _refHandle = ref.child("adverts/UK/Art Studio").observe(.childAdded, with: { (snapshot) in
+            self.adverts.append(snapshot)
+            self.tableView.insertRows(at: [IndexPath(row: self.adverts.count - 1, section: 0)], with: .automatic)
+            print(self.adverts)
+        })
         
     }
     
@@ -68,13 +70,33 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
         
         let advertSnapshot = adverts[indexPath.row]
-        let advert = advertSnapshot.value as! [String : String]
-        cell.descriptionLabel.text = advert[Advert.description]
-        cell.categoryLabel.text = advert[Advert.category]
-        cell.locationLabel.text = advert[Advert.address]
-        cell.priceLabel.text = advert[Advert.price]
-        
-        
+        let advert = advertSnapshot.value as! [String : Any]
+        cell.descriptionLabel.text = advert[Advert.description] as? String
+        cell.categoryLabel.text = advert[Advert.category] as? String
+        cell.locationLabel.text = advert[Advert.address] as? String
+        cell.priceLabel.text = advert[Advert.price] as? String
+        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            if let imageURL = imageURLsDict["image 0"] {
+            
+                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
+                    guard error == nil else {
+                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                        return
+                    }
+                    let cellImage = UIImage.init(data: data!, scale: 0.1)
+                    
+                    // Check to see if cell is still on screen, if so update cell
+                    if cell == tableView.cellForRow(at: indexPath) {
+                        DispatchQueue.main.async {
+                            cell.customImageView?.image = cellImage
+                            cell.setNeedsLayout()
+
+                        }
+                    }
+                }
+                
+            }
+        }
         return cell
     }
     
