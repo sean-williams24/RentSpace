@@ -28,8 +28,6 @@ class RentSpaceViewController: UIViewController {
         configureDatabase()
         storageRef = Storage.storage().reference()
 
-
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,7 +43,6 @@ class RentSpaceViewController: UIViewController {
         ref = Database.database().reference()
         _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
             self.adverts.append(snapshot)
-//            self.tableView.insertRows(at: [IndexPath(row: self.adverts.count - 1, section: 0)], with: .automatic)
             self.tableView.insertSections(IndexSet(integer: self.adverts.count - 1), with: .automatic)
         })
         

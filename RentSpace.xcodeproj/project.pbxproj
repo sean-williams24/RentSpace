@@ -30,6 +30,7 @@
 		CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */; };
 		CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */; };
 		CE6583AC239A8A13001FFA8A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AB239A8A13001FFA8A /* Constants.swift */; };
+		CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertTableViewCell.swift; sourceTree = "<group>"; };
 		CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSelectionViewController.swift; sourceTree = "<group>"; };
 		CE6583AB239A8A13001FFA8A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */,
 				CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */,
 				CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */,
+				CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
+				CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
 				CE6583A52397E26C001FFA8A /* Advert.swift in Sources */,

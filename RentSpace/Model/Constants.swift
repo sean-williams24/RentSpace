@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import MapKit
 
 class Constants {
     
     static var userLocation = ""
+    static var userCLLocation = CLLocation()
 }

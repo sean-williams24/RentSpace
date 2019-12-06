@@ -15,33 +15,19 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
     var matchingItems: [MKMapItem] = []
     var mapView: MKMapView? = nil
     let formatter = CNPostalAddressFormatter()
-    let locationManager = CLLocationManager()
-    var userLocation = CLLocation()
     var handleAddressSelectionDelegate: HandleAddressSelection? = nil
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
+
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        userLocation = locations.first!
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearch.Request()
-        let region = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 10000, longitudeDelta: 10000))
-        
+        let region = MKCoordinateRegion(center: Constants.userCLLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         request.naturalLanguageQuery = searchBarText
         request.region = region
         
@@ -83,8 +69,9 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         if let postalAddress = address.postalAddress {
             let formattedAddress = formatter.string(from: postalAddress)
                   
-            handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress,  town: postalAddress.subLocality, city: postalAddress.city, subAdminArea: postalAddress.subAdministrativeArea, state: postalAddress.state, country: postalAddress.country, postCode: postalAddress.postalCode)
+            handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress, street: postalAddress.street, town: postalAddress.subLocality, city: postalAddress.city, subAdminArea: postalAddress.subAdministrativeArea, state: postalAddress.state, country: postalAddress.country, postCode: postalAddress.postalCode)
             
+            UserDefaults.standard.set(postalAddress.street, forKey: "Street")
             UserDefaults.standard.set(postalAddress.subLocality, forKey: "Town")
             UserDefaults.standard.set(postalAddress.city, forKey: "City")
             UserDefaults.standard.set(postalAddress.subAdministrativeArea, forKey: "SubAdminArea")

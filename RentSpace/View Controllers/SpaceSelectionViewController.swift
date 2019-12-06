@@ -53,7 +53,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             let location = placemark?[0]
             if let country = location?.country {
                 Constants.userLocation = country
-                print(Constants.userLocation)
+                Constants.userCLLocation = userLocation
             }
         }
         locationManager.stopUpdatingLocation()
@@ -101,13 +101,13 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         case 0:
             vc.chosenCategory = "Art Studio"
         case 1:
-            vc.chosenCategory = "PhotographyStudio"
+            vc.chosenCategory = "Photography Studio"
         case 2:
-            vc.chosenCategory = "MusicStudio"
+            vc.chosenCategory = "Music Studio"
         case 3:
-            vc.chosenCategory = "DeskSpace"
+            vc.chosenCategory = "Desk Space"
         default:
-            vc.chosenCategory = "ArtStudio"
+            vc.chosenCategory = "Art Studio"
         }
         
     }

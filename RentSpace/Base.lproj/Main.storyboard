@@ -217,23 +217,60 @@
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nck-2i-Dj0">
-                                <rect key="frame" x="20" y="204" width="374" height="160"/>
-                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="PRE-VN-XPX"/>
-                                </constraints>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" textContentType="street-address"/>
-                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fjM-Ch-gUc">
+                                <rect key="frame" x="20" y="219" width="374" height="286"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Building &amp; Street" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yAx-fA-u6j">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-line1"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Town" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ysx-gH-2Ja">
+                                        <rect key="frame" x="0.0" y="42" width="374" height="34"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-line2"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-Dc-osE">
+                                        <rect key="frame" x="0.0" y="84" width="374" height="34"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-level2"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="County" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ugE-yh-0HS">
+                                        <rect key="frame" x="0.0" y="126" width="374" height="34"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-level3"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="auL-QY-q9M">
+                                        <rect key="frame" x="0.0" y="168" width="374" height="34"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-level1"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sKa-sN-mdQ">
+                                        <rect key="frame" x="0.0" y="210" width="374" height="34"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="country-name"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Postcode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jGO-r2-JjB">
+                                        <rect key="frame" x="0.0" y="252" width="374" height="34"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="postal-code"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="otv-kV-gqD" firstAttribute="trailing" secondItem="nck-2i-Dj0" secondAttribute="trailing" constant="20" id="06h-TB-Sff"/>
-                            <constraint firstItem="nck-2i-Dj0" firstAttribute="top" secondItem="ebn-4y-gQV" secondAttribute="bottom" constant="20" id="5Kw-yi-4YI"/>
-                            <constraint firstItem="nck-2i-Dj0" firstAttribute="leading" secondItem="otv-kV-gqD" secondAttribute="leading" constant="20" id="8IX-Ea-nhI"/>
+                            <constraint firstItem="fjM-Ch-gUc" firstAttribute="top" secondItem="ebn-4y-gQV" secondAttribute="bottom" constant="35" id="Sgg-M7-qoX"/>
+                            <constraint firstItem="fjM-Ch-gUc" firstAttribute="leading" secondItem="otv-kV-gqD" secondAttribute="leading" constant="20" id="WYD-4n-iZN"/>
                             <constraint firstItem="ebn-4y-gQV" firstAttribute="top" secondItem="otv-kV-gqD" secondAttribute="top" constant="20" id="amI-PH-JsQ"/>
+                            <constraint firstItem="otv-kV-gqD" firstAttribute="trailing" secondItem="fjM-Ch-gUc" secondAttribute="trailing" constant="20" id="avd-ET-9UN"/>
                             <constraint firstItem="otv-kV-gqD" firstAttribute="trailing" secondItem="ebn-4y-gQV" secondAttribute="trailing" constant="20" id="nB8-hA-Nct"/>
                             <constraint firstItem="ebn-4y-gQV" firstAttribute="leading" secondItem="otv-kV-gqD" secondAttribute="leading" constant="20" id="rix-Wh-fU4"/>
                         </constraints>
@@ -241,9 +278,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="pF0-wl-e6X"/>
                     <connections>
-                        <outlet property="addressTextView" destination="nck-2i-Dj0" id="ZeA-8l-viG"/>
+                        <outlet property="cityLabel" destination="QQD-Dc-osE" id="553-gh-Gfw"/>
+                        <outlet property="countryLabel" destination="sKa-sN-mdQ" id="nOL-Wl-47L"/>
+                        <outlet property="countyLabel" destination="ugE-yh-0HS" id="D7x-Xe-hxP"/>
                         <outlet property="emailTextField" destination="zvF-nK-BUt" id="gbW-JK-Mfb"/>
                         <outlet property="phoneNumberTextField" destination="L9g-u1-ep1" id="bej-Ly-6Ig"/>
+                        <outlet property="postcodeLabel" destination="jGO-r2-JjB" id="Osx-2M-xBH"/>
+                        <outlet property="stateLabel" destination="auL-QY-q9M" id="pQ2-3O-P3L"/>
+                        <outlet property="streetLabel" destination="yAx-fA-u6j" id="4yA-BI-axZ"/>
+                        <outlet property="townLabel" destination="ysx-gH-2Ja" id="YT7-6z-zU9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BE3-K1-9FM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -452,7 +495,7 @@ Long press and drag to reorder.</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="243" verticalHuggingPriority="253" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-EC-Ofs">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="243" verticalHuggingPriority="253" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-EC-Ofs">
                                                     <rect key="frame" x="148" y="117" width="187" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -535,10 +578,10 @@ Long press and drag to reorder.</string>
             </objects>
             <point key="canvasLocation" x="2936" y="-731"/>
         </scene>
-        <!--View Controller-->
+        <!--Advert Details View Controller-->
         <scene sceneID="03k-2v-FNG">
             <objects>
-                <viewController id="tUY-Ky-QDR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdvertDetailsVC" id="tUY-Ky-QDR" customClass="AdvertDetailsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ITY-ct-nvK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -557,7 +600,7 @@ Long press and drag to reorder.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bSv-Ck-xqU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3868" y="-745"/>
+            <point key="canvasLocation" x="3742" y="-731"/>
         </scene>
         <!--Rent Space-->
         <scene sceneID="K6O-EV-dmd">

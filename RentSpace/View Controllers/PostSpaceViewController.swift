@@ -201,8 +201,8 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBAction func postButtonTapped(_ sender: Any) {
 
         postAdvertWithMultipleImagesToFirebase { (imageURLs) in
-            let price = self.currencyTextField.text! + " \(self.priceTextField.text!) \(self.priceRate)"
-            print("Image URLS: \(imageURLs.count)")
+            let price = self.currencyTextField.text! + "\(self.priceTextField.text!) \(self.priceRate)"
+
             let data: [String : Any] = [Advert.title: self.titleTextField.text!,
                                         Advert.description: self.descriptionTextView.text!,
                                         Advert.category: self.category,
@@ -217,13 +217,22 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                                         Advert.town: UserDefaults.standard.string(forKey: "Town") as Any,
                                         Advert.photos: imageURLs
                 ]
-            let query = "adverts/UK/\(self.category)"
-            self.ref.child(query).childByAutoId().setValue(data)
+            let country = UserDefaults.standard.string(forKey: "Country")!
+            let path = "adverts/\(country)/\(self.category)"
+            self.ref.child(path).childByAutoId().setValue(data)
             
             let domain = Bundle.main.bundleIdentifier!
             UserDefaults.standard.removePersistentDomain(forName: domain)
             UserDefaults.standard.synchronize()
-            print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+//            print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+            self.titleTextField.text = ""
+            self.descriptionTextView.text = "Describe your studio space here..."
+            self.currencyTextField.text = ""
+            self.priceTextField.text = ""
+            self.locationButton.setTitle("Contact & Address ->", for: .normal)
+            self.images = []
+            self.imagesToUpload = []
+            self.collectionView.reloadData()
         }
         
 
