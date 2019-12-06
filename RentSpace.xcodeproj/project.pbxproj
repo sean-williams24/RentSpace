@@ -29,6 +29,7 @@
 		CE6583A52397E26C001FFA8A /* Advert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A42397E26C001FFA8A /* Advert.swift */; };
 		CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */; };
 		CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */; };
+		CE6583AC239A8A13001FFA8A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AB239A8A13001FFA8A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		CE6583A42397E26C001FFA8A /* Advert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advert.swift; sourceTree = "<group>"; };
 		CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertTableViewCell.swift; sourceTree = "<group>"; };
 		CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSelectionViewController.swift; sourceTree = "<group>"; };
+		CE6583AB239A8A13001FFA8A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				CE5D27CE238EC8AA0098B0FA /* Photo.swift */,
 				CE6583A023941302001FFA8A /* PostSpaceVC-KeyboardExtension.swift */,
 				CE6583A42397E26C001FFA8A /* Advert.swift */,
+				CE6583AB239A8A13001FFA8A /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */,
 				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,
 				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,
+				CE6583AC239A8A13001FFA8A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

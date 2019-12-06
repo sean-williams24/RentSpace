@@ -19,16 +19,16 @@ class RentSpaceViewController: UIViewController {
     
     var adverts: [DataSnapshot] = []
     var chosenCategory = ""
+    var location = ""
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-print(chosenCategory)
+        
         configureDatabase()
         storageRef = Storage.storage().reference()
 
-        let locale = Locale.current
-        print(locale.regionCode!)
+
 
     }
     
@@ -43,7 +43,7 @@ print(chosenCategory)
 
     func configureDatabase() {
         ref = Database.database().reference()
-        _refHandle = ref.child("adverts/UK/Art Studio").observe(.childAdded, with: { (snapshot) in
+        _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
             self.adverts.append(snapshot)
 //            self.tableView.insertRows(at: [IndexPath(row: self.adverts.count - 1, section: 0)], with: .automatic)
             self.tableView.insertSections(IndexSet(integer: self.adverts.count - 1), with: .automatic)
@@ -88,7 +88,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         
         let advertSnapshot = adverts[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]
-        
+
         // Format location label from address data
         var location = ""
         let city = advert[Advert.city] as? String ?? ""

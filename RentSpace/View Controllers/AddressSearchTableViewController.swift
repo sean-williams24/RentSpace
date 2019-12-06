@@ -30,6 +30,7 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userLocation = locations.first!
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -40,7 +41,7 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         guard let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearch.Request()
         let region = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 10000, longitudeDelta: 10000))
-
+        
         request.naturalLanguageQuery = searchBarText
         request.region = region
         

@@ -7,13 +7,29 @@
 //
 
 import UIKit
+import MapKit
 
-class SpaceSelectionViewController: UIViewController {
+class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet var artButton: UIButton!
     @IBOutlet var photographyButton: UIButton!
     @IBOutlet var musicButton: UIButton!
     @IBOutlet var deskButton: UIButton!
+    
+    var locationManager: CLLocationManager!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +41,26 @@ class SpaceSelectionViewController: UIViewController {
         
         
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let userLocation = locations.first else { return }
+        
+        CLGeocoder().reverseGeocodeLocation(userLocation) { (placemark, error) in
+            if error != nil {
+                print("Error geocoding users location: \(error?.localizedDescription ?? "")")
+            }
+            
+            let location = placemark?[0]
+            if let country = location?.country {
+                Constants.userLocation = country
+                print(Constants.userLocation)
+            }
+        }
+        locationManager.stopUpdatingLocation()
+    }
+    
+    
+    // MARK: - Private Methods
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill
@@ -40,7 +76,6 @@ class SpaceSelectionViewController: UIViewController {
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont.systemFont(ofSize: 20, weight: .light)
         label.font = UIFont(name: "Snell Roundhand", size: 30)
         label.textColor = .white
         label.text = text
@@ -60,18 +95,19 @@ class SpaceSelectionViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! RentSpaceViewController
         let button = sender as! UIButton
+        vc.location = Constants.userLocation
         
         switch button.tag {
         case 0:
-            vc.chosenCategory = "Art"
+            vc.chosenCategory = "Art Studio"
         case 1:
-            vc.chosenCategory = "Photography"
+            vc.chosenCategory = "PhotographyStudio"
         case 2:
-            vc.chosenCategory = "Music"
+            vc.chosenCategory = "MusicStudio"
         case 3:
-            vc.chosenCategory = "Desk Space"
+            vc.chosenCategory = "DeskSpace"
         default:
-            vc.chosenCategory = "Art"
+            vc.chosenCategory = "ArtStudio"
         }
         
     }
