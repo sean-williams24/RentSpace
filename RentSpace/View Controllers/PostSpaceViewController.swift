@@ -8,6 +8,7 @@
 
 import Firebase
 import UIKit
+import Contacts
 
 class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate {
     
@@ -90,6 +91,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
+        imagesToUpload = []
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -130,6 +132,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             do {
                 let jsonDecoder = JSONDecoder()
                 images = try jsonDecoder.decode([Image].self, from: imageData)
+                print("User defaults images loaded: \(images.count)")
             } catch {
                 print("Data could not be decoded: \(error)")
             }
@@ -198,27 +201,39 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBAction func postButtonTapped(_ sender: Any) {
 
         postAdvertWithMultipleImagesToFirebase { (imageURLs) in
-            let price = self.currencyTextField.text! + self.priceTextField.text! + self.priceRate
-            
+            let price = self.currencyTextField.text! + " \(self.priceTextField.text!) \(self.priceRate)"
+            print("Image URLS: \(imageURLs.count)")
             let data: [String : Any] = [Advert.title: self.titleTextField.text!,
                                         Advert.description: self.descriptionTextView.text!,
                                         Advert.category: self.category,
                                         Advert.price: price,
-                                        Advert.phone: UserDefaults.standard.string(forKey: "Phone")!,
+                                        Advert.phone: UserDefaults.standard.string(forKey: "Phone") as Any,
                                         Advert.email: UserDefaults.standard.string(forKey: "Email") as Any,
                                         Advert.address: UserDefaults.standard.string(forKey: "Address") as Any,
+                                        Advert.postCode: UserDefaults.standard.string(forKey: "PostCode") as Any,
+                                        Advert.city: UserDefaults.standard.string(forKey: "City") as Any,
+                                        Advert.subAdminArea: UserDefaults.standard.string(forKey: "SubAdminArea") as Any,
+                                        Advert.country: UserDefaults.standard.string(forKey: "Country") as Any,
+                                        Advert.town: UserDefaults.standard.string(forKey: "Town") as Any,
                                         Advert.photos: imageURLs
                 ]
             let query = "adverts/UK/\(self.category)"
             self.ref.child(query).childByAutoId().setValue(data)
+            
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+            UserDefaults.standard.synchronize()
+            print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
         }
+        
+
     }
     
     
     func postAdvertWithMultipleImagesToFirebase(completion: @escaping ([String : String]) -> ()) {
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
-        
+        print("images to upload \(imagesToUpload.count)")
         for image in imagesToUpload {
             let imageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
             let UIImageVersion = UIImage(contentsOfFile: imageFile.path)
@@ -232,9 +247,12 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                         print("Error uploading: \(error)")
                         return
                     }
+                    
+                    // Get URL for photo and add to dictionary
                     let url = self.storageRef!.child((metadata?.path)!).description
                     imageURLs["image \(uploadedImagesCount)"] = url
                     uploadedImagesCount += 1
+                    print("uploadoaded images count: \(uploadedImagesCount)")
                     
                     // Call completion handler once all images are uplaoded, passing in imageURLs
                     if uploadedImagesCount == self.imagesToUpload.count {

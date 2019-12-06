@@ -11,6 +11,7 @@ import UIKit
 class AdvertTableViewCell: UITableViewCell {
     
     @IBOutlet var customImageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var categoryLabel: UILabel!

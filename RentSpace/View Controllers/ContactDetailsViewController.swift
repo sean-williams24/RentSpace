@@ -8,9 +8,10 @@
 
 import UIKit
 import MapKit
+import Contacts
 
 protocol HandleAddressSelection {
-    func addAddress(name: String, address: String)
+    func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String)
 }
 
 class ContactDetailsViewController: UIViewController, HandleAddressSelection {
@@ -71,7 +72,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
 
     // MARK: - Private Methods
 
-    func addAddress(name: String, address: String) {
+    func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
         if address.contains(name) {
             addressTextView.text = address
         } else {

@@ -19,4 +19,9 @@ struct Advert {
     static let phone = "phone"
     static let address = "address"
     static let photos = "photos"
+    static let town = "town"
+    static let city = "city"
+    static let subAdminArea = "subAdminArea"
+    static let postCode = "postcode"
+    static let country = "country"
 }

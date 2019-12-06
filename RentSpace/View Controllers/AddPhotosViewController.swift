@@ -13,7 +13,6 @@ import YPImagePicker
 class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet var collectionView: UICollectionView!
-    //    @IBOutlet var imagesButton: UIBarButtonItem!
     
     let placeHolderImage = UIImage(named: "imagePlaceholder")
     private let itemsPerRow: CGFloat = 3
@@ -28,7 +27,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         didSet {
             if deleting {
                 navigationItem.setRightBarButton(trashButton, animated: true)
-                print("didSet trash Button")
             } else {
                 navigationItem.setRightBarButton(cameraButton, animated: true)
             }
@@ -57,7 +55,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                 let jsonDecoder = JSONDecoder()
                 images = try jsonDecoder.decode([Image].self, from: imageData)
             } catch {
-                print("Data could not be decoder: \(error)")
+                print("Data could not be decoded: \(error)")
             }
         }
         

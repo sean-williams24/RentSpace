@@ -81,9 +81,15 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         let address = matchingItems[indexPath.row].placemark
         if let postalAddress = address.postalAddress {
             let formattedAddress = formatter.string(from: postalAddress)
+                  
+            handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress,  town: postalAddress.subLocality, city: postalAddress.city, subAdminArea: postalAddress.subAdministrativeArea, state: postalAddress.state, country: postalAddress.country, postCode: postalAddress.postalCode)
             
-            handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress)
-
+            UserDefaults.standard.set(postalAddress.subLocality, forKey: "Town")
+            UserDefaults.standard.set(postalAddress.city, forKey: "City")
+            UserDefaults.standard.set(postalAddress.subAdministrativeArea, forKey: "SubAdminArea")
+            UserDefaults.standard.set(postalAddress.state, forKey: "State")
+            UserDefaults.standard.set(postalAddress.country, forKey: "Country")
+            UserDefaults.standard.set(postalAddress.postalCode, forKey: "PostCode")
         }
         
         dismiss(animated: true)
