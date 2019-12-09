@@ -1,5 +1,5 @@
 //
-//  UIVC-KeyboardExtension.swift
+//  UIVC-Extension.swift
 //  RentSpace
 //
 //  Created by Sean Williams on 01/12/2019.
@@ -11,8 +11,17 @@ import UIKit
 
 extension UIViewController {
     
-    //MARK: - Move view when keyboard appears on bottom text field
+    //MARK: - Universal Alert Controller
+    
+    func showAlert(title: String, message: String?) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
 
+    
+    
+    //MARK: - Move view when keyboard appears on bottom text field
 
     // - Move screen down
     @objc func keyboardWillHide(_ notification: Notification) {

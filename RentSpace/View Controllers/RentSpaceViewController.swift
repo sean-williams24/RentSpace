@@ -126,7 +126,6 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                         DispatchQueue.main.async {
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
-
                         }
                     }
                 }
