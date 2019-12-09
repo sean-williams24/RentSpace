@@ -53,8 +53,14 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         descriptionTextView.delegate = self
         
         // Location Button
-        locationButton.layer.cornerRadius = 15
-        
+        let disclosure = UITableViewCell()
+        disclosure.frame = locationButton.bounds
+        disclosure.accessoryType = .disclosureIndicator
+        disclosure.isUserInteractionEnabled = false
+        locationButton.addSubview(disclosure)
+        locationButton.titleLabel?.textAlignment = .center
+        NSLayoutConstraint.activate([(locationButton.titleLabel?.widthAnchor.constraint(equalToConstant: locationButton.frame.width))!])
+
         // Space type picker
         spaceTypePicker.dataSource = self
         spaceTypePicker.delegate = self
@@ -64,13 +70,21 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly"]
         
         // Price textFields
-        let leftPadView1 = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
+        var paddingWidth: CGFloat = 15
+        if Constants.userLocation == "United Kingdom" {
+            currencyTextField.text = "£"
+            paddingWidth = 35
+        } else if Constants.userLocation == "United States" || Constants.userLocation == "Australia" || Constants.userLocation == "Canada" {
+            currencyTextField.text = "$"
+            paddingWidth = 35
+        }
+        
+        let leftPadView1 = UIView(frame: CGRect(x: 0, y: 0, width: paddingWidth, height: currencyTextField.frame.height))
         currencyTextField.leftView = leftPadView1
         currencyTextField.leftViewMode = .always
         currencyTextField.attributedPlaceholder = NSAttributedString(string: "Currency", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         
         let leftPadView2 = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
-
         priceTextField.leftView = leftPadView2
         priceTextField.leftViewMode = .always
         priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
@@ -91,6 +105,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
+        
         imagesToUpload = []
     }
     
@@ -99,11 +114,17 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         loadUDImages()
         collectionView.reloadData()
         
-        let email = UserDefaults.standard.string(forKey: "Email")
-        locationButton.titleLabel?.text = "  \(email ?? "Contact & Address ->")"
+
+        
+        let email = UserDefaults.standard.string(forKey: "Email") ?? ""
+        let postcode = UserDefaults.standard.string(forKey: "PostCode") ?? ""
+        
+        locationButton.titleLabel?.text = " \(postcode) / \(email)"
         if email == "" {
-            locationButton.titleLabel?.text = "  Contact & Address ->"
+            locationButton.titleLabel?.text = "  Contact & Address"
         }
+        
+
         
         // Add Photos Button
         if images.isEmpty == false {
@@ -171,7 +192,7 @@ class PostSpaceViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.textAlignment = .center
         label.textColor = .systemPurple
         label.layer.borderWidth = .zero
@@ -297,6 +318,13 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
+    }
+    
+    // - Move screen up
+    @objc func keyboardWillShow(_ notifictation: Notification) {
+        if currencyTextField.isEditing || priceTextField.isEditing {
+            view.frame.origin.y = -getKeyboardHeight(notifictation) + 70
+        }
     }
 }
 

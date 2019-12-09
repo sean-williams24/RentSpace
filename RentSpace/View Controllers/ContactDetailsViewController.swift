@@ -33,11 +33,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     var selectedAddress = ""
     
     
-    fileprivate func configureTextFieldPlaceholders(for textField: UITextField, withText: String) {
-        textField.attributedPlaceholder = NSAttributedString(string: withText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: "Phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,14 +43,14 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         
         let searchBar = resultsSearchController!.searchBar
         searchBar.sizeToFit()
-        searchBar.placeholder = "Search Address"
+        searchBar.placeholder = "Enter Postcode or Address"
         searchBar.keyboardAppearance = .dark    
         navigationItem.titleView = resultsSearchController?.searchBar
         
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
                 
-        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
+//        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
         configureTextFieldPlaceholders(for: phoneNumberTextField, withText: "Phone")
         configureTextFieldPlaceholders(for: streetLabel, withText: "Street")
         configureTextFieldPlaceholders(for: townLabel, withText: "Town")
@@ -63,24 +58,13 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         configureTextFieldPlaceholders(for: countyLabel, withText: "County")
         configureTextFieldPlaceholders(for: countryLabel, withText: "Country")
         configureTextFieldPlaceholders(for: postcodeLabel, withText: "Postcode")
-        
-        if Constants.userLocation == "United Kingdom" {
-            configureTextFieldPlaceholders(for: stateLabel, withText: "Country")
-        } else {
-            configureTextFieldPlaceholders(for: stateLabel, withText: "State")
-        }
+        configureTextFieldPlaceholders(for: stateLabel, withText: "State")
         
         if Constants.userLocation == "United States" {
             configureTextFieldPlaceholders(for: postcodeLabel, withText: "Zip Code")
 
         }
 
-
-
-
-
-
-        
         emailTextField.text = UserDefaults.standard.string(forKey: "Email")
         phoneNumberTextField.text = UserDefaults.standard.string(forKey: "Phone")
         streetLabel.text = UserDefaults.standard.string(forKey: "Street")
@@ -91,6 +75,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         countryLabel.text = UserDefaults.standard.string(forKey: "Country")
         postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
         
+        // Keyboard dismissal
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
         
     }
     
@@ -117,10 +104,22 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
 
     // MARK: - Private Methods
 
+    fileprivate func configureTextFieldPlaceholders(for textField: UITextField, withText: String) {
+        textField.attributedPlaceholder = NSAttributedString(string: withText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: "Phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+    }
+    
+    
     func addAddress(name: String, address: String, street: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
         
         streetLabel.text = street
-        townLabel.text = town
+        if town == "" {
+            townLabel.isHidden = true
+        } else {
+            townLabel.isHidden = false
+            townLabel.text = town
+        }
         cityLabel.text = city
         countyLabel.text = subAdminArea
         stateLabel.text = state
@@ -128,29 +127,24 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         postcodeLabel.text = postCode
         
     }
-
 }
 
 // MARK: - Search bar delegates
 
-extension ContactDetailsViewController: UISearchBarDelegate {
+extension ContactDetailsViewController: UITextFieldDelegate {
     
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        searchRequest.naturalLanguageQuery = searchBar.text
-//        let search = MKLocalSearch(request: searchRequest)
-//        
-//        search.start { response, error in
-//            guard let response = response  else {
-//                print("Error: \(error?.localizedDescription ?? "Unknown error").")
-//                return
-//            }
-//            for item in response.mapItems {
-//                print(item.placemark.name)
-//                self.addressTextView.text = item.placemark.name
-//            }
-//            
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        for textFieldToReturn in self.view.subviews where textFieldToReturn is UITextField {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    // - Move screen up
+//    @objc func keyboardWillShow(_ notifictation: Notification) {
+//        if postcodeLabel.isEditing || countryLabel.isEditing || stateLabel.isEditing {
+//            view.frame.origin.y = CGFloat(integerLiteral: -100)
 //        }
 //    }
-    
 
 }

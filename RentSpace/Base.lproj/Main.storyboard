@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bni-hu-Fa6">
-                                <rect key="frame" x="10" y="463" width="394" height="170"/>
+                                <rect key="frame" x="0.0" y="463" width="414" height="170"/>
                                 <subviews>
                                     <pickerView tag="1" contentMode="scaleToFill" verticalHuggingPriority="252" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="PPq-ku-dP1">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -28,7 +28,7 @@
                                         </constraints>
                                     </pickerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="100" distribution="fillProportionally" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="72p-3d-5AF">
-                                        <rect key="frame" x="0.0" y="60" width="394" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="414" height="50"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="244" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Currency" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ov4-9d-HHt">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
@@ -49,7 +49,7 @@
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" keyboardAppearance="alert"/>
                                             </textField>
                                             <pickerView tag="2" contentMode="scaleToFill" verticalHuggingPriority="252" translatesAutoresizingMaskIntoConstraints="NO" id="71J-mi-gj9">
-                                                <rect key="frame" x="226" y="0.0" width="168" height="50"/>
+                                                <rect key="frame" x="226" y="0.0" width="188" height="50"/>
                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="wWi-gU-8a9"/>
@@ -59,13 +59,13 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="282" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="z62-8W-7ue">
-                                        <rect key="frame" x="0.0" y="120" width="394" height="50"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="120" width="414" height="50"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="7q4-1L-Sn4"/>
                                         </constraints>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="  Contact &amp; Address -&gt;" image="phone.badge.plus" catalog="system">
+                                        <state key="normal" title="  Contact &amp; Address">
                                             <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -147,10 +147,10 @@
                             <constraint firstItem="AIF-4g-oTh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="DYg-SN-0Bm"/>
                             <constraint firstItem="JPg-WJ-wvP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LWF-xr-9g5"/>
                             <constraint firstItem="JPg-WJ-wvP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="NEc-F4-Wfx"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bni-hu-Fa6" secondAttribute="trailing" constant="10" id="PmN-63-HYH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bni-hu-Fa6" secondAttribute="trailing" id="PmN-63-HYH"/>
                             <constraint firstItem="AIF-4g-oTh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="SBa-XA-JK0"/>
                             <constraint firstItem="4Fh-BY-k5N" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="SXD-qB-7FX"/>
-                            <constraint firstItem="bni-hu-Fa6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="V3V-M2-R8B"/>
+                            <constraint firstItem="bni-hu-Fa6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="V3V-M2-R8B"/>
                             <constraint firstItem="AIF-4g-oTh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YHk-Ic-bbb"/>
                             <constraint firstItem="Nb7-eZ-pqt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fhQ-cZ-Ilv"/>
                             <constraint firstItem="bni-hu-Fa6" firstAttribute="top" secondItem="Nb7-eZ-pqt" secondAttribute="bottom" constant="10" id="gNc-2C-LPQ"/>
@@ -218,46 +218,46 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fjM-Ch-gUc">
-                                <rect key="frame" x="20" y="219" width="374" height="286"/>
+                                <rect key="frame" x="20" y="219" width="374" height="244"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Building &amp; Street" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yAx-fA-u6j">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
+                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Building &amp; Street" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yAx-fA-u6j">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="0.0"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-line1"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Town" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ysx-gH-2Ja">
-                                        <rect key="frame" x="0.0" y="42" width="374" height="34"/>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Town" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ysx-gH-2Ja">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-line2"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-Dc-osE">
-                                        <rect key="frame" x="0.0" y="84" width="374" height="34"/>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-Dc-osE">
+                                        <rect key="frame" x="0.0" y="42" width="374" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-level2"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="County" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ugE-yh-0HS">
-                                        <rect key="frame" x="0.0" y="126" width="374" height="34"/>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="County" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ugE-yh-0HS">
+                                        <rect key="frame" x="0.0" y="84" width="374" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-level3"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="auL-QY-q9M">
-                                        <rect key="frame" x="0.0" y="168" width="374" height="34"/>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="auL-QY-q9M">
+                                        <rect key="frame" x="0.0" y="126" width="374" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="address-level1"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sKa-sN-mdQ">
-                                        <rect key="frame" x="0.0" y="210" width="374" height="34"/>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sKa-sN-mdQ">
+                                        <rect key="frame" x="0.0" y="168" width="374" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="country-name"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Postcode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jGO-r2-JjB">
-                                        <rect key="frame" x="0.0" y="252" width="374" height="34"/>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Postcode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jGO-r2-JjB">
+                                        <rect key="frame" x="0.0" y="210" width="374" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" textContentType="postal-code"/>
@@ -703,7 +703,6 @@ Long press and drag to reorder.</string>
         <image name="addPhotos1" width="80" height="80"/>
         <image name="eyeglasses" catalog="system" width="64" height="26"/>
         <image name="imagePlaceholder" width="200" height="200"/>
-        <image name="phone.badge.plus" catalog="system" width="64" height="58"/>
         <image name="studentdesk" catalog="system" width="62" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
