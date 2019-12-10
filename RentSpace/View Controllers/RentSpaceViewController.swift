@@ -18,6 +18,7 @@ class RentSpaceViewController: UIViewController {
     fileprivate var _refHandle: DatabaseHandle!
     
     var adverts: [DataSnapshot] = []
+    var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
     var location = ""
     
@@ -51,8 +52,19 @@ class RentSpaceViewController: UIViewController {
     deinit {
         ref.child("adverts").removeObserver(withHandle: _refHandle)
     }
+    
+    
+
+    // MARK: - Navigation
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    }
 
 }
+
+
+
 
 
 // MARK: - TableView Delegates & Datasource
@@ -85,31 +97,13 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         
         let advertSnapshot = adverts[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]
-
-        // Format location label from address data
-        var location = ""
-        let city = advert[Advert.city] as? String ?? ""
-        let subAdminArea = advert[Advert.subAdminArea] as? String ?? ""
-        let town = advert[Advert.town] as? String ?? ""
-        
-        if city == subAdminArea {
-            location = "\(town), \(city)"
-        } else {
-            location = "\(town), \(city), \(subAdminArea)"
-            if town == "" {
-                location = "\(city), \(subAdminArea)"
-            }
-        }
-        if location == ", " {
-            location = advert[Advert.address] as? String ?? ""
-        }
         
         // Populate cell content from downloaded advert data from Firebase
         let title = advert[Advert.title] as? String
         cell.titleLabel.text = title?.uppercased()
         cell.descriptionLabel.text = advert[Advert.description] as? String
         cell.categoryLabel.text = advert[Advert.category] as? String
-        cell.locationLabel.text = location
+        cell.locationLabel.text = formatAddress(for: advert)
         cell.priceLabel.text = advert[Advert.price] as? String
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
             if let imageURL = imageURLsDict["image 0"] {
@@ -136,6 +130,13 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "AdvertDetailsVC", sender: self)
+        let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
+        vc.advertSnapshot = adverts[indexPath.section]
+        show(vc, sender: self)
+
+        
+        
+        
+//        performSegue(withIdentifier: "AdvertDetailsVC", sender: self)
     }
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import Firebase
 import MapKit
 import UIKit
 
@@ -20,10 +21,24 @@ class AdvertDetailsViewController: UIViewController {
     @IBOutlet var mapView: MKMapView!
     
     var images = [UIImage]()
+    var advertSnapshot: DataSnapshot!
+    var advert: [String : Any] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        advert = advertSnapshot.value as! [String : Any]
+        
+        titleLabel.text = (advert[Advert.title] as! String)
+        priceLabel.text = advert[Advert.price] as? String
+        descriptionTextView.text = advert[Advert.description] as? String
+        locationLabel.text = formatAddress(for: advert)
+
+        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            print(imageURLsDict.count)
+            
+            // TODO: - LOOP THROUGH IMAGE URLS FROM 0..IMAGEURLS.COUNT ANDDING THE INDEX TO THE DICTIONAY VALUE
+        }
         images = [#imageLiteral(resourceName: "Desk Space"),#imageLiteral(resourceName: "Music Studio")]
         
         for i in 0..<images.count {
@@ -38,6 +53,8 @@ class AdvertDetailsViewController: UIViewController {
         }
 
     }
+    
+
     
 
     /*

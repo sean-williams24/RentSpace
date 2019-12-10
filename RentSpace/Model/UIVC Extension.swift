@@ -48,4 +48,29 @@ extension UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    
+    //MARK: - Format address for location labels from address data
+    
+    func formatAddress(for advert: [String : Any]) -> String {
+        
+        var location = ""
+        let city = advert[Advert.city] as? String ?? ""
+        let subAdminArea = advert[Advert.subAdminArea] as? String ?? ""
+        let town = advert[Advert.town] as? String ?? ""
+        
+        if city == subAdminArea {
+            location = "\(town), \(city)"
+        } else {
+            location = "\(town), \(city), \(subAdminArea)"
+            if town == "" {
+                location = "\(city), \(subAdminArea)"
+            }
+        }
+        if location == ", " {
+            location = advert[Advert.address] as? String ?? ""
+        }
+        
+        return location
+    }
 }

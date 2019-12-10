@@ -657,7 +657,6 @@ Long press and drag to reorder.</string>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2qf-2o-eez" id="r2m-ei-gvF"/>
-                        <segue destination="tUY-Ky-QDR" kind="show" identifier="AdvertDetailsVC" id="bHN-96-9z5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jo6-mY-iJr" sceneMemberID="firstResponder"/>
@@ -673,7 +672,7 @@ Long press and drag to reorder.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="r8C-Bg-Nlw">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1095.5"/>
@@ -744,7 +743,7 @@ Long press and drag to reorder.</string>
                                                 <rect key="frame" x="0.0" y="425" width="414" height="350.5"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="uIt-MQ-ARt"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="uIt-MQ-ARt"/>
                                                 </constraints>
                                                 <mutableString key="text">Free professional equipment
 
