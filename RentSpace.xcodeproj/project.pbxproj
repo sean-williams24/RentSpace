@@ -135,11 +135,11 @@
 			children = (
 				CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */,
 				CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */,
+				CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */,
 				CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */,
 				CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */,
 				CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */,
 				CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */,
-				CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */,
 				CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */,
 			);
 			path = "View Controllers";

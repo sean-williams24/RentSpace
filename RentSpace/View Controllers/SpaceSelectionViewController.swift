@@ -64,8 +64,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill
-        button.imageView?.layer.cornerRadius = 20
-        button.layer.cornerRadius = 20
+        button.imageView?.layer.cornerRadius = 8
+        button.layer.cornerRadius = 8
         button.layer.borderWidth = 0.4
         button.layer.borderColor = UIColor.white.cgColor
         button.backgroundColor = .clear

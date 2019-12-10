@@ -657,6 +657,7 @@ Long press and drag to reorder.</string>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2qf-2o-eez" id="r2m-ei-gvF"/>
+                        <segue destination="tUY-Ky-QDR" kind="show" identifier="AdvertDetailsVC" id="bHN-96-9z5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jo6-mY-iJr" sceneMemberID="firstResponder"/>
@@ -671,21 +672,159 @@ Long press and drag to reorder.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3q-aY-7vC">
-                                <rect key="frame" x="158" y="202" width="42" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="r8C-Bg-Nlw">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1095.5"/>
+                                        <subviews>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="350" id="1oK-Yi-AvJ"/>
+                                                </constraints>
+                                                <viewLayoutGuide key="contentLayoutGuide" id="fua-bQ-k3o"/>
+                                                <viewLayoutGuide key="frameLayoutGuide" id="eXZ-Tc-spn"/>
+                                            </scrollView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pirate Studios" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="d3q-aY-7vC">
+                                                <rect key="frame" x="0.0" y="355" width="414" height="20"/>
+                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="efg-gN-QmF"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
+                                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-6M-LyC">
+                                                <rect key="frame" x="0.0" y="380" width="414" height="40"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£50 An Hour" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="l7i-Cl-7qW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AF3-U3-bsw">
+                                                        <rect key="frame" x="207" y="0.0" width="207" height="40"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JS-xD-q20">
+                                                                <rect key="frame" x="0.0" y="0.0" width="69" height="40"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <state key="normal" image="message" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="messageButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="SX3-Lg-tEz"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oH1-e6-cRV">
+                                                                <rect key="frame" x="69" y="0.0" width="69" height="40"/>
+                                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <state key="normal" image="phone" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="phoneButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="kJL-W8-42k"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoP-UV-CRU">
+                                                                <rect key="frame" x="138" y="0.0" width="69" height="40"/>
+                                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <state key="normal" image="envelope" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="emailButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="JNS-lC-Byr"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="8ts-GO-wFR"/>
+                                                </constraints>
+                                            </stackView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-IP-VZw">
+                                                <rect key="frame" x="0.0" y="425" width="414" height="350.5"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="uIt-MQ-ARt"/>
+                                                </constraints>
+                                                <mutableString key="text">Free professional equipment
+
+Only top quality brands used in every room. We've kitted our rooms out with the highest calibre Drums, Amps, Mics and PAs as standard, ensuring you truly get the best out of your rehearsal time.
+
+Record your session
+
+Introducing the UK's first OpenLIVE enabled rehearsal studios. Get your session recorded, mixed and mastered automatically through OpenLIVE's intuitive, automatic platform.
+
+No more recording demos on your phone. No more paying over the odds for studio recording time. Share high quality recordings of your tracks with promoters, bookers and labels using OpenLIVE's intuitive technology.
+
+
+Only the best gear here.</mutableString>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="CV6-2b-oKf">
+                                                <rect key="frame" x="0.0" y="780.5" width="414" height="20"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AIm-s0-uiG">
+                                                        <rect key="frame" x="0.0" y="0.5" width="40" height="19"/>
+                                                        <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="40" id="4RN-oD-8km"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdI-6D-t79">
+                                                        <rect key="frame" x="45" y="0.0" width="369" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                                        <color key="textColor" red="0.0078431372550000003" green="0.70196078429999997" blue="0.89411764709999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Ul-2MJ">
+                                                <rect key="frame" x="0.0" y="805.5" width="414" height="290"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="290" id="3po-QG-QmH"/>
+                                                    <constraint firstAttribute="width" constant="414" id="gFH-Uh-jsI"/>
+                                                </constraints>
+                                            </mapView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Skl-mz-RrI" secondAttribute="trailing" id="8FU-dV-Ob1"/>
+                                    <constraint firstAttribute="bottom" secondItem="Skl-mz-RrI" secondAttribute="bottom" id="AfQ-J5-57g"/>
+                                    <constraint firstItem="Skl-mz-RrI" firstAttribute="leading" secondItem="r8C-Bg-Nlw" secondAttribute="leading" id="HCU-9I-Lgv"/>
+                                    <constraint firstItem="Skl-mz-RrI" firstAttribute="top" secondItem="r8C-Bg-Nlw" secondAttribute="top" id="TTF-PU-uaq"/>
+                                    <constraint firstItem="Skl-mz-RrI" firstAttribute="width" secondItem="r8C-Bg-Nlw" secondAttribute="width" id="d1X-XT-CG1"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="bIp-Pb-fSI"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="1ht-DV-Ksw"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="r8C-Bg-Nlw" firstAttribute="bottom" secondItem="EEJ-vV-I9I" secondAttribute="bottom" id="3nW-RN-4tH"/>
+                            <constraint firstItem="r8C-Bg-Nlw" firstAttribute="leading" secondItem="EEJ-vV-I9I" secondAttribute="leading" id="CR7-FN-OOz"/>
+                            <constraint firstItem="r8C-Bg-Nlw" firstAttribute="top" secondItem="EEJ-vV-I9I" secondAttribute="top" id="MC1-6z-Bn3"/>
+                            <constraint firstItem="r8C-Bg-Nlw" firstAttribute="trailing" secondItem="EEJ-vV-I9I" secondAttribute="trailing" id="wah-h6-uVN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="EEJ-vV-I9I"/>
                     </view>
+                    <navigationItem key="navigationItem" id="CVq-17-Zuk"/>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="Gmj-IP-VZw" id="1qu-NO-xMm"/>
+                        <outlet property="locationIcon" destination="AIm-s0-uiG" id="s0G-Ao-O1z"/>
+                        <outlet property="locationLabel" destination="EdI-6D-t79" id="dqw-bP-0ga"/>
+                        <outlet property="mapView" destination="HoM-Ul-2MJ" id="Byw-fF-wFH"/>
+                        <outlet property="priceLabel" destination="l7i-Cl-7qW" id="T1v-qV-7hH"/>
+                        <outlet property="scrollView" destination="Cw3-H8-wUH" id="olM-wY-96P"/>
+                        <outlet property="titleLabel" destination="d3q-aY-7vC" id="6AU-nh-Mjg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bSv-Ck-xqU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3742" y="-731"/>
+            <point key="canvasLocation" x="3740.579710144928" y="-731.25"/>
         </scene>
         <!--Rent Space-->
         <scene sceneID="K6O-EV-dmd">
@@ -787,8 +926,12 @@ Long press and drag to reorder.</string>
         <image name="Photography Studio" width="1200" height="674"/>
         <image name="Success" width="500" height="500"/>
         <image name="addPhotos1" width="80" height="80"/>
+        <image name="envelope" catalog="system" width="64" height="46"/>
         <image name="eyeglasses" catalog="system" width="64" height="26"/>
         <image name="imagePlaceholder" width="200" height="200"/>
+        <image name="map" catalog="system" width="64" height="56"/>
+        <image name="message" catalog="system" width="64" height="56"/>
+        <image name="phone" catalog="system" width="64" height="56"/>
         <image name="studentdesk" catalog="system" width="62" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>

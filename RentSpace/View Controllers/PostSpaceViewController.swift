@@ -171,7 +171,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     func priceRateFormatter(rate: String) -> String {
         switch rate {
         case "Hourly":
-            return "Per Hour"
+            return "An Hour"
         case "Daily":
             return "Per Day"
         case "Weekly":
