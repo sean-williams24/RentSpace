@@ -23,6 +23,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var addPhotosButton: UIButton!
     @IBOutlet var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var activityView: UIActivityIndicatorView!
+    @IBOutlet var uploadView: UIView!
     
     var spaceTypePickerContent = [String]()
     var priceRatePickerContent = [String]()
@@ -37,58 +39,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var priceRate = "Hourly"
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
-    
-    
-    fileprivate func configureUI() {
-        // Title textfield
-        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
-        titleTextField.leftView = leftPadView
-        titleTextField.leftViewMode = .always
-        titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        
-        // Description textView
-        descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 4, right: 4)
-        descriptionTextView.textColor = .lightGray
-        descriptionTextView.text = descriptionViewPlaceholder
-        descriptionTextView.delegate = self
-        
-        // Location Button
-        let disclosure = UITableViewCell()
-        disclosure.frame = locationButton.bounds
-        disclosure.accessoryType = .disclosureIndicator
-        disclosure.isUserInteractionEnabled = false
-        locationButton.addSubview(disclosure)
-        locationButton.titleLabel?.textAlignment = .center
-        NSLayoutConstraint.activate([(locationButton.titleLabel?.widthAnchor.constraint(equalToConstant: locationButton.frame.width))!])
-        
-        // Space type picker
-        spaceTypePicker.dataSource = self
-        spaceTypePicker.delegate = self
-        priceRatePicker.dataSource = self
-        priceRatePicker.delegate = self
-        spaceTypePickerContent = ["Art Studio", "Photography Studio", "Music Studio", "Desk Space"]
-        priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly", "Annually"]
-        
-        // Price textFields
-        //        var paddingWidth: CGFloat = 15
-        //        if Constants.userLocation == "United Kingdom" {
-        //            currencyTextField.text = "£"
-        //            paddingWidth = 35
-        //        } else if Constants.userLocation == "United States" || Constants.userLocation == "Australia" || Constants.userLocation == "Canada" {
-        //            currencyTextField.text = "$"
-        //            paddingWidth = 35
-        //        }
-        
-        //        let leftPadView1 = UIView(frame: CGRect(x: 0, y: 0, width: paddingWidth, height: currencyTextField.frame.height))
-        //        currencyTextField.leftView = leftPadView1
-        //        currencyTextField.leftViewMode = .always
-        //        currencyTextField.attributedPlaceholder = NSAttributedString(string: "Currency", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
-        
-        let leftPadView2 = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
-        priceTextField.leftView = leftPadView2
-        priceTextField.leftViewMode = .always
-        priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
-    }
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,6 +96,60 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
   
     
     //MARK: - Private Methods
+    
+    
+     fileprivate func configureUI() {
+         // Title textfield
+         let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
+         titleTextField.leftView = leftPadView
+         titleTextField.leftViewMode = .always
+         titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+         
+         // Description textView
+         descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 4, right: 4)
+         descriptionTextView.textColor = .lightGray
+         descriptionTextView.text = descriptionViewPlaceholder
+         descriptionTextView.delegate = self
+         
+         // Location Button
+         let disclosure = UITableViewCell()
+         disclosure.frame = locationButton.bounds
+         disclosure.accessoryType = .disclosureIndicator
+         disclosure.isUserInteractionEnabled = false
+         locationButton.addSubview(disclosure)
+         locationButton.titleLabel?.textAlignment = .center
+         NSLayoutConstraint.activate([(locationButton.titleLabel?.widthAnchor.constraint(equalToConstant: locationButton.frame.width))!])
+         
+         // Space type picker
+         spaceTypePicker.dataSource = self
+         spaceTypePicker.delegate = self
+         priceRatePicker.dataSource = self
+         priceRatePicker.delegate = self
+         spaceTypePickerContent = ["Art Studio", "Photography Studio", "Music Studio", "Desk Space"]
+         priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly", "Annually"]
+         
+         // Price textFields
+         //        var paddingWidth: CGFloat = 15
+         //        if Constants.userLocation == "United Kingdom" {
+         //            currencyTextField.text = "£"
+         //            paddingWidth = 35
+         //        } else if Constants.userLocation == "United States" || Constants.userLocation == "Australia" || Constants.userLocation == "Canada" {
+         //            currencyTextField.text = "$"
+         //            paddingWidth = 35
+         //        }
+         
+         //        let leftPadView1 = UIView(frame: CGRect(x: 0, y: 0, width: paddingWidth, height: currencyTextField.frame.height))
+         //        currencyTextField.leftView = leftPadView1
+         //        currencyTextField.leftViewMode = .always
+         //        currencyTextField.attributedPlaceholder = NSAttributedString(string: "Currency", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+         
+//         let leftPadView2 = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
+//         priceTextField.leftView = leftPadView2
+//         priceTextField.leftViewMode = .always
+         priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        
+        uploadView.isHidden = true
+     }
     
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -206,22 +211,36 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
 //        let country = UserDefaults.standard.string(forKey: "Country")!
         let path = "adverts/\(self.location)/\(self.category)"
-        self.ref.child(path).childByAutoId().setValue(data)
+//        self.ref.child(path).childByAutoId().setValue(data)
+        self.ref.child(path).childByAutoId().setValue(data) { (error, reference) in
+            if error != nil {
+                print(error?.localizedDescription)
+                // TODO: - HANDLE ERROR
+                return
+            }
+            print("Upload Complete")
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+            UserDefaults.standard.synchronize()
+            
+            self.titleTextField.text = ""
+            self.priceTextField.text = ""
+            self.locationButton.setTitle("Contact & Address", for: .normal)
+            self.configureUI()
+            self.images = []
+            self.imagesToUpload = []
+            self.collectionView.reloadData()
+            
+            // TODO - show modal VC with conformtiaon of upload - link to ad in 'my ads' or dismiss to post another
+            let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+            self.present(vc, animated: true)
+        }
         
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
-        
-        self.titleTextField.text = ""
-        self.priceTextField.text = ""
-        self.locationButton.setTitle("Contact & Address", for: .normal)
-        self.configureUI()
-        self.images = []
-        self.imagesToUpload = []
-        self.collectionView.reloadData()
+
     }
     
     func postAdvert() {
+        uploadView.isHidden = false
         if imagesToUpload.isEmpty {
             uploadToFirebase()
         } else {
@@ -270,12 +289,16 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     //MARK: - Action Methods
 
     @IBAction func postButtonTapped(_ sender: Any) {
-        guard titleTextField.text != "" else {
+        if titleTextField.text == "" {
             titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemPink])
+            if priceTextField.text == "" {
+                priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemPink])
+            }
             return
         }
         
         guard priceTextField.text != "" else {
+            showAlert(title: "Please enter a price...", message: nil)
             priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemPink])
             return
         }
