@@ -69,7 +69,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         super.viewDidAppear(animated)
         loadUDImages()
         collectionView.reloadData()
-    
+
         let email = UserDefaults.standard.string(forKey: "Email") ?? ""
         let postcode = UserDefaults.standard.string(forKey: "PostCode") ?? ""
         
@@ -206,7 +206,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                                     Advert.subAdminArea: UserDefaults.standard.string(forKey: "SubAdminArea") as Any,
                                     Advert.country: UserDefaults.standard.string(forKey: "Country") as Any,
                                     Advert.town: UserDefaults.standard.string(forKey: "Town") as Any,
-                                    Advert.photos: imageURLs as Any
+                                    Advert.photos: imageURLs as Any,
+                                    Advert.viewOnMap: UserDefaults.standard.bool(forKey: "ViewOnMap")
         ]
         
 //        let country = UserDefaults.standard.string(forKey: "Country")!
@@ -214,7 +215,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
 //        self.ref.child(path).childByAutoId().setValue(data)
         self.ref.child(path).childByAutoId().setValue(data) { (error, reference) in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription as Any)
                 // TODO: - HANDLE ERROR
                 return
             }

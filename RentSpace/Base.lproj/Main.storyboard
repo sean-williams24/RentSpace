@@ -283,15 +283,38 @@
                                     </textField>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show On Map" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCD-g9-NP4">
+                                <rect key="frame" x="20" y="498" width="107" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZH-7p-heE">
+                                <rect key="frame" x="147" y="493" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="Bcw-cd-yoz"/>
+                                    <constraint firstAttribute="width" constant="49" id="Ipk-5y-SHe"/>
+                                    <constraint firstAttribute="width" secondItem="wZH-7p-heE" secondAttribute="height" multiplier="49:31" id="Zqo-8u-d3T"/>
+                                </constraints>
+                                <color key="onTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="mapSelectionSwitchTapped:" destination="q4m-nT-3we" eventType="valueChanged" id="L5H-Da-edD"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="jCD-g9-NP4" firstAttribute="top" secondItem="fjM-Ch-gUc" secondAttribute="bottom" constant="35" id="Ddw-MG-PL6"/>
+                            <constraint firstItem="wZH-7p-heE" firstAttribute="leading" secondItem="jCD-g9-NP4" secondAttribute="trailing" constant="20" id="Qik-T0-aB4"/>
+                            <constraint firstItem="jCD-g9-NP4" firstAttribute="leading" secondItem="otv-kV-gqD" secondAttribute="leading" constant="20" id="RxJ-NZ-fia"/>
                             <constraint firstItem="fjM-Ch-gUc" firstAttribute="top" secondItem="ebn-4y-gQV" secondAttribute="bottom" constant="35" id="Sgg-M7-qoX"/>
                             <constraint firstItem="fjM-Ch-gUc" firstAttribute="leading" secondItem="otv-kV-gqD" secondAttribute="leading" constant="20" id="WYD-4n-iZN"/>
+                            <constraint firstItem="wZH-7p-heE" firstAttribute="top" secondItem="fjM-Ch-gUc" secondAttribute="bottom" constant="30" id="Wu0-x6-DEs"/>
                             <constraint firstItem="ebn-4y-gQV" firstAttribute="top" secondItem="otv-kV-gqD" secondAttribute="top" constant="20" id="amI-PH-JsQ"/>
                             <constraint firstItem="otv-kV-gqD" firstAttribute="trailing" secondItem="fjM-Ch-gUc" secondAttribute="trailing" constant="20" id="avd-ET-9UN"/>
                             <constraint firstItem="otv-kV-gqD" firstAttribute="trailing" secondItem="ebn-4y-gQV" secondAttribute="trailing" constant="20" id="nB8-hA-Nct"/>
                             <constraint firstItem="ebn-4y-gQV" firstAttribute="leading" secondItem="otv-kV-gqD" secondAttribute="leading" constant="20" id="rix-Wh-fU4"/>
+                            <constraint firstItem="wZH-7p-heE" firstAttribute="centerY" secondItem="jCD-g9-NP4" secondAttribute="centerY" id="sTA-F3-c53"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="otv-kV-gqD"/>
                     </view>
@@ -306,6 +329,7 @@
                         <outlet property="stateLabel" destination="auL-QY-q9M" id="pQ2-3O-P3L"/>
                         <outlet property="streetLabel" destination="yAx-fA-u6j" id="4yA-BI-axZ"/>
                         <outlet property="townLabel" destination="ysx-gH-2Ja" id="YT7-6z-zU9"/>
+                        <outlet property="viewOnMapSwitch" destination="wZH-7p-heE" id="nes-Z4-UeC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BE3-K1-9FM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -693,25 +717,49 @@ Long press and drag to reorder.</string>
                                                 </constraints>
                                                 <color key="currentPageIndicatorTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </pageControl>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pirate Studios" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="d3q-aY-7vC">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aa7-8r-g9r">
                                                 <rect key="frame" x="0.0" y="370" width="414" height="20"/>
-                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pirate Studios" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3q-aY-7vC">
+                                                        <rect key="frame" x="5" y="0.0" width="409" height="20"/>
+                                                        <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="efg-gN-QmF"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="27"/>
+                                                        <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="efg-gN-QmF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="d3q-aY-7vC" secondAttribute="trailing" id="Gwk-ag-lMC"/>
+                                                    <constraint firstAttribute="bottom" secondItem="d3q-aY-7vC" secondAttribute="bottom" id="HgR-Or-XyT"/>
+                                                    <constraint firstItem="d3q-aY-7vC" firstAttribute="top" secondItem="aa7-8r-g9r" secondAttribute="top" id="jzj-dM-ZES"/>
+                                                    <constraint firstItem="d3q-aY-7vC" firstAttribute="leading" secondItem="aa7-8r-g9r" secondAttribute="leading" constant="5" id="rhm-8f-wZp"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
-                                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-6M-LyC">
                                                 <rect key="frame" x="0.0" y="395" width="414" height="40"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£50 An Hour" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="l7i-Cl-7qW">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gB-wV-fgr">
                                                         <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£50 An Hour" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="l7i-Cl-7qW">
+                                                                <rect key="frame" x="5" y="0.0" width="202" height="40"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="l7i-Cl-7qW" secondAttribute="trailing" id="Dyd-LZ-TQd"/>
+                                                            <constraint firstItem="l7i-Cl-7qW" firstAttribute="top" secondItem="7gB-wV-fgr" secondAttribute="top" id="H2H-30-1BT"/>
+                                                            <constraint firstAttribute="bottom" secondItem="l7i-Cl-7qW" secondAttribute="bottom" id="OwD-Oi-cjX"/>
+                                                            <constraint firstItem="l7i-Cl-7qW" firstAttribute="leading" secondItem="7gB-wV-fgr" secondAttribute="leading" constant="5" id="ZvA-jY-dec"/>
+                                                        </constraints>
+                                                    </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AF3-U3-bsw">
                                                         <rect key="frame" x="207" y="0.0" width="207" height="40"/>
                                                         <subviews>
@@ -795,6 +843,9 @@ Only the best gear here.</mutableString>
                                                 </constraints>
                                             </mapView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="PxR-6M-LyC" firstAttribute="leading" secondItem="Skl-mz-RrI" secondAttribute="leading" id="nGi-rc-3Ac"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>

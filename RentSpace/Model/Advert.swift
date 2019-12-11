@@ -24,4 +24,5 @@ struct Advert {
     static let subAdminArea = "subAdminArea"
     static let postCode = "postcode"
     static let country = "country"
+    static let viewOnMap = "viewOnMap"
 }

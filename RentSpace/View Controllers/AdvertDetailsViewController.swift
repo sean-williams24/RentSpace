@@ -36,13 +36,16 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         locationLabel.text = formatAddress(for: advert)
         scrollView.delegate = self
         pageController.hidesForSinglePage = true
+        if advert[Advert.viewOnMap] as? Bool == false {
+            mapView.isHidden = true
+        }
         
         downloadFirebaseImages {
             // Add images to scrollView
             for i in 0..<self.images.count {
                 let imageView = UIImageView()
                 imageView.image = self.images[i]
-                imageView.contentMode = .scaleAspectFit
+                imageView.contentMode = .scaleAspectFill
                 let xPosition = self.view.frame.width * CGFloat(i)
                 imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
                 
@@ -62,8 +65,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
-            print(imageURLsDict.count)
-            //  LOOP THROUGH IMAGE URLS FROM 0..IMAGEURLS.COUNT ADDING THE INDEX TO THE DICTIONAY VALUE
             for i in 0..<imageURLsDict.count {
                 if let imageURL = imageURLsDict["image \(i)"] {
                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -74,7 +75,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                         if let data = data {
                             if let image = UIImage(data: data) {
                                 self.images.append(image)
-                                print(self.images.count)
                                 if self.images.count == imageURLsDict.count {
                                     completion()
                                 }

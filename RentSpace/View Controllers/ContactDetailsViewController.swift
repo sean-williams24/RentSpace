@@ -26,11 +26,13 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     @IBOutlet var stateLabel: UITextField!
     @IBOutlet var countryLabel: UITextField!
     @IBOutlet var postcodeLabel: UITextField!
+    @IBOutlet var viewOnMapSwitch: UISwitch!
     
     
     let searchRequest = MKLocalSearch.Request()
     var resultsSearchController: UISearchController?
     var selectedAddress = ""
+//    var viewOnMap = true
     
     
     override func viewDidLoad() {
@@ -74,6 +76,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         stateLabel.text = UserDefaults.standard.string(forKey: "State")
         countryLabel.text = UserDefaults.standard.string(forKey: "Country")
         postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
+        viewOnMapSwitch.setOn(UserDefaults.standard.bool(forKey: "ViewOnMap"), animated: true)
         
         // Keyboard dismissal
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -97,6 +100,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         UserDefaults.standard.set(stateLabel.text, forKey: "State")
         UserDefaults.standard.set(countryLabel.text, forKey: "Country")
         UserDefaults.standard.set(postcodeLabel.text, forKey: "PostCode")
+        UserDefaults.standard.set(viewOnMapSwitch.isOn, forKey: "ViewOnMap")
     }
     
 
@@ -127,6 +131,17 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         postcodeLabel.text = postCode
         
     }
+    
+    //MARK: - Action Methods
+    
+    @IBAction func mapSelectionSwitchTapped(_ sender: UISwitch) {
+//       
+//        viewOnMap = sender.isOn
+//        print(viewOnMap)
+    }
+    
+    
+    
 }
 
 // MARK: - Search bar delegates
