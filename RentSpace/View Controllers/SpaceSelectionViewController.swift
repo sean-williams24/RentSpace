@@ -52,7 +52,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             
             let location = placemark?[0]
             if let country = location?.country {
-                Constants.userLocation = country
+                Constants.userLocationCountry = country
                 Constants.userCLLocation = userLocation
             }
         }
@@ -95,7 +95,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! RentSpaceViewController
         let button = sender as! UIButton
-        vc.location = Constants.userLocation
+        vc.location = Constants.userLocationCountry
         
         switch button.tag {
         case 0:

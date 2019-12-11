@@ -61,15 +61,23 @@ extension UIViewController {
         
         if city == subAdminArea {
             location = "\(town), \(city)"
+            if town == "" {
+                location = "\(city)"
+            }
         } else {
             location = "\(town), \(city), \(subAdminArea)"
             if town == "" {
                 location = "\(city), \(subAdminArea)"
+//                if city == "" {
+//                    location = "\(subAdminArea)"
+//                }
             }
         }
+        
         if location == ", " {
             location = advert[Advert.address] as? String ?? ""
         }
+        
         
         return location
     }

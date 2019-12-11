@@ -62,7 +62,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         configureTextFieldPlaceholders(for: postcodeLabel, withText: "Postcode")
         configureTextFieldPlaceholders(for: stateLabel, withText: "State")
         
-        if Constants.userLocation == "United States" {
+        if Constants.userLocationCountry == "United States" {
             configureTextFieldPlaceholders(for: postcodeLabel, withText: "Zip Code")
 
         }

@@ -37,7 +37,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         titleLabel.text = (advert[Advert.title] as! String)
         priceLabel.text = advert[Advert.price] as? String
-        descriptionTextView.text = advert[Advert.description] as? String
         locationLabel.text = formatAddress(for: advert)
         scrollView.delegate = self
         pageController.hidesForSinglePage = true
@@ -64,6 +63,12 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             phoneButton.tintColor = .gray
         } else {
             phoneNumber = advert[Advert.phone] as? String
+        }
+        
+        if advert[Advert.description] as? String == "" {
+            descriptionTextView.isHidden = true
+        } else {
+            descriptionTextView.text = advert[Advert.description] as? String
         }
         
         downloadFirebaseImages {
@@ -149,6 +154,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 }
 
 
+//MARK: - Map Delegates
+
 extension AdvertDetailsViewController: MKMapViewDelegate {
     
     func setLocationOnMap() {
@@ -163,7 +170,7 @@ extension AdvertDetailsViewController: MKMapViewDelegate {
                     annotation.coordinate = coordinate
                     self.mapView.addAnnotation(annotation)
                     
-                    let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 6000, longitudinalMeters: 6000)
+                    let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
                     self.mapView.setRegion(region, animated: true)
                 }
             }

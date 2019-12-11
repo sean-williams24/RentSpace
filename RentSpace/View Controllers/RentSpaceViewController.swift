@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import MapKit
 import UIKit
 
 class RentSpaceViewController: UIViewController {
@@ -17,7 +18,8 @@ class RentSpaceViewController: UIViewController {
     var storageRef: StorageReference!
     fileprivate var _refHandle: DatabaseHandle!
     
-    var adverts: [DataSnapshot] = []
+//    var adverts: [DataSnapshot] = []
+    var filteredAdverts: [DataSnapshot] = []
     var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
     var location = ""
@@ -42,9 +44,27 @@ class RentSpaceViewController: UIViewController {
 
     func configureDatabase() {
         ref = Database.database().reference()
+        
         _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
-            self.adverts.append(snapshot)
-            self.tableView.insertSections(IndexSet(integer: self.adverts.count - 1), with: .automatic)
+            let advert = snapshot.value as? NSDictionary ?? [:]
+            let postcode = advert[Advert.postCode] as! String
+            
+            CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
+                if let placemark = placemark?.first {
+                    let advertLocation = placemark.location
+                    if let distance = advertLocation?.distance(from: Constants.userCLLocation) {
+                        let distanceKM = distance / 1000
+                        print(distanceKM)
+
+                        if distanceKM < 10 {
+                            self.filteredAdverts.append(snapshot)
+                            print(self.filteredAdverts.count)
+                            self.tableView.reloadData()
+//                            self.tableView.insertSections(IndexSet(integer: self.adverts.count - 1), with: .automatic)
+                        }
+                    }
+                }
+            }
         })
         
     }
@@ -53,19 +73,12 @@ class RentSpaceViewController: UIViewController {
         ref.child("adverts").removeObserver(withHandle: _refHandle)
     }
     
-    
-
     // MARK: - Navigation
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
-
 }
-
-
-
-
 
 // MARK: - TableView Delegates & Datasource
 
@@ -73,7 +86,7 @@ class RentSpaceViewController: UIViewController {
 extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return adverts.count
+        return filteredAdverts.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,7 +108,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
         
-        let advertSnapshot = adverts[indexPath.section]
+        let advertSnapshot = filteredAdverts[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]
         
         // Populate cell content from downloaded advert data from Firebase
@@ -131,7 +144,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
-        vc.advertSnapshot = adverts[indexPath.section]
+        vc.advertSnapshot = filteredAdverts[indexPath.section]
         show(vc, sender: self)
 
         

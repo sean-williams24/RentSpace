@@ -11,6 +11,6 @@ import MapKit
 
 class Constants {
     
-    static var userLocation = ""
+    static var userLocationCountry = ""
     static var userCLLocation = CLLocation()
 }
