@@ -20,10 +20,14 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var locationIcon: UIImageView!
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var pageController: UIPageControl!
+    @IBOutlet var emailButton: UIButton!
+    @IBOutlet var phoneButton: UIButton!
     
     var images = [UIImage]()
     var advertSnapshot: DataSnapshot!
     var advert: [String : Any] = [:]
+    var emailAddress: String?
+    var phoneNumber: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +40,28 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         locationLabel.text = formatAddress(for: advert)
         scrollView.delegate = self
         pageController.hidesForSinglePage = true
+        
+        if advert[Advert.photos] == nil {
+            scrollView.isHidden = true
+            pageController.isHidden = true
+        }
+        
         if advert[Advert.viewOnMap] as? Bool == false {
             mapView.isHidden = true
+        }
+        
+        if advert[Advert.email] as? String == "" {
+            emailButton.isEnabled = false
+            emailButton.tintColor = .gray
+        } else {
+            emailAddress = (advert[Advert.email] as? String)!
+        }
+        
+        if advert[Advert.phone] as? String == "" {
+            phoneButton.isEnabled = false
+            phoneButton.tintColor = .gray
+        } else {
+            phoneNumber = advert[Advert.phone] as? String
         }
         
         downloadFirebaseImages {
@@ -101,9 +125,19 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func phoneButtonTapped(_ sender: Any) {
+        if phoneNumber != nil {
+            if let url = URL(string: "tel:\(phoneNumber!)") {
+                UIApplication.shared.open(url)
+            }
+        }
     }
     
     @IBAction func emailButtonTapped(_ sender: Any) {
+        if emailAddress != nil {
+            if let url = URL(string: "mailto:\(emailAddress!)") {
+                UIApplication.shared.open(url)
+            }
+        }
     }
     
     
