@@ -841,6 +841,9 @@ Only the best gear here.</mutableString>
                                                     <constraint firstAttribute="height" constant="290" id="3po-QG-QmH"/>
                                                     <constraint firstAttribute="width" constant="414" id="gFH-Uh-jsI"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="delegate" destination="tUY-Ky-QDR" id="JPp-w5-Jjt"/>
+                                                </connections>
                                             </mapView>
                                         </subviews>
                                         <constraints>

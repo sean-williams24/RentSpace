@@ -28,6 +28,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var advert: [String : Any] = [:]
     var emailAddress: String?
     var phoneNumber: String?
+    var postcode = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         locationLabel.text = formatAddress(for: advert)
         scrollView.delegate = self
         pageController.hidesForSinglePage = true
+        postcode = advert[Advert.postCode] as! String
         
         if advert[Advert.photos] == nil {
             scrollView.isHidden = true
@@ -78,6 +80,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             }
             self.pageController.numberOfPages = self.images.count
         }
+        
+        setLocationOnMap()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -121,6 +125,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
      }
      */
     
+    //MARK: - Action Methods
+
+    
     @IBAction func messageButtonTapped(_ sender: Any) {
     }
     
@@ -139,6 +146,27 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+}
+
+
+extension AdvertDetailsViewController: MKMapViewDelegate {
     
-    
+    func setLocationOnMap() {
+        CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            }
+            
+            if let placemark = placemark?.first {
+                if let coordinate = placemark.location?.coordinate {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = coordinate
+                    self.mapView.addAnnotation(annotation)
+                    
+                    let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 6000, longitudinalMeters: 6000)
+                    self.mapView.setRegion(region, animated: true)
+                }
+            }
+        }
+    }
 }
