@@ -11,7 +11,7 @@ import MapKit
 import UIKit
 
 class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
-
+    
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
@@ -37,44 +37,66 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         pageController.hidesForSinglePage = true
         
-        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
-            print(imageURLsDict.count)
-            pageController.numberOfPages = imageURLsDict.count
-            // TODO: - LOOP THROUGH IMAGE URLS FROM 0..IMAGEURLS.COUNT ANDDING THE INDEX TO THE DICTIONAY VALUE
+        downloadFirebaseImages {
+            // Add images to scrollView
+            for i in 0..<self.images.count {
+                let imageView = UIImageView()
+                imageView.image = self.images[i]
+                imageView.contentMode = .scaleAspectFit
+                let xPosition = self.view.frame.width * CGFloat(i)
+                imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
+                
+                self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
+                self.scrollView.addSubview(imageView)
+            }
+            self.pageController.numberOfPages = self.images.count
         }
-        images = [#imageLiteral(resourceName: "Desk Space"),#imageLiteral(resourceName: "Music Studio")]
-        
-        for i in 0..<images.count {
-            let imageView = UIImageView()
-            imageView.image = images[i]
-            imageView.contentMode = .scaleAspectFit
-            let xPosition = view.frame.width * CGFloat(i)
-            imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
-            
-            scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
-            scrollView.addSubview(imageView)
-            
-        }
-
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width
         pageController.currentPage = Int(pageIndex)
-        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: - Private Methods
+    
+    func downloadFirebaseImages(completion: @escaping () -> ()) {
+        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            print(imageURLsDict.count)
+            //  LOOP THROUGH IMAGE URLS FROM 0..IMAGEURLS.COUNT ADDING THE INDEX TO THE DICTIONAY VALUE
+            for i in 0..<imageURLsDict.count {
+                if let imageURL = imageURLsDict["image \(i)"] {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
+                        guard error == nil else {
+                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                            return
+                        }
+                        if let data = data {
+                            if let image = UIImage(data: data) {
+                                self.images.append(image)
+                                print(self.images.count)
+                                if self.images.count == imageURLsDict.count {
+                                    completion()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-    */
-
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     @IBAction func messageButtonTapped(_ sender: Any) {
     }
     
