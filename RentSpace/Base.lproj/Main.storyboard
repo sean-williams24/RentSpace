@@ -675,7 +675,7 @@ Long press and drag to reorder.</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1095.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1110.5"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
@@ -685,8 +685,16 @@ Long press and drag to reorder.</string>
                                                 <viewLayoutGuide key="contentLayoutGuide" id="fua-bQ-k3o"/>
                                                 <viewLayoutGuide key="frameLayoutGuide" id="eXZ-Tc-spn"/>
                                             </scrollView>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="UKD-xj-gbZ">
+                                                <rect key="frame" x="0.0" y="355" width="414" height="10"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="10" id="oiy-0k-UTf"/>
+                                                </constraints>
+                                                <color key="currentPageIndicatorTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </pageControl>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pirate Studios" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="d3q-aY-7vC">
-                                                <rect key="frame" x="0.0" y="355" width="414" height="20"/>
+                                                <rect key="frame" x="0.0" y="370" width="414" height="20"/>
                                                 <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="efg-gN-QmF"/>
@@ -696,7 +704,7 @@ Long press and drag to reorder.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-6M-LyC">
-                                                <rect key="frame" x="0.0" y="380" width="414" height="40"/>
+                                                <rect key="frame" x="0.0" y="395" width="414" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£50 An Hour" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="l7i-Cl-7qW">
                                                         <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
@@ -740,7 +748,7 @@ Long press and drag to reorder.</string>
                                                 </constraints>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-IP-VZw">
-                                                <rect key="frame" x="0.0" y="425" width="414" height="350.5"/>
+                                                <rect key="frame" x="0.0" y="440" width="414" height="350.5"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="uIt-MQ-ARt"/>
@@ -762,7 +770,7 @@ Only the best gear here.</mutableString>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="CV6-2b-oKf">
-                                                <rect key="frame" x="0.0" y="780.5" width="414" height="20"/>
+                                                <rect key="frame" x="0.0" y="795.5" width="414" height="20"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AIm-s0-uiG">
                                                         <rect key="frame" x="0.0" y="0.5" width="40" height="19"/>
@@ -780,7 +788,7 @@ Only the best gear here.</mutableString>
                                                 </subviews>
                                             </stackView>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Ul-2MJ">
-                                                <rect key="frame" x="0.0" y="805.5" width="414" height="290"/>
+                                                <rect key="frame" x="0.0" y="820.5" width="414" height="290"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="290" id="3po-QG-QmH"/>
                                                     <constraint firstAttribute="width" constant="414" id="gFH-Uh-jsI"/>
@@ -816,6 +824,7 @@ Only the best gear here.</mutableString>
                         <outlet property="locationIcon" destination="AIm-s0-uiG" id="s0G-Ao-O1z"/>
                         <outlet property="locationLabel" destination="EdI-6D-t79" id="dqw-bP-0ga"/>
                         <outlet property="mapView" destination="HoM-Ul-2MJ" id="Byw-fF-wFH"/>
+                        <outlet property="pageController" destination="UKD-xj-gbZ" id="0sO-kz-trD"/>
                         <outlet property="priceLabel" destination="l7i-Cl-7qW" id="T1v-qV-7hH"/>
                         <outlet property="scrollView" destination="Cw3-H8-wUH" id="olM-wY-96P"/>
                         <outlet property="titleLabel" destination="d3q-aY-7vC" id="6AU-nh-Mjg"/>

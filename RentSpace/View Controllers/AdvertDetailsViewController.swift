@@ -10,7 +10,7 @@ import Firebase
 import MapKit
 import UIKit
 
-class AdvertDetailsViewController: UIViewController {
+class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var titleLabel: UILabel!
@@ -19,6 +19,7 @@ class AdvertDetailsViewController: UIViewController {
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var locationIcon: UIImageView!
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var pageController: UIPageControl!
     
     var images = [UIImage]()
     var advertSnapshot: DataSnapshot!
@@ -33,10 +34,12 @@ class AdvertDetailsViewController: UIViewController {
         priceLabel.text = advert[Advert.price] as? String
         descriptionTextView.text = advert[Advert.description] as? String
         locationLabel.text = formatAddress(for: advert)
-
+        scrollView.delegate = self
+        pageController.hidesForSinglePage = true
+        
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
             print(imageURLsDict.count)
-            
+            pageController.numberOfPages = imageURLsDict.count
             // TODO: - LOOP THROUGH IMAGE URLS FROM 0..IMAGEURLS.COUNT ANDDING THE INDEX TO THE DICTIONAY VALUE
         }
         images = [#imageLiteral(resourceName: "Desk Space"),#imageLiteral(resourceName: "Music Studio")]
@@ -50,11 +53,16 @@ class AdvertDetailsViewController: UIViewController {
             
             scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
             scrollView.addSubview(imageView)
+            
         }
 
     }
     
-
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width
+        pageController.currentPage = Int(pageIndex)
+        
+    }
     
 
     /*
