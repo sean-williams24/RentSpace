@@ -32,6 +32,7 @@
 		CE6583AC239A8A13001FFA8A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AB239A8A13001FFA8A /* Constants.swift */; };
 		CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */; };
 		CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */; };
+		CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		CE6583AB239A8A13001FFA8A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertDetailsViewController.swift; sourceTree = "<group>"; };
 		CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostConfirmationViewController.swift; sourceTree = "<group>"; };
+		CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRadiusViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			children = (
 				CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */,
 				CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */,
+				CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */,
 				CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */,
 				CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */,
 				CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */,
@@ -288,6 +291,7 @@
 				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
 				CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
+				CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
 				CE6583A52397E26C001FFA8A /* Advert.swift in Sources */,
 				CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */,

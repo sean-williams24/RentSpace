@@ -50,9 +50,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 print("Error geocoding users location: \(error?.localizedDescription ?? "")")
             }
             
-            let location = placemark?[0]
-            if let country = location?.country {
-                Constants.userLocationCountry = country
+            if let address = placemark?[0].postalAddress {
+                Constants.userLocationCountry = address.country
+                Constants.userLocationAddress = address
                 Constants.userCLLocation = userLocation
             }
         }

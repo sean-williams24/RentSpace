@@ -8,9 +8,12 @@
 
 import Foundation
 import MapKit
+import Contacts
 
 class Constants {
     
     static var userLocationCountry = ""
     static var userCLLocation = CLLocation()
+    static var userLocationAddress: CNPostalAddress?
+
 }

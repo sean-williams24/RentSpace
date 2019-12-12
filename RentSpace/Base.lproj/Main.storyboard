@@ -687,6 +687,76 @@ Long press and drag to reorder.</string>
             </objects>
             <point key="canvasLocation" x="2936" y="-731"/>
         </scene>
+        <!--Search Radius View Controller-->
+        <scene sceneID="Ppv-jd-gf1">
+            <objects>
+                <viewController storyboardIdentifier="SearchRadiusVC" id="B67-Xa-RbB" customClass="SearchRadiusViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gUT-nU-IOO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8y-ps-QGL">
+                                <rect key="frame" x="20" y="180" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="881-dU-Qfn"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="locationButtonTapped:" destination="B67-Xa-RbB" eventType="touchUpInside" id="03R-sl-g95"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="kgd-lv-afh">
+                                <rect key="frame" x="18" y="288" width="378" height="31"/>
+                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="distanceSliderChanged:" destination="B67-Xa-RbB" eventType="valueChanged" id="baV-aJ-9rx"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISTANCE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWN-L4-zNy">
+                                <rect key="frame" x="20" y="241" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkC-7A-vNK">
+                                <rect key="frame" x="20" y="358" width="374" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="MX2-y4-TTH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="zkC-7A-vNK" secondAttribute="trailing" constant="20" id="7Pv-K1-fs7"/>
+                            <constraint firstItem="zkC-7A-vNK" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="8eL-ya-tFe"/>
+                            <constraint firstItem="AWN-L4-zNy" firstAttribute="top" secondItem="m8y-ps-QGL" secondAttribute="bottom" constant="31" id="F8Y-Ch-7Xl"/>
+                            <constraint firstItem="m8y-ps-QGL" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="FC8-Cj-3SS"/>
+                            <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="m8y-ps-QGL" secondAttribute="trailing" constant="20" id="JDL-g5-bPW"/>
+                            <constraint firstItem="kgd-lv-afh" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="M2W-Xs-xp0"/>
+                            <constraint firstItem="m8y-ps-QGL" firstAttribute="top" secondItem="AiR-nn-7rU" secondAttribute="top" constant="136" id="Yhu-PM-lEB"/>
+                            <constraint firstItem="zkC-7A-vNK" firstAttribute="top" secondItem="kgd-lv-afh" secondAttribute="bottom" constant="40" id="i8h-2N-0XJ"/>
+                            <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="kgd-lv-afh" secondAttribute="trailing" constant="20" id="rop-BB-2eS"/>
+                            <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="AWN-L4-zNy" secondAttribute="trailing" constant="20" id="u77-Sq-rCl"/>
+                            <constraint firstItem="kgd-lv-afh" firstAttribute="top" secondItem="AWN-L4-zNy" secondAttribute="bottom" constant="26" id="utq-10-Wsv"/>
+                            <constraint firstItem="AWN-L4-zNy" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="zwi-zo-RKY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AiR-nn-7rU"/>
+                    </view>
+                    <connections>
+                        <outlet property="distanceLabel" destination="zkC-7A-vNK" id="57x-Kw-4ri"/>
+                        <outlet property="distanceSlider" destination="kgd-lv-afh" id="wXC-FB-xDo"/>
+                        <outlet property="locationButton" destination="m8y-ps-QGL" id="lL7-2J-5w5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RIL-6z-D1U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3744.9275362318845" y="-1416.2946428571429"/>
+        </scene>
         <!--Advert Details View Controller-->
         <scene sceneID="03k-2v-FNG">
             <objects>
@@ -801,7 +871,7 @@ Long press and drag to reorder.</string>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="uIt-MQ-ARt"/>
                                                 </constraints>
-                                                <mutableString key="text">Free professional equipment
+                                                <string key="text">Free professional equipment
 
 Only top quality brands used in every room. We've kitted our rooms out with the highest calibre Drums, Amps, Mics and PAs as standard, ensuring you truly get the best out of your rehearsal time.
 
@@ -812,7 +882,7 @@ Introducing the UK's first OpenLIVE enabled rehearsal studios. Get your session 
 No more recording demos on your phone. No more paying over the odds for studio recording time. Share high quality recordings of your tracks with promoters, bookers and labels using OpenLIVE's intuitive technology.
 
 
-Only the best gear here.</mutableString>
+Only the best gear here.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

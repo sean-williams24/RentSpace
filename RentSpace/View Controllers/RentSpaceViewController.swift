@@ -23,10 +23,30 @@ class RentSpaceViewController: UIViewController {
     var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
     var location = ""
+    var searchAreaButtonTitle = ""
+    var rightBarButton = UIBarButtonItem()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let town = Constants.userLocationAddress?.subLocality {
+            searchAreaButtonTitle = town
+            if town == "" {
+                searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
+            }
+            print("1")
+        } else if let city = Constants.userLocationAddress?.city {
+            searchAreaButtonTitle = city
+            print("2")
+        } else if let postcode = Constants.userLocationAddress?.postalCode {
+            searchAreaButtonTitle = postcode
+            print("3")
+        }
+
+        
+        rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
+        navigationItem.rightBarButtonItem = rightBarButton
         
         configureDatabase()
         storageRef = Storage.storage().reference()
@@ -37,7 +57,6 @@ class RentSpaceViewController: UIViewController {
         super.viewDidAppear(animated)
         tableView.reloadData()
     }
-    
 
     
     // MARK: - Config
@@ -53,12 +72,11 @@ class RentSpaceViewController: UIViewController {
                 if let placemark = placemark?.first {
                     let advertLocation = placemark.location
                     if let distance = advertLocation?.distance(from: Constants.userCLLocation) {
-                        let distanceKM = distance / 1000
-                        print(distanceKM)
+                        let distanceMiles = distance / 1609.344
 
-                        if distanceKM < 10 {
+                        if distanceMiles < 10 {
                             self.filteredAdverts.append(snapshot)
-                            print(self.filteredAdverts.count)
+//                            print(self.filteredAdverts.count)
                             self.tableView.reloadData()
 //                            self.tableView.insertSections(IndexSet(integer: self.adverts.count - 1), with: .automatic)
                         }
@@ -70,8 +88,20 @@ class RentSpaceViewController: UIViewController {
     }
     
     deinit {
-        ref.child("adverts").removeObserver(withHandle: _refHandle)
+        ref.child("adverts/\(location)/\(chosenCategory)").removeObserver(withHandle: _refHandle)
     }
+    
+    //MARK: - Private Methods
+    
+    @objc func setSearchRadius() {
+        
+        let vc = storyboard?.instantiateViewController(identifier: "SearchRadiusVC") as! SearchRadiusViewController
+        let postCode = Constants.userLocationAddress?.postalCode
+        vc.currentLocation = "\(rightBarButton.title ?? "Select Location"), \(postCode ?? "")"
+        show(vc, sender: self)
+        
+    }
+    
     
     // MARK: - Navigation
     
