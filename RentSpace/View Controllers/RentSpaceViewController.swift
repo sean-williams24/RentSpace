@@ -12,6 +12,7 @@ import UIKit
 
 protocol UpdateSearchLocationDelegate {
     func didUpdateLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation, distance: Double)
+    func didUpdate(distance: Double)
 }
 
 class RentSpaceViewController: UIViewController{
@@ -189,6 +190,11 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension RentSpaceViewController: UpdateSearchLocationDelegate {
     
+    func didUpdate(distance: Double) {
+        configureDatabase(for: Constants.customCLLocation, within: distance)
+    }
+
+    
     func didUpdateLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation, distance: Double) {
         configureDatabase(for: location, within: distance)
         rightBarButton.title = town
@@ -205,6 +211,5 @@ extension RentSpaceViewController: UpdateSearchLocationDelegate {
             }
         }
         UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
-        print("Delegate called")
     }
 }

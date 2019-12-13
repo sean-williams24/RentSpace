@@ -40,8 +40,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         configure(deskButton, text: "Desk Space")
         
         let savedLocation = UserDefaults.standard.string(forKey: "Location")
+        let savedLocationPostcode = UserDefaults.standard.string(forKey: "LocationPostcode") ?? ""
         if let savedLocation = savedLocation {
-            CLGeocoder().geocodeAddressString(savedLocation) { (placemark, error) in
+            CLGeocoder().geocodeAddressString(savedLocation + savedLocationPostcode) { (placemark, error) in
                 if error != nil {
                     print("Error geocoding users location: \(error?.localizedDescription ?? "")")
                 }
@@ -50,8 +51,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 }
             }
         }
-
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

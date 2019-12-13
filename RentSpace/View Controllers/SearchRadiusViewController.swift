@@ -28,6 +28,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     var postcode: String!
     var country: String!
     var location: CLLocation?
+    var locationUpdated = false
+    var distanceUpdated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,19 +53,23 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         
         // DISTANCE
         
-        let distance = UserDefaults.standard.double(forKey: "Distance")
+        searchDistance = UserDefaults.standard.double(forKey: "Distance")
         
-        distanceSlider.value = Float(distance)
-        distanceLabel.text = "\(Int(distance)) Miles"
+        distanceSlider.value = Float(searchDistance)
+        distanceLabel.text = "\(Int(searchDistance)) Miles"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("View will disappear")
-        if location != nil {
-            delegate?.didUpdateLocation(town: town, city: city, county: county, postcode: postcode, country: country, location: location!, distance: searchDistance)
-        }
 
+        if locationUpdated {
+            delegate?.didUpdateLocation(town: town, city: city, county: county, postcode: postcode, country: country, location: location!, distance: searchDistance)
+            UserDefaults.standard.set(postcode, forKey: "LocationPostcode")
+        }
+        
+        if distanceUpdated {
+            delegate?.didUpdate(distance: searchDistance)
+        }
         
         UserDefaults.standard.set(searchDistance, forKey: "Distance")
     }
@@ -94,6 +100,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         self.location = location
         
         Constants.customCLLocation = location
+        
+        locationUpdated = true
     }
     
     
@@ -115,19 +123,18 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
 
     @IBAction func locationButtonTapped(_ sender: Any) {
         addressSearch()
-
-
     }
     
     @IBAction func distanceSliderChanged(_ sender: UISlider) {
         searchDistance = Double(sender.value)
         
-        if Constants.searchDistance == 1 {
-            distanceLabel.text = "\(Int(Constants.searchDistance)) Mile"
+        if searchDistance == 1 {
+            distanceLabel.text = "\(Int(searchDistance)) Mile"
         } else {
-            distanceLabel.text = "\(Int(Constants.searchDistance)) Miles"
+            distanceLabel.text = "\(Int(searchDistance)) Miles"
 
         }
-
+        
+        distanceUpdated = true
     }
 }
