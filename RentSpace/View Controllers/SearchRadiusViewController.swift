@@ -15,29 +15,67 @@ class SearchRadiusViewController: UIViewController {
     @IBOutlet var distanceLabel: UILabel!
     
     var currentLocation = "SeanTown"
+    var searchDistance: Double = 20.00
+    var resultsSearchController: UISearchController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Search Location"
-        locationButton.setTitle("Current Location: \(currentLocation)", for: .normal)
-
-        // Do any additional setup after loading the view.
+        let addressSearchTable = storyboard!.instantiateViewController(identifier: "AddressSearchTableVC") as! AddressSearchTableViewController
+         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
+         resultsSearchController?.searchResultsUpdater = addressSearchTable
+//         addressSearchTable.handleAddressSelectionDelegate = self
+         
+        let titleButton = UIButton()
+        titleButton.setTitle("Set Location", for: .normal)
+        titleButton.addTarget(self, action: #selector(addressSearch), for: .touchUpInside)
+//        titleButton.isUserInteractionEnabled = true
+        navigationItem.titleView = titleButton
+        
+        
+        // LOCATION
+        
+        locationButton.setTitle("\(currentLocation)", for: .normal)
+        
+        
+        
+        // DISTANCE
+        
+        distanceSlider.value = Float(searchDistance)
+        distanceLabel.text = "\(Int(searchDistance)) Miles"
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func addressSearch() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        let searchBar = resultsSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Enter Postcode or Address"
+        searchBar.keyboardAppearance = .dark
+        self.navigationItem.titleView = self.resultsSearchController?.searchBar
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        resultsSearchController?.hidesNavigationBarDuringPresentation = false
+        definesPresentationContext = true
     }
-    */
+
+    // MARK: - Action Methods
+
     @IBAction func locationButtonTapped(_ sender: Any) {
+        addressSearch()
+
+
     }
     
-    @IBAction func distanceSliderChanged(_ sender: Any) {
+    @IBAction func distanceSliderChanged(_ sender: UISlider) {
+        searchDistance = Double(sender.value)
+        
+        if searchDistance == 1 {
+            distanceLabel.text = "\(Int(searchDistance)) Mile"
+        } else {
+            distanceLabel.text = "\(Int(searchDistance)) Miles"
+
+        }
+
     }
 }

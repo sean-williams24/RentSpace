@@ -25,6 +25,7 @@ class RentSpaceViewController: UIViewController {
     var location = ""
     var searchAreaButtonTitle = ""
     var rightBarButton = UIBarButtonItem()
+    var searchDistance = 10.00
     
     
     override func viewDidLoad() {
@@ -74,7 +75,7 @@ class RentSpaceViewController: UIViewController {
                     if let distance = advertLocation?.distance(from: Constants.userCLLocation) {
                         let distanceMiles = distance / 1609.344
 
-                        if distanceMiles < 10 {
+                        if distanceMiles < self.searchDistance {
                             self.filteredAdverts.append(snapshot)
 //                            print(self.filteredAdverts.count)
                             self.tableView.reloadData()
@@ -98,6 +99,7 @@ class RentSpaceViewController: UIViewController {
         let vc = storyboard?.instantiateViewController(identifier: "SearchRadiusVC") as! SearchRadiusViewController
         let postCode = Constants.userLocationAddress?.postalCode
         vc.currentLocation = "\(rightBarButton.title ?? "Select Location"), \(postCode ?? "")"
+        vc.searchDistance = searchDistance
         show(vc, sender: self)
         
     }
