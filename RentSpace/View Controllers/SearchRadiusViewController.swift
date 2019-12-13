@@ -18,7 +18,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     @IBOutlet var distanceSlider: UISlider!
     @IBOutlet var distanceLabel: UILabel!
     
-    var currentLocation = "SeanTown"
+//    var currentLocation = "SeanTown"
     var searchDistance: Double = 20.00
     var resultsSearchController: UISearchController?
     var delegate: UpdateSearchLocationDelegate?
@@ -27,7 +27,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     var county: String!
     var postcode: String!
     var country: String!
-    var location: CLLocation!
+    var location: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +44,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         
         
         // LOCATION
-        
-        locationButton.setTitle("\(currentLocation)", for: .normal)
+        let currentLocation = UserDefaults.standard.string(forKey: "Location")
+        locationButton.setTitle(currentLocation, for: .normal)
         
         
         
@@ -60,7 +60,9 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("View will disappear")
-        delegate?.didUpdateLocation(town: town, city: city, county: county, postcode: postcode, country: country, location: location, distance: searchDistance)
+        if location != nil {
+            delegate?.didUpdateLocation(town: town, city: city, county: county, postcode: postcode, country: country, location: location!, distance: searchDistance)
+        }
 
         
         UserDefaults.standard.set(searchDistance, forKey: "Distance")
@@ -91,7 +93,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         self.country = country
         self.location = location
         
-//        Constants.customCLLocation = location
+        Constants.customCLLocation = location
     }
     
     

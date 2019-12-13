@@ -12,9 +12,12 @@ import Contacts
 
 class Constants {
     
+    static var userLocationTown = ""
+    static var userLocationCity = ""
     static var userLocationCountry = ""
     static var userCLLocation = CLLocation()
     static var userLocationAddress: CNPostalAddress?
+    
     static var customCLLocation = CLLocation()
     static var searchDistance: Double = 20
 

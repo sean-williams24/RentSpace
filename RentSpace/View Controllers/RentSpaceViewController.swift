@@ -36,35 +36,36 @@ class RentSpaceViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let town = Constants.userLocationAddress?.subLocality {
-            searchAreaButtonTitle = town
-            if town == "" {
-                searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
-            }
-        } else if let city = Constants.userLocationAddress?.city {
-            searchAreaButtonTitle = city
-        } else if let postcode = Constants.userLocationAddress?.postalCode {
-            searchAreaButtonTitle = postcode
-        }
+//        if let town = Constants.userLocationAddress?.subLocality {
+//            searchAreaButtonTitle = town
+//            if town == "" {
+//                searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
+//            }
+//        } else if let city = Constants.userLocationAddress?.city {
+//            searchAreaButtonTitle = city
+//        } else if let postcode = Constants.userLocationAddress?.postalCode {
+//            searchAreaButtonTitle = postcode
+//        }
 
+        searchAreaButtonTitle = UserDefaults.standard.string(forKey: "Location")!
         
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         navigationItem.rightBarButtonItem = rightBarButton
         
         storageRef = Storage.storage().reference()
-//        configureDatabase()
-
+        configureDatabase(for: Constants.customCLLocation, within: UserDefaults.standard.double(forKey: "Distance"))
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       // tableView.reloadData()
-//        print(Constants.searchDistance)
-        
-
     }
 
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        let location = rightBarButton.title
+        UserDefaults.standard.set(location, forKey: "Location")
+    }
     // MARK: - Private Methods
     
 
@@ -106,8 +107,8 @@ class RentSpaceViewController: UIViewController{
     @objc func setSearchRadius() {
         
         let vc = storyboard?.instantiateViewController(identifier: "SearchRadiusVC") as! SearchRadiusViewController
-        let postCode = Constants.userLocationAddress?.postalCode
-        vc.currentLocation = "\(rightBarButton.title ?? "Select Location"), \(postCode ?? "")"
+//        let postCode = Constants.userLocationAddress?.postalCode
+//        vc.currentLocation = "\(rightBarButton.title ?? "Select Location"))"
         vc.delegate = self
 //        vc.searchDistance = searchDistance
         show(vc, sender: self)
@@ -191,6 +192,19 @@ extension RentSpaceViewController: UpdateSearchLocationDelegate {
     func didUpdateLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation, distance: Double) {
         configureDatabase(for: location, within: distance)
         rightBarButton.title = town
+        if town == "" {
+            rightBarButton.title = city
+            if city == "" {
+                rightBarButton.title = county
+                if county == "" {
+                    rightBarButton.title = country
+                    if country == "" {
+                        rightBarButton.title = postcode
+                    }
+                }
+            }
+        }
+        UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
         print("Delegate called")
     }
 }

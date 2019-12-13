@@ -39,6 +39,18 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         configure(musicButton, text: "Music")
         configure(deskButton, text: "Desk Space")
         
+        let savedLocation = UserDefaults.standard.string(forKey: "Location")
+        if let savedLocation = savedLocation {
+            CLGeocoder().geocodeAddressString(savedLocation) { (placemark, error) in
+                if error != nil {
+                    print("Error geocoding users location: \(error?.localizedDescription ?? "")")
+                }
+                if let location = placemark?[0].location {
+                    Constants.customCLLocation = location
+                }
+            }
+        }
+
         
     }
     
@@ -51,6 +63,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
             
             if let address = placemark?[0].postalAddress {
+                Constants.userLocationTown = address.subLocality
+                Constants.userLocationCity = address.city
                 Constants.userLocationCountry = address.country
                 Constants.userLocationAddress = address
                 Constants.userCLLocation = userLocation
