@@ -10,7 +10,12 @@ import Firebase
 import MapKit
 import UIKit
 
-class RentSpaceViewController: UIViewController {
+protocol UpdateSearchLocationDelegate {
+    func didUpdateLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation, distance: Double)
+}
+
+class RentSpaceViewController: UIViewController{
+
     
     @IBOutlet var tableView: UITableView!
     
@@ -36,48 +41,53 @@ class RentSpaceViewController: UIViewController {
             if town == "" {
                 searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
             }
-            print("1")
         } else if let city = Constants.userLocationAddress?.city {
             searchAreaButtonTitle = city
-            print("2")
         } else if let postcode = Constants.userLocationAddress?.postalCode {
             searchAreaButtonTitle = postcode
-            print("3")
         }
 
         
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         navigationItem.rightBarButtonItem = rightBarButton
         
-        configureDatabase()
         storageRef = Storage.storage().reference()
+//        configureDatabase()
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
+       // tableView.reloadData()
+//        print(Constants.searchDistance)
+        
+
     }
+
+    
+    // MARK: - Private Methods
+    
 
     
     // MARK: - Config
 
-    func configureDatabase() {
+    func configureDatabase(for userLocation: CLLocation, within setMiles: Double) {
+        filteredAdverts.removeAll()
         ref = Database.database().reference()
         
         _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
             let advert = snapshot.value as? NSDictionary ?? [:]
             let postcode = advert[Advert.postCode] as! String
             
+            // Get distance of advert location from users chosen location and add to table if within search radius
             CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
                 if let placemark = placemark?.first {
                     let advertLocation = placemark.location
-                    if let distance = advertLocation?.distance(from: Constants.userCLLocation) {
+                    if let distance = advertLocation?.distance(from: userLocation) {
                         let distanceMiles = distance / 1609.344
 
-                        if distanceMiles < self.searchDistance {
+                        if distanceMiles < setMiles {
                             self.filteredAdverts.append(snapshot)
-//                            print(self.filteredAdverts.count)
                             self.tableView.reloadData()
 //                            self.tableView.insertSections(IndexSet(integer: self.adverts.count - 1), with: .automatic)
                         }
@@ -85,7 +95,6 @@ class RentSpaceViewController: UIViewController {
                 }
             }
         })
-        
     }
     
     deinit {
@@ -99,17 +108,13 @@ class RentSpaceViewController: UIViewController {
         let vc = storyboard?.instantiateViewController(identifier: "SearchRadiusVC") as! SearchRadiusViewController
         let postCode = Constants.userLocationAddress?.postalCode
         vc.currentLocation = "\(rightBarButton.title ?? "Select Location"), \(postCode ?? "")"
-        vc.searchDistance = searchDistance
+        vc.delegate = self
+//        vc.searchDistance = searchDistance
         show(vc, sender: self)
         
     }
     
-    
-    // MARK: - Navigation
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    }
+
 }
 
 // MARK: - TableView Delegates & Datasource
@@ -178,10 +183,14 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
         vc.advertSnapshot = filteredAdverts[indexPath.section]
         show(vc, sender: self)
+    }
+}
 
-        
-        
-        
-//        performSegue(withIdentifier: "AdvertDetailsVC", sender: self)
+extension RentSpaceViewController: UpdateSearchLocationDelegate {
+    
+    func didUpdateLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation, distance: Double) {
+        configureDatabase(for: location, within: distance)
+        rightBarButton.title = town
+        print("Delegate called")
     }
 }
