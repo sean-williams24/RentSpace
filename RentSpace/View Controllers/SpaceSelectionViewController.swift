@@ -48,9 +48,12 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 }
                 if let location = placemark?[0].location {
                     Constants.customCLLocation = location
+                    
                 }
             }
         }
+        
+        Constants.searchDistance = UserDefaults.standard.double(forKey: "Distance")
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -89,7 +92,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Snell Roundhand", size: 30)
+        label.font = UIFont.systemFont(ofSize: 28, weight: .light)
         label.textColor = .white
         label.text = text
         label.textAlignment = .center
@@ -97,7 +100,10 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         
         NSLayoutConstraint.activate([
             label.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+//            label.topAnchor.constraint(equalToSystemSpacingBelow: button.topAnchor, multiplier: 0),
             label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 28),
+//            label.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+//            label.centerYAnchor.constraint(equalTo: button.centerYAnchor)
         ])
     }
 

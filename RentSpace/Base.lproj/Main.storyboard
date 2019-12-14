@@ -700,6 +700,7 @@ Long press and drag to reorder.</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="881-dU-Qfn"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -738,6 +739,10 @@ Long press and drag to reorder.</string>
                                     <action selector="distanceSliderChanged:" destination="B67-Xa-RbB" eventType="valueChanged" id="baV-aJ-9rx"/>
                                 </connections>
                             </slider>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sOP-oZ-9Lf">
+                                <rect key="frame" x="0.0" y="630" width="414" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>

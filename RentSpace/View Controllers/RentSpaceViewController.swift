@@ -36,25 +36,33 @@ class RentSpaceViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         
-//        if let town = Constants.userLocationAddress?.subLocality {
-//            searchAreaButtonTitle = town
-//            if town == "" {
-//                searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
-//            }
-//        } else if let city = Constants.userLocationAddress?.city {
-//            searchAreaButtonTitle = city
-//        } else if let postcode = Constants.userLocationAddress?.postalCode {
-//            searchAreaButtonTitle = postcode
-//        }
-
-        searchAreaButtonTitle = UserDefaults.standard.string(forKey: "Location")!
+        // Set title of location button to saved user location. If none then users current location.
+        
+        if let UDTitle = UserDefaults.standard.string(forKey: "Location") {
+            searchAreaButtonTitle = UDTitle
+        } else {
+            if let town = Constants.userLocationAddress?.subLocality {
+                searchAreaButtonTitle = town
+                if town == "" {
+                    searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
+                }
+            } else if let city = Constants.userLocationAddress?.city {
+                searchAreaButtonTitle = city
+            } else if let postcode = Constants.userLocationAddress?.postalCode {
+                searchAreaButtonTitle = postcode
+            }
+        }
         
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         navigationItem.rightBarButtonItem = rightBarButton
         
         storageRef = Storage.storage().reference()
+
         configureDatabase(for: Constants.customCLLocation, within: UserDefaults.standard.double(forKey: "Distance"))
+        print(UserDefaults.standard.double(forKey: "Distance"))
+//        Constants.customCLLocation.coordinate
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +84,8 @@ class RentSpaceViewController: UIViewController{
     func configureDatabase(for userLocation: CLLocation, within setMiles: Double) {
         filteredAdverts.removeAll()
         ref = Database.database().reference()
+        
+        //TODO: - SHOW user feedback of downloading of adverts
         
         _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
             let advert = snapshot.value as? NSDictionary ?? [:]
