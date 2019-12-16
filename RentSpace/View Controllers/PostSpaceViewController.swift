@@ -413,10 +413,6 @@ extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     
         
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        // Hide borders of picker view
-//        pickerView.subviews.forEach({
-//            $0.isHidden = $0.frame.height < 1.0
-//        })
         return 1
     }
     
@@ -428,13 +424,13 @@ extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView.tag == 1 {
-            return spaceTypePickerContent[row]
-        } else {
-            return priceRatePickerContent[row]
-        }
-    }
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if pickerView.tag == 1 {
+//            return spaceTypePickerContent[row]
+//        } else {
+//            return priceRatePickerContent[row]
+//        }
+//    }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()

@@ -15,8 +15,9 @@ protocol handleSetSearchLocation {
 class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
 
     @IBOutlet var locationButton: UIButton!
-    @IBOutlet var distanceSlider: UISlider!
     @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var pickerView: UIPickerView!
+    
     
 //    var currentLocation = "SeanTown"
     var searchDistance: Double = 20.00
@@ -30,6 +31,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     var location: CLLocation?
     var locationUpdated = false
     var distanceUpdated = false
+    var pickerDistances = [String]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         addressSearchTable.handleSetSearchLocationDelegate = self
          
         let titleButton = UIButton()
+        titleButton.tintColor = .systemPurple
         titleButton.setTitle("Set Location", for: .normal)
         titleButton.addTarget(self, action: #selector(addressSearch), for: .touchUpInside)
         navigationItem.titleView = titleButton
@@ -52,11 +56,21 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         
         
         // DISTANCE
+        for i in 1...30 {
+            pickerDistances.append(String(i))
+        }
+        for i in stride(from: 40, to: 320, by: 10) {
+            pickerDistances.append(String(i))
+        }
         
         searchDistance = UserDefaults.standard.double(forKey: "Distance")
         
-        distanceSlider.value = Float(searchDistance)
-        distanceLabel.text = "\(Int(searchDistance)) Miles"
+        for (index, miles) in pickerDistances.enumerated() {
+            if Double(miles) == searchDistance {
+                pickerView.selectRow(index, inComponent: 0, animated: true)
+            }
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -125,16 +139,60 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         addressSearch()
     }
     
-    @IBAction func distanceSliderChanged(_ sender: UISlider) {
-        searchDistance = Double(sender.value)
-        
-        if searchDistance == 1 {
-            distanceLabel.text = "\(Int(searchDistance)) Mile"
-        } else {
-            distanceLabel.text = "\(Int(searchDistance)) Miles"
+//    @IBAction func distanceSliderChanged(_ sender: UISlider) {
+//        searchDistance = Double(sender.value)
+//
+//        if searchDistance == 1 {
+//            distanceLabel.text = "\(Int(searchDistance)) Mile"
+//        } else {
+//            distanceLabel.text = "\(Int(searchDistance)) Miles"
+//
+//        }
+//
+//        distanceUpdated = true
+//
+//    }
+}
 
-        }
+
+extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        // Hide borders of picker view
+        pickerView.subviews.forEach({
+            $0.isHidden = $0.frame.height < 1.0
+        })
+        return 1
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerDistances.count
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.textAlignment = .center
+        label.textColor = .systemPurple
+        label.layer.borderWidth = .zero
         
+        if row == 0 {
+            label.text = "1 Mile"
+        } else if pickerDistances[row] == "310" {
+            label.text = "Nationwide"
+        } else {
+            label.text = "\(pickerDistances[row]) Miles"
+        }
+        return label
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        view.endEditing(true)
+        searchDistance = Double(pickerDistances[row])!
         distanceUpdated = true
     }
+    
+    
+    
 }

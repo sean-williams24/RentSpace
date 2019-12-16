@@ -32,6 +32,7 @@ class RentSpaceViewController: UIViewController{
     var searchAreaButtonTitle = ""
     var rightBarButton = UIBarButtonItem()
     var searchDistance = 10.00
+    var distances: [Double] = []
     
     
     override func viewDidLoad() {
@@ -83,30 +84,49 @@ class RentSpaceViewController: UIViewController{
 
     func configureDatabase(for userLocation: CLLocation, within setMiles: Double) {
         filteredAdverts.removeAll()
+        distances.removeAll()
         ref = Database.database().reference()
         
         //TODO: - SHOW user feedback of downloading of adverts
         
-        _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
-            let advert = snapshot.value as? NSDictionary ?? [:]
-            let postcode = advert[Advert.postCode] as! String
-            
-            // Get distance of advert location from users chosen location and add to table if within search radius
-            CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
-                if let placemark = placemark?.first {
-                    let advertLocation = placemark.location
-                    if let distance = advertLocation?.distance(from: userLocation) {
-                        let distanceMiles = distance / 1609.344
+        if setMiles == 310.0 {
+            // Nationwide results, i.e. all adverts
+            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
+                self.filteredAdverts.append(snapshot)
+                self.tableView.reloadData()
+            })
+        } else {
+            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
+                let advert = snapshot.value as? NSDictionary ?? [:]
+                let postcode = advert[Advert.postCode] as! String
+                
+                // Get distance of advert location from users chosen location and add to table if within search radius
+                CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
+                    if let placemark = placemark?.first {
+                        let advertLocation = placemark.location
+                        if let distance = advertLocation?.distance(from: userLocation) {
+                            let distanceMiles = distance / 1609.344
 
-                        if distanceMiles < setMiles {
-                            self.filteredAdverts.append(snapshot)
-                            self.tableView.reloadData()
-//                            self.tableView.insertSections(IndexSet(integer: self.adverts.count - 1), with: .automatic)
+                            if distanceMiles < setMiles {
+                                print("Distance: \(distanceMiles)")
+                                self.filteredAdverts.append(snapshot)
+                                self.tableView.reloadData()
+                                
+//                                self.distances.append(distanceMiles)
+//
+//                                for (index, dist) in self.distances.enumerated() {
+//                                    if dist <= distanceMiles {
+//                                        self.filteredAdverts.insert(snapshot, at: index)
+//                                        self.tableView.reloadData()
+//                                    }
+//                                    break
+//                                }
+                            }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
     deinit {
