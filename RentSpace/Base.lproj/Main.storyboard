@@ -1039,14 +1039,15 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="2I0-NO-R4A">
-                                <rect key="frame" x="20" y="108" width="374" height="685"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2I0-NO-R4A">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3DY-EW-EmD">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="156.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="181.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="titleShadowOffset" width="3" height="4"/>
-                                        <state key="normal" title="Art" image="Art Studio">
+                                        <state key="normal" image="Art">
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -1054,21 +1055,21 @@ Only the best gear here.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8o-th-jq3">
-                                        <rect key="frame" x="0.0" y="176.5" width="374" height="156"/>
+                                        <rect key="frame" x="0.0" y="181.5" width="414" height="181"/>
                                         <state key="normal" title="Button" image="Photography Studio"/>
                                         <connections>
                                             <segue destination="T2e-aY-bb6" kind="show" id="EiX-kw-otY"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cid-Hb-u6q">
-                                        <rect key="frame" x="0.0" y="352.5" width="374" height="156.5"/>
+                                        <rect key="frame" x="0.0" y="362.5" width="414" height="181.5"/>
                                         <state key="normal" title="Button" image="Music Studio"/>
                                         <connections>
                                             <segue destination="T2e-aY-bb6" kind="show" id="vhj-rm-nTy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jb-m5-bdF">
-                                        <rect key="frame" x="0.0" y="529" width="374" height="156"/>
+                                        <rect key="frame" x="0.0" y="544" width="414" height="181"/>
                                         <state key="normal" title="Button" image="Desk Space"/>
                                         <connections>
                                             <action selector="buttonTapped:" destination="jC6-Ux-X3c" eventType="touchUpInside" id="2De-db-sWj"/>
@@ -1080,10 +1081,10 @@ Only the best gear here.</string>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2I0-NO-R4A" firstAttribute="top" secondItem="Yqh-ee-8Ng" secondAttribute="top" constant="20" id="9t8-KN-Tbq"/>
-                            <constraint firstItem="2I0-NO-R4A" firstAttribute="leading" secondItem="Yqh-ee-8Ng" secondAttribute="leading" constant="20" id="Cwb-Sg-OQ7"/>
-                            <constraint firstItem="Yqh-ee-8Ng" firstAttribute="bottom" secondItem="2I0-NO-R4A" secondAttribute="bottom" constant="20" id="qRg-97-BIm"/>
-                            <constraint firstItem="Yqh-ee-8Ng" firstAttribute="trailing" secondItem="2I0-NO-R4A" secondAttribute="trailing" constant="20" id="yZ4-dY-S2G"/>
+                            <constraint firstItem="2I0-NO-R4A" firstAttribute="top" secondItem="Yqh-ee-8Ng" secondAttribute="top" id="9t8-KN-Tbq"/>
+                            <constraint firstItem="2I0-NO-R4A" firstAttribute="leading" secondItem="Yqh-ee-8Ng" secondAttribute="leading" id="Cwb-Sg-OQ7"/>
+                            <constraint firstItem="Yqh-ee-8Ng" firstAttribute="bottom" secondItem="2I0-NO-R4A" secondAttribute="bottom" id="qRg-97-BIm"/>
+                            <constraint firstItem="Yqh-ee-8Ng" firstAttribute="trailing" secondItem="2I0-NO-R4A" secondAttribute="trailing" id="yZ4-dY-S2G"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Yqh-ee-8Ng"/>
                     </view>
@@ -1103,7 +1104,7 @@ Only the best gear here.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Art Studio" width="1200" height="801"/>
+        <image name="Art" width="1200" height="684"/>
         <image name="Desk Space" width="1200" height="800"/>
         <image name="Music Studio" width="1200" height="800"/>
         <image name="Photography Studio" width="1200" height="674"/>

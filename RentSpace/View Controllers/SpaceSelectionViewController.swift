@@ -34,6 +34,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         configure(artButton, text: "Art")
         configure(photographyButton, text: "Photography")
         configure(musicButton, text: "Music")
@@ -80,15 +81,14 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill
-        button.imageView?.layer.cornerRadius = 8
-        button.layer.cornerRadius = 8
-        button.layer.borderWidth = 0.4
-        button.layer.borderColor = UIColor.white.cgColor
-        button.backgroundColor = .clear
-        button.layer.shadowColor = UIColor.darkGray.cgColor
-        button.layer.shadowOpacity = 1
-        button.layer.shadowRadius = 4
-        button.layer.shadowOffset = CGSize(width: 1, height: 2)
+//        button.imageView?.layer.cornerRadius = 8
+//        button.layer.borderWidth = 0.2
+//        button.layer.borderColor = UIColor.white.cgColor
+//        button.backgroundColor = .clear
+//        button.layer.shadowColor = UIColor.darkGray.cgColor
+//        button.layer.shadowOpacity = 1
+//        button.layer.shadowRadius = 4
+//        button.layer.shadowOffset = CGSize(width: 1, height: 2)
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -138,4 +138,16 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         
     }
     
+}
+
+
+extension UIImage {
+
+    func alpha(_ value:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
 }
