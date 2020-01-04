@@ -22,6 +22,8 @@ class AdvertTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        customImageView.heightEqualsWidth()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
