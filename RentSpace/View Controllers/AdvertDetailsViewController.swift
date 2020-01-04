@@ -79,7 +79,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 imageView.contentMode = .scaleAspectFill
                 let xPosition = self.view.frame.width * CGFloat(i)
                 imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
-                
+
                 self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
                 self.scrollView.addSubview(imageView)
             }
@@ -163,13 +163,13 @@ extension AdvertDetailsViewController: MKMapViewDelegate {
             if error != nil {
                 print(error?.localizedDescription as Any)
             }
-            
+
             if let placemark = placemark?.first {
                 if let coordinate = placemark.location?.coordinate {
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinate
                     self.mapView.addAnnotation(annotation)
-                    
+
                     let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
                     self.mapView.setRegion(region, animated: true)
                 }

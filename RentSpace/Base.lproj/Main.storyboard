@@ -592,7 +592,7 @@ Long press and drag to reorder.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-vU-FRv">
-                                                    <rect key="frame" x="10" y="10" width="130" height="130"/>
+                                                    <rect key="frame" x="10" y="10" width="130" height="130.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="130" id="chh-hI-eDo"/>
                                                     </constraints>
@@ -604,7 +604,7 @@ Long press and drag to reorder.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="243" verticalHuggingPriority="253" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-EC-Ofs">
-                                                    <rect key="frame" x="264.5" y="119" width="70.5" height="20.5"/>
+                                                    <rect key="frame" x="150" y="119" width="185" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -645,7 +645,7 @@ Long press and drag to reorder.</string>
                                                 <constraint firstItem="qgQ-vU-FRv" firstAttribute="leading" secondItem="B8r-6I-XsZ" secondAttribute="leading" constant="10" id="kKd-oH-Dge"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="jJa-tm-dhh" secondAttribute="trailing" constant="10" id="pJy-SN-qj7"/>
                                                 <constraint firstItem="qgQ-vU-FRv" firstAttribute="top" secondItem="B8r-6I-XsZ" secondAttribute="top" constant="10" id="peO-Ip-8NG"/>
-                                                <constraint firstItem="FU5-EC-Ofs" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="124.5" id="v6r-ar-2r1"/>
+                                                <constraint firstItem="FU5-EC-Ofs" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="v6r-ar-2r1"/>
                                                 <constraint firstAttribute="bottom" secondItem="nPF-BI-oAz" secondAttribute="bottom" constant="10" id="xoF-tX-HNT"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -908,11 +908,10 @@ Only the best gear here.</string>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Ul-2MJ">
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Ul-2MJ">
                                                 <rect key="frame" x="0.0" y="942.5" width="414" height="290"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="290" id="3po-QG-QmH"/>
-                                                    <constraint firstAttribute="width" constant="414" id="gFH-Uh-jsI"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="delegate" destination="tUY-Ky-QDR" id="JPp-w5-Jjt"/>
