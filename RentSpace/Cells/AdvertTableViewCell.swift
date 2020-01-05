@@ -21,7 +21,6 @@ class AdvertTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         customImageView.heightEqualsWidth()
     }

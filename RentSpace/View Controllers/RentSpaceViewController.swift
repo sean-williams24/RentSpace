@@ -15,7 +15,7 @@ protocol UpdateSearchLocationDelegate {
     func didUpdate(distance: Double)
 }
 
-class RentSpaceViewController: UIViewController{
+class RentSpaceViewController: UIViewController {
 
     
     @IBOutlet var tableView: UITableView!
