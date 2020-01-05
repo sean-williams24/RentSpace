@@ -41,6 +41,8 @@
 		CEF5CBDF23C1FF250011243D /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */; };
 		CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE023C200FC0011243D /* MessagesTableViewCell.swift */; };
 		CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE223C214CC0011243D /* MessageViewController.swift */; };
+		CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE423C23AFF0011243D /* SignInViewController.swift */; };
+		CEF5CBE723C243A80011243D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE623C243A80011243D /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +84,8 @@
 		CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE023C200FC0011243D /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		CEF5CBE223C214CC0011243D /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		CEF5CBE423C23AFF0011243D /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		CEF5CBE623C243A80011243D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +170,8 @@
 				CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */,
 				CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */,
 				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
+				CEF5CBE423C23AFF0011243D /* SignInViewController.swift */,
+				CEF5CBE623C243A80011243D /* RegisterViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
 				CE6583A52397E26C001FFA8A /* Advert.swift in Sources */,
+				CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */,
 				CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */,
 				CEF5CBDB23C1F5E10011243D /* SettingsViewController.swift in Sources */,
 				CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */,
@@ -332,6 +339,7 @@
 				CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */,
 				CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */,
 				CE6583A123941302001FFA8A /* UIVC Extension.swift in Sources */,
+				CEF5CBE723C243A80011243D /* RegisterViewController.swift in Sources */,
 				CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */,
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,

@@ -12,13 +12,17 @@ import UIKit
 class MySpacesViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var signedOutView: UIView!
+    @IBOutlet var signInButton: UIButton!
     
     let mySpaces: [DataSnapshot] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        signInButton.layer.cornerRadius = 5
+        
+        signedOutView.isHidden = false
     }
     
 
@@ -31,6 +35,15 @@ class MySpacesViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    @IBAction func signInButtonTapped(_ sender: Any) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") {
+            present(vc, animated: true)
+        }
+    }
+    
+    
 
 }
 
