@@ -1141,7 +1141,7 @@ Only the best gear here.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXf-cf-HdW">
-                                                    <rect key="frame" x="345" y="119.5" width="39" height="21"/>
+                                                    <rect key="frame" x="345" y="120" width="39" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1196,6 +1196,76 @@ Only the best gear here.</string>
                                     <outlet property="delegate" destination="SMh-PC-nNU" id="aI0-FD-pua"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" id="OLo-YL-EO3" userLabel="Signed Out View">
+                                <rect key="frame" x="10" y="88" width="394" height="725"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="003-desk" translatesAutoresizingMaskIntoConstraints="NO" id="Ijf-WQ-kHG">
+                                        <rect key="frame" x="77" y="551" width="240" height="149"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="149" id="qu7-z0-luc"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="121" translatesAutoresizingMaskIntoConstraints="NO" id="kV6-cH-cbQ">
+                                        <rect key="frame" x="56.5" y="470" width="281" height="80"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="002-spotlight" translatesAutoresizingMaskIntoConstraints="NO" id="jvs-FN-guB">
+                                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="JQK-zI-8FL"/>
+                                                    <constraint firstAttribute="height" constant="80" id="ab1-iQ-BpO"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="002-spotlight 2" translatesAutoresizingMaskIntoConstraints="NO" id="x9I-MN-ijd">
+                                                <rect key="frame" x="201" y="0.0" width="80" height="80"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="5AQ-hC-9TN"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please sign in to advertise your studio space." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPP-wW-tmd">
+                                        <rect key="frame" x="25" y="47" width="344" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                        <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dp3-iE-oYe">
+                                        <rect key="frame" x="157" y="114.5" width="80" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="mau-3Y-bVG"/>
+                                            <constraint firstAttribute="width" constant="80" id="rOU-Qa-wgS"/>
+                                        </constraints>
+                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <state key="normal" title="SIGN IN">
+                                            <color key="titleShadowColor" red="1" green="0.91680336669999996" blue="0.88581494169999997" alpha="0.86114083910000006" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="005-tools" translatesAutoresizingMaskIntoConstraints="NO" id="CM4-V7-jhR">
+                                        <rect key="frame" x="77" y="298.5" width="240" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="Egd-Yl-8y4"/>
+                                            <constraint firstAttribute="width" constant="240" id="fdB-8h-wVf"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="nPP-wW-tmd" firstAttribute="top" secondItem="OLo-YL-EO3" secondAttribute="top" constant="47" id="2Ze-mt-2ev"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ijf-WQ-kHG" secondAttribute="trailing" constant="77" id="Ebb-lh-dgy"/>
+                                    <constraint firstItem="CM4-V7-jhR" firstAttribute="centerY" secondItem="OLo-YL-EO3" secondAttribute="centerY" id="G3Z-k6-AIj"/>
+                                    <constraint firstAttribute="trailing" secondItem="nPP-wW-tmd" secondAttribute="trailing" constant="25" id="Jt2-aP-03f"/>
+                                    <constraint firstItem="kV6-cH-cbQ" firstAttribute="centerX" secondItem="OLo-YL-EO3" secondAttribute="centerX" id="Kyh-xH-aHx"/>
+                                    <constraint firstItem="Ijf-WQ-kHG" firstAttribute="top" secondItem="kV6-cH-cbQ" secondAttribute="bottom" constant="1" id="Y59-w9-sJe"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ijf-WQ-kHG" secondAttribute="bottom" constant="25" id="YkU-LG-Nx0"/>
+                                    <constraint firstItem="nPP-wW-tmd" firstAttribute="leading" secondItem="OLo-YL-EO3" secondAttribute="leading" constant="25" id="cES-Ob-fSo"/>
+                                    <constraint firstItem="CM4-V7-jhR" firstAttribute="centerX" secondItem="OLo-YL-EO3" secondAttribute="centerX" id="fd3-8K-8NR"/>
+                                    <constraint firstItem="Ijf-WQ-kHG" firstAttribute="leading" secondItem="OLo-YL-EO3" secondAttribute="leading" constant="77" id="mHk-SJ-uRZ"/>
+                                    <constraint firstItem="dp3-iE-oYe" firstAttribute="centerX" secondItem="OLo-YL-EO3" secondAttribute="centerX" id="mVO-cL-ha1"/>
+                                    <constraint firstItem="dp3-iE-oYe" firstAttribute="top" secondItem="nPP-wW-tmd" secondAttribute="bottom" constant="47" id="syB-jD-VgN"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
@@ -1220,7 +1290,7 @@ Only the best gear here.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mip-bn-0rB" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="1619"/>
+            <point key="canvasLocation" x="1969.5652173913045" y="1618.5267857142856"/>
         </scene>
         <!--Settings-->
         <scene sceneID="b5l-fw-CS1">
@@ -1272,9 +1342,9 @@ Only the best gear here.</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bHA-La-2xr">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessagesCell" rowHeight="150" id="IMz-Zq-xfH" customClass="MessagesTableViewCell" customModule="RentSpace" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MessagesCell" rowHeight="150" id="IMz-Zq-xfH" customClass="MessagesTableViewCell" customModule="RentSpace" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IMz-Zq-xfH" id="tnw-IA-OxP">
@@ -1293,7 +1363,7 @@ Only the best gear here.</string>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGP-aY-vpW">
                                                             <rect key="frame" x="0.0" y="0.0" width="49.5" height="43.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advert Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ajg-zv-VhZ">
@@ -1322,7 +1392,7 @@ Only the best gear here.</string>
                                                 <constraint firstAttribute="trailing" secondItem="UfG-K6-0Hg" secondAttribute="trailing" constant="10" id="ym8-qi-73Z"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <connections>
                                             <outlet property="advertTitleLabel" destination="Ajg-zv-VhZ" id="PRY-SQ-b5Z"/>
                                             <outlet property="customImageView" destination="OAf-we-62e" id="ZdI-Zr-GDL"/>
@@ -1413,7 +1483,7 @@ Only the best gear here.</string>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-gQ-hTu">
                                 <rect key="frame" x="0.0" y="216" width="414" height="578"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" id="dhE-VG-hwn">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
@@ -1422,6 +1492,7 @@ Only the best gear here.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1475,7 +1546,7 @@ Only the best gear here.</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YyV-RV-B2b" firstAttribute="top" secondItem="aRT-gQ-hTu" secondAttribute="bottom" constant="8" symbolic="YES" id="2AK-U9-iO0"/>
                             <constraint firstItem="aRT-gQ-hTu" firstAttribute="top" secondItem="uuj-ph-ino" secondAttribute="bottom" constant="8" symbolic="YES" id="89K-Iz-fKG"/>
@@ -1729,6 +1800,10 @@ Only the best gear here.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="002-spotlight" width="512" height="512"/>
+        <image name="002-spotlight 2" width="512" height="512"/>
+        <image name="003-desk" width="512" height="512"/>
+        <image name="005-tools" width="512" height="512"/>
         <image name="Art" width="1200" height="684"/>
         <image name="Desk Space" width="1200" height="800"/>
         <image name="Music Studio" width="1200" height="800"/>
