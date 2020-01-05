@@ -40,6 +40,7 @@
 		CEF5CBDD23C1F7270011243D /* MySpaceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDC23C1F7270011243D /* MySpaceDetailsViewController.swift */; };
 		CEF5CBDF23C1FF250011243D /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */; };
 		CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE023C200FC0011243D /* MessagesTableViewCell.swift */; };
+		CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE223C214CC0011243D /* MessageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		CEF5CBDC23C1F7270011243D /* MySpaceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpaceDetailsViewController.swift; sourceTree = "<group>"; };
 		CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE023C200FC0011243D /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
+		CEF5CBE223C214CC0011243D /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				CEF5CBDC23C1F7270011243D /* MySpaceDetailsViewController.swift */,
 				CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */,
 				CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */,
+				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */,
 				CEF5CBDB23C1F5E10011243D /* SettingsViewController.swift in Sources */,
 				CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */,
+				CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */,
 				CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */,
 				CEF5CBDD23C1F7270011243D /* MySpaceDetailsViewController.swift in Sources */,
 				CEF5CBDF23C1FF250011243D /* MessagesViewController.swift in Sources */,
