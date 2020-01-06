@@ -692,8 +692,8 @@ Long press and drag to reorder.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUr-5D-245">
-                                <rect key="frame" x="20" y="189" width="374" height="50"/>
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUr-5D-245">
+                                <rect key="frame" x="20" y="189" width="314" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Xu9-vO-TGJ"/>
@@ -705,7 +705,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gme-oF-OL0">
-                                <rect key="frame" x="20" y="136" width="374" height="50"/>
+                                <rect key="frame" x="20" y="136" width="314" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="f2H-JI-b2V"/>
@@ -730,8 +730,8 @@ Long press and drag to reorder.</string>
                                     <action selector="signInButtonTapped:" destination="8FH-2D-ozG" eventType="touchUpInside" id="ZRm-yI-f9h"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zGC-NH-GGr">
-                                <rect key="frame" x="20" y="242" width="374" height="50"/>
+                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zGC-NH-GGr">
+                                <rect key="frame" x="20" y="242" width="314" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Zl8-5x-Qkw"/>
@@ -742,22 +742,65 @@ Long press and drag to reorder.</string>
                                     <outlet property="delegate" destination="XN8-Fk-fre" id="09i-sv-kkd"/>
                                 </connections>
                             </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="h7N-AX-sng">
+                                <rect key="frame" x="335" y="135" width="65" height="52"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54.5" id="ONS-7p-pdF"/>
+                                    <constraint firstAttribute="width" constant="65" id="gYH-Da-OhY"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="e7o-pG-1Fm">
+                                <rect key="frame" x="335" y="188" width="65" height="52"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54.5" id="PeT-Am-RUd"/>
+                                    <constraint firstAttribute="width" constant="65" id="UBk-kJ-WKa"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DTy-ZQ-ojS">
+                                <rect key="frame" x="335" y="241" width="65" height="52"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="Z8m-iu-JEo"/>
+                                    <constraint firstAttribute="height" constant="54.5" id="mbh-bj-BHU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btF-tq-Tjj">
+                                <rect key="frame" x="20" y="366" width="374" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="La8-iB-NvH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="I6l-al-EXb" firstAttribute="top" secondItem="zGC-NH-GGr" secondAttribute="bottom" constant="15" id="2OW-Xo-6rk"/>
-                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="hUr-5D-245" secondAttribute="trailing" constant="20" id="50r-R1-SpS"/>
+                            <constraint firstItem="h7N-AX-sng" firstAttribute="leading" secondItem="gme-oF-OL0" secondAttribute="trailing" constant="1" id="9T6-gK-nFo"/>
                             <constraint firstItem="hUr-5D-245" firstAttribute="top" secondItem="gme-oF-OL0" secondAttribute="bottom" constant="3" id="BVa-Sv-Xui"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="btF-tq-Tjj" secondAttribute="trailing" constant="20" id="Buj-7s-VxF"/>
                             <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="I6l-al-EXb" secondAttribute="trailing" constant="20" id="DNm-hp-jrc"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="e7o-pG-1Fm" secondAttribute="trailing" constant="14" id="GEK-XY-hg2"/>
                             <constraint firstItem="gme-oF-OL0" firstAttribute="top" secondItem="6yL-Cb-KDC" secondAttribute="top" constant="80" id="HdM-o4-y77"/>
                             <constraint firstItem="I6l-al-EXb" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="Pg7-j0-5ec"/>
+                            <constraint firstItem="DTy-ZQ-ojS" firstAttribute="centerY" secondItem="zGC-NH-GGr" secondAttribute="centerY" id="Q9Q-Ob-aNO"/>
                             <constraint firstItem="gme-oF-OL0" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="SfB-n9-0sy"/>
+                            <constraint firstItem="e7o-pG-1Fm" firstAttribute="leading" secondItem="hUr-5D-245" secondAttribute="trailing" constant="1" id="Ton-ck-3k8"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="h7N-AX-sng" secondAttribute="trailing" constant="14" id="dn4-x8-cMa"/>
                             <constraint firstItem="zGC-NH-GGr" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="gjI-68-d0y"/>
-                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="zGC-NH-GGr" secondAttribute="trailing" constant="20" id="hhr-i5-4tp"/>
-                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="gme-oF-OL0" secondAttribute="trailing" constant="20" id="joX-ty-8hT"/>
+                            <constraint firstItem="e7o-pG-1Fm" firstAttribute="centerY" secondItem="hUr-5D-245" secondAttribute="centerY" id="kS4-4i-42T"/>
+                            <constraint firstItem="btF-tq-Tjj" firstAttribute="top" secondItem="I6l-al-EXb" secondAttribute="bottom" constant="19" id="lif-1A-b8g"/>
+                            <constraint firstItem="btF-tq-Tjj" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="mDk-RV-4ym"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="DTy-ZQ-ojS" secondAttribute="trailing" constant="14" id="o1e-m7-BEq"/>
+                            <constraint firstItem="btF-tq-Tjj" firstAttribute="centerX" secondItem="6yL-Cb-KDC" secondAttribute="centerX" id="rIv-Fb-vK1"/>
+                            <constraint firstItem="DTy-ZQ-ojS" firstAttribute="leading" secondItem="zGC-NH-GGr" secondAttribute="trailing" constant="1" id="tvO-L9-hB4"/>
                             <constraint firstItem="hUr-5D-245" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="uxV-e7-njq"/>
                             <constraint firstItem="zGC-NH-GGr" firstAttribute="top" secondItem="hUr-5D-245" secondAttribute="bottom" constant="3" id="wR0-RE-ayr"/>
+                            <constraint firstItem="h7N-AX-sng" firstAttribute="centerY" secondItem="gme-oF-OL0" secondAttribute="centerY" id="xDz-SE-6Ce"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6yL-Cb-KDC"/>
                     </view>
@@ -766,15 +809,19 @@ Long press and drag to reorder.</string>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
+                        <outlet property="checkmark1" destination="h7N-AX-sng" id="nKS-4h-4yd"/>
+                        <outlet property="checkmark2" destination="e7o-pG-1Fm" id="zfE-zV-NVJ"/>
+                        <outlet property="checkmark3" destination="DTy-ZQ-ojS" id="JeB-Xj-avK"/>
                         <outlet property="confirmPasswordTextField" destination="zGC-NH-GGr" id="ZbD-bO-HZw"/>
                         <outlet property="emailTextField" destination="gme-oF-OL0" id="OYD-nL-qL5"/>
+                        <outlet property="passwordDetailsLabel" destination="btF-tq-Tjj" id="eRO-R5-OzS"/>
                         <outlet property="passwordTextField" destination="hUr-5D-245" id="IaP-fH-GMp"/>
                         <outlet property="registerButton" destination="I6l-al-EXb" id="OXL-hv-FB0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t3d-7m-VUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2970" y="895"/>
+            <point key="canvasLocation" x="2969.5652173913045" y="894.64285714285711"/>
         </scene>
         <!--Rent Space-->
         <scene sceneID="beK-k1-9QH">
@@ -2040,6 +2087,7 @@ Only the best gear here.</string>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="arrow.right.square.fill" catalog="system" width="64" height="56"/>
         <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="checkmark.rectangle.fill" catalog="system" width="64" height="46"/>
         <image name="envelope" catalog="system" width="64" height="46"/>
         <image name="eye" catalog="system" width="64" height="40"/>
         <image name="eyeglasses" catalog="system" width="64" height="26"/>

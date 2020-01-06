@@ -16,6 +16,7 @@ class SignInViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var signInButton: UIButton!
     
+    
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     var user: User?
     var displayName = ""
