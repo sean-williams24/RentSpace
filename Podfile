@@ -11,5 +11,7 @@ target 'RentSpace' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'FirebaseUI'
+  pod 'Firebase/Auth'
 
 end

@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Global.dataController = dataController
         
         FirebaseApp.configure()
+        
         return true
     }
 

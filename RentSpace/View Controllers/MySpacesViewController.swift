@@ -39,6 +39,9 @@ class MySpacesViewController: UIViewController {
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") {
+//            vc.isModalInPresentation = true
+//            vc.modalPresentationStyle = .currentContext
+//            vc.modalTransitionStyle = .flipHorizontal
             present(vc, animated: true)
         }
     }

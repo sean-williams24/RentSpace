@@ -227,12 +227,18 @@
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="alert" textContentType="email"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="q4m-nT-3we" id="t74-ch-Oad"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L9g-u1-ep1">
                                         <rect key="frame" x="0.0" y="42" width="374" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" keyboardAppearance="alert" textContentType="tel"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="q4m-nT-3we" id="h2K-RD-bIC"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -457,7 +463,7 @@ Long press and drag to reorder.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qw-KD-5PX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2942.0289855072465" y="569.86607142857144"/>
+            <point key="canvasLocation" x="4762.3188405797109" y="569.86607142857144"/>
         </scene>
         <!--Post Confirmation View Controller-->
         <scene sceneID="WJW-kR-PJm">
@@ -523,7 +529,7 @@ Long press and drag to reorder.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQM-C5-NXF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3740.579710144928" y="569.86607142857144"/>
+            <point key="canvasLocation" x="5560.8695652173919" y="569.86607142857144"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="FAT-cn-s3K">
@@ -578,29 +584,35 @@ Long press and drag to reorder.</string>
             <objects>
                 <viewController storyboardIdentifier="SignInVC" title="Sign In" interfaceStyle="light" id="8FH-2D-ozG" customClass="SignInViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uke-cJ-Y74">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ofe-bV-dtz">
-                                <rect key="frame" x="20" y="189" width="374" height="50"/>
+                                <rect key="frame" x="20" y="221" width="374" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="RKQ-Fa-vx5"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="go" textContentType="password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8FH-2D-ozG" id="v6Y-xF-G5b"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dNX-df-tru">
-                                <rect key="frame" x="20" y="136" width="374" height="50"/>
+                                <rect key="frame" x="20" y="168" width="374" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Rct-Od-82f"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" keyboardAppearance="alert" textContentType="email"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8FH-2D-ozG" id="mwW-h0-JkN"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-8O-tc3">
-                                <rect key="frame" x="20" y="254" width="374" height="40"/>
+                                <rect key="frame" x="20" y="286" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="23A-eW-z0P"/>
@@ -613,13 +625,13 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdX-wC-fyU">
-                                <rect key="frame" x="197" y="309" width="20" height="17"/>
+                                <rect key="frame" x="197" y="341" width="20" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bSN-xd-ry2">
-                                <rect key="frame" x="87" y="342" width="240" height="24"/>
+                                <rect key="frame" x="87" y="374" width="240" height="24"/>
                                 <color key="tintColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Oag-AQ-mcw"/>
@@ -627,13 +639,12 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfk-nD-k8Y">
-                                <rect key="frame" x="40" y="758" width="334" height="30"/>
+                                <rect key="frame" x="40" y="812" width="334" height="30"/>
                                 <state key="normal" title="REGISTER">
                                     <color key="titleColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="registerButtonTapped:" destination="8FH-2D-ozG" eventType="touchUpInside" id="KW4-WB-Tee"/>
-                                    <segue destination="XN8-Fk-fre" kind="show" id="baP-iI-97w"/>
+                                    <segue destination="XN8-Fk-fre" kind="presentation" modalTransitionStyle="crossDissolve" id="E0h-qH-FRP"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -660,8 +671,9 @@ Long press and drag to reorder.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TV2-Un-BpR"/>
                     </view>
+                    <navigationItem key="navigationItem" id="D7x-Mi-jht"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
-                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="dNX-df-tru" id="d3G-o1-YDZ"/>
                         <outlet property="passwordTextField" destination="ofe-bV-dtz" id="uNt-Re-psD"/>
@@ -670,7 +682,7 @@ Long press and drag to reorder.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RMW-Yk-6ua" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1086.9565217391305" y="894.64285714285711"/>
+            <point key="canvasLocation" x="1997.1014492753625" y="894.64285714285711"/>
         </scene>
         <!--Register-->
         <scene sceneID="iJB-OM-cZF">
@@ -679,17 +691,90 @@ Long press and drag to reorder.</string>
                     <view key="view" contentMode="scaleToFill" id="hhc-mR-1uc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUr-5D-245">
+                                <rect key="frame" x="20" y="189" width="374" height="50"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Xu9-vO-TGJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" textContentType="new-password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="XN8-Fk-fre" id="Wi7-aZ-m8Z"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gme-oF-OL0">
+                                <rect key="frame" x="20" y="136" width="374" height="50"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="f2H-JI-b2V"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" keyboardAppearance="alert" textContentType="email"/>
+                                <connections>
+                                    <outlet property="delegate" destination="XN8-Fk-fre" id="K6I-Yh-GVA"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6l-al-EXb">
+                                <rect key="frame" x="20" y="307" width="374" height="40"/>
+                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="iaa-yP-1f0"/>
+                                </constraints>
+                                <state key="normal" title="REGISTER">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="registerButtonTapped:" destination="XN8-Fk-fre" eventType="touchUpInside" id="iPF-ub-5Sg"/>
+                                    <action selector="signInButtonTapped:" destination="8FH-2D-ozG" eventType="touchUpInside" id="ZRm-yI-f9h"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zGC-NH-GGr">
+                                <rect key="frame" x="20" y="242" width="374" height="50"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Zl8-5x-Qkw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="go" textContentType="new-password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="XN8-Fk-fre" id="09i-sv-kkd"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="I6l-al-EXb" firstAttribute="top" secondItem="zGC-NH-GGr" secondAttribute="bottom" constant="15" id="2OW-Xo-6rk"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="hUr-5D-245" secondAttribute="trailing" constant="20" id="50r-R1-SpS"/>
+                            <constraint firstItem="hUr-5D-245" firstAttribute="top" secondItem="gme-oF-OL0" secondAttribute="bottom" constant="3" id="BVa-Sv-Xui"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="I6l-al-EXb" secondAttribute="trailing" constant="20" id="DNm-hp-jrc"/>
+                            <constraint firstItem="gme-oF-OL0" firstAttribute="top" secondItem="6yL-Cb-KDC" secondAttribute="top" constant="80" id="HdM-o4-y77"/>
+                            <constraint firstItem="I6l-al-EXb" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="Pg7-j0-5ec"/>
+                            <constraint firstItem="gme-oF-OL0" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="SfB-n9-0sy"/>
+                            <constraint firstItem="zGC-NH-GGr" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="gjI-68-d0y"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="zGC-NH-GGr" secondAttribute="trailing" constant="20" id="hhr-i5-4tp"/>
+                            <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="gme-oF-OL0" secondAttribute="trailing" constant="20" id="joX-ty-8hT"/>
+                            <constraint firstItem="hUr-5D-245" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="uxV-e7-njq"/>
+                            <constraint firstItem="zGC-NH-GGr" firstAttribute="top" secondItem="hUr-5D-245" secondAttribute="bottom" constant="3" id="wR0-RE-ayr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6yL-Cb-KDC"/>
                     </view>
                     <navigationItem key="navigationItem" title="Register" id="DLU-Jy-ieP">
                         <barButtonItem key="backBarButtonItem" title="-" id="r4o-Kx-qYc"/>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="zGC-NH-GGr" id="ZbD-bO-HZw"/>
+                        <outlet property="emailTextField" destination="gme-oF-OL0" id="OYD-nL-qL5"/>
+                        <outlet property="passwordTextField" destination="hUr-5D-245" id="IaP-fH-GMp"/>
+                        <outlet property="registerButton" destination="I6l-al-EXb" id="OXL-hv-FB0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t3d-7m-VUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2012" y="895"/>
+            <point key="canvasLocation" x="2970" y="895"/>
         </scene>
         <!--Rent Space-->
         <scene sceneID="beK-k1-9QH">
@@ -1338,6 +1423,7 @@ Only the best gear here.</string>
                                                 <rect key="frame" x="201" y="0.0" width="80" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="5AQ-hC-9TN"/>
+                                                    <constraint firstAttribute="height" constant="80" id="Uzl-hI-joL"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -1429,7 +1515,7 @@ Only the best gear here.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQP-ZG-MTU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2953.6231884057975" y="1294.4196428571429"/>
+            <point key="canvasLocation" x="4773.913043478261" y="1294.4196428571429"/>
         </scene>
         <!--My Spaces-->
         <scene sceneID="bxg-cS-8PX">
@@ -1920,6 +2006,24 @@ Only the best gear here.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Vi-R6-f74" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1087" y="2729"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="I2o-fJ-G3o">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bdj-GQ-kPq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="27c-kO-kpB">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8FH-2D-ozG" kind="relationship" relationship="rootViewController" id="UPe-MJ-Ey7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7TF-xA-Mj5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1086.9565217391305" y="894.64285714285711"/>
         </scene>
     </scenes>
     <resources>

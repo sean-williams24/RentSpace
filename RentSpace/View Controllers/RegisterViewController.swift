@@ -6,17 +6,39 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import FirebaseAuth
 import UIKit
 
 class RegisterViewController: UIViewController {
+    
+    @IBOutlet var emailTextField: UITextField!
+    @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var confirmPasswordTextField: UITextField!
+    @IBOutlet var registerButton: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        registerButton.layer.cornerRadius = 5
     }
     
 
+    
+    
+    
+    
+    
+    
+    @IBAction func registerButtonTapped(_ sender: Any) {
+        
+        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (auth, error) in
+            print("hi")
+        }
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 
@@ -27,4 +49,13 @@ class RegisterViewController: UIViewController {
     }
     */
 
+}
+
+// MARK: - Text Field Delegates
+
+extension RegisterViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
 }
