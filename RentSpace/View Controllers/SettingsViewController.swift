@@ -6,9 +6,13 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import FirebaseUI
 import UIKit
 
 class SettingsViewController: UIViewController {
+    
+    @IBOutlet var signOutButton: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,4 +31,11 @@ class SettingsViewController: UIViewController {
     }
     */
 
+    @IBAction func signOutButtonTapped(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

@@ -5,9 +5,10 @@
 //  Created by Sean Williams on 05/01/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
-
+import FirebaseUI
 import Firebase
 import UIKit
+
 
 class MySpacesViewController: UIViewController {
     
@@ -17,12 +18,27 @@ class MySpacesViewController: UIViewController {
     
     let mySpaces: [DataSnapshot] = []
     
+    
+    // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user != nil {
+                self.signedOutView.isHidden = true
+            } else {
+                self.signedOutView.isHidden = false
+            }
+        }
+        
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         signInButton.layer.cornerRadius = 5
         
-        signedOutView.isHidden = false
     }
     
 
@@ -115,3 +131,5 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     
     
 }
+
+

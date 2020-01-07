@@ -28,7 +28,6 @@ class SignInViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.isNavigationBarHidden = false
-        
         configureAuth()
     }
     
@@ -45,19 +44,24 @@ class SignInViewController: UIViewController {
         
         // listen for changes in the authorization state
         handle = Auth.auth().addStateDidChangeListener({ (auth: Auth, user: User?) in
-            
-            // check if there is a current user
-            if let activeUser = user {
-                // check if the current app user is the current FIRUser
-                if self.user != activeUser {
-                    self.user = activeUser
-                    let name = user!.email!.components(separatedBy: "@")[0]
-                    self.displayName = name
-                }
-            } else {
-                // user must sign in
-                self.loginSession()
+            if user != nil {
+                self.dismiss(animated: true)
             }
+            
+            
+            
+//            // check if there is a current user
+//            if let activeUser = user {
+//                // check if the current app user is the current FIRUser
+//                if self.user != activeUser {
+//                    self.user = activeUser
+//                    let name = user!.email!.components(separatedBy: "@")[0]
+//                    self.displayName = name
+//                }
+//            } else {
+//                // user must sign in
+//                self.loginSession()
+//            }
         })
         
     }
@@ -71,8 +75,7 @@ class SignInViewController: UIViewController {
     // MARK: - Sign In and Out
 
     func loginSession() {
-//        let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
-//        present(authViewController, animated: true)
+
     }
     
     
@@ -90,6 +93,15 @@ class SignInViewController: UIViewController {
     */
 
     @IBAction func signInButtonTapped(_ sender: Any) {
+        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+            if error == nil {
+                self.dismiss(animated: true)
+            } else {
+                if let error = error, user == nil {
+                    self.showAlert(title: "Problem Signing In", message: error.localizedDescription)
+                }
+            }
+        }
     }
     
     

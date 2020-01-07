@@ -30,7 +30,7 @@ class RegisterViewController: UIViewController {
         registerButton.layer.cornerRadius = 5
         passwordDetailsLabel.alpha = 0
 
-        
+        // Detect when a key is pressed in textfields
         emailTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         confirmPasswordTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
@@ -41,6 +41,7 @@ class RegisterViewController: UIViewController {
     
     // MARK: - Private Methods
 
+    // Use regEx and NSPredicate to validate email address and password
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z.]{2,64}"
@@ -106,10 +107,26 @@ class RegisterViewController: UIViewController {
             }
         }
         
-        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (auth, error) in
-            print("hi")
-            
-            // TODO - dissmiss viewcontroller
+        Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, regError) in
+            // If user account creation is successful, sign user in and pop controller
+            if regError == nil {
+                Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.confirmPasswordTextField.text!) { (user, signInError) in
+                    // If there is no error, sign-in successful, dismiss all view controllers
+                    if signInError == nil {
+                        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
+                            
+                        })
+                    } else {
+                        if let error = signInError, user == nil {
+                            self.showAlert(title: "Problem Signing In", message: error.localizedDescription)
+                        }
+                    }
+                }
+            } else {
+                if let error = regError {
+                    self.showAlert(title: "Registration Error", message: error.localizedDescription)
+                }
+            }
         }
     }
     
