@@ -5,16 +5,18 @@
 //  Created by Sean Williams on 05/01/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
-
+import FacebookLogin
 import FirebaseUI
 import Firebase
+import GoogleSignIn
 import UIKit
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, LoginButtonDelegate {
     
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var signInButton: UIButton!
+    @IBOutlet var googleSignInButton: GIDSignInButton!
     
     
     fileprivate var handle: AuthStateDidChangeListenerHandle!
@@ -34,6 +36,14 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = 5
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+//        GIDSignIn.sharedInstance().signIn()
+        
+        let loginButton = FBLoginButton(permissions: [ .publicProfile ])
+        loginButton.frame = CGRect(x: 24, y: 425, width: googleSignInButton.frame.width - 8, height: signInButton.frame.height)
+        loginButton.delegate = self
+        view.addSubview(loginButton)
         
     }
     
@@ -57,25 +67,26 @@ class SignInViewController: UIViewController {
     }
     
     
-    // MARK: - Sign In and Out
-
-    func loginSession() {
-
+    // MARK: - FaceBook Delegates
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        if error != nil {
+            print(error?.localizedDescription)
+            return
+        }
+        
+        self.dismiss(animated: true) {
+            //
+        }
     }
     
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        print("Facebook did logout")
     }
-    */
+    
+
+    
+    // MARK: - Action Methods
 
     @IBAction func signInButtonTapped(_ sender: Any) {
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in

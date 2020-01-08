@@ -114,7 +114,7 @@ class RegisterViewController: UIViewController {
                     // If there is no error, sign-in successful, dismiss all view controllers
                     if signInError == nil {
                         UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
-                            
+
                         })
                     } else {
                         if let error = signInError, user == nil {

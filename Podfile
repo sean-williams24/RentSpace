@@ -13,5 +13,7 @@ target 'RentSpace' do
   pod 'Firebase/Storage'
   pod 'FirebaseUI'
   pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+  pod 'FacebookLogin'
 
 end

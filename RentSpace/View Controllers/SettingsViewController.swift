@@ -47,6 +47,14 @@ class SettingsViewController: UIViewController {
                 print("Auth sign out failed: \(error.localizedDescription)")
             }
         }
+        
+        let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+          print ("Error signing out: %@", signOutError)
+        }
+          
 
     }
 }
