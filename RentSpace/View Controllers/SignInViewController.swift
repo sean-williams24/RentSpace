@@ -43,32 +43,17 @@ class SignInViewController: UIViewController {
     func configureAuth() {
         
         // listen for changes in the authorization state
-        handle = Auth.auth().addStateDidChangeListener({ (auth: Auth, user: User?) in
-            if user != nil {
-                self.dismiss(animated: true)
-            }
-            
-            
-            
-//            // check if there is a current user
-//            if let activeUser = user {
-//                // check if the current app user is the current FIRUser
-//                if self.user != activeUser {
-//                    self.user = activeUser
-//                    let name = user!.email!.components(separatedBy: "@")[0]
-//                    self.displayName = name
-//                }
-//            } else {
-//                // user must sign in
-//                self.loginSession()
+//        handle = Auth.auth().addStateDidChangeListener({ (auth: Auth, user: User?) in
+//            if user != nil {
+//                self.dismiss(animated: true)
 //            }
-        })
+//        })
         
     }
     
     
     deinit {
-        Auth.auth().removeStateDidChangeListener(handle)
+//        Auth.auth().removeStateDidChangeListener(handle)
     }
     
     

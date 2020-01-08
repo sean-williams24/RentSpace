@@ -5,7 +5,7 @@
 //  Created by Sean Williams on 26/11/2019.
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
-
+import FirebaseAuth
 import Firebase
 import UIKit
 import Contacts
@@ -25,6 +25,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     @IBOutlet var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var activityView: UIActivityIndicatorView!
     @IBOutlet var uploadView: UIView!
+    @IBOutlet var signedOutView: UIView!
+    @IBOutlet var signInButton: UIButton!
     
     var spaceTypePickerContent = [String]()
     var priceRatePickerContent = [String]()
@@ -35,12 +37,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     let collectionViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var ref: DatabaseReference!
     var storageRef: StorageReference!
+    fileprivate var handle: AuthStateDidChangeListenerHandle!
     var category = "Art Studio"
     var priceRate = "Hourly"
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
  
     
+    //MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,12 +62,25 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
 
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
         imagesToUpload = []
+        
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user == nil {
+//                let vc = self.storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+//                self.present(vc, animated: true)
+                self.signedOutView.isHidden = false
+                self.postButton.isEnabled = false
+            } else {
+                self.signedOutView.isHidden = true
+                self.postButton.isEnabled = true
+            }
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -91,6 +109,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+        Auth.auth().removeStateDidChangeListener(handle)
     }
     
   
@@ -148,6 +167,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
 //         priceTextField.leftViewMode = .always
          priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         
+        signInButton.layer.cornerRadius = 5
         uploadView.isHidden = true
      }
     
@@ -285,6 +305,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
     }
+    
+    
+    deinit {
+
+        print("deinit called")
+    }
 
     
     //MARK: - Action Methods
@@ -322,6 +348,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             postAdvert()
         }
     }
+    
+    @IBAction func signInButtonTapped(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+        self.present(vc, animated: true)
+    }
+    
     
 }
 

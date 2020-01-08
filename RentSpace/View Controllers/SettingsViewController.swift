@@ -32,10 +32,21 @@ class SettingsViewController: UIViewController {
     */
 
     @IBAction func signOutButtonTapped(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print(error.localizedDescription)
+        let user = Auth.auth().currentUser!
+        let onlineRef = Database.database().reference(withPath: "online/\(user.uid)")
+        
+        onlineRef.removeValue { (error, _) in
+              if let error = error {
+              print("Removing online failed: \(error)")
+              return
+            }
+            
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                print("Auth sign out failed: \(error.localizedDescription)")
+            }
         }
+
     }
 }

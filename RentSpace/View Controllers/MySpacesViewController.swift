@@ -17,6 +17,7 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var signInButton: UIButton!
     
     let mySpaces: [DataSnapshot] = []
+    fileprivate var handle: AuthStateDidChangeListenerHandle!
     
     
     // MARK: - Life Cycle
@@ -24,7 +25,7 @@ class MySpacesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Auth.auth().addStateDidChangeListener { (auth, user) in
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
                 self.signedOutView.isHidden = true
             } else {
@@ -41,16 +42,15 @@ class MySpacesViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(handle)
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
+    
+    deinit {
+        Auth.auth().removeStateDidChangeListener(handle)
+    }
     
     
     @IBAction func signInButtonTapped(_ sender: Any) {
