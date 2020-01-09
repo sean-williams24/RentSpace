@@ -11,6 +11,10 @@ import Firebase
 import GoogleSignIn
 import UIKit
 
+protocol UpdateSignInDelegate {
+    func updateSignInButton()
+}
+
 class SignInViewController: UIViewController, LoginButtonDelegate {
     
     @IBOutlet var emailTextField: UITextField!
@@ -20,8 +24,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     
     
     fileprivate var handle: AuthStateDidChangeListenerHandle!
-    var user: User?
-    var displayName = ""
+    var delegate: UpdateSignInDelegate?
     
 
     // MARK: - Life Cycle
@@ -30,7 +33,12 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         super.viewWillAppear(animated)
         
         navigationController?.isNavigationBarHidden = false
-        configureAuth()
+        
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                Settings.currentUser = user
+            }
+        })
     }
     
     override func viewDidLoad() {
@@ -91,7 +99,9 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
             }
             print("Successfully logged into FireBase with Facebook user:", FBuser as Any)
                 
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                self.delegate?.updateSignInButton()
+            }
         }
 
     }
@@ -108,6 +118,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authUser, error) in
             if error == nil {
                 self.dismiss(animated: true)
+                self.delegate?.updateSignInButton()
             } else {
                 if let error = error, authUser == nil {
                     self.showAlert(title: "Problem Signing In", message: error.localizedDescription)

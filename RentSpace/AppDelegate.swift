@@ -16,6 +16,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     let dataController = DataController(modelName: "RentSpace")
+    var delegate: UpdateSignInDelegate?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -97,6 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
           // User is signed in
           // ...
             UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: nil)
+            self.delegate?.updateSignInButton()
+            
+            
             
         }
     }

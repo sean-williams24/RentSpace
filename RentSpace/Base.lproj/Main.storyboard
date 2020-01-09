@@ -1646,7 +1646,7 @@ Only the best gear here.</string>
         <!--Settings-->
         <scene sceneID="b5l-fw-CS1">
             <objects>
-                <viewController title="Settings" id="w7C-0x-aHl" customClass="SettingsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsVC" title="Settings" id="w7C-0x-aHl" customClass="SettingsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Sf-XP-VCE" userLabel="Root View">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1662,7 +1662,7 @@ Only the best gear here.</string>
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="signOutButtonTapped:" destination="w7C-0x-aHl" eventType="touchUpInside" id="81x-fg-G2A"/>
+                                    <action selector="signInOrOutButtonTapped:" destination="w7C-0x-aHl" eventType="touchUpInside" id="81x-fg-G2A"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1676,7 +1676,7 @@ Only the best gear here.</string>
                     </view>
                     <navigationItem key="navigationItem" id="HPv-Ud-AxS"/>
                     <connections>
-                        <outlet property="signOutButton" destination="FGM-Is-w7D" id="YbQ-qu-M7J"/>
+                        <outlet property="signInOrOutButton" destination="FGM-Is-w7D" id="YbQ-qu-M7J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQP-ZG-MTU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

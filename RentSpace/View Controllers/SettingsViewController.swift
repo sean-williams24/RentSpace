@@ -10,21 +10,45 @@ import FirebaseUI
 import FacebookLogin
 import UIKit
 
+
+
 class SettingsViewController: UIViewController {
     
-    @IBOutlet var signOutButton: UIButton!
+    @IBOutlet var signInOrOutButton: UIButton!
     
+    fileprivate var handle: AuthStateDidChangeListenerHandle!
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("Appear VIEW")
+        
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                if let currentUser = Settings.currentUser?.email {
+                    self.signInOrOutButton.setTitle("SIGN OUT (\(currentUser))", for: .normal)
+                    Settings.currentUser = user
+                }
+            } else {
+                self.signInOrOutButton.setTitle("SIGN IN", for: .normal)
+            }
+        })
+        
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        signOutButton.layer.cornerRadius = 5
+        signInOrOutButton.layer.cornerRadius = 5
         
-        if let currentUser = Settings.currentUser?.email {
-            signOutButton.setTitle("SIGN OUT (\(currentUser))", for: .normal)
-        }
+
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        Auth.auth().removeStateDidChangeListener(handle)
+
+    }
 
     /*
     // MARK: - Navigation
@@ -36,32 +60,40 @@ class SettingsViewController: UIViewController {
     }
     */
 
-    @IBAction func signOutButtonTapped(_ sender: Any) {
-        let user = Auth.auth().currentUser!
-        let onlineRef = Database.database().reference(withPath: "online/\(user.uid)")
-        
-        onlineRef.removeValue { (error, _) in
-              if let error = error {
-              print("Removing online failed: \(error)")
-              return
-            }
-            
+    @IBAction func signInOrOutButtonTapped(_ sender: Any) {
+        // If there is a user signed in, log them out and set current user to nil
+        if Settings.currentUser != nil {
+            let firebaseAuth = Auth.auth()
             do {
-                try Auth.auth().signOut()
-            } catch {
-                print("Auth sign out failed: \(error.localizedDescription)")
+              try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+              print ("Error signing out: %@", signOutError)
             }
+              
+            // Log out of FaceBook
+            LoginManager().logOut()
+            Settings.currentUser = nil
+            
+        } else {
+            // If no user currently signed in, show signInVC and set delegates to update UI once signed in
+            let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            vc.delegate = self
+            appDelegate.delegate = self
+            
+            present(vc, animated: true)
         }
         
-        let firebaseAuth = Auth.auth()
-        do {
-          try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-          print ("Error signing out: %@", signOutError)
-        }
-          
-        // Log out of FaceBook
-        LoginManager().logOut()
+
 
     }
+}
+
+extension SettingsViewController: UpdateSignInDelegate {
+    func updateSignInButton() {
+        let userEmail = Settings.currentUser?.email
+        self.signInOrOutButton.setTitle("SIGN OUT (\(userEmail ?? ""))", for: .normal)
+    }
+    
+    
 }

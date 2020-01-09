@@ -170,10 +170,10 @@
 				CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */,
 				CEF5CBDC23C1F7270011243D /* MySpaceDetailsViewController.swift */,
 				CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */,
-				CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */,
-				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
 				CEF5CBE423C23AFF0011243D /* SignInViewController.swift */,
 				CEF5CBE623C243A80011243D /* RegisterViewController.swift */,
+				CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */,
+				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";

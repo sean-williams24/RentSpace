@@ -24,7 +24,7 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print("My spaces VC view will appear")
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
                 self.signedOutView.isHidden = true
