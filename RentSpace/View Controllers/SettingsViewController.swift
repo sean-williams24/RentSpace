@@ -17,8 +17,12 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        signOutButton.layer.cornerRadius = 5
+        
+        if let currentUser = Settings.currentUser?.email {
+            signOutButton.setTitle("SIGN OUT (\(currentUser))", for: .normal)
+        }
     }
     
 

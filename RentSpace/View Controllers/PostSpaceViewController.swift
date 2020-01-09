@@ -79,6 +79,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             } else {
                 self.signedOutView.isHidden = true
                 self.postButton.isEnabled = true
+                Settings.currentUser = user
             }
         })
     }
@@ -92,7 +93,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         let postcode = UserDefaults.standard.string(forKey: "PostCode") ?? ""
         
         locationButton.titleLabel?.text = " \(postcode) / \(email)"
-        if email == "" {
+        if email == "" || postcode == "" {
             locationButton.titleLabel?.text = "  Contact & Address"
         }
         

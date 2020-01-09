@@ -14,8 +14,8 @@
             filePath = "RentSpace/View Controllers/PostSpaceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
             landmarkName = "uploadToFirebase(_:)"
             landmarkType = "7">
             <Locations>
@@ -30,8 +30,8 @@
                   urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "236"
-                  endingLineNumber = "236"
+                  startingLineNumber = "237"
+                  endingLineNumber = "237"
                   offsetFromSymbolStart = "7805">
                </Location>
                <Location
@@ -45,8 +45,8 @@
                   urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "237"
-                  endingLineNumber = "237"
+                  startingLineNumber = "238"
+                  endingLineNumber = "238"
                   offsetFromSymbolStart = "138">
                </Location>
             </Locations>

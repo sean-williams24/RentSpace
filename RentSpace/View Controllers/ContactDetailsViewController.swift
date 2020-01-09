@@ -52,7 +52,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
                 
-//        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
+        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
         configureTextFieldPlaceholders(for: phoneNumberTextField, withText: "Phone")
         configureTextFieldPlaceholders(for: streetLabel, withText: "Street")
         configureTextFieldPlaceholders(for: townLabel, withText: "Town")
@@ -108,11 +108,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
 
     // MARK: - Private Methods
 
-    fileprivate func configureTextFieldPlaceholders(for textField: UITextField, withText: String) {
-        textField.attributedPlaceholder = NSAttributedString(string: withText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-        phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: "Phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-    }
+
     
     
     func addAddress(name: String, address: String, street: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {

@@ -36,13 +36,18 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = 5
+        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
+        configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")
+        
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
 //        GIDSignIn.sharedInstance().signIn()
         
         let loginButton = FBLoginButton(permissions: [ .publicProfile, .email ])
+        loginButton.permissions = ["email"]
+        
         // TODO - try to use constraints instead of frame
-        loginButton.frame = CGRect(x: 24, y: 425, width: googleSignInButton.frame.width - 8, height: signInButton.frame.height)
+        loginButton.frame = CGRect(x: 24, y: 425, width: view.frame.width - 48, height: signInButton.frame.height)
         loginButton.delegate = self
         view.addSubview(loginButton)
         
@@ -78,17 +83,15 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         
         guard let accessTokenString = AccessToken.current?.tokenString else { return }
         let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
-        print(accessTokenString)
+        
         Auth.auth().signIn(with: credentials) { (FBuser, error) in
             if error != nil {
                 print("Problem signing into FireBase with Facebook:", error?.localizedDescription as Any)
                 return
             }
             print("Successfully logged into FireBase with Facebook user:", FBuser as Any)
-            
-            self.dismiss(animated: true) {
-                //
-            }
+                
+            self.dismiss(animated: true)
         }
 
     }
@@ -102,11 +105,11 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     // MARK: - Action Methods
 
     @IBAction func signInButtonTapped(_ sender: Any) {
-        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authUser, error) in
             if error == nil {
                 self.dismiss(animated: true)
             } else {
-                if let error = error, user == nil {
+                if let error = error, authUser == nil {
                     self.showAlert(title: "Problem Signing In", message: error.localizedDescription)
                 }
             }

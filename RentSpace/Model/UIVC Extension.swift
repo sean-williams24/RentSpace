@@ -81,4 +81,11 @@ extension UIViewController {
         
         return location
     }
+    
+    
+    //MARK: - Format custom textfield placeholders 
+
+    func configureTextFieldPlaceholders(for textField: UITextField, withText: String) {
+        textField.attributedPlaceholder = NSAttributedString(string: withText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+    }
 }

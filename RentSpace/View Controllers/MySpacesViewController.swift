@@ -28,6 +28,7 @@ class MySpacesViewController: UIViewController {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
                 self.signedOutView.isHidden = true
+                Settings.currentUser = user
             } else {
                 self.signedOutView.isHidden = false
             }

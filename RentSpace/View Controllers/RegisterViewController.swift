@@ -29,6 +29,9 @@ class RegisterViewController: UIViewController {
         registerButton.backgroundColor = .darkGray
         registerButton.layer.cornerRadius = 5
         passwordDetailsLabel.alpha = 0
+        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
+        configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")
+        configureTextFieldPlaceholders(for: confirmPasswordTextField, withText: "Confirm Password")
 
         // Detect when a key is pressed in textfields
         emailTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)

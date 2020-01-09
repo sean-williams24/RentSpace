@@ -6,8 +6,10 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import FirebaseUI
 import Foundation
 
 struct Settings {
     static var appID = "572159233515806"
+    static var currentUser: User?
 }
