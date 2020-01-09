@@ -7,6 +7,7 @@
 //
 
 import FirebaseUI
+import FacebookLogin
 import UIKit
 
 class SettingsViewController: UIViewController {
@@ -55,6 +56,8 @@ class SettingsViewController: UIViewController {
           print ("Error signing out: %@", signOutError)
         }
           
+        // Log out of FaceBook
+        LoginManager().logOut()
 
     }
 }

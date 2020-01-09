@@ -43,6 +43,7 @@
 		CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE223C214CC0011243D /* MessageViewController.swift */; };
 		CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE423C23AFF0011243D /* SignInViewController.swift */; };
 		CEF5CBE723C243A80011243D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE623C243A80011243D /* RegisterViewController.swift */; };
+		CEF5CBE923C7258C0011243D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE823C7258C0011243D /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		CEF5CBE223C214CC0011243D /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE423C23AFF0011243D /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE623C243A80011243D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		CEF5CBE823C7258C0011243D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
 				CE6583A42397E26C001FFA8A /* Advert.swift */,
 				CE6583AB239A8A13001FFA8A /* Constants.swift */,
+				CEF5CBE823C7258C0011243D /* Settings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
 				CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */,
+				CEF5CBE923C7258C0011243D /* Settings.swift in Sources */,
 				CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */,
 				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,
 				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,

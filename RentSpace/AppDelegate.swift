@@ -37,8 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-//        return ApplicationDelegate.shared.application(application, open: url, options: options)
-      return GIDSignIn.sharedInstance().handle(url)
+        let appId: String = Settings.appID
+        if url.scheme != nil && url.scheme!.hasPrefix("fb\(appId)") && url.host ==  "authorize" {
+            return ApplicationDelegate.shared.application(application, open: url, options: options)
+        } else {
+        return GIDSignIn.sharedInstance().handle(url)
+        }
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
@@ -71,6 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func saveViewContext () {
           try? dataController.viewContext.save()
       }
+    
+    
+    // MARK: - Google Sign In
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
       // ...

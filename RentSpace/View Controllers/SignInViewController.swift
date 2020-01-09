@@ -40,7 +40,8 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         GIDSignIn.sharedInstance()?.presentingViewController = self
 //        GIDSignIn.sharedInstance().signIn()
         
-        let loginButton = FBLoginButton(permissions: [ .publicProfile ])
+        let loginButton = FBLoginButton(permissions: [ .publicProfile, .email ])
+        // TODO - try to use constraints instead of frame
         loginButton.frame = CGRect(x: 24, y: 425, width: googleSignInButton.frame.width - 8, height: signInButton.frame.height)
         loginButton.delegate = self
         view.addSubview(loginButton)
@@ -71,13 +72,25 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         if error != nil {
-            print(error?.localizedDescription)
+            print(error?.localizedDescription as Any)
             return
         }
         
-        self.dismiss(animated: true) {
-            //
+        guard let accessTokenString = AccessToken.current?.tokenString else { return }
+        let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
+        print(accessTokenString)
+        Auth.auth().signIn(with: credentials) { (FBuser, error) in
+            if error != nil {
+                print("Problem signing into FireBase with Facebook:", error?.localizedDescription as Any)
+                return
+            }
+            print("Successfully logged into FireBase with Facebook user:", FBuser as Any)
+            
+            self.dismiss(animated: true) {
+                //
+            }
         }
+
     }
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
