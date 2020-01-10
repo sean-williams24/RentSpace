@@ -26,15 +26,29 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("My spaces VC view will appear")
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
+                self.mySpaces.removeAll()
+                self.tableView.reloadData()
                 self.signedOutView.isHidden = true
                 Settings.currentUser = user
+                
+                self.ref = Database.database().reference()
+                let UID = Settings.currentUser?.uid
+                self.refHandle = self.ref.child("users/\(UID!)/adverts").observe(.childAdded, with: { (snapShot) in
+                    self.mySpaces.append(snapShot)
+                    self.tableView.reloadData()
+                })
+                
             } else {
                 self.signedOutView.isHidden = false
+                self.mySpaces.removeAll()
+                self.tableView.reloadData()
+                
             }
         }
+        
+
         
     }
 
@@ -43,12 +57,7 @@ class MySpacesViewController: UIViewController {
 
         signInButton.layer.cornerRadius = 5
         
-        ref = Database.database().reference()
-        let UID = Settings.currentUser?.uid
-        refHandle = ref.child("users/\(UID!)/adverts").observe(.childAdded, with: { (snapShot) in
-            self.mySpaces.append(snapShot)
-            self.tableView.reloadData()
-        })
+
         
         
     }
