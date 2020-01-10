@@ -18,9 +18,11 @@ class SettingsViewController: UIViewController {
     
     fileprivate var handle: AuthStateDidChangeListenerHandle!
 
+    
+    // MARK: - Life Cycle
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("Appear VIEW")
         
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
@@ -40,25 +42,16 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         signInOrOutButton.layer.cornerRadius = 5
-        
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        Auth.auth().removeStateDidChangeListener(handle)
+        Auth.auth().removeStateDidChangeListener(handle)
 
     }
+    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+// MARK: - Action Methods
 
     @IBAction func signInOrOutButtonTapped(_ sender: Any) {
         // If there is a user signed in, log them out and set current user to nil
@@ -88,6 +81,9 @@ class SettingsViewController: UIViewController {
 
     }
 }
+
+
+// MARK: - Update SignIn Delegate
 
 extension SettingsViewController: UpdateSignInDelegate {
     func updateSignInButton() {

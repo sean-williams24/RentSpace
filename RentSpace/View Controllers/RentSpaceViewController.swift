@@ -66,9 +66,6 @@ class RentSpaceViewController: UIViewController {
 //        Constants.customCLLocation.coordinate
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
 
     
     override func viewWillDisappear(_ animated: Bool) {

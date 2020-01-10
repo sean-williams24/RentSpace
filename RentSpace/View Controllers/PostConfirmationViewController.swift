@@ -15,20 +15,23 @@ class PostConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func viewAdvertsTapped(_ sender: Any) {
+        dismiss(animated: true) {
+            let tabIndex = 2
+            let window = UIApplication.shared.windows[0]
+            let tabBar = window.rootViewController as? UITabBarController
+            // Change the selected tab item to MySpacesVC
+            tabBar?.selectedIndex = tabIndex
+            
+            // Pop to the root controller of that tab
+            if let vc = tabBar?.viewControllers?[tabIndex] as? UINavigationController {
+                vc.popToRootViewController(animated: true)
+            }
+        }
     }
     
     @IBAction func postAnotherSpaceTapped(_ sender: Any) {

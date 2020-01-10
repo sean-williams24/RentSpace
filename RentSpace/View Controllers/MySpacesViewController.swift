@@ -16,8 +16,10 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
     
-    let mySpaces: [DataSnapshot] = []
+    var mySpaces: [DataSnapshot] = []
+    var ref: DatabaseReference!
     fileprivate var handle: AuthStateDidChangeListenerHandle!
+    fileprivate var refHandle: DatabaseHandle!
     
     
     // MARK: - Life Cycle
@@ -41,6 +43,14 @@ class MySpacesViewController: UIViewController {
 
         signInButton.layer.cornerRadius = 5
         
+        ref = Database.database().reference()
+        let UID = Settings.currentUser?.uid
+        refHandle = ref.child("users/\(UID!)/adverts").observe(.childAdded, with: { (snapShot) in
+            self.mySpaces.append(snapShot)
+            self.tableView.reloadData()
+        })
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,7 +60,8 @@ class MySpacesViewController: UIViewController {
     }
     
     deinit {
-        Auth.auth().removeStateDidChangeListener(handle)
+//        Auth.auth().removeStateDidChangeListener(handle)
+//        ref.child("adverts/\(Constants.userLocationCountry)/Music Studio").removeObserver(withHandle: refHandle)
     }
     
     

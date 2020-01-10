@@ -209,6 +209,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     
     fileprivate func uploadToFirebase(_ imageURLs: [String : String]? = nil) {
+        // Package advert into data object
         let price = "\(self.priceTextField.text!) \(self.priceRateFormatter(rate: self.priceRate))"
         var descriptionText = descriptionTextView.text
         if descriptionText == descriptionViewPlaceholder {
@@ -231,31 +232,40 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                                     Advert.viewOnMap: UserDefaults.standard.bool(forKey: "ViewOnMap")
         ]
         
-//        let country = UserDefaults.standard.string(forKey: "Country")!
-        let path = "adverts/\(self.location)/\(self.category)"
-//        self.ref.child(path).childByAutoId().setValue(data)
-        self.ref.child(path).childByAutoId().setValue(data) { (error, reference) in
+        // Write to Adverts firebase path
+        let UID = Settings.currentUser?.uid
+        let uniqueID = UUID().uuidString
+        let path = "adverts/\(self.location)/\(self.category)/\(UID!)-\(uniqueID)"
+        self.ref.child(path).setValue(data) { (error, reference) in
             if error != nil {
                 print(error?.localizedDescription as Any)
                 // TODO: - HANDLE ERROR
                 return
             }
-            print("Upload Complete")
-            let domain = Bundle.main.bundleIdentifier!
-            UserDefaults.standard.removePersistentDomain(forName: domain)
-            UserDefaults.standard.synchronize()
             
-            self.titleTextField.text = ""
-            self.priceTextField.text = ""
-            self.locationButton.setTitle("Contact & Address", for: .normal)
-            self.configureUI()
-            self.images = []
-            self.imagesToUpload = []
-            self.collectionView.reloadData()
-            
-            // TODO - show modal VC with conformtiaon of upload - link to ad in 'my ads' or dismiss to post another
-            let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
-            self.present(vc, animated: true)
+            self.ref.child("users/\(UID!)/adverts/\(uniqueID)").setValue(data) { (userError, ref) in
+                if userError != nil {
+                    print(userError as Any)
+                }
+                
+                print("Upload Complete")
+                let domain = Bundle.main.bundleIdentifier!
+                UserDefaults.standard.removePersistentDomain(forName: domain)
+                UserDefaults.standard.synchronize()
+                
+                self.titleTextField.text = ""
+                self.priceTextField.text = ""
+                self.locationButton.setTitle("Contact & Address", for: .normal)
+                self.configureUI()
+                self.images = []
+                self.imagesToUpload = []
+                self.collectionView.reloadData()
+                
+                // TODO - show modal VC with conformtiaon of upload - link to ad in 'my ads' or dismiss to post another
+                let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                self.present(vc, animated: true)
+            }
+
         }
         
 

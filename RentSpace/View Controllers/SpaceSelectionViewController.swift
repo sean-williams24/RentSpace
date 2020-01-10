@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import Firebase
 import UIKit
 import MapKit
 
@@ -17,6 +18,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     @IBOutlet var deskButton: UIButton!
     
     var locationManager: CLLocationManager!
+    var handle: AuthStateDidChangeListenerHandle!
+    
+    // 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,6 +33,12 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         }
+        
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                Settings.currentUser = user
+            }
+        })
     }
     
     override func viewDidLoad() {
