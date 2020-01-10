@@ -25,6 +25,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()

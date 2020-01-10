@@ -76,9 +76,6 @@ class MySpacesViewController: UIViewController {
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") {
-//            vc.isModalInPresentation = true
-//            vc.modalPresentationStyle = .currentContext
-//            vc.modalTransitionStyle = .flipHorizontal
             present(vc, animated: true)
         }
     }
@@ -124,7 +121,9 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = advert[Advert.description] as? String
         cell.categoryLabel.text = advert[Advert.category] as? String
         cell.locationLabel.text = formatAddress(for: advert)
-        cell.priceLabel.text = advert[Advert.price] as? String
+        if let price = advert[Advert.price] as? String {
+              cell.priceLabel.text = "£\(price)"
+          }
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
             if let imageURL = imageURLsDict["image 0"] {
             
