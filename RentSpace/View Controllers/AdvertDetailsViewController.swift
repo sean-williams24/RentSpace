@@ -29,11 +29,33 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var emailAddress: String?
     var phoneNumber: String?
     var postcode = ""
+    var editingMode = false
+    var trashButton: UIBarButtonItem!
+    var editButton: UIBarButtonItem!
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         advert = advertSnapshot.value as! [String : Any]
+        
+        trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
+        editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
+        navigationItem.rightBarButtonItems = [trashButton, editButton]
+        
+        if editingMode {
+            trashButton.isEnabled = true
+            trashButton.tintColor = .systemPurple
+            editButton.isEnabled = true
+            editButton.tintColor = .systemPurple
+        } else {
+            trashButton.isEnabled = false
+            trashButton.tintColor = .clear
+            editButton.isEnabled = false
+            editButton.tintColor = .clear
+        }
         
         titleLabel.text = (advert[Advert.title] as! String)
         priceLabel.text = advert[Advert.price] as? String
@@ -87,6 +109,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
         
         setLocationOnMap()
+        
+        print(advertSnapshot.key)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -117,6 +141,37 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
         }
+    }
+    
+    @objc func editAdvert() {
+        
+    }
+    
+    
+    @objc func deleteAdvert() {
+        let category = advert[Advert.category] as! String
+        let key = advertSnapshot.key
+        let UID = Settings.currentUser?.uid
+        let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+
+            let childUpdates = ["adverts/\(Constants.userLocationCountry)/\(category)/\(UID!)-\(key)": NSNull(),
+                                "users/\(UID!)/adverts/\(key)": NSNull()]
+            
+            self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+                print("Deletion completion")
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        
+        present(ac, animated: true)
+        
+
+        
     }
 
     

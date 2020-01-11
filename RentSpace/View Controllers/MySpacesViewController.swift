@@ -148,6 +148,13 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
+        vc.advertSnapshot = mySpaces[indexPath.section]
+        vc.editingMode = true
+        show(vc, sender: self)
+    }
+    
     
     
 }

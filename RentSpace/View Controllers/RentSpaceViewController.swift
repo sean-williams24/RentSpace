@@ -26,6 +26,7 @@ class RentSpaceViewController: UIViewController {
     
 //    var adverts: [DataSnapshot] = []
     var filteredAdverts: [DataSnapshot] = []
+    var array: [DataSnapshot]!
     var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
     var location = ""
@@ -88,36 +89,36 @@ class RentSpaceViewController: UIViewController {
         
         if setMiles == 310.0 {
             // Nationwide results, i.e. all adverts
-            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
-                self.filteredAdverts.append(snapshot)
-                self.tableView.reloadData()
+            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
+                self.filteredAdverts = []
+                for child in snapshot.children {
+                    if let advertSnapshot = child as? DataSnapshot {
+                        self.filteredAdverts.append(advertSnapshot)
+                    }
+                    self.tableView.reloadData()
+                }
             })
         } else {
-            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.childAdded, with: { (snapshot) in
-                let advert = snapshot.value as? NSDictionary ?? [:]
-                let postcode = advert[Advert.postCode] as! String
-                
-                // Get distance of advert location from users chosen location and add to table if within search radius
-                CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
-                    if let placemark = placemark?.first {
-                        let advertLocation = placemark.location
-                        if let distance = advertLocation?.distance(from: userLocation) {
-                            let distanceMiles = distance / 1609.344
+            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
+                self.filteredAdverts = []
+                for child in snapshot.children {
+                    if let advertSnapshot = child as? DataSnapshot {
+                        let advert = advertSnapshot.value as? NSDictionary ?? [:]
+                        let postcode = advert[Advert.postCode] as! String
+                        
+                        // Get distance of advert location from users chosen location and add to table if within search radius
+                        CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
+                            if let placemark = placemark?.first {
+                                let advertLocation = placemark.location
+                                if let distance = advertLocation?.distance(from: userLocation) {
+                                    let distanceInMiles = distance / 1609.344
 
-                            if distanceMiles < setMiles {
-                                print("Distance: \(distanceMiles)")
-                                self.filteredAdverts.append(snapshot)
-                                self.tableView.reloadData()
-                                
-//                                self.distances.append(distanceMiles)
-//
-//                                for (index, dist) in self.distances.enumerated() {
-//                                    if dist <= distanceMiles {
-//                                        self.filteredAdverts.insert(snapshot, at: index)
-//                                        self.tableView.reloadData()
-//                                    }
-//                                    break
-//                                }
+                                    if distanceInMiles < setMiles {
+                                        print("Distance: \(distanceInMiles)")
+                                        self.filteredAdverts.append(advertSnapshot)
+                                        self.tableView.reloadData()
+                                    }
+                                }
                             }
                         }
                     }
@@ -176,7 +177,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         
         let advertSnapshot = filteredAdverts[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]
-        
+                
         // Populate cell content from downloaded advert data from Firebase
         let title = advert[Advert.title] as? String
         cell.titleLabel.text = title?.uppercased()

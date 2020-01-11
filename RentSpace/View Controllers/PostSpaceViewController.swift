@@ -236,6 +236,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         let UID = Settings.currentUser?.uid
         let uniqueID = UUID().uuidString
         let path = "adverts/\(self.location)/\(self.category)/\(UID!)-\(uniqueID)"
+        
         self.ref.child(path).setValue(data) { (error, reference) in
             if error != nil {
                 print(error?.localizedDescription as Any)

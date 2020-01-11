@@ -19,6 +19,13 @@ extension UIViewController {
         present(ac, animated: true)
     }
 
+    func showAlertWithCompletion(title: String, message: String?) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
     
     
     //MARK: - Move view when keyboard appears on bottom text field

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import Firebase
 import MapKit
 import UIKit
 
@@ -22,6 +23,8 @@ class MySpaceDetailsViewController: UIViewController {
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var phoneButton: UIButton!
     @IBOutlet var messagesButton: UIButton!
+    
+    var advert: DataSnapshot!
     
     override func viewDidLoad() {
         super.viewDidLoad()
