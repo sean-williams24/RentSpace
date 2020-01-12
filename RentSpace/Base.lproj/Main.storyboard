@@ -11,7 +11,7 @@
         <!--Post Space-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Post Space" modalTransitionStyle="flipHorizontal" id="BYZ-38-t0r" customClass="PostSpaceViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostSpaceVC" title="Post Space" modalTransitionStyle="flipHorizontal" id="BYZ-38-t0r" customClass="PostSpaceViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="Root View">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -650,7 +650,7 @@ Long press and drag to reorder.</string>
         <!--Post Space-->
         <scene sceneID="t25-wg-0oy">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YRc-DE-pac" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PostSpaceNavVC" automaticallyAdjustsScrollViewInsets="NO" id="YRc-DE-pac" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Post Space" image="studentdesk" catalog="system" id="lVT-b8-n7d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DGn-48-iiF">
@@ -1395,47 +1395,121 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2I0-NO-R4A">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2I0-NO-R4A">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3DY-EW-EmD">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="181.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <size key="titleShadowOffset" width="3" height="4"/>
-                                        <state key="normal" image="Art">
-                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="T2e-aY-bb6" kind="show" id="QGa-Qe-AzT"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8o-th-jq3">
-                                        <rect key="frame" x="0.0" y="181.5" width="414" height="181"/>
-                                        <state key="normal" title="Button" image="Photography Studio"/>
-                                        <connections>
-                                            <segue destination="T2e-aY-bb6" kind="show" id="EiX-kw-otY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cid-Hb-u6q">
-                                        <rect key="frame" x="0.0" y="362.5" width="414" height="181.5"/>
-                                        <state key="normal" title="Button" image="Music Studio"/>
-                                        <connections>
-                                            <segue destination="T2e-aY-bb6" kind="show" id="vhj-rm-nTy"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jb-m5-bdF">
-                                        <rect key="frame" x="0.0" y="544" width="414" height="181"/>
-                                        <state key="normal" title="Button" image="Desk Space"/>
-                                        <connections>
-                                            <action selector="buttonTapped:" destination="jC6-Ux-X3c" eventType="touchUpInside" id="2De-db-sWj"/>
-                                            <segue destination="T2e-aY-bb6" kind="show" id="ieF-Sa-3Ff"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW7-5d-pF2">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="177.5"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.14999999999999999" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3DY-EW-EmD">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="177.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <size key="titleShadowOffset" width="3" height="4"/>
+                                                <state key="normal" image="Art">
+                                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="T2e-aY-bb6" kind="show" id="QGa-Qe-AzT"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintbrush" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7q9-fX-exj">
+                                                <rect key="frame" x="0.0" y="18.5" width="414" height="140"/>
+                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="3DY-EW-EmD" firstAttribute="top" secondItem="fW7-5d-pF2" secondAttribute="top" id="D5Z-TS-0ov"/>
+                                            <constraint firstItem="7q9-fX-exj" firstAttribute="leading" secondItem="fW7-5d-pF2" secondAttribute="leading" id="QfM-YX-Krw"/>
+                                            <constraint firstItem="7q9-fX-exj" firstAttribute="top" secondItem="fW7-5d-pF2" secondAttribute="top" constant="20" id="TXl-2J-lDe"/>
+                                            <constraint firstAttribute="bottom" secondItem="3DY-EW-EmD" secondAttribute="bottom" id="Tca-sj-5j7"/>
+                                            <constraint firstAttribute="bottom" secondItem="7q9-fX-exj" secondAttribute="bottom" constant="20" id="ULQ-ED-4T3"/>
+                                            <constraint firstAttribute="trailing" secondItem="3DY-EW-EmD" secondAttribute="trailing" id="eY3-yh-7U0"/>
+                                            <constraint firstAttribute="trailing" secondItem="7q9-fX-exj" secondAttribute="trailing" id="w63-fH-Rye"/>
+                                            <constraint firstItem="3DY-EW-EmD" firstAttribute="leading" secondItem="fW7-5d-pF2" secondAttribute="leading" id="woN-rZ-ZRR"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Xs-tv-yvg">
+                                        <rect key="frame" x="0.0" y="182.5" width="414" height="177.5"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8o-th-jq3">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="177.5"/>
+                                                <state key="normal" title="Button" image="Photography Studio"/>
+                                                <connections>
+                                                    <segue destination="T2e-aY-bb6" kind="show" id="EiX-kw-otY"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PET-Tm-ZqF">
+                                                <rect key="frame" x="0.0" y="30.5" width="414" height="115.5"/>
+                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="U8o-th-jq3" firstAttribute="top" secondItem="6Xs-tv-yvg" secondAttribute="top" id="0Bv-8H-a9Y"/>
+                                            <constraint firstAttribute="trailing" secondItem="U8o-th-jq3" secondAttribute="trailing" id="EMr-AW-aTL"/>
+                                            <constraint firstItem="U8o-th-jq3" firstAttribute="leading" secondItem="6Xs-tv-yvg" secondAttribute="leading" id="OT0-cM-QBi"/>
+                                            <constraint firstItem="PET-Tm-ZqF" firstAttribute="top" secondItem="6Xs-tv-yvg" secondAttribute="top" constant="30" id="SQF-sU-yhp"/>
+                                            <constraint firstAttribute="bottom" secondItem="U8o-th-jq3" secondAttribute="bottom" id="hNi-zg-jw2"/>
+                                            <constraint firstAttribute="trailing" secondItem="PET-Tm-ZqF" secondAttribute="trailing" id="iMM-rj-yxz"/>
+                                            <constraint firstAttribute="bottom" secondItem="PET-Tm-ZqF" secondAttribute="bottom" constant="30" id="pWH-K7-nsL"/>
+                                            <constraint firstItem="PET-Tm-ZqF" firstAttribute="leading" secondItem="6Xs-tv-yvg" secondAttribute="leading" id="xCB-Tc-zDs"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNi-Jb-3gR">
+                                        <rect key="frame" x="0.0" y="365" width="414" height="177.5"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.14999999999999999" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cid-Hb-u6q">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="177.5"/>
+                                                <state key="normal" title="Button" image="Music Studio"/>
+                                                <connections>
+                                                    <segue destination="T2e-aY-bb6" kind="show" id="vhj-rm-nTy"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="music.mic" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="chi-xL-81Q">
+                                                <rect key="frame" x="0.0" y="31" width="414" height="115.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Cid-Hb-u6q" firstAttribute="leading" secondItem="bNi-Jb-3gR" secondAttribute="leading" id="22D-J1-yny"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cid-Hb-u6q" secondAttribute="trailing" id="IeQ-2c-vkU"/>
+                                            <constraint firstItem="Cid-Hb-u6q" firstAttribute="top" secondItem="bNi-Jb-3gR" secondAttribute="top" id="NZr-dD-EC1"/>
+                                            <constraint firstAttribute="bottom" secondItem="Cid-Hb-u6q" secondAttribute="bottom" id="og3-cG-0my"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXQ-Ec-8Vy">
+                                        <rect key="frame" x="0.0" y="547.5" width="414" height="177.5"/>
+                                        <subviews>
+                                            <button opaque="NO" alpha="0.20000000000000001" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jb-m5-bdF">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="177.5"/>
+                                                <state key="normal" title="Button" image="Desk Space"/>
+                                                <connections>
+                                                    <action selector="buttonTapped:" destination="jC6-Ux-X3c" eventType="touchUpInside" id="2De-db-sWj"/>
+                                                    <segue destination="T2e-aY-bb6" kind="show" id="ieF-Sa-3Ff"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="desktopcomputer" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xhl-K4-63A">
+                                                <rect key="frame" x="0.0" y="30.5" width="414" height="115.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="2jb-m5-bdF" secondAttribute="bottom" id="8B8-Rn-lGw"/>
+                                            <constraint firstItem="2jb-m5-bdF" firstAttribute="leading" secondItem="PXQ-Ec-8Vy" secondAttribute="leading" id="Pqu-7V-WJX"/>
+                                            <constraint firstItem="2jb-m5-bdF" firstAttribute="top" secondItem="PXQ-Ec-8Vy" secondAttribute="top" id="Rkq-Ng-P82"/>
+                                            <constraint firstAttribute="trailing" secondItem="2jb-m5-bdF" secondAttribute="trailing" id="Z4O-w5-UOu"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="2I0-NO-R4A" firstAttribute="top" secondItem="Yqh-ee-8Ng" secondAttribute="top" id="9t8-KN-Tbq"/>
                             <constraint firstItem="2I0-NO-R4A" firstAttribute="leading" secondItem="Yqh-ee-8Ng" secondAttribute="leading" id="Cwb-Sg-OQ7"/>
@@ -2225,6 +2299,7 @@ Only the best gear here.</string>
         <image name="arrow.right.square.fill" catalog="system" width="64" height="56"/>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="checkmark.rectangle.fill" catalog="system" width="64" height="46"/>
+        <image name="desktopcomputer" catalog="system" width="64" height="50"/>
         <image name="edit" width="16" height="16"/>
         <image name="envelope" catalog="system" width="64" height="46"/>
         <image name="eye" catalog="system" width="64" height="40"/>
@@ -2234,12 +2309,14 @@ Only the best gear here.</string>
         <image name="location.fill" catalog="system" width="64" height="56"/>
         <image name="message" catalog="system" width="64" height="56"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>
+        <image name="music.mic" catalog="system" width="64" height="58"/>
+        <image name="paintbrush" catalog="system" width="64" height="64"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="phone" catalog="system" width="64" height="56"/>
         <image name="studentdesk" catalog="system" width="62" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ieF-Sa-3Ff"/>
+        <segue reference="EiX-kw-otY"/>
     </inferredMetricsTieBreakers>
 </document>

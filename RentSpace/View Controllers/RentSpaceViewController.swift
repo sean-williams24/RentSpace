@@ -36,6 +36,9 @@ class RentSpaceViewController: UIViewController {
     var distances: [Double] = []
     
     
+    // MARK: - Life Cycle
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     

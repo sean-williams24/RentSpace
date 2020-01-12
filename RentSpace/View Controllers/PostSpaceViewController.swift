@@ -42,14 +42,20 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var priceRate = "Hourly"
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
- 
+    var advert: [String : Any] = [:]
+    var inUpdateMode = false
     
     //MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
+        
+        if inUpdateMode {
+            loadAdvertToUpdate()
+        }
+        
+
 
         if UIDevice.current.userInterfaceIdiom == .pad {
             collectionViewHeightConstraint.constant = 420
@@ -117,6 +123,18 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     //MARK: - Private Methods
     
+    func loadAdvertToUpdate() {
+        postButton.title = "Update Ad"
+        
+        titleTextField.text = advert[Advert.title] as? String
+        descriptionTextView.text = advert[Advert.description] as? String
+        category = advert[Advert.category] as? String ?? "Art Studio"
+        for (i, spaceType) in spaceTypePickerContent.enumerated() {
+            if spaceType == category {
+                spaceTypePicker.selectRow(i, inComponent: 0, animated: true)
+            }
+        }
+    }
     
      fileprivate func configureUI() {
          // Title textfield
@@ -140,36 +158,18 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
          locationButton.titleLabel?.textAlignment = .center
          NSLayoutConstraint.activate([(locationButton.titleLabel?.widthAnchor.constraint(equalToConstant: locationButton.frame.width))!])
          
-         // Space type picker
+         // Space type & Price rate pickers
          spaceTypePicker.dataSource = self
          spaceTypePicker.delegate = self
          priceRatePicker.dataSource = self
          priceRatePicker.delegate = self
          spaceTypePickerContent = ["Art Studio", "Photography Studio", "Music Studio", "Desk Space"]
          priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly", "Annually"]
-         
-         // Price textFields
-         //        var paddingWidth: CGFloat = 15
-         //        if Constants.userLocation == "United Kingdom" {
-         //            currencyTextField.text = "£"
-         //            paddingWidth = 35
-         //        } else if Constants.userLocation == "United States" || Constants.userLocation == "Australia" || Constants.userLocation == "Canada" {
-         //            currencyTextField.text = "$"
-         //            paddingWidth = 35
-         //        }
-         
-         //        let leftPadView1 = UIView(frame: CGRect(x: 0, y: 0, width: paddingWidth, height: currencyTextField.frame.height))
-         //        currencyTextField.leftView = leftPadView1
-         //        currencyTextField.leftViewMode = .always
-         //        currencyTextField.attributedPlaceholder = NSAttributedString(string: "Currency", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
-         
-//         let leftPadView2 = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
-//         priceTextField.leftView = leftPadView2
-//         priceTextField.leftViewMode = .always
+
          priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         
-        signInButton.layer.cornerRadius = 5
-        uploadView.isHidden = true
+         signInButton.layer.cornerRadius = 5
+         uploadView.isHidden = true
      }
     
     func getDocumentsDirectory() -> URL {

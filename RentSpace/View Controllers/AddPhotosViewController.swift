@@ -36,6 +36,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     var pickedImages = [UIImage]()
     
     
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.allowsMultipleSelection = true

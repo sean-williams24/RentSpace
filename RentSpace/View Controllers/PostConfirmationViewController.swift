@@ -11,6 +11,7 @@ import UIKit
 class PostConfirmationViewController: UIViewController {
     
     
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -40,10 +40,17 @@ class MySpacesViewController: UIViewController {
                     self.tableView.reloadData()
                 })
                 
+                self.title = Settings.currentUser?.email
+                if let displayName = Settings.currentUser?.displayName {
+                    self.title = displayName
+                }
+                
             } else {
                 self.signedOutView.isHidden = false
                 self.mySpaces.removeAll()
                 self.tableView.reloadData()
+                self.title = nil
+                self.tabBarController?.tabBar.items?[2].title = "My Spaces"
                 
             }
         }

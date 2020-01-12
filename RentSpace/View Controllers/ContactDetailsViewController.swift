@@ -35,6 +35,8 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
 //    var viewOnMap = true
     
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

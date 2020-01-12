@@ -18,6 +18,8 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
     var handleAddressSelectionDelegate: HandleAddressSelection? = nil
     
 
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

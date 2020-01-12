@@ -20,7 +20,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     var locationManager: CLLocationManager!
     var handle: AuthStateDidChangeListenerHandle!
     
-    // 
+    // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -100,19 +100,19 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 //        button.layer.shadowOpacity = 1
 //        button.layer.shadowRadius = 4
 //        button.layer.shadowOffset = CGSize(width: 1, height: 2)
-        
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 28, weight: .light)
-        label.textColor = .white
-        label.text = text
-        label.textAlignment = .center
-        button.addSubview(label)
+
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+  //      label.font = UIFont.systemFont(ofSize: 28, weight: .light)
+    //    label.textColor = .white
+      //  label.text = text
+        //label.textAlignment = .center
+        //button.addSubview(label)
         
         NSLayoutConstraint.activate([
-            label.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+//            label.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+//            label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 28),
 //            label.topAnchor.constraint(equalToSystemSpacingBelow: button.topAnchor, multiplier: 0),
-            label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 28),
 //            label.centerXAnchor.constraint(equalTo: button.centerXAnchor),
 //            label.centerYAnchor.constraint(equalTo: button.centerYAnchor)
         ])

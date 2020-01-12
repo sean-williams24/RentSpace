@@ -23,6 +23,9 @@ class RegisterViewController: UIViewController {
     var emailValidated = false
     var passwordValidated = false
 
+    
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         registerButton.isEnabled = false

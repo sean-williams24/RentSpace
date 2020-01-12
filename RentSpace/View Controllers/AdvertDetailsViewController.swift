@@ -34,6 +34,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var editButton: UIBarButtonItem!
     var ref: DatabaseReference!
     
+    
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,8 +113,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         setLocationOnMap()
         
-        print(advertSnapshot.key)
+
     }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width
@@ -144,7 +148,12 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc func editAdvert() {
-        
+        if let vc = storyboard?.instantiateViewController(identifier: "PostSpaceNavVC") {
+            let postSpaceVC = vc.children[0] as! PostSpaceViewController
+            postSpaceVC.advert = self.advert
+            postSpaceVC.inUpdateMode = true
+            present(vc, animated: true)
+        }
     }
     
     

@@ -16,11 +16,13 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
     var matchingItems: [MKMapItem] = []
     var handleSetSearchLocationDelegate: handleSetSearchLocation?
     
+    
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
     }
+    
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else { return }

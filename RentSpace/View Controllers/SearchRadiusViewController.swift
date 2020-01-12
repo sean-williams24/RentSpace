@@ -32,8 +32,10 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     var locationUpdated = false
     var distanceUpdated = false
     var pickerDistances = [String]()
-
     
+
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
