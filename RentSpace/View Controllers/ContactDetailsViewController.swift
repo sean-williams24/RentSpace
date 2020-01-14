@@ -11,7 +11,7 @@ import MapKit
 import Contacts
 
 protocol HandleAddressSelection {
-    func addAddress(name: String, address: String, street: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String)
+    func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String)
 }
 
 class ContactDetailsViewController: UIViewController, HandleAddressSelection {
@@ -32,6 +32,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     let searchRequest = MKLocalSearch.Request()
     var resultsSearchController: UISearchController?
     var selectedAddress = ""
+    var inUpdateMode = false
+    var advert: [String : Any] = [:]
+
 //    var viewOnMap = true
     
     
@@ -69,16 +72,29 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
 
         }
 
-        emailTextField.text = UserDefaults.standard.string(forKey: "Email")
-        phoneNumberTextField.text = UserDefaults.standard.string(forKey: "Phone")
-        streetLabel.text = UserDefaults.standard.string(forKey: "Street")
-        townLabel.text = UserDefaults.standard.string(forKey: "Town")
-        cityLabel.text = UserDefaults.standard.string(forKey: "City")
-        countyLabel.text = UserDefaults.standard.string(forKey: "SubAdminArea")
-        stateLabel.text = UserDefaults.standard.string(forKey: "State")
-        countryLabel.text = UserDefaults.standard.string(forKey: "Country")
-        postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
-        viewOnMapSwitch.setOn(UserDefaults.standard.bool(forKey: "ViewOnMap"), animated: true)
+        if inUpdateMode {
+            emailTextField.text = UserDefaults.standard.string(forKey: "UpdateEmail")
+            phoneNumberTextField.text = UserDefaults.standard.string(forKey: "UpdatePhone")
+            townLabel.text = UserDefaults.standard.string(forKey: "UpdateTown")
+            cityLabel.text = UserDefaults.standard.string(forKey: "UpdateCity")
+            countyLabel.text = UserDefaults.standard.string(forKey: "UpdateSubAdminArea")
+            stateLabel.text = UserDefaults.standard.string(forKey: "UpdateState")
+            countryLabel.text = UserDefaults.standard.string(forKey: "UpdateCountry")
+            postcodeLabel.text = UserDefaults.standard.string(forKey: "UpdatePostCode")
+            viewOnMapSwitch.setOn(UserDefaults.standard.bool(forKey: "UpdateViewOnMap"), animated: true)
+            
+        } else {
+            emailTextField.text = UserDefaults.standard.string(forKey: "Email")
+            phoneNumberTextField.text = UserDefaults.standard.string(forKey: "Phone")
+            townLabel.text = UserDefaults.standard.string(forKey: "Town")
+            cityLabel.text = UserDefaults.standard.string(forKey: "City")
+            countyLabel.text = UserDefaults.standard.string(forKey: "SubAdminArea")
+            stateLabel.text = UserDefaults.standard.string(forKey: "State")
+            countryLabel.text = UserDefaults.standard.string(forKey: "Country")
+            postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
+            viewOnMapSwitch.setOn(UserDefaults.standard.bool(forKey: "ViewOnMap"), animated: true)
+        }
+
         
         // Keyboard dismissal
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -91,16 +107,28 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        UserDefaults.standard.set(emailTextField.text, forKey: "Email")
-        UserDefaults.standard.set(phoneNumberTextField.text, forKey: "Phone")
-        UserDefaults.standard.set(streetLabel.text, forKey: "Street")
-        UserDefaults.standard.set(townLabel.text, forKey: "Town")
-        UserDefaults.standard.set(cityLabel.text, forKey: "City")
-        UserDefaults.standard.set(countyLabel.text, forKey: "SubAdminArea")
-        UserDefaults.standard.set(stateLabel.text, forKey: "State")
-        UserDefaults.standard.set(countryLabel.text, forKey: "Country")
-        UserDefaults.standard.set(postcodeLabel.text, forKey: "PostCode")
-        UserDefaults.standard.set(viewOnMapSwitch.isOn, forKey: "ViewOnMap")
+        if inUpdateMode {
+            UserDefaults.standard.set(emailTextField.text, forKey: "UpdateEmail")
+            UserDefaults.standard.set(phoneNumberTextField.text, forKey: "UpdatePhone")
+            UserDefaults.standard.set(townLabel.text, forKey: "UpdateTown")
+            UserDefaults.standard.set(cityLabel.text, forKey: "UpdateCity")
+            UserDefaults.standard.set(countyLabel.text, forKey: "UpdateSubAdminArea")
+            UserDefaults.standard.set(stateLabel.text, forKey: "UpdateState")
+            UserDefaults.standard.set(countryLabel.text, forKey: "UpdateCountry")
+            UserDefaults.standard.set(postcodeLabel.text, forKey: "UpdatePostCode")
+            UserDefaults.standard.set(viewOnMapSwitch.isOn, forKey: "UpdateViewOnMap")
+        } else {
+            UserDefaults.standard.set(emailTextField.text, forKey: "Email")
+            UserDefaults.standard.set(phoneNumberTextField.text, forKey: "Phone")
+            UserDefaults.standard.set(townLabel.text, forKey: "Town")
+            UserDefaults.standard.set(cityLabel.text, forKey: "City")
+            UserDefaults.standard.set(countyLabel.text, forKey: "SubAdminArea")
+            UserDefaults.standard.set(stateLabel.text, forKey: "State")
+            UserDefaults.standard.set(countryLabel.text, forKey: "Country")
+            UserDefaults.standard.set(postcodeLabel.text, forKey: "PostCode")
+            UserDefaults.standard.set(viewOnMapSwitch.isOn, forKey: "ViewOnMap")
+        }
+
     }
     
 
@@ -111,9 +139,10 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
 
     
     
-    func addAddress(name: String, address: String, street: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
+    func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
         
-        streetLabel.text = street
+//        streetLabel.text = street
+        
         if town == "" {
             townLabel.isHidden = true
         } else {

@@ -134,6 +134,26 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 spaceTypePicker.selectRow(i, inComponent: 0, animated: true)
             }
         }
+        
+        priceTextField.text = advert[Advert.price] as? String
+        priceRate = advert[Advert.priceRate] as? String ?? "Hourly"
+        for (i, rate) in priceRatePickerContent.enumerated() {
+            if rate == priceRate {
+                priceRatePicker.selectRow(i, inComponent: 0, animated: true)
+            }
+        }
+
+        UserDefaults.standard.set(advert[Advert.email] as? String, forKey: "UpdateEmail")
+        UserDefaults.standard.set(advert[Advert.phone] as? String, forKey: "UpdatePhone")
+        UserDefaults.standard.set(advert[Advert.town] as? String, forKey: "UpdateTown")
+        UserDefaults.standard.set(advert[Advert.city] as? String, forKey: "UpdateCity")
+        UserDefaults.standard.set(advert[Advert.subAdminArea] as? String, forKey: "UpdateSubAdminArea")
+        UserDefaults.standard.set(advert[Advert.state] as? String, forKey: "UpdateState")
+        UserDefaults.standard.set(advert[Advert.country] as? String, forKey: "UpdateCountry")
+        UserDefaults.standard.set(advert[Advert.postCode] as? String, forKey: "UpdatePostCode")
+        UserDefaults.standard.set(advert[Advert.viewOnMap] as! Bool, forKey: "UpdateViewOnMap")
+        
+        
     }
     
      fileprivate func configureUI() {
@@ -188,29 +208,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
     }
-    
-    func priceRateFormatter(rate: String) -> String {
-        switch rate {
-        case "Hourly":
-            return "Per Hour"
-        case "Daily":
-            return "Per Day"
-        case "Weekly":
-            return "Per Week"
-        case "Monthly":
-            return "Per Month"
-        case "Annually":
-            return "Per Year"
-        default:
-            return "Per Hour"
-        }
-    }
-    
+        
     
     
     fileprivate func uploadToFirebase(_ imageURLs: [String : String]? = nil) {
         // Package advert into data object
-        let price = "\(self.priceTextField.text!) \(self.priceRateFormatter(rate: self.priceRate))"
+//        let price = "\(self.priceTextField.text!) \(self.priceRateFormatter(rate: self.priceRate))"
         var descriptionText = descriptionTextView.text
         if descriptionText == descriptionViewPlaceholder {
             descriptionText = ""
@@ -219,13 +222,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         let data: [String : Any] = [Advert.title: self.titleTextField.text!,
                                     Advert.description: descriptionText as Any,
                                     Advert.category: self.category,
-                                    Advert.price: price,
+                                    Advert.price: priceTextField.text as Any,
+                                    Advert.priceRate: priceRate,
                                     Advert.phone: UserDefaults.standard.string(forKey: "Phone") as Any,
                                     Advert.email: UserDefaults.standard.string(forKey: "Email") as Any,
                                     Advert.address: UserDefaults.standard.string(forKey: "Address") as Any,
                                     Advert.postCode: UserDefaults.standard.string(forKey: "PostCode") as Any,
                                     Advert.city: UserDefaults.standard.string(forKey: "City") as Any,
                                     Advert.subAdminArea: UserDefaults.standard.string(forKey: "SubAdminArea") as Any,
+                                    Advert.state: UserDefaults.standard.string(forKey: "State") as Any,
                                     Advert.country: UserDefaults.standard.string(forKey: "Country") as Any,
                                     Advert.town: UserDefaults.standard.string(forKey: "Town") as Any,
                                     Advert.photos: imageURLs as Any,
@@ -322,6 +327,19 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     deinit {
 
         print("deinit called")
+    }
+    
+    
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if inUpdateMode {
+            let contactVC = segue.destination as! ContactDetailsViewController
+            contactVC.inUpdateMode = true
+            contactVC.advert = advert
+        }
     }
 
     

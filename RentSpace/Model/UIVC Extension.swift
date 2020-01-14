@@ -95,4 +95,27 @@ extension UIViewController {
     func configureTextFieldPlaceholders(for textField: UITextField, withText: String) {
         textField.attributedPlaceholder = NSAttributedString(string: withText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
+    
+    
+    //MARK: - Format price rates
+
+    func priceRateFormatter(rate: String) -> String {
+        switch rate {
+        case "Hourly":
+            return "P/H"
+        case "Daily":
+            return "P/D"
+        case "Weekly":
+            return "P/W"
+        case "Monthly":
+            return "P/M"
+        case "Annually":
+            return "P/Y"
+        default:
+            return "P/H"
+        }
+    }
 }
+
+
+

@@ -70,9 +70,8 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         if let postalAddress = address.postalAddress {
             let formattedAddress = formatter.string(from: postalAddress)
                   
-            handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress, street: postalAddress.street, town: postalAddress.subLocality, city: postalAddress.city, subAdminArea: postalAddress.subAdministrativeArea, state: postalAddress.state, country: postalAddress.country, postCode: postalAddress.postalCode)
+            handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress, town: postalAddress.subLocality, city: postalAddress.city, subAdminArea: postalAddress.subAdministrativeArea, state: postalAddress.state, country: postalAddress.country, postCode: postalAddress.postalCode)
             
-            UserDefaults.standard.set(postalAddress.street, forKey: "Street")
             UserDefaults.standard.set(postalAddress.subLocality, forKey: "Town")
             UserDefaults.standard.set(postalAddress.city, forKey: "City")
             UserDefaults.standard.set(postalAddress.subAdministrativeArea, forKey: "SubAdminArea")

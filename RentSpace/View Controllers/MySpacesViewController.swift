@@ -128,9 +128,11 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = advert[Advert.description] as? String
         cell.categoryLabel.text = advert[Advert.category] as? String
         cell.locationLabel.text = formatAddress(for: advert)
-        if let price = advert[Advert.price] as? String {
-              cell.priceLabel.text = "£\(price)"
-          }
+        
+        if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
+            cell.priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
+        }
+        
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
             if let imageURL = imageURLsDict["image 0"] {
             

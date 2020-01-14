@@ -61,7 +61,10 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
         
         titleLabel.text = (advert[Advert.title] as! String)
-        priceLabel.text = advert[Advert.price] as? String
+        if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
+            priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
+        }
+        
         locationLabel.text = formatAddress(for: advert)
         scrollView.delegate = self
         pageController.hidesForSinglePage = true

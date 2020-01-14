@@ -15,6 +15,7 @@ struct Advert {
     static let description = "description"
     static let category = "category"
     static let price = "price"
+    static let priceRate = "priceRate"
     static let email = "email"
     static let phone = "phone"
     static let address = "address"
@@ -23,6 +24,7 @@ struct Advert {
     static let city = "city"
     static let subAdminArea = "subAdminArea"
     static let postCode = "postcode"
+    static let state = "state"
     static let country = "country"
     static let viewOnMap = "viewOnMap"
 }
