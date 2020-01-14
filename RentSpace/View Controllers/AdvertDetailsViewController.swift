@@ -155,6 +155,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             let postSpaceVC = vc.children[0] as! PostSpaceViewController
             postSpaceVC.advert = self.advert
             postSpaceVC.inUpdateMode = true
+            postSpaceVC.advertSnapshot = advertSnapshot
             present(vc, animated: true)
         }
     }

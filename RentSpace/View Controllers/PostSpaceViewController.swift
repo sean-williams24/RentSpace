@@ -39,6 +39,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var storageRef: StorageReference!
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     var category = "Art Studio"
+    var previousCategory = ""
     var priceRate = "Hourly"
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
@@ -46,6 +47,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var inUpdateMode = false
     var firebaseCloudUIImages = [UIImage]()
     let placeHolderImage = UIImage(named: "imagePlaceholder")
+    let defaults = UserDefaults.standard
+    var advertSnapshot: DataSnapshot!
 
     
     //MARK: - Life Cycle
@@ -100,15 +103,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         }
 
 
-        let email = UserDefaults.standard.string(forKey: "Email") ?? ""
-        let postcode = UserDefaults.standard.string(forKey: "PostCode") ?? ""
+        let email = defaults.string(forKey: "Email") ?? ""
+        let postcode = defaults.string(forKey: "PostCode") ?? ""
         
         locationButton.titleLabel?.text = " \(postcode) / \(email)"
         if email == "" || postcode == "" {
             locationButton.titleLabel?.text = "  Contact & Address"
         }
         
-        location = UserDefaults.standard.string(forKey: "Country") ?? ""
+        location = defaults.string(forKey: "Country") ?? ""
         
         // Add Photos Button
         if images.isEmpty == false {
@@ -129,11 +132,14 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     //MARK: - Private Methods
     
     func loadAdvertToUpdate() {
-        postButton.title = "Update Ad"
+        defaults.removeObject(forKey: "UpdateImages")
         
+        postButton.title = "Update Ad"
         titleTextField.text = advert[Advert.title] as? String
         descriptionTextView.text = advert[Advert.description] as? String
         category = advert[Advert.category] as? String ?? "Art Studio"
+        previousCategory = advert[Advert.category] as? String ?? "Art Studio"
+        
         for (i, spaceType) in spaceTypePickerContent.enumerated() {
             if spaceType == category {
                 spaceTypePicker.selectRow(i, inComponent: 0, animated: true)
@@ -148,15 +154,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
 
-        UserDefaults.standard.set(advert[Advert.email] as? String, forKey: "UpdateEmail")
-        UserDefaults.standard.set(advert[Advert.phone] as? String, forKey: "UpdatePhone")
-        UserDefaults.standard.set(advert[Advert.town] as? String, forKey: "UpdateTown")
-        UserDefaults.standard.set(advert[Advert.city] as? String, forKey: "UpdateCity")
-        UserDefaults.standard.set(advert[Advert.subAdminArea] as? String, forKey: "UpdateSubAdminArea")
-        UserDefaults.standard.set(advert[Advert.state] as? String, forKey: "UpdateState")
-        UserDefaults.standard.set(advert[Advert.country] as? String, forKey: "UpdateCountry")
-        UserDefaults.standard.set(advert[Advert.postCode] as? String, forKey: "UpdatePostCode")
-        UserDefaults.standard.set(advert[Advert.viewOnMap] as! Bool, forKey: "UpdateViewOnMap")
+        defaults.set(advert[Advert.email] as? String, forKey: "UpdateEmail")
+        defaults.set(advert[Advert.phone] as? String, forKey: "UpdatePhone")
+        defaults.set(advert[Advert.town] as? String, forKey: "UpdateTown")
+        defaults.set(advert[Advert.city] as? String, forKey: "UpdateCity")
+        defaults.set(advert[Advert.subAdminArea] as? String, forKey: "UpdateSubAdminArea")
+        defaults.set(advert[Advert.state] as? String, forKey: "UpdateState")
+        defaults.set(advert[Advert.country] as? String, forKey: "UpdateCountry")
+        defaults.set(advert[Advert.postCode] as? String, forKey: "UpdatePostCode")
+        defaults.set(advert[Advert.viewOnMap] as! Bool, forKey: "UpdateViewOnMap")
         
         // Download images from Firebase Storage
         downloadFirebaseImages {
@@ -173,7 +179,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             // Save image file paths to UserDefaults
             let jsonEncoder = JSONEncoder()
             if let savedData = try? jsonEncoder.encode(self.images) {
-                UserDefaults.standard.set(savedData, forKey: "UpdateImages")
+                self.defaults.set(savedData, forKey: "UpdateImages")
             }
             self.collectionView.reloadData()
         }
@@ -270,10 +276,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
     
     
-    fileprivate func uploadToFirebase(_ imageURLs: [String : String]? = nil) {
+    fileprivate func uploadAdvertToFirebase(_ imageURLs: [String : String]? = nil) {
+        
         // Package advert into data object
-//        let price = "\(self.priceTextField.text!) \(self.priceRateFormatter(rate: self.priceRate))"
+        let UD = UserDefaults.standard
         var descriptionText = descriptionTextView.text
+        
         if descriptionText == descriptionViewPlaceholder {
             descriptionText = ""
         }
@@ -283,73 +291,86 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                                     Advert.category: self.category,
                                     Advert.price: priceTextField.text as Any,
                                     Advert.priceRate: priceRate,
-                                    Advert.phone: UserDefaults.standard.string(forKey: "Phone") as Any,
-                                    Advert.email: UserDefaults.standard.string(forKey: "Email") as Any,
-                                    Advert.address: UserDefaults.standard.string(forKey: "Address") as Any,
-                                    Advert.postCode: UserDefaults.standard.string(forKey: "PostCode") as Any,
-                                    Advert.city: UserDefaults.standard.string(forKey: "City") as Any,
-                                    Advert.subAdminArea: UserDefaults.standard.string(forKey: "SubAdminArea") as Any,
-                                    Advert.state: UserDefaults.standard.string(forKey: "State") as Any,
-                                    Advert.country: UserDefaults.standard.string(forKey: "Country") as Any,
-                                    Advert.town: UserDefaults.standard.string(forKey: "Town") as Any,
+                                    Advert.phone: UD.string(forKey: "Phone") as Any,
+                                    Advert.email: UD.string(forKey: "Email") as Any,
+                                    Advert.address: UD.string(forKey: "Address") as Any,
+                                    Advert.postCode: UD.string(forKey: "PostCode") as Any,
+                                    Advert.city: UD.string(forKey: "City") as Any,
+                                    Advert.subAdminArea: UD.string(forKey: "SubAdminArea") as Any,
+                                    Advert.state: UD.string(forKey: "State") as Any,
+                                    Advert.country: UD.string(forKey: "Country") as Any,
+                                    Advert.town: UD.string(forKey: "Town") as Any,
                                     Advert.photos: imageURLs as Any,
-                                    Advert.viewOnMap: UserDefaults.standard.bool(forKey: "ViewOnMap")
+                                    Advert.viewOnMap: UD.bool(forKey: "ViewOnMap")
         ]
         
-        // Write to Adverts firebase path
-        let UID = Settings.currentUser?.uid
-        let uniqueID = UUID().uuidString
-        let path = "adverts/\(self.location)/\(self.category)/\(UID!)-\(uniqueID)"
+        // Write to Adverts firebase pathes
         
-        self.ref.child(path).setValue(data) { (error, reference) in
-            if error != nil {
-                print(error?.localizedDescription as Any)
-                // TODO: - HANDLE ERROR
-                return
-            }
+        let UID = Settings.currentUser?.uid
+        let key = advertSnapshot.key
+        let uniqueID = UUID().uuidString
+        let advertsPath = "adverts/\(self.location)/\(self.category)/\(UID!)-\(uniqueID)"
+        let userPath = "users/\(UID!)/adverts/\(uniqueID)"
+        
+        if inUpdateMode {
+            let childUpdates = ["adverts/\(Constants.userLocationCountry)/\(category)/\(UID!)-\(key)": data,
+                                "adverts/\(Constants.userLocationCountry)/\(previousCategory)/\(UID!)-\(key)": NSNull(),
+                                "users/\(UID!)/adverts/\(key)": data] as [String : Any]
             
-            self.ref.child("users/\(UID!)/adverts/\(uniqueID)").setValue(data) { (userError, ref) in
-                if userError != nil {
-                    print(userError as Any)
+            self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+                print("update completion")
+                // Segue to post conformation
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        } else {
+            self.ref.child(advertsPath).setValue(data) { (error, reference) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                    // TODO: - HANDLE ERROR
+                    return
                 }
                 
-                print("Upload Complete")
-                let domain = Bundle.main.bundleIdentifier!
-                UserDefaults.standard.removePersistentDomain(forName: domain)
-                UserDefaults.standard.synchronize()
-                
-                self.titleTextField.text = ""
-                self.priceTextField.text = ""
-                self.locationButton.setTitle("Contact & Address", for: .normal)
-                self.configureUI()
-                self.images = []
-                self.imagesToUpload = []
-                self.collectionView.reloadData()
-                
-                // TODO - show modal VC with conformtiaon of upload - link to ad in 'my ads' or dismiss to post another
-                let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
-                self.present(vc, animated: true)
+                self.ref.child(userPath).setValue(data) { (userError, ref) in
+                    if userError != nil {
+                        print(userError as Any)
+                    }
+                    
+                    print("Upload Complete")
+                    let domain = Bundle.main.bundleIdentifier!
+                    UD.removePersistentDomain(forName: domain)
+                    UD.synchronize()
+                    
+                    self.titleTextField.text = ""
+                    self.priceTextField.text = ""
+                    self.locationButton.setTitle("Contact & Address", for: .normal)
+                    self.configureUI()
+                    self.images = []
+                    self.imagesToUpload = []
+                    self.collectionView.reloadData()
+                    
+                    let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                    self.present(vc, animated: true)
+                }
             }
-
         }
-        
-
     }
     
     func postAdvert() {
         uploadView.isHidden = false
         if imagesToUpload.isEmpty {
-            uploadToFirebase()
+            uploadAdvertToFirebase()
         } else {
-            uploadAdvertWithImagesToFirebase { (imageURLs) in
-                self.uploadToFirebase(imageURLs)
+            uploadImagesToFirebaseCloudStorage { (imageURLs) in
+                self.uploadAdvertToFirebase(imageURLs)
             }
         }
     }
 
     
-    func uploadAdvertWithImagesToFirebase(completion: @escaping ([String : String]) -> ()) {
-        // Upload images to Firbebase storage
+    func uploadImagesToFirebaseCloudStorage(completion: @escaping ([String : String]) -> ()) {
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
         print("images to upload \(imagesToUpload.count)")

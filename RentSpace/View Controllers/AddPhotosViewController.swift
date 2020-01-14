@@ -137,11 +137,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                 writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
             }
             collectionView.reloadData()
-            if inUpdatingMode {
-                
-            } else {
-                
-            }
             save()
             deleting = false
             selectedImagesIndexPathes.removeAll()
