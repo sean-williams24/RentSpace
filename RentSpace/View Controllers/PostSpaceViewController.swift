@@ -44,6 +44,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var location = ""
     var advert: [String : Any] = [:]
     var inUpdateMode = false
+    var firebaseCloudUIImages = [UIImage]()
+    let placeHolderImage = UIImage(named: "imagePlaceholder")
+
     
     //MARK: - Life Cycle
 
@@ -55,8 +58,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             loadAdvertToUpdate()
         }
         
-
-
         if UIDevice.current.userInterfaceIdiom == .pad {
             collectionViewHeightConstraint.constant = 420
         }
@@ -92,8 +93,11 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadUDImages()
-        collectionView.reloadData()
+        if !inUpdateMode {
+            loadUDImages()
+            collectionView.reloadData()
+        }
+
 
         let email = UserDefaults.standard.string(forKey: "Email") ?? ""
         let postcode = UserDefaults.standard.string(forKey: "PostCode") ?? ""
@@ -153,7 +157,60 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         UserDefaults.standard.set(advert[Advert.postCode] as? String, forKey: "UpdatePostCode")
         UserDefaults.standard.set(advert[Advert.viewOnMap] as! Bool, forKey: "UpdateViewOnMap")
         
+        // Download images from Firebase Storage
+        downloadFirebaseImages {
+            for _ in 0...8 {
+                self.writeImageFileToDisk(image: self.placeHolderImage!, name: "placeholder", at: 0)
+            }
+            
+            for firebaseUIImage in self.firebaseCloudUIImages {
+                let imageName = UUID().uuidString
+                // Create array of images on disk
+                self.writeImageFileToDisk(image: firebaseUIImage, name: imageName, at: 0)
+                self.images.removeLast()
+            }
+            // Save image file paths to UserDefaults
+            let jsonEncoder = JSONEncoder()
+            if let savedData = try? jsonEncoder.encode(self.images) {
+                UserDefaults.standard.set(savedData, forKey: "UpdateImages")
+            }
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // maybe refactor this as its used also in advert deails VC
+    func downloadFirebaseImages(completion: @escaping () -> ()) {
+        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            for i in 0..<imageURLsDict.count {
+                if let imageURL = imageURLsDict["image \(i)"] {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
+                        guard error == nil else {
+                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                            return
+                        }
+                        if let data = data {
+                            if let image = UIImage(data: data) {
+                                self.firebaseCloudUIImages.append(image)
+                                if self.firebaseCloudUIImages.count == imageURLsDict.count {
+                                    completion()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int) {
+        let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
         
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+            try? imageData.write(to: filePath)
+        }
+        
+        let savingImage = Image(imageName: imageName)
+        images.insert(savingImage, at: position)
     }
     
      fileprivate func configureUI() {
@@ -335,11 +392,14 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if inUpdateMode {
-            let contactVC = segue.destination as! ContactDetailsViewController
-            contactVC.inUpdateMode = true
-            contactVC.advert = advert
+        if segue.identifier == "ContactDetails" {
+            if inUpdateMode {
+                let contactVC = segue.destination as! ContactDetailsViewController
+                contactVC.inUpdateMode = true
+                contactVC.advert = advert
+            }
         }
+
     }
 
     

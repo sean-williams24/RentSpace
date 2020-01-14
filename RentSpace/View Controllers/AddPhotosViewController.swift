@@ -92,6 +92,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
     }
     
+    // refactor into extension
     func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int) {
         let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
         

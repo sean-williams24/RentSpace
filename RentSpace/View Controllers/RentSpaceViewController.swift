@@ -210,7 +210,6 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 }
-                
             }
         }
         return cell
