@@ -141,7 +141,7 @@
                                 <state key="normal" image="addPhotos1"/>
                                 <state key="selected" image="addPhotos1"/>
                                 <connections>
-                                    <segue destination="Ru3-vt-OBJ" kind="show" id="cUM-WG-uWI"/>
+                                    <segue destination="Ru3-vt-OBJ" kind="show" identifier="AddPhotos" id="cUM-WG-uWI"/>
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1w7-kO-6Ag">

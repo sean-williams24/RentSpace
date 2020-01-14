@@ -32,12 +32,13 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
     }
-    
+    var inUpdatingMode = false
     var pickedImages = [UIImage]()
     
     
     // MARK: - Life Cycle
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.allowsMultipleSelection = true
@@ -51,15 +52,12 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         cameraButton.tintColor = .systemPurple
         navigationItem.setRightBarButton(cameraButton, animated: true)
         
-        // Load saved images into images array
-        if let imageData = UserDefaults.standard.data(forKey: "Images") {
-            do {
-                let jsonDecoder = JSONDecoder()
-                images = try jsonDecoder.decode([Image].self, from: imageData)
-            } catch {
-                print("Data could not be decoded: \(error)")
-            }
+        if inUpdatingMode {
+            loadImagesFromUserDefaults(forKey: "UpdateImages")
+        } else {
+            loadImagesFromUserDefaults(forKey: "Images")
         }
+        
         
         // If there are no saved images, load in 9 placeholders
         if images.isEmpty {
@@ -78,6 +76,18 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     //MARK: - Private methods
     
+    fileprivate func loadImagesFromUserDefaults(forKey UDimages: String) {
+        // Load saved images into images array
+        if let imageData = UserDefaults.standard.data(forKey: UDimages) {
+            do {
+                let jsonDecoder = JSONDecoder()
+                images = try jsonDecoder.decode([Image].self, from: imageData)
+            } catch {
+                print("Data could not be decoded: \(error)")
+            }
+        }
+    }
+    
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return path[0]
@@ -88,7 +98,11 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         let jsonEncoder = JSONEncoder()
         
         if let savedData = try? jsonEncoder.encode(images) {
-            UserDefaults.standard.set(savedData, forKey: "Images")
+            if inUpdatingMode {
+                UserDefaults.standard.set(savedData, forKey: "UpdateImages")
+            } else {
+                UserDefaults.standard.set(savedData, forKey: "Images")
+            }
         }
     }
     
@@ -123,6 +137,11 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                 writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
             }
             collectionView.reloadData()
+            if inUpdatingMode {
+                
+            } else {
+                
+            }
             save()
             deleting = false
             selectedImagesIndexPathes.removeAll()

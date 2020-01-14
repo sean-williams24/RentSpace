@@ -93,9 +93,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if !inUpdateMode {
-            loadUDImages()
-            collectionView.reloadData()
+        if inUpdateMode {
+            loadUDImages(for: "UpdateImages")
+        } else {
+            loadUDImages(for: "Images")
         }
 
 
@@ -254,8 +255,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         return path[0]
     }
     
-    fileprivate func loadUDImages() {
-        if let imageData = UserDefaults.standard.data(forKey: "Images") {
+    fileprivate func loadUDImages(for key: String) {
+        if let imageData = UserDefaults.standard.data(forKey: key) {
             do {
                 let jsonDecoder = JSONDecoder()
                 images = try jsonDecoder.decode([Image].self, from: imageData)
@@ -264,6 +265,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 print("Data could not be decoded: \(error)")
             }
         }
+        collectionView.reloadData()
     }
         
     
@@ -397,6 +399,11 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 let contactVC = segue.destination as! ContactDetailsViewController
                 contactVC.inUpdateMode = true
                 contactVC.advert = advert
+            }
+        } else if segue.identifier == "AddPhotos" {
+            if inUpdateMode {
+                let addPhotosVC = segue.destination as! AddPhotosViewController
+                addPhotosVC.inUpdatingMode = true
             }
         }
 
