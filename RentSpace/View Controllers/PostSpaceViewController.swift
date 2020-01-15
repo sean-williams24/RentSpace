@@ -44,7 +44,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
     var advert: [String : Any] = [:]
-    var inUpdateMode = false
+    var updatingAdvert = false
     var firebaseCloudUIImages = [UIImage]()
     let placeHolderImage = UIImage(named: "imagePlaceholder")
     
@@ -56,7 +56,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var UID = ""
     var uniqueAdvertID = ""
     var key = ""
-    var imageURLsDict: [String:String] = [:]
+    var firebaseImageURLsDict: [String:String] = [:]
 
     
     //MARK: - Life Cycle
@@ -65,7 +65,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         super.viewDidLoad()
         configureUI()
         
-        if inUpdateMode {
+        if updatingAdvert {
             loadAdvertToUpdate()
         }
         
@@ -106,7 +106,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         super.viewDidAppear(animated)
         var email = ""
         var postcode = ""
-        if inUpdateMode {
+        if updatingAdvert {
             loadUDImages(for: "UpdateImages")
             email = defaults.string(forKey: "UpdateEmail") ?? ""
             postcode = defaults.string(forKey: "UpdatePostCode") ?? ""
@@ -131,6 +131,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 self.addPhotosButton.imageView?.alpha = 0.1
             }
         }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -200,7 +201,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     // maybe refactor this as its used also in advert deails VC
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
-            self.imageURLsDict = imageURLsDict
+            self.firebaseImageURLsDict = imageURLsDict
             for i in 0..<imageURLsDict.count {
                 if let imageURL = imageURLsDict["image \(i)"] {
                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -279,7 +280,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             do {
                 let jsonDecoder = JSONDecoder()
                 images = try jsonDecoder.decode([Image].self, from: imageData)
-                print("User defaults images loaded: \(images.count)")
             } catch {
                 print("Data could not be decoded: \(error)")
             }
@@ -297,7 +297,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             descriptionText = ""
         }
         
-        if inUpdateMode {
+        if updatingAdvert {
             update = "Update"
         }
         
@@ -321,7 +321,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         // Write to Adverts firebase pathes
         
-        if inUpdateMode {
+        if updatingAdvert {
             var childUpdates = ["\(advertsPath)-\(key)": data,
                                 "\(userAdvertsPath)/\(key)": data] as [String : Any]
             
@@ -335,12 +335,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     print(error?.localizedDescription as Any)
                 }
                 print("update completion")
-                // Segue to post conformation
-                self.navigationController?.popToRootViewController(animated: true)
-                
-                
                 self.images = []
                 self.imagesToUpload = []
+                let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                self.present(vc, animated: true)
             }
         } else {
             self.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data) { (error, reference) in
@@ -383,10 +381,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         userAdvertsPath = "users/\(UID)/adverts"
         uploadView.isHidden = false
         
+        let imagesUpdated = defaults.bool(forKey: "ImagesUpdated")
+        
         // If there are no images to upload - upload directly to Realtime database
         if imagesToUpload.isEmpty {
             // If there are existing images - delete them first
-            if imageURLsDict.count != 0 {
+            if firebaseImageURLsDict.count != 0 {
                 deleteImagesFromFirebaseCloudStorage {
                     self.uploadAdvertToFirebase()
                 }
@@ -394,17 +394,27 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 uploadAdvertToFirebase()
             }
         } else {
-            // If there are images to upload, if we are updating the advert and there are existing images -
+            // If there are images to upload, if we are updating the advert, there are existing images and images have been updated -
             // delete old photos first then upload again to same path in cloud storage.
-            if inUpdateMode && imageURLsDict.count != 0 {
-                print("In update mode")
+            if updatingAdvert && firebaseImageURLsDict.count != 0 && imagesUpdated == true {
+                print("Images have been updated")
                 
                 deleteImagesFromFirebaseCloudStorage {
                         self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
                         self.uploadAdvertToFirebase(imageURLs)
                     }
                 }
+            // If there are images to upload, if we are updating the advert, there are existing images but images have not been updated -
+            // overwrite photos to same path in cloud storage.
+            } else if updatingAdvert && firebaseImageURLsDict.count != 0 && imagesUpdated == false {
+                    print("Images have not been updated")
+
+                    self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
+                    self.uploadAdvertToFirebase(imageURLs)
+                }
+            
             } else {
+                // If posting new advert and there are images to upload
                 uploadImagesToFirebaseCloudStorage { (imageURLs) in
                     self.uploadAdvertToFirebase(imageURLs)
                 }
@@ -415,7 +425,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     func deleteImagesFromFirebaseCloudStorage(completion: @escaping() -> ()) {
         let storage = Storage.storage()
         var deletedImagesCount = 0
-        for (_, imageURL) in imageURLsDict {
+        for (_, imageURL) in firebaseImageURLsDict {
             let storRef = storage.reference(forURL: imageURL)
             storRef.delete { (error) in
                     if let error = error {
@@ -423,7 +433,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     } else {
                         deletedImagesCount += 1
                         print("Image Deleted: \(deletedImagesCount)")
-                        if deletedImagesCount == self.imageURLsDict.count {
+                        if deletedImagesCount == self.firebaseImageURLsDict.count {
                             // Call completion and uploadImagestofirebasestorage
                             print("Uploading to Firebase Storage and Realtime Database")
                             completion()
@@ -447,7 +457,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             
             if let imageData = UIImageVersion?.jpegData(compressionQuality: 0.2) {
                 var imagePath = ""
-                if inUpdateMode {
+                if updatingAdvert {
                     imagePath = "\(userAdvertsPath)/\(key)"
                 } else {
                     imagePath = "\(userAdvertsPath)/\(uniqueAdvertID)"
@@ -492,13 +502,13 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == "ContactDetails" {
-            if inUpdateMode {
+            if updatingAdvert {
                 let contactVC = segue.destination as! ContactDetailsViewController
                 contactVC.inUpdateMode = true
                 contactVC.advert = advert
             }
         } else if segue.identifier == "AddPhotos" {
-            if inUpdateMode {
+            if updatingAdvert {
                 let addPhotosVC = segue.destination as! AddPhotosViewController
                 addPhotosVC.inUpdatingMode = true
             }

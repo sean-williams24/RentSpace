@@ -120,6 +120,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UserDefaults.standard.removeObject(forKey: "ImagesUpdated")
+    }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width
@@ -157,7 +162,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         if let vc = storyboard?.instantiateViewController(identifier: "PostSpaceNavVC") {
             let postSpaceVC = vc.children[0] as! PostSpaceViewController
             postSpaceVC.advert = self.advert
-            postSpaceVC.inUpdateMode = true
+            postSpaceVC.updatingAdvert = true
             postSpaceVC.advertSnapshot = advertSnapshot
             present(vc, animated: true)
         }

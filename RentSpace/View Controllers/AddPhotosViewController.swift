@@ -100,6 +100,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         if let savedData = try? jsonEncoder.encode(images) {
             if inUpdatingMode {
                 UserDefaults.standard.set(savedData, forKey: "UpdateImages")
+                print("Change made to images")
+                UserDefaults.standard.set(true, forKey: "ImagesUpdated")
             } else {
                 UserDefaults.standard.set(savedData, forKey: "Images")
             }
