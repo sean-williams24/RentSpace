@@ -33,6 +33,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var trashButton: UIBarButtonItem!
     var editButton: UIBarButtonItem!
     var ref: DatabaseReference!
+    var imageURLsDict: [String:String] = [:]
     
     
     // MARK: - Life Cycle
@@ -127,8 +128,10 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     //MARK: - Private Methods
     
+    // refactor this and cloud delete to Firebase client class
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            self.imageURLsDict = imageURLsDict
             for i in 0..<imageURLsDict.count {
                 if let imageURL = imageURLsDict["image \(i)"] {
                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -177,16 +180,37 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 }
                 print("Deletion completion")
                 self.navigationController?.popToRootViewController(animated: true)
+                if self.imageURLsDict.count != 0 {
+                    self.deleteImagesFromFirebaseCloudStorage {
+                        print("Images deleted from Cloud Firestore")
+                    }
+                }
             }
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         
         present(ac, animated: true)
-        
-
-        
     }
 
+    
+    func deleteImagesFromFirebaseCloudStorage(completion: @escaping() -> ()) {
+        let storage = Storage.storage()
+        var deletedImagesCount = 0
+        for (_, imageURL) in imageURLsDict {
+            let storRef = storage.reference(forURL: imageURL)
+            storRef.delete { (error) in
+                    if let error = error {
+                    print(error.localizedDescription)
+                    } else {
+                        deletedImagesCount += 1
+                        print("Image Deleted: \(deletedImagesCount)")
+                        if deletedImagesCount == self.imageURLsDict.count {
+                            completion()
+                        }
+                }
+            }
+        }
+    }
     
     //MARK: - Action Methods
 
