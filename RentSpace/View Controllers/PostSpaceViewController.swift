@@ -50,12 +50,13 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     let defaults = UserDefaults.standard
     let UD = UserDefaults.standard
-    var advertSnapshot: DataSnapshot!
+    var advertSnapshot: DataSnapshot?
     var userAdvertsPath = ""
     var advertsPath = ""
     var UID = ""
     var uniqueAdvertID = ""
     var key = ""
+    var imageURLsDict: [String:String] = [:]
 
     
     //MARK: - Life Cycle
@@ -199,6 +200,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     // maybe refactor this as its used also in advert deails VC
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            self.imageURLsDict = imageURLsDict
             for i in 0..<imageURLsDict.count {
                 if let imageURL = imageURLsDict["image \(i)"] {
                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -374,18 +376,59 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     }
     
     func postAdvert() {
-        key = advertSnapshot.key
+        key = advertSnapshot?.key ?? ""
         uniqueAdvertID = UUID().uuidString
         UID = Settings.currentUser!.uid
         advertsPath = "adverts/\(self.location)/\(self.category)/\(UID)"
         userAdvertsPath = "users/\(UID)/adverts"
-        
         uploadView.isHidden = false
+        
+        // If there are no images to upload - upload directly to Realtime database
         if imagesToUpload.isEmpty {
-            uploadAdvertToFirebase()
+            // If there are existing images - delete them first
+            if imageURLsDict.count != 0 {
+                deleteImagesFromFirebaseCloudStorage {
+                    self.uploadAdvertToFirebase()
+                }
+            } else {
+                uploadAdvertToFirebase()
+            }
         } else {
-            uploadImagesToFirebaseCloudStorage { (imageURLs) in
-                self.uploadAdvertToFirebase(imageURLs)
+            // If there are images to upload, if we are updating the advert and there are existing images -
+            // delete old photos first then upload again to same path in cloud storage.
+            if inUpdateMode && imageURLsDict.count != 0 {
+                print("In update mode")
+                
+                deleteImagesFromFirebaseCloudStorage {
+                        self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
+                        self.uploadAdvertToFirebase(imageURLs)
+                    }
+                }
+            } else {
+                uploadImagesToFirebaseCloudStorage { (imageURLs) in
+                    self.uploadAdvertToFirebase(imageURLs)
+                }
+            }
+        }
+    }
+    
+    func deleteImagesFromFirebaseCloudStorage(completion: @escaping() -> ()) {
+        let storage = Storage.storage()
+        var deletedImagesCount = 0
+        for (_, imageURL) in imageURLsDict {
+            let storRef = storage.reference(forURL: imageURL)
+            storRef.delete { (error) in
+                    if let error = error {
+                    print(error.localizedDescription)
+                    } else {
+                        deletedImagesCount += 1
+                        print("Image Deleted: \(deletedImagesCount)")
+                        if deletedImagesCount == self.imageURLsDict.count {
+                            // Call completion and uploadImagestofirebasestorage
+                            print("Uploading to Firebase Storage and Realtime Database")
+                            completion()
+                        }
+                }
             }
         }
     }
@@ -395,7 +438,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
         var imageIndex = 1
+        
         print("images to upload \(imagesToUpload.count)")
+        
         for image in imagesToUpload {
             let imageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
             let UIImageVersion = UIImage(contentsOfFile: imageFile.path)
@@ -403,15 +448,16 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             if let imageData = UIImageVersion?.jpegData(compressionQuality: 0.2) {
                 var imagePath = ""
                 if inUpdateMode {
-                    imagePath = "\(userAdvertsPath)/\(key)/\(imageIndex).jpg"
+                    imagePath = "\(userAdvertsPath)/\(key)"
                 } else {
-                    imagePath = "\(userAdvertsPath)/\(uniqueAdvertID)/\(imageIndex).jpg"
+                    imagePath = "\(userAdvertsPath)/\(uniqueAdvertID)"
                 }
+                
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/jpeg"
-                imageIndex += 1
+                let advertRef = storageRef.child(imagePath)
                 
-                storageRef!.child(imagePath).putData(imageData, metadata: metaData) { (metadata, error) in
+                advertRef.child("\(imageIndex).jpg").putData(imageData, metadata: metaData) { (metadata, error) in
                     if let error = error {
                         print("Error uploading: \(error)")
                         return
@@ -428,6 +474,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                         completion(imageURLs)
                     }
                 }
+                imageIndex += 1
             }
         }
     }
@@ -636,4 +683,11 @@ extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
         
+}
+
+extension String {
+    func deletingPrefix(_ prefix: String) -> String {
+        guard self.hasPrefix(prefix) else { return self }
+        return String(self.dropFirst(prefix.count))
+    }
 }
