@@ -338,6 +338,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 self.images = []
                 self.imagesToUpload = []
                 let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                vc.modalPresentationStyle = .fullScreen
+                vc.updatingAdvert = true
                 self.present(vc, animated: true)
             }
         } else {

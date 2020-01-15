@@ -584,8 +584,13 @@ Long press and drag to reorder.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZr-rQ-yte">
-                                <rect key="frame" x="145.5" y="755" width="123" height="30"/>
-                                <state key="normal" title="View your adverts">
+                                <rect key="frame" x="20" y="785" width="374" height="40"/>
+                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="zlG-QM-LCn"/>
+                                </constraints>
+                                <state key="normal" title="VIEW YOUR ADVERTS">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -593,8 +598,13 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uw7-Jb-Ck0">
-                                <rect key="frame" x="140.5" y="799" width="133" height="30"/>
-                                <state key="normal" title="Post another space">
+                                <rect key="frame" x="20" y="733" width="374" height="40"/>
+                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Rim-Ng-7j2"/>
+                                </constraints>
+                                <state key="normal" title="POST ANOTHER SPACE">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -607,17 +617,24 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="7Io-dD-l7D" firstAttribute="centerX" secondItem="2YR-Ps-uQk" secondAttribute="centerX" id="4V4-QM-huU"/>
                             <constraint firstItem="odU-z7-GxT" firstAttribute="leading" secondItem="2YR-Ps-uQk" secondAttribute="leading" constant="87" id="BjH-1h-VJG"/>
                             <constraint firstItem="n73-0H-nzY" firstAttribute="top" secondItem="7Io-dD-l7D" secondAttribute="bottom" constant="21" id="C4n-Nr-484"/>
-                            <constraint firstItem="SZr-rQ-yte" firstAttribute="centerX" secondItem="2YR-Ps-uQk" secondAttribute="centerX" id="DWk-WA-DxO"/>
+                            <constraint firstItem="2YR-Ps-uQk" firstAttribute="bottom" secondItem="SZr-rQ-yte" secondAttribute="bottom" constant="37" id="Cvl-MX-xzR"/>
                             <constraint firstItem="n73-0H-nzY" firstAttribute="centerX" secondItem="2YR-Ps-uQk" secondAttribute="centerX" id="H5d-Ou-pos"/>
-                            <constraint firstItem="2YR-Ps-uQk" firstAttribute="bottom" secondItem="uw7-Jb-Ck0" secondAttribute="bottom" constant="33" id="JY1-mF-NdX"/>
-                            <constraint firstItem="uw7-Jb-Ck0" firstAttribute="top" secondItem="SZr-rQ-yte" secondAttribute="bottom" constant="14" id="Q8K-Hd-qEc"/>
+                            <constraint firstItem="2YR-Ps-uQk" firstAttribute="trailing" secondItem="SZr-rQ-yte" secondAttribute="trailing" constant="20" id="MMW-q6-HLH"/>
+                            <constraint firstItem="SZr-rQ-yte" firstAttribute="leading" secondItem="2YR-Ps-uQk" secondAttribute="leading" constant="20" id="Oy8-vS-Men"/>
                             <constraint firstItem="2YR-Ps-uQk" firstAttribute="trailing" secondItem="odU-z7-GxT" secondAttribute="trailing" constant="87" id="TuW-oD-x46"/>
-                            <constraint firstItem="uw7-Jb-Ck0" firstAttribute="centerX" secondItem="2YR-Ps-uQk" secondAttribute="centerX" id="VsQ-Rg-Zti"/>
+                            <constraint firstItem="2YR-Ps-uQk" firstAttribute="trailing" secondItem="uw7-Jb-Ck0" secondAttribute="trailing" constant="20" id="WJ6-6V-gz8"/>
+                            <constraint firstItem="SZr-rQ-yte" firstAttribute="top" secondItem="uw7-Jb-Ck0" secondAttribute="bottom" constant="12" id="bNd-Hw-bcz"/>
+                            <constraint firstItem="uw7-Jb-Ck0" firstAttribute="leading" secondItem="2YR-Ps-uQk" secondAttribute="leading" constant="20" id="i2y-pk-BW9"/>
                             <constraint firstItem="odU-z7-GxT" firstAttribute="top" secondItem="2YR-Ps-uQk" secondAttribute="top" constant="85" id="jJy-Xe-CJM"/>
                             <constraint firstItem="7Io-dD-l7D" firstAttribute="top" secondItem="odU-z7-GxT" secondAttribute="bottom" constant="42" id="znY-H1-7AD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2YR-Ps-uQk"/>
                     </view>
+                    <connections>
+                        <outlet property="postAnotherSpaceButton" destination="uw7-Jb-Ck0" id="9aa-XK-41k"/>
+                        <outlet property="updateLabel" destination="n73-0H-nzY" id="sdT-Wj-QBf"/>
+                        <outlet property="viewAdvertsButton" destination="SZr-rQ-yte" id="HQc-we-mLa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQM-C5-NXF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
