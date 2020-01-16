@@ -79,6 +79,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
+        print(storageRef.description)
 
 
     }
@@ -477,9 +478,13 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     
                     // Get URL for photo and add to dictionary
                     let url = self.storageRef!.child((metadata?.path)!).description
-                    imageURLs["image \(uploadedImagesCount)"] = url
+                    let imageStoragePath = self.storageRef!.child((metadata?.name)!).description
+                    let imageNumber = imageStoragePath.deletingPrefix(self.storageRef.description)
+                    print(imageNumber)
+                    imageURLs["image \(imageNumber.first!)"] = url
                     uploadedImagesCount += 1
                     print("uploadoaded images count: \(uploadedImagesCount)")
+                    print(url)
                     
                     // Call completion handler once all images are uploaded, passing in imageURLs
                     if uploadedImagesCount == self.imagesToUpload.count {

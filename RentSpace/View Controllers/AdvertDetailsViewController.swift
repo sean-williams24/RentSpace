@@ -25,7 +25,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     var images = [UIImage]()
     var advertSnapshot: DataSnapshot!
-    var advert: [String : Any] = [:]
+    var advert: [String: Any] = [:]
     var emailAddress: String?
     var phoneNumber: String?
     var postcode = ""
@@ -33,7 +33,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var trashButton: UIBarButtonItem!
     var editButton: UIBarButtonItem!
     var ref: DatabaseReference!
-    var imageURLsDict: [String:String] = [:]
+    var imageURLsDict: [String: String] = [:]
+    var imagesDictionary: [String: UIImage] = [:]
     
     
     // MARK: - Life Cycle
@@ -102,17 +103,34 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         downloadFirebaseImages {
             // Add images to scrollView
-            for i in 0..<self.images.count {
+            print(self.imagesDictionary)
+            var i = 0
+
+            for key in self.imagesDictionary.keys.sorted() {
+                guard let image = self.imagesDictionary[key] else { break }
                 let imageView = UIImageView()
-                imageView.image = self.images[i]
+                imageView.image = image
                 imageView.contentMode = .scaleAspectFill
                 let xPosition = self.view.frame.width * CGFloat(i)
                 imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
 
                 self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
                 self.scrollView.addSubview(imageView)
+                i += 1
             }
-            self.pageController.numberOfPages = self.images.count
+            self.pageController.numberOfPages = self.imagesDictionary.count
+            
+//            for i in 0..<self.images.count {
+//                let imageView = UIImageView()
+//                imageView.image = self.images[i]
+//                imageView.contentMode = .scaleAspectFill
+//                let xPosition = self.view.frame.width * CGFloat(i)
+//                imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
+//
+//                self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
+//                self.scrollView.addSubview(imageView)
+//            }
+//            self.pageController.numberOfPages = self.images.count
         }
         
         setLocationOnMap()
@@ -136,26 +154,54 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     // refactor this and cloud delete to Firebase client class
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+//            let sortedDict = imageURLsDict.sorted() { $0.key > $1.key }
+    //            print(sortedDict)
             self.imageURLsDict = imageURLsDict
-            for i in 0..<imageURLsDict.count {
-                if let imageURL = imageURLsDict["image \(i)"] {
-                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
-                        guard error == nil else {
-                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-                            return
-                        }
-                        if let data = data {
-                            if let image = UIImage(data: data) {
-                                self.images.append(image)
-                                if self.images.count == imageURLsDict.count {
-                                    completion()
-                                }
+            
+            for key in imageURLsDict.keys.sorted()  {
+                guard let value = imageURLsDict[key] else { break }
+                print("\(key), \(value)")
+                
+                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
+                    guard error == nil else {
+                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                        return
+                    }
+                    
+                    if let data = data {
+                        if let image = UIImage(data: data) {
+                            self.images.append(image)
+                            print("KEY: \(key)")
+                            print("VALUE: \(value)")
+                            self.imagesDictionary[key] = image
+                            
+                            if self.images.count == imageURLsDict.count {
+                                completion()
                             }
                         }
                     }
                 }
-            }
+            
+//            for i in 0..<imageURLsDict.count {
+//                if let imageURL = imageURLsDict["image \(i)"] {
+//                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
+//                        guard error == nil else {
+//                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+//                            return
+//                        }
+//                        if let data = data {
+//                            if let image = UIImage(data: data) {
+//                                self.images.append(image)
+//                                if self.images.count == imageURLsDict.count {
+//                                    completion()
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
+    }
     }
     
     @objc func editAdvert() {
