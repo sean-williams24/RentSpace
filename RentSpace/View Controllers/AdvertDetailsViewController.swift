@@ -38,7 +38,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,7 +105,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             // Add images to scrollView
             print(self.imagesDictionary)
             var i = 0
-
+            
             for key in self.imagesDictionary.keys.sorted() {
                 guard let image = self.imagesDictionary[key] else { break }
                 let imageView = UIImageView()
@@ -113,29 +113,17 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 imageView.contentMode = .scaleAspectFill
                 let xPosition = self.view.frame.width * CGFloat(i)
                 imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
-
+                
                 self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
                 self.scrollView.addSubview(imageView)
                 i += 1
             }
             self.pageController.numberOfPages = self.imagesDictionary.count
-            
-//            for i in 0..<self.images.count {
-//                let imageView = UIImageView()
-//                imageView.image = self.images[i]
-//                imageView.contentMode = .scaleAspectFill
-//                let xPosition = self.view.frame.width * CGFloat(i)
-//                imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
-//
-//                self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
-//                self.scrollView.addSubview(imageView)
-//            }
-//            self.pageController.numberOfPages = self.images.count
         }
         
         setLocationOnMap()
         
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -149,60 +137,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         pageController.currentPage = Int(pageIndex)
     }
     
-    //MARK: - Private Methods
     
-    // refactor this and cloud delete to Firebase client class
-    func downloadFirebaseImages(completion: @escaping () -> ()) {
-        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
-//            let sortedDict = imageURLsDict.sorted() { $0.key > $1.key }
-    //            print(sortedDict)
-            self.imageURLsDict = imageURLsDict
-            
-            for key in imageURLsDict.keys.sorted()  {
-                guard let value = imageURLsDict[key] else { break }
-                print("\(key), \(value)")
-                
-                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
-                    guard error == nil else {
-                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-                        return
-                    }
-                    
-                    if let data = data {
-                        if let image = UIImage(data: data) {
-                            self.images.append(image)
-                            print("KEY: \(key)")
-                            print("VALUE: \(value)")
-                            self.imagesDictionary[key] = image
-                            
-                            if self.images.count == imageURLsDict.count {
-                                completion()
-                            }
-                        }
-                    }
-                }
-            
-//            for i in 0..<imageURLsDict.count {
-//                if let imageURL = imageURLsDict["image \(i)"] {
-//                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
-//                        guard error == nil else {
-//                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-//                            return
-//                        }
-//                        if let data = data {
-//                            if let image = UIImage(data: data) {
-//                                self.images.append(image)
-//                                if self.images.count == imageURLsDict.count {
-//                                    completion()
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-        }
-    }
-    }
     
     @objc func editAdvert() {
         if let vc = storyboard?.instantiateViewController(identifier: "PostSpaceNavVC") {
@@ -221,7 +156,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         let UID = Settings.currentUser?.uid
         let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-
+            
             let childUpdates = ["adverts/\(Constants.userLocationCountry)/\(category)/\(UID!)-\(key)": NSNull(),
                                 "users/\(UID!)/adverts/\(key)": NSNull()]
             
@@ -242,7 +177,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         present(ac, animated: true)
     }
-
+    
     
     func deleteImagesFromFirebaseCloudStorage(completion: @escaping() -> ()) {
         let storage = Storage.storage()
@@ -250,21 +185,21 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         for (_, imageURL) in imageURLsDict {
             let storRef = storage.reference(forURL: imageURL)
             storRef.delete { (error) in
-                    if let error = error {
+                if let error = error {
                     print(error.localizedDescription)
-                    } else {
-                        deletedImagesCount += 1
-                        print("Image Deleted: \(deletedImagesCount)")
-                        if deletedImagesCount == self.imageURLsDict.count {
-                            completion()
-                        }
+                } else {
+                    deletedImagesCount += 1
+                    print("Image Deleted: \(deletedImagesCount)")
+                    if deletedImagesCount == self.imageURLsDict.count {
+                        completion()
+                    }
                 }
             }
         }
     }
     
     //MARK: - Action Methods
-
+    
     
     @IBAction func messageButtonTapped(_ sender: Any) {
     }
@@ -286,6 +221,37 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
+extension AdvertDetailsViewController {
+    //MARK: - Private Methods
+    
+    // refactor this and cloud delete to Firebase client class
+    func downloadFirebaseImages(completion: @escaping () -> ()) {
+        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            self.imageURLsDict = imageURLsDict
+            
+            for key in imageURLsDict.keys.sorted()  {
+                guard let value = imageURLsDict[key] else { break }
+                
+                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
+                    guard error == nil else {
+                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                        return
+                    }
+                    
+                    if let data = data {
+                        if let image = UIImage(data: data) {
+                            self.imagesDictionary[key] = image
+                            if self.imagesDictionary.count == imageURLsDict.count {
+                                completion()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 //MARK: - Map Delegates
 
@@ -296,17 +262,49 @@ extension AdvertDetailsViewController: MKMapViewDelegate {
             if error != nil {
                 print(error?.localizedDescription as Any)
             }
-
+            
             if let placemark = placemark?.first {
                 if let coordinate = placemark.location?.coordinate {
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinate
                     self.mapView.addAnnotation(annotation)
-
+                    
                     let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
                     self.mapView.setRegion(region, animated: true)
                 }
             }
         }
     }
+    
+    
+    //    func downloadFirebaseImages(completion: @escaping () -> ()) {
+    //        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+    //            self.imageURLsDict = imageURLsDict
+    //
+    //            for key in imageURLsDict.keys.sorted()  {
+    //                guard let value = imageURLsDict[key] else { break }
+    //                print("\(key), \(value)")
+    //
+    //                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
+    //                    guard error == nil else {
+    //                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+    //                        return
+    //                    }
+    //
+    //                    if let data = data {
+    //                        if let image = UIImage(data: data) {
+    //                            self.images.append(image)
+    //                            print("KEY: \(key)")
+    //                            print("VALUE: \(value)")
+    //                            self.imagesDictionary[key] = image
+    //
+    //                            if self.images.count == imageURLsDict.count {
+    //                                completion()
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //        }
+    //    }
+    //    }
 }
