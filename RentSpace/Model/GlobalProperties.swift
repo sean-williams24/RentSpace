@@ -10,5 +10,7 @@ import Foundation
 
 struct Global {
    static var dataController: DataController!
+//    static var imagesSavedToDisk: [Image] = []
+
 
 }

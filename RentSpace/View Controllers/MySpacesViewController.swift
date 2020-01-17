@@ -55,7 +55,10 @@ class MySpacesViewController: UIViewController {
             }
         }
         
-
+//        for image in Global.imagesSavedToDisk {
+//            let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
+//            deleteFileFromDisk(at: imageURLInDocuments)
+//        }
         
     }
 
@@ -134,7 +137,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
-            if let imageURL = imageURLsDict["image 0"] {
+            if let imageURL = imageURLsDict["image 1"] {
             
                 Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
                     guard error == nil else {

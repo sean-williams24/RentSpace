@@ -78,20 +78,20 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     fileprivate func loadImagesFromUserDefaults(forKey UDimages: String) {
         // Load saved images into images array
-        if let imageData = UserDefaults.standard.data(forKey: UDimages) {
+        if let imageFilePaths = UserDefaults.standard.data(forKey: UDimages) {
             do {
                 let jsonDecoder = JSONDecoder()
-                images = try jsonDecoder.decode([Image].self, from: imageData)
+                images = try jsonDecoder.decode([Image].self, from: imageFilePaths)
             } catch {
                 print("Data could not be decoded: \(error)")
             }
         }
     }
     
-    func getDocumentsDirectory() -> URL {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return path[0]
-    }
+//    func getDocumentsDirectory() -> URL {
+//        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        return path[0]
+//    }
     
     //Encode photos array to json data and save to user defaults
     func save() {
@@ -137,6 +137,9 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             for indexPath in selectedImagesIndexPathes.reversed() {
                 images.remove(at: indexPath.item)
                 writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
+                
+                //TODO - delete photo from disk
+                
             }
             collectionView.reloadData()
             save()

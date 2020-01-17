@@ -115,7 +115,30 @@ extension UIViewController {
             return "P/H"
         }
     }
+    
+    
+    //MARK: - Delete file at URL on disk
+    
+    func deleteFileFromDisk(at URL: URL) {
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: URL)
+        } catch let error as NSError {
+            print(error.debugDescription)
+        }
+    }
+    
+    
+    
+    func getDocumentsDirectory() -> URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return path[0]
+    }
+    
 }
+
+
+
 
 
 

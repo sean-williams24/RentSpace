@@ -81,7 +81,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
-        print(storageRef.description)
         
         
     }
@@ -141,6 +140,19 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
         Auth.auth().removeStateDidChangeListener(handle)
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if self.navigationController!.isBeingDismissed {
+            for image in imagesToUpload {
+                if image.imageName != "placeholder" {
+                    let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
+                    deleteFileFromDisk(at: imageURLInDocuments)
+                }
+            }
+        }
     }
     
     
@@ -185,10 +197,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             for _ in 0...8 {
                 self.writeImageFileToDisk(image: self.placeHolderImage!, name: "placeholder", at: 0)
             }
-            
+            // Save images to disk to create array of filepaths, save to UD so it can be used to load in AddPhotosVC as well as here.
+
             for key in self.imagesDictionary.keys.sorted().reversed() {
                 guard let image = self.imagesDictionary[key] else { break }
-                // Create array of images on disk
                 let imageName = UUID().uuidString
                 self.writeImageFileToDisk(image: image, name: imageName, at: 0)
                 self.imagesSavedToDisk.removeLast()
@@ -239,6 +251,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         let savingImage = Image(imageName: imageName)
         imagesSavedToDisk.insert(savingImage, at: position)
+        
+        // Add to global array so items can be deleted from disk after VC has closed
+//        if imageName != "placeholder" {
+//            Global.imagesSavedToDisk.insert(savingImage, at: position)
+//        }
+        
     }
     
     
@@ -278,10 +296,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         uploadView.isHidden = true
     }
     
-    func getDocumentsDirectory() -> URL {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return path[0]
-    }
+
     
     fileprivate func loadUDImages(for key: String) {
         if let imageData = UserDefaults.standard.data(forKey: key) {
@@ -454,6 +469,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     }
     
     
+    
     func uploadImagesToFirebaseCloudStorage(completion: @escaping ([String : String]) -> ()) {
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
@@ -462,8 +478,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         print("images to upload \(imagesToUpload.count)")
         
         for image in imagesToUpload {
-            let imageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
-            let UIImageVersion = UIImage(contentsOfFile: imageFile.path)
+            let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
+            let UIImageVersion = UIImage(contentsOfFile: imageURLInDocuments.path)
             
             if let imageData = UIImageVersion?.jpegData(compressionQuality: 0.2) {
                 var imagePath = ""
@@ -487,11 +503,13 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     let url = self.storageRef!.child((metadata?.path)!).description
                     let imageStoragePath = self.storageRef!.child((metadata?.name)!).description
                     let imageNumber = imageStoragePath.deletingPrefix(self.storageRef.description)
-                    print(imageNumber)
+                    
                     imageURLs["image \(imageNumber.first!)"] = url
                     uploadedImagesCount += 1
                     print("uploadoaded images count: \(uploadedImagesCount)")
-                    print(url)
+                    
+                    self.deleteFileFromDisk(at: imageURLInDocuments)
+                    
                     
                     // Call completion handler once all images are uploaded, passing in imageURLs
                     if uploadedImagesCount == self.imagesToUpload.count {

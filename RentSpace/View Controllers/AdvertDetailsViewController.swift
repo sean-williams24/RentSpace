@@ -41,7 +41,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(getDocumentsDirectory())
         ref = Database.database().reference()
         
         advert = advertSnapshot.value as! [String : Any]
@@ -129,6 +129,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UserDefaults.standard.removeObject(forKey: "ImagesUpdated")
+        
     }
     
     
@@ -137,7 +138,34 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         pageController.currentPage = Int(pageIndex)
     }
     
+    //MARK: - Private Methods
     
+    // refactor this and cloud delete to Firebase client class
+    func downloadFirebaseImages(completion: @escaping () -> ()) {
+        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+            self.imageURLsDict = imageURLsDict
+            
+            for key in imageURLsDict.keys.sorted()  {
+                guard let value = imageURLsDict[key] else { break }
+                
+                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
+                    guard error == nil else {
+                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                        return
+                    }
+                    
+                    if let data = data {
+                        if let image = UIImage(data: data) {
+                            self.imagesDictionary[key] = image
+                            if self.imagesDictionary.count == imageURLsDict.count {
+                                completion()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     @objc func editAdvert() {
         if let vc = storyboard?.instantiateViewController(identifier: "PostSpaceNavVC") {
@@ -216,37 +244,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         if emailAddress != nil {
             if let url = URL(string: "mailto:\(emailAddress!)") {
                 UIApplication.shared.open(url)
-            }
-        }
-    }
-}
-
-extension AdvertDetailsViewController {
-    //MARK: - Private Methods
-    
-    // refactor this and cloud delete to Firebase client class
-    func downloadFirebaseImages(completion: @escaping () -> ()) {
-        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
-            self.imageURLsDict = imageURLsDict
-            
-            for key in imageURLsDict.keys.sorted()  {
-                guard let value = imageURLsDict[key] else { break }
-                
-                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
-                    guard error == nil else {
-                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-                        return
-                    }
-                    
-                    if let data = data {
-                        if let image = UIImage(data: data) {
-                            self.imagesDictionary[key] = image
-                            if self.imagesDictionary.count == imageURLsDict.count {
-                                completion()
-                            }
-                        }
-                    }
-                }
             }
         }
     }
