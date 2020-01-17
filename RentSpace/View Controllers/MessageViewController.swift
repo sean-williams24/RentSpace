@@ -39,6 +39,8 @@ class MessageViewController: UIViewController {
     
     
     @IBAction func sendMessageButtonTapped(_ sender: Any) {
+        
+        let _ = textFieldShouldReturn(messageTextField)
     }
 }
 
@@ -73,6 +75,34 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+}
+
+extension MessageViewController: UITextFieldDelegate {
     
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if !textField.text!.isEmpty {
+//            textField.endEditing(true)
+            messageTextField.isEnabled = false
+            sendMessageButton.isEnabled = false
+            
+            let messagesDB = Database.database().reference().child("messages")
+            
+            let messageData = ["Sender": Auth.auth().currentUser?.email, "Message": messageTextField.text!]
+            
+            messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
+                if error != nil {
+                    print("Error sending message: \(error?.localizedDescription as Any)")
+                    return
+                } else {
+                    print("Message Sent")
+                    self.messageTextField.isEnabled = true
+                    self.sendMessageButton.isEnabled = true
+                    self.messageTextField.text = ""
+
+                }
+            }
+            
+        }
+        return true
+    }
 }
