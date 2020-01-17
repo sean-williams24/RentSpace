@@ -9,7 +9,6 @@
 import Foundation
 
 class Message {
-    
-    var sender = ""
     var messageBody = ""
+    var sender = ""
 }

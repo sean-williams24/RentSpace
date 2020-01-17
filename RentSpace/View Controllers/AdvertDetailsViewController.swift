@@ -22,6 +22,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var pageController: UIPageControl!
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var phoneButton: UIButton!
+    @IBOutlet var messagesButton: UIButton!
     
     var images = [UIImage]()
     var advertSnapshot: DataSnapshot!
@@ -55,11 +56,13 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             trashButton.tintColor = .systemPurple
             editButton.isEnabled = true
             editButton.tintColor = .systemPurple
+            messagesButton.isHidden = true
         } else {
             trashButton.isEnabled = false
             trashButton.tintColor = .clear
             editButton.isEnabled = false
             editButton.tintColor = .clear
+            messagesButton.isHidden = false
         }
         
         titleLabel.text = (advert[Advert.title] as! String)
@@ -230,6 +233,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     
     @IBAction func messageButtonTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
+        vc.advert = advert
+        vc.advertSnapshot = advertSnapshot
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func phoneButtonTapped(_ sender: Any) {

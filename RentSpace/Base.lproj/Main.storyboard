@@ -1326,6 +1326,7 @@ Only the best gear here.</string>
                         <outlet property="locationIcon" destination="AIm-s0-uiG" id="s0G-Ao-O1z"/>
                         <outlet property="locationLabel" destination="EdI-6D-t79" id="dqw-bP-0ga"/>
                         <outlet property="mapView" destination="HoM-Ul-2MJ" id="Byw-fF-wFH"/>
+                        <outlet property="messagesButton" destination="9JS-xD-q20" id="Cn3-5A-WvM"/>
                         <outlet property="pageController" destination="UKD-xj-gbZ" id="0sO-kz-trD"/>
                         <outlet property="phoneButton" destination="oH1-e6-cRV" id="pJH-ll-SMH"/>
                         <outlet property="priceLabel" destination="l7i-Cl-7qW" id="T1v-qV-7hH"/>
@@ -1841,10 +1842,10 @@ Only the best gear here.</string>
             </objects>
             <point key="canvasLocation" x="1087" y="1628"/>
         </scene>
-        <!--Messages View Controller-->
+        <!--Chats View Controller-->
         <scene sceneID="SuD-NL-XNj">
             <objects>
-                <viewController storyboardIdentifier="MessagesVC" id="VHD-Da-8Eg" customClass="MessagesViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessagesVC" id="VHD-Da-8Eg" customClass="ChatsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NIq-19-2CX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1940,7 +1941,7 @@ Only the best gear here.</string>
         <!--Message View Controller-->
         <scene sceneID="Mcp-an-PWm">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="C9D-wR-qoe" customClass="MessageViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessageVC" hidesBottomBarWhenPushed="YES" id="C9D-wR-qoe" customClass="MessageViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dUK-px-ewl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1994,12 +1995,28 @@ Only the best gear here.</string>
                                 <rect key="frame" x="0.0" y="216" width="414" height="578"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" id="dhE-VG-hwn">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" textLabel="Cvg-I8-dSQ" detailTextLabel="zoy-zi-k3m" rowHeight="76" style="IBUITableViewCellStyleValue1" id="dhE-VG-hwn">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dhE-VG-hwn" id="bs3-V2-lFI">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cvg-I8-dSQ">
+                                                    <rect key="frame" x="20" y="28" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zoy-zi-k3m">
+                                                    <rect key="frame" x="335" y="28" width="59" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                     </tableViewCell>
@@ -2080,11 +2097,12 @@ Only the best gear here.</string>
                         <outlet property="pictureButton" destination="lIB-BM-L5I" id="cBX-KQ-5Zd"/>
                         <outlet property="priceLabel" destination="XXO-jV-MCr" id="eTl-1I-Rjg"/>
                         <outlet property="sendMessageButton" destination="RJ7-O0-aTM" id="Igv-wN-W0Z"/>
+                        <outlet property="tableView" destination="aRT-gQ-hTu" id="fCU-At-7cj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5OV-A5-FBg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2936" y="2729"/>
+            <point key="canvasLocation" x="2934.7826086956525" y="2728.7946428571427"/>
         </scene>
         <!--My Space Details View Controller-->
         <scene sceneID="45m-lO-cBU">

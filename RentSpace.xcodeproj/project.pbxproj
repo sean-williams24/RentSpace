@@ -34,12 +34,13 @@
 		CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */; };
 		CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */; };
 		CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */; };
-		CEC0B93523D1C286004DC4E6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93423D1C286004DC4E6 /* Message.swift */; };
+		CEC0B93523D1C286004DC4E6 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93423D1C286004DC4E6 /* Chat.swift */; };
+		CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93623D21CF4004DC4E6 /* Message.swift */; };
 		CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */; };
 		CEF5CBD923C1DD650011243D /* MySpacesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */; };
 		CEF5CBDB23C1F5E10011243D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */; };
 		CEF5CBDD23C1F7270011243D /* MySpaceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDC23C1F7270011243D /* MySpaceDetailsViewController.swift */; };
-		CEF5CBDF23C1FF250011243D /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */; };
+		CEF5CBDF23C1FF250011243D /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDE23C1FF250011243D /* ChatsViewController.swift */; };
 		CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE023C200FC0011243D /* MessagesTableViewCell.swift */; };
 		CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE223C214CC0011243D /* MessageViewController.swift */; };
 		CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE423C23AFF0011243D /* SignInViewController.swift */; };
@@ -79,12 +80,13 @@
 		CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostConfirmationViewController.swift; sourceTree = "<group>"; };
 		CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRadiusViewController.swift; sourceTree = "<group>"; };
 		CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSearchLocationTableViewController.swift; sourceTree = "<group>"; };
-		CEC0B93423D1C286004DC4E6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		CEC0B93423D1C286004DC4E6 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		CEC0B93623D21CF4004DC4E6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesViewController.swift; sourceTree = "<group>"; };
 		CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesTableViewCell.swift; sourceTree = "<group>"; };
 		CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CEF5CBDC23C1F7270011243D /* MySpaceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpaceDetailsViewController.swift; sourceTree = "<group>"; };
-		CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		CEF5CBDE23C1FF250011243D /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE023C200FC0011243D /* MessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableViewCell.swift; sourceTree = "<group>"; };
 		CEF5CBE223C214CC0011243D /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE423C23AFF0011243D /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -174,7 +176,7 @@
 				CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */,
 				CEF5CBE423C23AFF0011243D /* SignInViewController.swift */,
 				CEF5CBE623C243A80011243D /* RegisterViewController.swift */,
-				CEF5CBDE23C1FF250011243D /* MessagesViewController.swift */,
+				CEF5CBDE23C1FF250011243D /* ChatsViewController.swift */,
 				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
 			);
 			path = "View Controllers";
@@ -191,7 +193,8 @@
 				CE6583A42397E26C001FFA8A /* Advert.swift */,
 				CE6583AB239A8A13001FFA8A /* Constants.swift */,
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
-				CEC0B93423D1C286004DC4E6 /* Message.swift */,
+				CEC0B93423D1C286004DC4E6 /* Chat.swift */,
+				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,10 +348,11 @@
 				CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */,
 				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
 				CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */,
+				CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
 				CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */,
 				CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */,
-				CEC0B93523D1C286004DC4E6 /* Message.swift in Sources */,
+				CEC0B93523D1C286004DC4E6 /* Chat.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
 				CE6583A52397E26C001FFA8A /* Advert.swift in Sources */,
 				CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */,
@@ -358,7 +362,7 @@
 				CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */,
 				CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */,
 				CEF5CBDD23C1F7270011243D /* MySpaceDetailsViewController.swift in Sources */,
-				CEF5CBDF23C1FF250011243D /* MessagesViewController.swift in Sources */,
+				CEF5CBDF23C1FF250011243D /* ChatsViewController.swift in Sources */,
 				CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */,
 				CE5D27CF238EC8AA0098B0FA /* Photo.swift in Sources */,
 				CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */,
