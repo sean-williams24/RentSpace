@@ -28,14 +28,16 @@ class MessageViewController: UIViewController {
     var handle: AuthStateDidChangeListenerHandle!
     var refHandle: DatabaseHandle!
     var chatID = ""
-    var UID = ""
+    var customerUID = ""
+    var chat: Chat!
+    var viewingExistingChat = false
 
     
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UID = Settings.currentUser!.uid
+        customerUID = Settings.currentUser!.uid
         if let ID = advertSnapshot?.key {
             chatID = ID
         }
@@ -47,24 +49,29 @@ class MessageViewController: UIViewController {
 //            print("Chat exists")
 //        })
         
-        let advertTitle = advert[Advert.title] as? String
-//        
-        advertTitleLabel.text = advertTitle
-        locationLabel.text = formatAddress(for: advert)
-        if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
-            priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
+        //        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+        //            //
+        //        })
+        
+        if viewingExistingChat {
+            advertTitleLabel.text = chat.title
+            locationLabel.text = chat.location
+            priceLabel.text = chat.price
+        } else {
+            // New chat initiated
+           let advertTitle = advert[Advert.title] as? String
+           advertTitleLabel.text = advertTitle
+            
+           locationLabel.text = formatAddress(for: advert)
+           if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
+               priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
+           }
         }
-
-//        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-//            //
-//        })
         
         print(chatID)
-        refHandle = ref.child("messages/users/\(UID)/\(chatID)").observe(.childAdded, with: { (dataSnapshot) in
+        refHandle = ref.child("messages/\(chatID)").observe(.childAdded, with: { (dataSnapshot) in
             let message = Message()
-            print(dataSnapshot)
             if let messageSnapshot = dataSnapshot.value as? [String: String] {
-                print("Unwrapped")
                 message.messageBody = messageSnapshot["message"]!
                 message.sender = messageSnapshot["sender"]!
                 self.messages.append(message)
@@ -75,7 +82,7 @@ class MessageViewController: UIViewController {
         
         
     
-
+//        sendMessageButton.imageView?.
 
     }
     
@@ -140,46 +147,84 @@ extension MessageViewController: UITextFieldDelegate {
             messageTextField.isEnabled = false
             sendMessageButton.isEnabled = false
             
-    
-
 //            let chatsDB = Database.database().reference().child("chats/\(conversationID)")
 //            let chatData = ["title": advertTitleLabel.text!, "lastMessage": messageTextField.text!]
             
-            let usersDB = Database.database().reference().child("users/\(UID)/chats/\(chatID)")
-            let userData = ["title": advertTitleLabel.text!, "messageBody": messageTextField.text!, "sender": Auth.auth().currentUser?.email, "chatID": chatID]
-
-            let messagesDB = Database.database().reference().child("messages/users/\(UID)/\(chatID)")
-            let messageData = ["sender": Auth.auth().currentUser?.email, "message": messageTextField.text!]
-            
-            
-            
-            usersDB.setValue(userData) { (error, chatRef) in
-                if error != nil {
-                      print("Error sending message: \(error?.localizedDescription as Any)")
-                      return
-                } else {
-                    print("Message Saved in Chat")
-                    
-                    messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
-                        if error != nil {
-                            print("Error sending message: \(error?.localizedDescription as Any)")
-                            return
-                        } else {
-                            print("Message Sent")
-                            
-                            self.messageTextField.isEnabled = true
-                            self.sendMessageButton.isEnabled = true
-                            self.messageTextField.text = ""
-
-                        }
-                    }
-
-                }
+            var advertOwnerUID = ""
+            if let ownerUID = advert[Advert.postedByUser] as? String {
+                advertOwnerUID = ownerUID
+                print(ownerUID)
+            } else {
+                print("existing chat")
             }
             
             
-
+            if viewingExistingChat {
+                advertOwnerUID = chat.advertOwnerUID
+                customerUID = chat.customerUID
+            }
             
+            let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
+            let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
+            let firstChatData = ["title": advertTitleLabel.text!,
+                            "location": locationLabel.text!,
+                            "price": priceLabel.text!,
+                            "lastMessage": messageTextField.text!,
+                            "sender": Auth.auth().currentUser?.email,
+                            "customerUID": Auth.auth().currentUser?.uid,
+                            "chatID": chatID,
+                            "advertOwnerUID": advertOwnerUID]
+            
+            let existingChatData = ["title": advertTitleLabel.text!,
+                                    "location": locationLabel.text!,
+                                    "price": priceLabel.text!,
+                                    "lastMessage": messageTextField.text!,
+                                    "sender": Auth.auth().currentUser?.email,
+                                    "customerUID": customerUID,
+                                    "chatID": chatID,
+                                    "advertOwnerUID": advertOwnerUID]
+            
+            var chatData: [String:String] = [:]
+            if viewingExistingChat {
+                chatData = existingChatData as! [String : String]
+            } else {
+                chatData = firstChatData as! [String : String]
+            }
+
+            let messagesDB = Database.database().reference().child("messages/\(chatID)")
+            let messageData = ["sender": Auth.auth().currentUser?.email, "message": messageTextField.text!]
+            
+            // Set chat in advert owner/recipients database
+            advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
+                if recipientError != nil {
+                    print("Error uploading to recipient DB: \(recipientError?.localizedDescription as Any)")
+                    return
+                } else {
+                    print("Message sent to recipient")
+                    customerDB.setValue(chatData) { (error, chatRef) in
+                        if error != nil {
+                              print("Error sending message: \(error?.localizedDescription as Any)")
+                              return
+                        } else {
+                            print("Customer DB saved in Chat")
+                            
+                            messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
+                                if error != nil {
+                                    print("Error sending message: \(error?.localizedDescription as Any)")
+                                    return
+                                } else {
+                                    print("Message Sent")
+                                    
+                                    self.messageTextField.isEnabled = true
+                                    self.sendMessageButton.isEnabled = true
+                                    self.messageTextField.text = ""
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         return true
     }

@@ -48,8 +48,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(addOrDeletePhotosTapped(_:)))
         cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addOrDeletePhotosTapped(_:)))
-        trashButton.tintColor = .systemPurple
-        cameraButton.tintColor = .systemPurple
+        trashButton.tintColor = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
+        cameraButton.tintColor = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
         navigationItem.setRightBarButton(cameraButton, animated: true)
         
         if inUpdatingMode {
@@ -162,12 +162,12 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         UINavigationBar.appearance().titleTextAttributes = attributes // Title fonts
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal) // Bar Button fonts
     
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.systemPurple ] // Title color
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Settings.orangeTint ] // Title color
         UINavigationBar.appearance().tintColor = .darkGray // Left. bar buttons
         
-        config.colors.tintColor = .systemPurple // Right bar buttons (actions)
-        config.icons.multipleSelectionOnIcon.withTintColor(.systemPurple)
-        config.colors.multipleItemsSelectedCircleColor = .systemPurple
+        config.colors.tintColor = Settings.orangeTint // Right bar buttons (actions)
+        config.icons.multipleSelectionOnIcon.withTintColor(Settings.orangeTint)
+        config.colors.multipleItemsSelectedCircleColor = Settings.orangeTint
         config.showsCrop = .rectangle(ratio: 1.0)
         config.icons.capturePhotoImage = UIImage(named: "Shutter-Black")!
         config.hidesStatusBar = false

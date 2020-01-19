@@ -14,11 +14,19 @@ class Chat {
     var messageBody: String
     var title: String
     var chatID: String
+    var location: String
+    var price: String
+    var advertOwnerUID: String
+    var customerUID: String
     
-    init(sender: String, messageBody: String, title: String, chatID: String) {
+    init(sender: String, lastMessage: String, title: String, chatID: String, location: String, price: String, advertOwnerUID: String, customerUID: String) {
         self.sender = sender
-        self.messageBody = messageBody
+        self.messageBody = lastMessage
         self.title = title
         self.chatID = chatID
+        self.location = location
+        self.price = price
+        self.advertOwnerUID = advertOwnerUID
+        self.customerUID = customerUID
     }
 }

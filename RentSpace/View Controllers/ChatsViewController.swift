@@ -36,12 +36,15 @@ class ChatsViewController: UIViewController {
                     if  let chat = snapshot.value as? [String: String],
                         let sender = chat["sender"],
                         let title = chat["title"],
-                        let messageBody = chat["messageBody"],
-                        let chatID = chat["chatID"] {
-                        let message = Chat(sender: sender, messageBody: messageBody, title: title, chatID: chatID)
+                        let location = chat["location"],
+                        let price = chat["price"],
+                        let lastMessage = chat["lastMessage"],
+                        let chatID = chat["chatID"],
+                        let advertOwnerUID = chat["advertOwnerUID"],
+                        let customerUID = chat["customerUID"]{
+                        let message = Chat(sender: sender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID)
                         self.chats.append(message)
                         self.tableView.reloadData()
-                        print(self.chats.count)
                         print(chatID)
                     }
                 }
@@ -77,6 +80,8 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
         let chat = chats[indexPath.row]
+        vc.chat = chat
+        vc.viewingExistingChat = true
         vc.chatID = chat.chatID
         navigationController?.pushViewController(vc, animated: true)
     }

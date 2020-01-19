@@ -162,7 +162,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     func loadAdvertToUpdate() {
         defaults.removeObject(forKey: "UpdateImages")
         
-        postButton.title = "Update Ad"
+        postButton.title = "Update"
         titleTextField.text = advert[Advert.title] as? String
         descriptionTextView.text = advert[Advert.description] as? String
         category = advert[Advert.category] as? String ?? "Art Studio"
@@ -340,7 +340,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                                     Advert.country: UD.string(forKey: "\(update)Country") as Any,
                                     Advert.town: UD.string(forKey: "\(update)Town") as Any,
                                     Advert.photos: imageURLs as Any,
-                                    Advert.viewOnMap: UD.bool(forKey: "\(update)ViewOnMap")]
+                                    Advert.viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
+                                    Advert.postedByUser: Settings.currentUser?.uid as Any]
         
         // Write to Adverts firebase pathes
         
@@ -704,7 +705,7 @@ extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.textAlignment = .center
-        label.textColor = .systemPurple
+        label.textColor = .black
         label.layer.borderWidth = .zero
         
         if pickerView.tag == 1 {

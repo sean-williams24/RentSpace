@@ -45,7 +45,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         addressSearchTable.handleSetSearchLocationDelegate = self
          
         let titleButton = UIButton()
-        titleButton.tintColor = .systemPurple
+        titleButton.tintColor = Settings.orangeTint
         titleButton.setTitle("Set Location", for: .normal)
         titleButton.addTarget(self, action: #selector(addressSearch), for: .touchUpInside)
         navigationItem.titleView = titleButton
@@ -174,9 +174,9 @@ extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSour
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textAlignment = .center
-        label.textColor = .systemPurple
+        label.textColor = Settings.orangeTint
         label.layer.borderWidth = .zero
         
         if row == 0 {

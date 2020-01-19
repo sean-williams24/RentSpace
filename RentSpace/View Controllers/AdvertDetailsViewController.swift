@@ -53,19 +53,21 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         if editingMode {
             trashButton.isEnabled = true
-            trashButton.tintColor = .systemPurple
+            trashButton.tintColor = Settings.orangeTint
             editButton.isEnabled = true
-            editButton.tintColor = .systemPurple
-            messagesButton.isHidden = true
+            editButton.tintColor = Settings.orangeTint
+            messagesButton.isEnabled = false
+            messagesButton.tintColor = .clear
         } else {
             trashButton.isEnabled = false
             trashButton.tintColor = .clear
             editButton.isEnabled = false
             editButton.tintColor = .clear
-            messagesButton.isHidden = false
+            messagesButton.isEnabled = true
+            messagesButton.tintColor = Settings.orangeTint
         }
         
-        titleLabel.text = (advert[Advert.title] as! String)
+        titleLabel.text = (advert[Advert.title] as! String).uppercased()
         if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
             priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
         }

@@ -65,7 +65,7 @@ class MySpacesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        signInButton.layer.cornerRadius = 5
+        signInButton.layer.cornerRadius = 2
         
 
         
