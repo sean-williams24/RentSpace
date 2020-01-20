@@ -34,16 +34,20 @@ class ChatsViewController: UIViewController {
                 if let snapshot = child as? DataSnapshot {
                     print("we got the snapshot")
                     if  let chat = snapshot.value as? [String: String],
-                        let sender = chat["sender"],
+                        let latestSender = chat["latestSender"],
                         let title = chat["title"],
                         let location = chat["location"],
                         let price = chat["price"],
                         let lastMessage = chat["lastMessage"],
                         let chatID = chat["chatID"],
                         let advertOwnerUID = chat["advertOwnerUID"],
-                        let customerUID = chat["customerUID"]{
-                        let message = Chat(sender: sender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID)
-                        self.chats.append(message)
+                        let customerUID = chat["customerUID"],
+                        let advertOwnerDisplayName = chat["advertOwnerDisplayName"],
+                        let customerDisplayName = chat["customerDisplayName"] {
+                        
+                        let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName)
+                        
+                        self.chats.append(chat)
                         self.tableView.reloadData()
                         print(chatID)
                     }
@@ -68,11 +72,20 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesTableViewCell
-        let message = chats[indexPath.row]
+        let chat = chats[indexPath.row]
         
-        cell.recipientLabel.text = "RECIPIENT"
-        cell.advertTitleLabel.text = message.title
-        cell.latestMessageLabel.text = "\(message.sender): \(message.messageBody)"
+        var recipient = ""
+        // if logged in user is advert owner, chat recipient is customer
+        if Auth.auth().currentUser?.uid == chat.advertOwnerUID {
+            recipient = chat.customerDisplayName
+        } else {
+            // if logged in user is customer, chat recipient would be advert owner
+            recipient = chat.advertOwnerDisplayName
+        }
+        
+        cell.recipientLabel.text = recipient
+        cell.advertTitleLabel.text = chat.title
+        cell.latestMessageLabel.text = "\(chat.latestSender): \(chat.messageBody)"
     
         return cell
     }

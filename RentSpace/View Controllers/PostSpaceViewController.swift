@@ -341,7 +341,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                                     Advert.town: UD.string(forKey: "\(update)Town") as Any,
                                     Advert.photos: imageURLs as Any,
                                     Advert.viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
-                                    Advert.postedByUser: Settings.currentUser?.uid as Any]
+                                    Advert.postedByUser: Settings.currentUser?.uid as Any,
+                                    Advert.userDisplayName: Settings.currentUser?.displayName as Any]
         
         // Write to Adverts firebase pathes
         

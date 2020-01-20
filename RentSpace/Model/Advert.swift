@@ -28,4 +28,5 @@ struct Advert {
     static let country = "country"
     static let viewOnMap = "viewOnMap"
     static let postedByUser = "postedByUser"
+    static let userDisplayName = "userDisplayName"
 }

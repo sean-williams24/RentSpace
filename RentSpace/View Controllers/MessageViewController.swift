@@ -151,17 +151,23 @@ extension MessageViewController: UITextFieldDelegate {
 //            let chatData = ["title": advertTitleLabel.text!, "lastMessage": messageTextField.text!]
             
             var advertOwnerUID = ""
-            if let ownerUID = advert[Advert.postedByUser] as? String {
+            var advertOwnerDisplayName = ""
+            if let ownerUID = advert[Advert.postedByUser] as? String, let ownerDisplayName = advert[Advert.userDisplayName] as? String {
                 advertOwnerUID = ownerUID
+                advertOwnerDisplayName = ownerDisplayName
                 print(ownerUID)
+                print(advertOwnerDisplayName)
             } else {
                 print("existing chat")
             }
             
-            
+            // If chat already exists, set customer and advert owner data from chat data downloaded from Firebase
+            var customerDisplayName = ""
             if viewingExistingChat {
                 advertOwnerUID = chat.advertOwnerUID
                 customerUID = chat.customerUID
+                customerDisplayName = chat.customerDisplayName
+                advertOwnerDisplayName = chat.advertOwnerDisplayName
             }
             
             let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
@@ -170,19 +176,23 @@ extension MessageViewController: UITextFieldDelegate {
                             "location": locationLabel.text!,
                             "price": priceLabel.text!,
                             "lastMessage": messageTextField.text!,
-                            "sender": Auth.auth().currentUser?.email,
+                            "latestSender": Auth.auth().currentUser?.email,
                             "customerUID": Auth.auth().currentUser?.uid,
+                            "customerDisplayName": Auth.auth().currentUser?.displayName,
                             "chatID": chatID,
-                            "advertOwnerUID": advertOwnerUID]
+                            "advertOwnerUID": advertOwnerUID,
+                            "advertOwnerDisplayName": advertOwnerDisplayName]
             
             let existingChatData = ["title": advertTitleLabel.text!,
                                     "location": locationLabel.text!,
                                     "price": priceLabel.text!,
                                     "lastMessage": messageTextField.text!,
-                                    "sender": Auth.auth().currentUser?.email,
+                                    "latestSender": Auth.auth().currentUser?.email,
                                     "customerUID": customerUID,
+                                    "customerDisplayName": customerDisplayName,
                                     "chatID": chatID,
-                                    "advertOwnerUID": advertOwnerUID]
+                                    "advertOwnerUID": advertOwnerUID,
+                                    "advertOwnerDisplayName": advertOwnerDisplayName]
             
             var chatData: [String:String] = [:]
             if viewingExistingChat {

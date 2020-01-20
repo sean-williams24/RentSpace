@@ -10,7 +10,7 @@ import Foundation
 
 class Chat {
     
-    var sender: String
+    var latestSender: String
     var messageBody: String
     var title: String
     var chatID: String
@@ -18,9 +18,11 @@ class Chat {
     var price: String
     var advertOwnerUID: String
     var customerUID: String
+    var advertOwnerDisplayName: String
+    var customerDisplayName: String
     
-    init(sender: String, lastMessage: String, title: String, chatID: String, location: String, price: String, advertOwnerUID: String, customerUID: String) {
-        self.sender = sender
+    init(latestSender: String, lastMessage: String, title: String, chatID: String, location: String, price: String, advertOwnerUID: String, customerUID: String, advertOwnerDisplayName: String, customerDisplayName: String) {
+        self.latestSender = latestSender
         self.messageBody = lastMessage
         self.title = title
         self.chatID = chatID
@@ -28,5 +30,7 @@ class Chat {
         self.price = price
         self.advertOwnerUID = advertOwnerUID
         self.customerUID = customerUID
+        self.advertOwnerDisplayName = advertOwnerDisplayName
+        self.customerDisplayName = customerDisplayName
     }
 }
