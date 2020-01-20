@@ -32,7 +32,6 @@ class ChatsViewController: UIViewController {
             self.chats.removeAll()
             for child in dataSnapshot.children {
                 if let snapshot = child as? DataSnapshot {
-                    print("we got the snapshot")
                     if  let chat = snapshot.value as? [String: String],
                         let latestSender = chat["latestSender"],
                         let title = chat["title"],
@@ -49,7 +48,6 @@ class ChatsViewController: UIViewController {
                         
                         self.chats.append(chat)
                         self.tableView.reloadData()
-                        print(chatID)
                     }
                 }
             }
@@ -83,9 +81,14 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
             recipient = chat.advertOwnerDisplayName
         }
         
+        var you = ""
+        if chat.latestSender == Auth.auth().currentUser?.email {
+            you = "You: "
+        }
+        
         cell.recipientLabel.text = recipient
         cell.advertTitleLabel.text = chat.title
-        cell.latestMessageLabel.text = "\(chat.latestSender): \(chat.messageBody)"
+        cell.latestMessageLabel.text = "\(you)\(chat.messageBody)"
     
         return cell
     }

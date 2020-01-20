@@ -87,7 +87,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        subscribeToKeyboardNotifications()
+        subscribeToKeyboardNotificationsPostVC()
         imagesToUpload = []
         
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
@@ -620,7 +620,7 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     // - Move screen up
-    @objc func keyboardWillShow(_ notifictation: Notification) {
+    @objc func keyboardWillShowOnPostVC(_ notifictation: Notification) {
         if priceTextField.isEditing {
             view.frame.origin.y = -getKeyboardHeight(notifictation) + 70
         }

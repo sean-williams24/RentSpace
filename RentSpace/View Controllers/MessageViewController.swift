@@ -41,17 +41,9 @@ class MessageViewController: UIViewController {
         if let ID = advertSnapshot?.key {
             chatID = ID
         }
-        print(chatID)
+        
         ref = Database.database().reference()
-
-        
-//        refHandle = ref.child("users/\(UID)/chats/\(conversationID)").observe(.value, with: { (dataSnapshot) in
-//            print("Chat exists")
-//        })
-        
-        //        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-        //            //
-        //        })
+        subscribeToKeyboardNotifications()
         
         if viewingExistingChat {
             advertTitleLabel.text = chat.title
@@ -68,7 +60,6 @@ class MessageViewController: UIViewController {
            }
         }
         
-        print(chatID)
         refHandle = ref.child("messages/\(chatID)").observe(.childAdded, with: { (dataSnapshot) in
             let message = Message()
             if let messageSnapshot = dataSnapshot.value as? [String: String] {
@@ -76,16 +67,16 @@ class MessageViewController: UIViewController {
                 message.sender = messageSnapshot["sender"]!
                 self.messages.append(message)
                 self.tableView.reloadData()
+                
             }
         })
-        
-        
-        
     
-//        sendMessageButton.imageView?.
-
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        unsubscribeFromKeyboardNotifications()
+    }
 
 
 
@@ -155,8 +146,6 @@ extension MessageViewController: UITextFieldDelegate {
             if let ownerUID = advert[Advert.postedByUser] as? String, let ownerDisplayName = advert[Advert.userDisplayName] as? String {
                 advertOwnerUID = ownerUID
                 advertOwnerDisplayName = ownerDisplayName
-                print(ownerUID)
-                print(advertOwnerDisplayName)
             } else {
                 print("existing chat")
             }

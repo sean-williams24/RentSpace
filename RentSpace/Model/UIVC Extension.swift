@@ -29,6 +29,11 @@ extension UIViewController {
     
     
     //MARK: - Move view when keyboard appears on bottom text field
+    
+    // - Move screen up
+    @objc func keyboardWillShow(_ notifictation: Notification) {
+        view.frame.origin.y = -getKeyboardHeight(notifictation)
+    }
 
     // - Move screen down
     @objc func keyboardWillHide(_ notification: Notification) {
@@ -45,8 +50,14 @@ extension UIViewController {
     }
 
     // - Make view controller subscribe to keyboard notifications
+    func subscribeToKeyboardNotificationsPostVC() {
+        NotificationCenter.default.addObserver(self, selector: #selector(PostSpaceViewController.keyboardWillShowOnPostVC(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // - Make view controller subscribe to keyboard notifications
     func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(PostSpaceViewController.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
