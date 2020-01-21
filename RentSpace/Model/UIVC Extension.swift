@@ -140,10 +140,19 @@ extension UIViewController {
     }
     
     
-    
+    //MARK: - Get documents directory on device
+
     func getDocumentsDirectory() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return path[0]
+    }
+    
+    //MARK: - Disnmiss keyboard when view is tapped
+
+    func dismissKeyboardOnViewTap() {
+        // Keyboard dismissal
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
     }
     
 }

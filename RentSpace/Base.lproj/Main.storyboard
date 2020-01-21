@@ -2124,8 +2124,9 @@ Only the best gear here.</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YyV-RV-B2b" userLabel="Send Message View">
                                 <rect key="frame" x="0.0" y="814" width="414" height="48"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-ij-Ly6">
-                                        <rect key="frame" x="34" y="8" width="342" height="32"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-ij-Ly6">
+                                        <rect key="frame" x="34" y="8" width="332" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>
@@ -2145,14 +2146,14 @@ Only the best gear here.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-O0-aTM">
-                                        <rect key="frame" x="381" y="10.5" width="28" height="27.5"/>
+                                        <rect key="frame" x="376" y="10.5" width="28" height="27"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="GLa-zf-ZCj"/>
                                             <constraint firstAttribute="width" constant="28" id="t5L-WU-sRj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                         <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" backgroundImage="paperplane" catalog="system"/>
+                                        <state key="normal" backgroundImage="arrow.up.circle.fill" catalog="system"/>
                                         <connections>
                                             <action selector="sendMessageButtonTapped:" destination="C9D-wR-qoe" eventType="touchUpInside" id="BMB-MK-HkD"/>
                                         </connections>
@@ -2166,9 +2167,9 @@ Only the best gear here.</string>
                                     <constraint firstItem="RJ7-O0-aTM" firstAttribute="top" secondItem="YyV-RV-B2b" secondAttribute="top" constant="10" id="Xfp-7v-OQU"/>
                                     <constraint firstAttribute="bottom" secondItem="gDd-ij-Ly6" secondAttribute="bottom" constant="8" id="YGG-mf-cgO"/>
                                     <constraint firstAttribute="bottom" secondItem="RJ7-O0-aTM" secondAttribute="bottom" constant="10" id="jO7-tx-u4B"/>
-                                    <constraint firstAttribute="trailing" secondItem="RJ7-O0-aTM" secondAttribute="trailing" constant="5" id="xfg-dE-f5b"/>
+                                    <constraint firstAttribute="trailing" secondItem="RJ7-O0-aTM" secondAttribute="trailing" constant="10" id="xfg-dE-f5b"/>
                                     <constraint firstItem="gDd-ij-Ly6" firstAttribute="leading" secondItem="lIB-BM-L5I" secondAttribute="trailing" constant="5" id="y8Z-X5-sVy"/>
-                                    <constraint firstItem="RJ7-O0-aTM" firstAttribute="leading" secondItem="gDd-ij-Ly6" secondAttribute="trailing" constant="5" id="yPo-kn-Bn6"/>
+                                    <constraint firstItem="RJ7-O0-aTM" firstAttribute="leading" secondItem="gDd-ij-Ly6" secondAttribute="trailing" constant="10" id="yPo-kn-Bn6"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2462,6 +2463,7 @@ Only the best gear here.</string>
         <image name="Success" width="500" height="500"/>
         <image name="addPhotos1" width="80" height="80"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
+        <image name="arrow.up.circle.fill" catalog="system" width="64" height="60"/>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="camera.fill" catalog="system" width="64" height="48"/>
         <image name="checkmark.rectangle.fill" catalog="system" width="64" height="46"/>
@@ -2477,7 +2479,6 @@ Only the best gear here.</string>
         <image name="message.fill" catalog="system" width="64" height="56"/>
         <image name="music.mic" catalog="system" width="64" height="58"/>
         <image name="paintbrush" catalog="system" width="64" height="64"/>
-        <image name="paperplane" catalog="system" width="64" height="60"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="phone" catalog="system" width="64" height="56"/>

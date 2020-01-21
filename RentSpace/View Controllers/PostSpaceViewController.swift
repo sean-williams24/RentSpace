@@ -63,6 +63,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     //MARK: - Life Cycle
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -75,9 +76,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             collectionViewHeightConstraint.constant = 420
         }
         
-        // Keyboard dismissal
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(tap)
+        dismissKeyboardOnViewTap()
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
