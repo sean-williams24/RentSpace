@@ -36,6 +36,8 @@
 		CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */; };
 		CEC0B93523D1C286004DC4E6 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93423D1C286004DC4E6 /* Chat.swift */; };
 		CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93623D21CF4004DC4E6 /* Message.swift */; };
+		CEC0B93923D62007004DC4E6 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */; };
+		CEC0B93D23D72013004DC4E6 /* SenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93C23D72013004DC4E6 /* SenderTableViewCell.swift */; };
 		CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */; };
 		CEF5CBD923C1DD650011243D /* MySpacesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */; };
 		CEF5CBDB23C1F5E10011243D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */; };
@@ -82,6 +84,8 @@
 		CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSearchLocationTableViewController.swift; sourceTree = "<group>"; };
 		CEC0B93423D1C286004DC4E6 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		CEC0B93623D21CF4004DC4E6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		CEC0B93C23D72013004DC4E6 /* SenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderTableViewCell.swift; sourceTree = "<group>"; };
 		CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesViewController.swift; sourceTree = "<group>"; };
 		CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesTableViewCell.swift; sourceTree = "<group>"; };
 		CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 				CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */,
 				CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */,
 				CEF5CBE023C200FC0011243D /* MessagesTableViewCell.swift */,
+				CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */,
+				CEC0B93C23D72013004DC4E6 /* SenderTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 				CE6583A52397E26C001FFA8A /* Advert.swift in Sources */,
 				CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */,
 				CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */,
+				CEC0B93D23D72013004DC4E6 /* SenderTableViewCell.swift in Sources */,
 				CEF5CBDB23C1F5E10011243D /* SettingsViewController.swift in Sources */,
 				CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */,
 				CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */,
@@ -373,6 +380,7 @@
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
 				CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */,
+				CEC0B93923D62007004DC4E6 /* MessageTableViewCell.swift in Sources */,
 				CEF5CBE923C7258C0011243D /* Settings.swift in Sources */,
 				CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */,
 				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,

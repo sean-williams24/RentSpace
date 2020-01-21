@@ -31,6 +31,11 @@ class MessageViewController: UIViewController {
     var customerUID = ""
     var chat: Chat!
     var viewingExistingChat = false
+    let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm E, d MMM"
+        return formatter
+    }()
 
     
     // MARK: - Life Cycle
@@ -65,17 +70,27 @@ class MessageViewController: UIViewController {
             if let messageSnapshot = dataSnapshot.value as? [String: String] {
                 message.messageBody = messageSnapshot["message"]!
                 message.sender = messageSnapshot["sender"]!
+                message.messageDate = messageSnapshot["messageDate"] ?? ""
                 self.messages.append(message)
                 self.tableView.reloadData()
+                self.scrollToBottomMessage()
                 
             }
         })
-    
+        
+        scrollToBottomMessage()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+    }
+    
+    
+    func scrollToBottomMessage() {
+        if messages.count == 0 { return }
+        let bottomMessageIndex = IndexPath(row: tableView.numberOfRows(inSection: 0) - 1, section: 0)
+        tableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
     }
 
 
@@ -96,30 +111,20 @@ class MessageViewController: UIViewController {
 
 extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        messages.count
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = .clear
-        return headerView
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = messagesTableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath)
-        let message = messages[indexPath.section]
+        let recipientCell = messagesTableView.dequeueReusableCell(withIdentifier: "RecipientMessageCell", for: indexPath) as! MessageTableViewCell
+        let senderCell = messagesTableView.dequeueReusableCell(withIdentifier: "SenderMessageCell", for: indexPath) as! SenderTableViewCell
+        let message = messages[indexPath.row]
+        let cell = senderCell
         
-        cell.textLabel?.text = message.sender
-        cell.detailTextLabel?.text = message.messageBody
+        cell.messageLabel.text = message.messageBody
+        cell.messageContainerView.layer.cornerRadius = 8
+        cell.dateLabel.text = message.messageDate
+        
         
         return cell
     }
@@ -138,16 +143,11 @@ extension MessageViewController: UITextFieldDelegate {
             messageTextField.isEnabled = false
             sendMessageButton.isEnabled = false
             
-//            let chatsDB = Database.database().reference().child("chats/\(conversationID)")
-//            let chatData = ["title": advertTitleLabel.text!, "lastMessage": messageTextField.text!]
-            
             var advertOwnerUID = ""
             var advertOwnerDisplayName = ""
             if let ownerUID = advert[Advert.postedByUser] as? String, let ownerDisplayName = advert[Advert.userDisplayName] as? String {
                 advertOwnerUID = ownerUID
                 advertOwnerDisplayName = ownerDisplayName
-            } else {
-                print("existing chat")
             }
             
             // If chat already exists, set customer and advert owner data from chat data downloaded from Firebase
@@ -165,7 +165,7 @@ extension MessageViewController: UITextFieldDelegate {
                             "location": locationLabel.text!,
                             "price": priceLabel.text!,
                             "lastMessage": messageTextField.text!,
-                            "latestSender": Auth.auth().currentUser?.email,
+                            "latestSender": Auth.auth().currentUser?.displayName,
                             "customerUID": Auth.auth().currentUser?.uid,
                             "customerDisplayName": Auth.auth().currentUser?.displayName,
                             "chatID": chatID,
@@ -176,7 +176,7 @@ extension MessageViewController: UITextFieldDelegate {
                                     "location": locationLabel.text!,
                                     "price": priceLabel.text!,
                                     "lastMessage": messageTextField.text!,
-                                    "latestSender": Auth.auth().currentUser?.email,
+                                    "latestSender": Auth.auth().currentUser?.displayName,
                                     "customerUID": customerUID,
                                     "customerDisplayName": customerDisplayName,
                                     "chatID": chatID,
@@ -184,6 +184,7 @@ extension MessageViewController: UITextFieldDelegate {
                                     "advertOwnerDisplayName": advertOwnerDisplayName]
             
             var chatData: [String:String] = [:]
+            
             if viewingExistingChat {
                 chatData = existingChatData as! [String : String]
             } else {
@@ -191,7 +192,7 @@ extension MessageViewController: UITextFieldDelegate {
             }
 
             let messagesDB = Database.database().reference().child("messages/\(chatID)")
-            let messageData = ["sender": Auth.auth().currentUser?.email, "message": messageTextField.text!]
+            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": formatter.string(from: Date())]
             
             // Set chat in advert owner/recipients database
             advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
