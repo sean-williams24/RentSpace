@@ -119,14 +119,25 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
         let recipientCell = messagesTableView.dequeueReusableCell(withIdentifier: "RecipientMessageCell", for: indexPath) as! MessageTableViewCell
         let senderCell = messagesTableView.dequeueReusableCell(withIdentifier: "SenderMessageCell", for: indexPath) as! SenderTableViewCell
         let message = messages[indexPath.row]
-        let cell = senderCell
         
-        cell.messageLabel.text = message.messageBody
-        cell.messageContainerView.layer.cornerRadius = 8
-        cell.dateLabel.text = message.messageDate
+        if message.sender == Auth.auth().currentUser?.displayName {
+            let cell = senderCell
+            cell.messageLabel.text = message.messageBody
+            cell.messageContainerView.layer.cornerRadius = 8
+            cell.dateLabel.text = message.messageDate
+            return cell
+        } else {
+            let cell = recipientCell
+            cell.messageLabel.text = message.messageBody
+            cell.messageContainerView.layer.cornerRadius = 8
+            cell.dateLabel.text = message.messageDate
+            return cell
+        }
+        
+
         
         
-        return cell
+
     }
     
 }
