@@ -38,10 +38,10 @@ class MessageViewController: UIViewController {
     }()
     var thumbnail = UIImage()
     
-
+    
     
     // MARK: - Life Cycle
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,9 +91,9 @@ class MessageViewController: UIViewController {
             }
         }
         imageView.image = thumbnail
-
+        
     }
-
+    
     fileprivate func retrieveMessages() {
         refHandle = ref.child("messages/\(chatID)").observe(.childAdded, with: { (dataSnapshot) in
             let message = Message()
@@ -115,116 +115,112 @@ class MessageViewController: UIViewController {
     }
     
     func sendMessage() {
-         if !messageTextField.text!.isEmpty {
-                    sendMessageButton.isEnabled = false
-                    
-                    // If this is a new chat, set advertOwner details from advert object
-                    var advertOwnerUID = ""
-                    var advertOwnerDisplayName = ""
-                    if let ownerUID = advert[Advert.postedByUser] as? String, let ownerDisplayName = advert[Advert.userDisplayName] as? String {
-                        advertOwnerUID = ownerUID
-                        advertOwnerDisplayName = ownerDisplayName
-                    }
-                    
-                    // If chat already exists, set customer and advert owner data from chat data downloaded from Firebase
-                    var customerDisplayName = ""
-                    if viewingExistingChat {
-                        advertOwnerUID = chat.advertOwnerUID
-                        customerUID = chat.customerUID
-                        customerDisplayName = chat.customerDisplayName
-                        advertOwnerDisplayName = chat.advertOwnerDisplayName
-                    }
+        if !messageTextField.text!.isEmpty {
+            sendMessageButton.isEnabled = false
             
-                    // Get Url for thumbnail image
-                    var thumbURL = ""
+            // If this is a new chat, set advertOwner details from advert object
+            var advertOwnerUID = ""
+            var advertOwnerDisplayName = ""
+            if let ownerUID = advert[Advert.postedByUser] as? String, let ownerDisplayName = advert[Advert.userDisplayName] as? String {
+                advertOwnerUID = ownerUID
+                advertOwnerDisplayName = ownerDisplayName
+            }
+            
+            // If chat already exists, set customer, advert owner data and thumbnail URL from chat data downloaded from Firebase
+            var customerDisplayName = ""
+            var thumbURL = ""
             if viewingExistingChat {
+                advertOwnerUID = chat.advertOwnerUID
+                customerUID = chat.customerUID
+                customerDisplayName = chat.customerDisplayName
+                advertOwnerDisplayName = chat.advertOwnerDisplayName
                 thumbURL = chat.thumbnailURL
             } else {
                 if let imageURLsDict = advert[Advert.photos] as? [String : String] {
                     thumbURL = imageURLsDict["image 1"] ?? ""
                 }
             }
-
             
-                    let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
-                    let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
             
-                    let firstChatData = ["title": advertTitleLabel.text!,
+            let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
+            let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
+            
+            let firstChatData = ["title": advertTitleLabel.text!,
+                                 "location": locationLabel.text!,
+                                 "price": priceLabel.text!,
+                                 "lastMessage": messageTextField.text!,
+                                 "latestSender": Auth.auth().currentUser?.displayName,
+                                 "customerUID": Auth.auth().currentUser?.uid,
+                                 "customerDisplayName": Auth.auth().currentUser?.displayName,
+                                 "chatID": chatID,
+                                 "advertOwnerUID": advertOwnerUID,
+                                 "advertOwnerDisplayName": advertOwnerDisplayName,
+                                 "thumbnailURL": thumbURL]
+            
+            let existingChatData = ["title": advertTitleLabel.text!,
                                     "location": locationLabel.text!,
                                     "price": priceLabel.text!,
                                     "lastMessage": messageTextField.text!,
                                     "latestSender": Auth.auth().currentUser?.displayName,
-                                    "customerUID": Auth.auth().currentUser?.uid,
-                                    "customerDisplayName": Auth.auth().currentUser?.displayName,
+                                    "customerUID": customerUID,
+                                    "customerDisplayName": customerDisplayName,
                                     "chatID": chatID,
                                     "advertOwnerUID": advertOwnerUID,
                                     "advertOwnerDisplayName": advertOwnerDisplayName,
                                     "thumbnailURL": thumbURL]
-                    
-                    let existingChatData = ["title": advertTitleLabel.text!,
-                                            "location": locationLabel.text!,
-                                            "price": priceLabel.text!,
-                                            "lastMessage": messageTextField.text!,
-                                            "latestSender": Auth.auth().currentUser?.displayName,
-                                            "customerUID": customerUID,
-                                            "customerDisplayName": customerDisplayName,
-                                            "chatID": chatID,
-                                            "advertOwnerUID": advertOwnerUID,
-                                            "advertOwnerDisplayName": advertOwnerDisplayName,
-                                            "thumbnailURL": thumbURL]
-                    
-                    var chatData: [String:String] = [:]
-                    
-                    if viewingExistingChat {
-                        chatData = existingChatData as! [String : String]
-                    } else {
-                        chatData = firstChatData as! [String : String]
-                    }
-
-                    let messagesDB = Database.database().reference().child("messages/\(chatID)")
-                    let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": formatter.string(from: Date())]
-                    
-                    // Upload messages to advert owners and customers chats pathes, as well as messages path.
-                    advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
-                        if recipientError != nil {
-                            print("Error uploading to recipient DB: \(recipientError?.localizedDescription as Any)")
+            
+            var chatData: [String:String] = [:]
+            
+            if viewingExistingChat {
+                chatData = existingChatData as! [String : String]
+            } else {
+                chatData = firstChatData as! [String : String]
+            }
+            
+            let messagesDB = Database.database().reference().child("messages/\(chatID)")
+            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": formatter.string(from: Date())]
+            
+            // Upload messages to advert owners and customers chats pathes, as well as messages path.
+            advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
+                if recipientError != nil {
+                    print("Error uploading to recipient DB: \(recipientError?.localizedDescription as Any)")
+                    return
+                } else {
+                    customerDB.setValue(chatData) { (error, chatRef) in
+                        if error != nil {
+                            print("Error sending message: \(error?.localizedDescription as Any)")
                             return
                         } else {
-                            customerDB.setValue(chatData) { (error, chatRef) in
+                            messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
                                 if error != nil {
-                                      print("Error sending message: \(error?.localizedDescription as Any)")
-                                      return
+                                    print("Error sending message: \(error?.localizedDescription as Any)")
+                                    return
                                 } else {
-                                    messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
-                                        if error != nil {
-                                            print("Error sending message: \(error?.localizedDescription as Any)")
-                                            return
-                                        } else {
-                                            self.sendMessageButton.isEnabled = true
-                                            self.messageTextField.text = ""
-                                        }
-                                    }
+                                    self.sendMessageButton.isEnabled = true
+                                    self.messageTextField.text = ""
                                 }
                             }
                         }
                     }
                 }
-            
+            }
+        }
+        
     }
-
-
+    
+    
     
     
     // MARK: - Action Methods
-
-
+    
+    
     @IBAction func pictureButtonTapped(_ sender: Any) {
     }
     
     
     @IBAction func sendMessageButtonTapped(_ sender: Any) {
         
-//        let _ = textFieldShouldReturn(messageTextField)
+        //        let _ = textFieldShouldReturn(messageTextField)
         
         sendMessage()
         
@@ -270,9 +266,9 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension MessageViewController: UITextFieldDelegate {
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        
-//        return true
-//        
-//    }
+    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    //
+    //        return true
+    //
+    //    }
 }
