@@ -65,13 +65,27 @@ class ChatsViewController: UIViewController {
 
 extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        chats.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chats.count
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .clear
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesTableViewCell
-        let chat = chats[indexPath.row]
+        let chat = chats[indexPath.section]
         
         var recipient = ""
         // if logged in user is advert owner, chat recipient is customer
@@ -111,7 +125,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
-        let chat = chats[indexPath.row]
+        let chat = chats[indexPath.section]
         vc.chat = chat
         vc.viewingExistingChat = true
         vc.chatID = chat.chatID
@@ -120,8 +134,6 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         if let image = cell.customImageView.image {
             vc.thumbnail = image
         }
-        
-        // pass image to messageVC?
         
         navigationController?.pushViewController(vc, animated: true)
     }

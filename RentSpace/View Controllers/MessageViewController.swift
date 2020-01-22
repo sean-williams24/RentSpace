@@ -53,11 +53,11 @@ class MessageViewController: UIViewController {
         
         ref = Database.database().reference()
         subscribeToKeyboardNotifications()
-        
         configureUI()
         retrieveMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
+        updateTableContentInset()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -69,7 +69,25 @@ class MessageViewController: UIViewController {
     
     // MARK: - Private Methods
     
+    // Pin new messages(rows) to bottom of tableView
+    func updateTableContentInset() {
+        let numRows = tableView(self.tableView, numberOfRowsInSection: 0)
+        // Set contentInsetTop to height of tableview
+        var contentInsetTop = self.tableView.bounds.size.height
+        for i in 0..<numRows {
+            // Iterate through all rows getting CGRect for each
+            let rowRect = self.tableView.rectForRow(at: IndexPath(item: i, section: 0))
+            // Subtract each rows height from contentInsetTop
+            contentInsetTop -= rowRect.size.height
+            if contentInsetTop <= 0 {
+                contentInsetTop = 0
+            }
+        }
+        self.tableView.contentInset = UIEdgeInsets(top: contentInsetTop,left: 0,bottom: 0,right: 0)
+    }
+    
     fileprivate func configureUI() {
+      
         messageTextField.layer.cornerRadius = 15
         messageTextField.layer.borderWidth = 1
         let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: messageTextField.frame.height))
@@ -114,6 +132,8 @@ class MessageViewController: UIViewController {
         tableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
     }
     
+    
+    
     func sendMessage() {
         if !messageTextField.text!.isEmpty {
             sendMessageButton.isEnabled = false
@@ -122,6 +142,7 @@ class MessageViewController: UIViewController {
             var advertOwnerUID = ""
             var advertOwnerDisplayName = ""
             if let ownerUID = advert[Advert.postedByUser] as? String, let ownerDisplayName = advert[Advert.userDisplayName] as? String {
+                print(ownerUID)
                 advertOwnerUID = ownerUID
                 advertOwnerDisplayName = ownerDisplayName
             }
@@ -223,9 +244,7 @@ class MessageViewController: UIViewController {
         //        let _ = textFieldShouldReturn(messageTextField)
         
         sendMessage()
-        
-        
-        
+
     }
 }
 

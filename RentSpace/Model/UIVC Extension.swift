@@ -95,8 +95,6 @@ extension UIViewController {
         if location == ", " {
             location = advert[Advert.address] as? String ?? ""
         }
-        
-        
         return location
     }
     
