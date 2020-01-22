@@ -42,9 +42,10 @@ class ChatsViewController: UIViewController {
                         let advertOwnerUID = chat["advertOwnerUID"],
                         let customerUID = chat["customerUID"],
                         let advertOwnerDisplayName = chat["advertOwnerDisplayName"],
-                        let customerDisplayName = chat["customerDisplayName"] {
+                        let customerDisplayName = chat["customerDisplayName"],
+                        let thumbnailURL = chat["thumbnailURL"] {
                         
-                        let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName)
+                        let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL)
                         
                         self.chats.append(chat)
                         self.tableView.reloadData()
@@ -82,13 +83,28 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         var you = ""
-        if chat.latestSender == Auth.auth().currentUser?.email {
+        if chat.latestSender == Auth.auth().currentUser?.displayName {
             you = "You: "
         }
         
         cell.recipientLabel.text = recipient
         cell.advertTitleLabel.text = chat.title
         cell.latestMessageLabel.text = "\(you)\(chat.messageBody)"
+        
+        if chat.thumbnailURL != "" {
+            // Download image
+            Storage.storage().reference(forURL: chat.thumbnailURL).getData(maxSize: INT64_MAX) { (data, error) in
+                if error != nil {
+                    print("Error downloading image: \(error?.localizedDescription as Any)")
+                } else {
+                    if let data = data {
+                        cell.customImageView?.image = UIImage(data: data)
+                    }
+                }
+            }
+        } else {
+            // TODO: - load chat placeholder icon of RentSpace logo
+        }
     
         return cell
     }
@@ -99,6 +115,14 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         vc.chat = chat
         vc.viewingExistingChat = true
         vc.chatID = chat.chatID
+        
+        let cell = tableView.cellForRow(at: indexPath) as! MessagesTableViewCell
+        if let image = cell.customImageView.image {
+            vc.thumbnail = image
+        }
+        
+        // pass image to messageVC?
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

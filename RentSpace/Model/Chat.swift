@@ -20,8 +20,9 @@ class Chat {
     var customerUID: String
     var advertOwnerDisplayName: String
     var customerDisplayName: String
+    var thumbnailURL: String
     
-    init(latestSender: String, lastMessage: String, title: String, chatID: String, location: String, price: String, advertOwnerUID: String, customerUID: String, advertOwnerDisplayName: String, customerDisplayName: String) {
+    init(latestSender: String, lastMessage: String, title: String, chatID: String, location: String, price: String, advertOwnerUID: String, customerUID: String, advertOwnerDisplayName: String, customerDisplayName: String, thumbnailURL: String) {
         self.latestSender = latestSender
         self.messageBody = lastMessage
         self.title = title
@@ -32,5 +33,6 @@ class Chat {
         self.customerUID = customerUID
         self.advertOwnerDisplayName = advertOwnerDisplayName
         self.customerDisplayName = customerDisplayName
+        self.thumbnailURL = thumbnailURL
     }
 }

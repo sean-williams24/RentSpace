@@ -36,6 +36,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var ref: DatabaseReference!
     var imageURLsDict: [String: String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
+    var thumbnail = UIImage()
     
     
     // MARK: - Life Cycle
@@ -113,6 +114,14 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             
             for key in self.imagesDictionary.keys.sorted() {
                 guard let image = self.imagesDictionary[key] else { break }
+                
+                if key == "image 1" {
+                    if let thumb = image.sd_resizedImage(with: CGSize(width: 300, height: 300), scaleMode: .aspectFit){
+                        self.thumbnail = thumb
+                    }
+                    
+                }
+                
                 let imageView = UIImageView()
                 imageView.image = image
                 imageView.contentMode = .scaleAspectFill
@@ -238,6 +247,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
         vc.advert = advert
         vc.advertSnapshot = advertSnapshot
+        vc.thumbnail = thumbnail
         
         navigationController?.pushViewController(vc, animated: true)
     }

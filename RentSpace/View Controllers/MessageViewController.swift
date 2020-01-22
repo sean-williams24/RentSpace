@@ -36,6 +36,8 @@ class MessageViewController: UIViewController {
         formatter.dateFormat = "HH:mm E, d MMM"
         return formatter
     }()
+    var thumbnail = UIImage()
+    
 
     
     // MARK: - Life Cycle
@@ -88,7 +90,8 @@ class MessageViewController: UIViewController {
                 priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
             }
         }
-        tableView.keyboardDismissMode = .interactive
+        imageView.image = thumbnail
+
     }
 
     fileprivate func retrieveMessages() {
@@ -131,9 +134,21 @@ class MessageViewController: UIViewController {
                         customerDisplayName = chat.customerDisplayName
                         advertOwnerDisplayName = chat.advertOwnerDisplayName
                     }
-                    
+            
+                    // Get Url for thumbnail image
+                    var thumbURL = ""
+            if viewingExistingChat {
+                thumbURL = chat.thumbnailURL
+            } else {
+                if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+                    thumbURL = imageURLsDict["image 1"] ?? ""
+                }
+            }
+
+            
                     let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
                     let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
+            
                     let firstChatData = ["title": advertTitleLabel.text!,
                                     "location": locationLabel.text!,
                                     "price": priceLabel.text!,
@@ -143,7 +158,8 @@ class MessageViewController: UIViewController {
                                     "customerDisplayName": Auth.auth().currentUser?.displayName,
                                     "chatID": chatID,
                                     "advertOwnerUID": advertOwnerUID,
-                                    "advertOwnerDisplayName": advertOwnerDisplayName]
+                                    "advertOwnerDisplayName": advertOwnerDisplayName,
+                                    "thumbnailURL": thumbURL]
                     
                     let existingChatData = ["title": advertTitleLabel.text!,
                                             "location": locationLabel.text!,
@@ -154,7 +170,8 @@ class MessageViewController: UIViewController {
                                             "customerDisplayName": customerDisplayName,
                                             "chatID": chatID,
                                             "advertOwnerUID": advertOwnerUID,
-                                            "advertOwnerDisplayName": advertOwnerDisplayName]
+                                            "advertOwnerDisplayName": advertOwnerDisplayName,
+                                            "thumbnailURL": thumbURL]
                     
                     var chatData: [String:String] = [:]
                     
