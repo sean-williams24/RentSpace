@@ -112,7 +112,19 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                     print("Error downloading image: \(error?.localizedDescription as Any)")
                 } else {
                     if let data = data {
-                        cell.customImageView?.image = UIImage(data: data)
+                        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 100))
+                        let img = renderer.image { (ctx) in
+                            
+                            let image = UIImage(data: data)
+                            image?.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
+                            
+                            let rectangle = CGRect(x: -25, y: -25, width: 150, height: 150)
+                            ctx.cgContext.setStrokeColor(UIColor(red:0.12, green:0.13, blue:0.14, alpha:1.0).cgColor)
+                            ctx.cgContext.setLineWidth(50)
+                            ctx.cgContext.strokeEllipse(in: rectangle)
+                            ctx.cgContext.drawPath(using: .stroke)
+                        }
+                        cell.customImageView.image = img
                     }
                 }
             }
