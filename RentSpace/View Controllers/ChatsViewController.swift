@@ -30,9 +30,15 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         let UID = Settings.currentUser!.uid
         ref = Database.database().reference()
-
         
         refHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
             self.chats.removeAll()
@@ -50,9 +56,10 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                         let advertOwnerDisplayName = chat["advertOwnerDisplayName"],
                         let customerDisplayName = chat["customerDisplayName"],
                         let thumbnailURL = chat["thumbnailURL"],
-                        let messageDate = chat["messageDate"] {
+                        let messageDate = chat["messageDate"],
+                        let read = chat["read"] {
 
-                        let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL, messageDate: messageDate)
+                        let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL, messageDate: messageDate, read: read)
                         
                         if self.chats.isEmpty == true {
                             // append first chat to array
@@ -83,7 +90,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
             print("Reload data called")
         })
     }
-    
     
     // MARK: - Private Methods
 
@@ -161,6 +167,13 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.advertTitleLabel.text = chat.title
         cell.latestMessageLabel.text = "\(you)\(chat.messageBody)"
         
+        // If chat is unread and the latest sender of the message is not signed in user - display unread UI
+        if chat.read == "false" && chat.latestSender != Auth.auth().currentUser?.displayName {
+            cell.backgroundColor = .red
+        } else {
+            cell.backgroundColor = Settings.flipsideBlackColour
+        }
+        
         if chat.thumbnailURL != "" {
             // Download image
             Storage.storage().reference(forURL: chat.thumbnailURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -175,7 +188,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                             image?.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
                             
                             let rectangle = CGRect(x: -25, y: -25, width: 150, height: 150)
-                            ctx.cgContext.setStrokeColor(UIColor(red:0.12, green:0.13, blue:0.14, alpha:1.0).cgColor)
+                            ctx.cgContext.setStrokeColor(Settings.flipsideBlackColour.cgColor)
                             ctx.cgContext.setLineWidth(50)
                             ctx.cgContext.strokeEllipse(in: rectangle)
                             ctx.cgContext.drawPath(using: .stroke)
@@ -200,6 +213,10 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         vc.chat = chat
         vc.viewingExistingChat = true
         vc.chatID = chat.chatID
+        
+        if chat.latestSender != Auth.auth().currentUser?.displayName {
+            vc.messageRead = "true"
+        }
         
         let cell = tableView.cellForRow(at: indexPath) as! MessagesTableViewCell
         if let image = cell.customImageView.image {

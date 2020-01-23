@@ -38,6 +38,7 @@ class MessageViewController: UIViewController {
         return formatter
     }()
     var thumbnail = UIImage()
+    var messageRead = "false"
     
     
     
@@ -59,7 +60,14 @@ class MessageViewController: UIViewController {
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
         
-
+        if messageRead == "true" {
+//            uploadToFirebase(message: chat.messageBody, read: "true")
+            let customerDB = ref.child("users/\(chat.customerUID)/chats")
+            let advertOwnerDB = ref.child("users/\(chat.advertOwnerUID)/chats")
+            customerDB.child(chatID).updateChildValues(["read": "true"])
+            advertOwnerDB.child(chatID).updateChildValues(["read": "true"])
+            
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -142,8 +150,8 @@ class MessageViewController: UIViewController {
     
     
     
-    func sendMessage() {
-        if !messageTextField.text!.isEmpty {
+    func uploadToFirebase(message: String, read: String) {
+        if !messageTextField.text!.isEmpty || messageRead == "true" {
             sendMessageButton.isEnabled = false
             
             // If this is a new chat, set advertOwner details from advert object
@@ -169,7 +177,6 @@ class MessageViewController: UIViewController {
                 }
             }
             
-            
             let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
             let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
             
@@ -184,12 +191,13 @@ class MessageViewController: UIViewController {
                                  "advertOwnerUID": advertOwnerUID,
                                  "advertOwnerDisplayName": advertOwnerDisplayName,
                                  "thumbnailURL": thumbURL,
-                                 "messageDate": formatter.string(from: Date())]
+                                 "messageDate": formatter.string(from: Date()),
+                                 "read": read]
             
             let existingChatData = ["title": advertTitleLabel.text!,
                                     "location": locationLabel.text!,
                                     "price": priceLabel.text!,
-                                    "lastMessage": messageTextField.text!,
+                                    "lastMessage": message,
                                     "latestSender": Auth.auth().currentUser?.displayName,
                                     "customerUID": customerUID,
                                     "customerDisplayName": customerDisplayName,
@@ -197,8 +205,9 @@ class MessageViewController: UIViewController {
                                     "advertOwnerUID": advertOwnerUID,
                                     "advertOwnerDisplayName": advertOwnerDisplayName,
                                     "thumbnailURL": thumbURL,
-                                    "messageDate": formatter.string(from: Date())]
-            
+                                    "messageDate": formatter.string(from: Date()),
+                                    "read": read]
+                        
             var chatData: [String:String] = [:]
             
             if viewingExistingChat {
@@ -208,7 +217,7 @@ class MessageViewController: UIViewController {
             }
             
             let messagesDB = Database.database().reference().child("messages/\(chatID)")
-            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": formatter.string(from: Date())]
+            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": message, "messageDate": formatter.string(from: Date())]
             
             // Upload messages to advert owners and customers chats pathes, as well as messages path.
             advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
@@ -252,7 +261,7 @@ class MessageViewController: UIViewController {
         
         //        let _ = textFieldShouldReturn(messageTextField)
         
-        sendMessage()
+        uploadToFirebase(message: messageTextField.text!, read: "false")
 
     }
 }
