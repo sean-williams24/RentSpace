@@ -60,20 +60,25 @@ class MessageViewController: UIViewController {
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
         
-        if messageRead == "true" {
-//            uploadToFirebase(message: chat.messageBody, read: "true")
-            let customerDB = ref.child("users/\(chat.customerUID)/chats")
-            let advertOwnerDB = ref.child("users/\(chat.advertOwnerUID)/chats")
-            customerDB.child(chatID).updateChildValues(["read": "true"])
-            advertOwnerDB.child(chatID).updateChildValues(["read": "true"])
-            
-        }
+//        if messageRead == "true" {
+////            uploadToFirebase(message: chat.messageBody, read: "true")
+//            let customerDB = ref.child("users/\(chat.customerUID)/chats")
+//            let advertOwnerDB = ref.child("users/\(chat.advertOwnerUID)/chats")
+//            customerDB.child(chatID).updateChildValues(["read": "true"])
+//            advertOwnerDB.child(chatID).updateChildValues(["read": "true"])
+//
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateTableContentInset()
 
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ref.child("messages/\(chatID)").removeObserver(withHandle: refHandle)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -138,6 +143,15 @@ class MessageViewController: UIViewController {
                 self.messages.append(message)
                 self.tableView.reloadData()
                 self.scrollToBottomMessage()
+                
+                // If sender of message is not signed in user
+                if message.sender != Auth.auth().currentUser?.displayName {
+                    //Update message as read
+                    let customerDB = self.ref.child("users/\(self.chat.customerUID)/chats")
+                    let advertOwnerDB = self.ref.child("users/\(self.chat.advertOwnerUID)/chats")
+                    customerDB.child(self.chatID).updateChildValues(["read": "true"])
+                    advertOwnerDB.child(self.chatID).updateChildValues(["read": "true"])
+                }
             }
         })
     }
@@ -150,7 +164,7 @@ class MessageViewController: UIViewController {
     
     
     
-    func uploadToFirebase(message: String, read: String) {
+    func sendMessage() {
         if !messageTextField.text!.isEmpty || messageRead == "true" {
             sendMessageButton.isEnabled = false
             
@@ -192,12 +206,12 @@ class MessageViewController: UIViewController {
                                  "advertOwnerDisplayName": advertOwnerDisplayName,
                                  "thumbnailURL": thumbURL,
                                  "messageDate": formatter.string(from: Date()),
-                                 "read": read]
+                                 "read": "false"]
             
             let existingChatData = ["title": advertTitleLabel.text!,
                                     "location": locationLabel.text!,
                                     "price": priceLabel.text!,
-                                    "lastMessage": message,
+                                    "lastMessage": messageTextField.text!,
                                     "latestSender": Auth.auth().currentUser?.displayName,
                                     "customerUID": customerUID,
                                     "customerDisplayName": customerDisplayName,
@@ -206,7 +220,7 @@ class MessageViewController: UIViewController {
                                     "advertOwnerDisplayName": advertOwnerDisplayName,
                                     "thumbnailURL": thumbURL,
                                     "messageDate": formatter.string(from: Date()),
-                                    "read": read]
+                                    "read": "false"]
                         
             var chatData: [String:String] = [:]
             
@@ -217,7 +231,7 @@ class MessageViewController: UIViewController {
             }
             
             let messagesDB = Database.database().reference().child("messages/\(chatID)")
-            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": message, "messageDate": formatter.string(from: Date())]
+            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": formatter.string(from: Date())]
             
             // Upload messages to advert owners and customers chats pathes, as well as messages path.
             advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
@@ -261,7 +275,7 @@ class MessageViewController: UIViewController {
         
         //        let _ = textFieldShouldReturn(messageTextField)
         
-        uploadToFirebase(message: messageTextField.text!, read: "false")
+        sendMessage()
 
     }
 }

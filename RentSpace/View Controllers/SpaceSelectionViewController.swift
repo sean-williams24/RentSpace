@@ -19,6 +19,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     var locationManager: CLLocationManager!
     var handle: AuthStateDidChangeListenerHandle!
+    var chatsHandle: DatabaseHandle!
     
     // MARK: - Life Cycle
     
@@ -40,11 +41,41 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 Settings.currentUser = user
             }
         })
+        
+        // Check if there are unread messages
+        if let UID = Auth.auth().currentUser?.uid {
+            let ref = Database.database().reference()
+            chatsHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
+                var unread = 0
+                var read = 0
+                let messageTab = self.tabBarController?.tabBar.items?[3]
+
+                for child in dataSnapshot.children {
+                    if let snapshot = child as? DataSnapshot {
+                        if let chat = snapshot.value as? [String: String] {
+                            if chat["read"] == "false" {
+                                unread += 1
+                                print("Unread Messages: \(unread)")
+                                messageTab?.badgeColor = Settings.orangeTint
+                                messageTab?.badgeValue = "\(unread)"
+                            } else if chat["read"] == "true"{
+                                read += 1
+                                print("Read messages: \(read)")
+                                print(dataSnapshot.childrenCount)
+                                if read == dataSnapshot.childrenCount {
+                                    messageTab?.badgeValue = nil
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         configure(artButton, text: "Art")
         configure(photographyButton, text: "Photography")
@@ -92,36 +123,36 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill
-//        button.imageView?.layer.cornerRadius = 8
-//        button.layer.borderWidth = 0.2
-//        button.layer.borderColor = UIColor.white.cgColor
-//        button.backgroundColor = .clear
-//        button.layer.shadowColor = UIColor.darkGray.cgColor
-//        button.layer.shadowOpacity = 1
-//        button.layer.shadowRadius = 4
-//        button.layer.shadowOffset = CGSize(width: 1, height: 2)
-
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-  //      label.font = UIFont.systemFont(ofSize: 28, weight: .light)
-    //    label.textColor = .white
-      //  label.text = text
+        //        button.imageView?.layer.cornerRadius = 8
+        //        button.layer.borderWidth = 0.2
+        //        button.layer.borderColor = UIColor.white.cgColor
+        //        button.backgroundColor = .clear
+        //        button.layer.shadowColor = UIColor.darkGray.cgColor
+        //        button.layer.shadowOpacity = 1
+        //        button.layer.shadowRadius = 4
+        //        button.layer.shadowOffset = CGSize(width: 1, height: 2)
+        
+        //        let label = UILabel()
+        //        label.translatesAutoresizingMaskIntoConstraints = false
+        //      label.font = UIFont.systemFont(ofSize: 28, weight: .light)
+        //    label.textColor = .white
+        //  label.text = text
         //label.textAlignment = .center
         //button.addSubview(label)
         
         NSLayoutConstraint.activate([
-//            label.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-//            label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 28),
-//            label.topAnchor.constraint(equalToSystemSpacingBelow: button.topAnchor, multiplier: 0),
-//            label.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-//            label.centerYAnchor.constraint(equalTo: button.centerYAnchor)
+            //            label.bottomAnchor.constraint(equalTo: button.bottomAnchor),
+            //            label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 28),
+            //            label.topAnchor.constraint(equalToSystemSpacingBelow: button.topAnchor, multiplier: 0),
+            //            label.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+            //            label.centerYAnchor.constraint(equalTo: button.centerYAnchor)
         ])
     }
-
+    
     
     // MARK: - Navigation
-
-
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! RentSpaceViewController
         let button = sender as! UIButton
@@ -145,7 +176,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     
     @IBAction func buttonTapped(_ sender: UIButton) {
-//        let vc = storyboard?.instantiateViewController(identifier: "RentSpaceVC") as! RentSpaceViewController
+        //        let vc = storyboard?.instantiateViewController(identifier: "RentSpaceVC") as! RentSpaceViewController
         
     }
     
@@ -153,7 +184,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 
 
 extension UIImage {
-
+    
     func alpha(_ value:CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         draw(at: CGPoint.zero, blendMode: .normal, alpha: value)

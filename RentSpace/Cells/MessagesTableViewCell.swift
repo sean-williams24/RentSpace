@@ -14,6 +14,7 @@ class MessagesTableViewCell: UITableViewCell {
     @IBOutlet var recipientLabel: UILabel!
     @IBOutlet var advertTitleLabel: UILabel!
     @IBOutlet var latestMessageLabel: UILabel!
+    @IBOutlet var newMessageImageView: UIImageView!
     
 
     override func awakeFromNib() {

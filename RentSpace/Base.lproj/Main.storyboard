@@ -1855,14 +1855,14 @@ Only the best gear here.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bHA-La-2xr">
-                                <rect key="frame" x="5" y="88" width="409" height="725"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MessagesCell" rowHeight="80" id="IMz-Zq-xfH" customClass="MessagesTableViewCell" customModule="RentSpace" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="409" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IMz-Zq-xfH" id="tnw-IA-OxP">
-                                            <rect key="frame" x="0.0" y="0.0" width="409" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OAf-we-62e">
@@ -1872,7 +1872,7 @@ Only the best gear here.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="UfG-K6-0Hg">
-                                                    <rect key="frame" x="90" y="10" width="309" height="60"/>
+                                                    <rect key="frame" x="90" y="10" width="314" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGP-aY-vpW">
                                                             <rect key="frame" x="0.0" y="0.0" width="42.5" height="20"/>
@@ -1895,13 +1895,23 @@ Only the best gear here.</string>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Wbj-aO-yin">
+                                                    <rect key="frame" x="369" y="0.5" width="25" height="79"/>
+                                                    <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="3ea-9I-tEp"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="OAf-we-62e" firstAttribute="leading" secondItem="tnw-IA-OxP" secondAttribute="leading" constant="10" id="CIB-37-wLX"/>
                                                 <constraint firstItem="UfG-K6-0Hg" firstAttribute="leading" secondItem="OAf-we-62e" secondAttribute="trailing" constant="20" id="P7G-Zo-pKA"/>
+                                                <constraint firstAttribute="trailing" secondItem="Wbj-aO-yin" secondAttribute="trailing" constant="20" id="Rs6-5b-rwc"/>
                                                 <constraint firstItem="OAf-we-62e" firstAttribute="top" secondItem="tnw-IA-OxP" secondAttribute="top" constant="10" id="V9N-Lh-mje"/>
                                                 <constraint firstAttribute="bottom" secondItem="OAf-we-62e" secondAttribute="bottom" constant="10" id="eWV-MI-Hiv"/>
+                                                <constraint firstItem="Wbj-aO-yin" firstAttribute="top" secondItem="tnw-IA-OxP" secondAttribute="top" id="qYV-Cj-GYo"/>
                                                 <constraint firstAttribute="bottom" secondItem="UfG-K6-0Hg" secondAttribute="bottom" constant="10" id="t1J-su-I7g"/>
+                                                <constraint firstAttribute="bottom" secondItem="Wbj-aO-yin" secondAttribute="bottom" id="urY-7B-MIq"/>
                                                 <constraint firstItem="UfG-K6-0Hg" firstAttribute="top" secondItem="tnw-IA-OxP" secondAttribute="top" constant="10" id="yey-1Y-R1j"/>
                                                 <constraint firstAttribute="trailing" secondItem="UfG-K6-0Hg" secondAttribute="trailing" constant="10" id="ym8-qi-73Z"/>
                                             </constraints>
@@ -1911,6 +1921,7 @@ Only the best gear here.</string>
                                             <outlet property="advertTitleLabel" destination="Ajg-zv-VhZ" id="PRY-SQ-b5Z"/>
                                             <outlet property="customImageView" destination="OAf-we-62e" id="ZdI-Zr-GDL"/>
                                             <outlet property="latestMessageLabel" destination="9vm-fT-FSG" id="ejt-Jf-Apr"/>
+                                            <outlet property="newMessageImageView" destination="Wbj-aO-yin" id="Gf8-If-SkH"/>
                                             <outlet property="recipientLabel" destination="JGP-aY-vpW" id="RVk-7r-0VL"/>
                                         </connections>
                                     </tableViewCell>
@@ -1923,7 +1934,7 @@ Only the best gear here.</string>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bHA-La-2xr" firstAttribute="leading" secondItem="2WR-fc-8pB" secondAttribute="leading" constant="5" id="CVv-JQ-1RC"/>
+                            <constraint firstItem="bHA-La-2xr" firstAttribute="leading" secondItem="2WR-fc-8pB" secondAttribute="leading" id="CVv-JQ-1RC"/>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="bottom" secondItem="2WR-fc-8pB" secondAttribute="bottom" id="OTf-fF-JEp"/>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="top" secondItem="2WR-fc-8pB" secondAttribute="top" id="g2Y-5L-PWj"/>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="trailing" secondItem="2WR-fc-8pB" secondAttribute="trailing" id="uUL-V3-bUT"/>
@@ -1940,7 +1951,7 @@ Only the best gear here.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqP-np-J8i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1999" y="2729"/>
+            <point key="canvasLocation" x="1998.5507246376812" y="2728.7946428571427"/>
         </scene>
         <!--Message View Controller-->
         <scene sceneID="Mcp-an-PWm">
@@ -2482,6 +2493,7 @@ Only the best gear here.</string>
         <image name="imagePlaceholder" width="200" height="200"/>
         <image name="location.fill" catalog="system" width="64" height="56"/>
         <image name="message" catalog="system" width="64" height="56"/>
+        <image name="message.circle.fill" catalog="system" width="64" height="60"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>
         <image name="music.mic" catalog="system" width="64" height="58"/>
         <image name="paintbrush" catalog="system" width="64" height="64"/>

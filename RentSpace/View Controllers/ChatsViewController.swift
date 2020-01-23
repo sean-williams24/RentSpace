@@ -30,8 +30,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
         
     }
     
@@ -64,7 +62,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                         if self.chats.isEmpty == true {
                             // append first chat to array
                             self.chats.append(chat)
-                            print("Chat Appended in Empty Block: \(chat.title)")
+//                            print("Chat Appended in Empty Block: \(chat.title)")
                         } else {
                             // for subsequent chats, iterate through temp array and check if date is earlier than array chats.
                             for (index, tempChat) in self.chats.enumerated() {
@@ -73,11 +71,11 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                                 
                                 if nextChatDate! > tempChatDate! {
                                     self.chats.insert(chat, at: index)
-                                    print("Inserting chat: \(chat.title) at position \(index)")
+//                                    print("Inserting chat: \(chat.title) at position \(index)")
                                     break
                                 } else {
                                     self.chats.append(chat)
-                                    print("Chat Appended in Else Block: \(chat.title)")
+//                                    print("Chat Appended in Else Block: \(chat.title)")
                                     break
 
                                 }
@@ -87,9 +85,11 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 }
             }
             self.tableView.reloadData()
-            print("Reload data called")
+//            print("Reload data called")
         })
     }
+    
+
     
     // MARK: - Private Methods
 
@@ -169,9 +169,9 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         
         // If chat is unread and the latest sender of the message is not signed in user - display unread UI
         if chat.read == "false" && chat.latestSender != Auth.auth().currentUser?.displayName {
-            cell.backgroundColor = .red
+            cell.newMessageImageView.isHidden = false
         } else {
-            cell.backgroundColor = Settings.flipsideBlackColour
+            cell.newMessageImageView.isHidden = true
         }
         
         if chat.thumbnailURL != "" {
