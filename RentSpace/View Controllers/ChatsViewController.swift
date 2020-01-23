@@ -9,7 +9,7 @@
 import Firebase
 import UIKit
 
-class ChatsViewController: UIViewController {
+class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -23,10 +23,12 @@ class ChatsViewController: UIViewController {
     
     // MARK: - Life Cycle
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let UID = Settings.currentUser!.uid
         ref = Database.database().reference()
+
         
         refHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
             self.chats.removeAll()
@@ -44,21 +46,58 @@ class ChatsViewController: UIViewController {
                         let advertOwnerDisplayName = chat["advertOwnerDisplayName"],
                         let customerDisplayName = chat["customerDisplayName"],
                         let thumbnailURL = chat["thumbnailURL"] {
-                        
+
                         let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL)
+                        
+                        // add latest message time stamp to chat path database
+                        // append first chat to temp array
+                        // on 2nd chat, iterate through temp array and check if date is earlier than firat one, insert after,
+                        // repeat for each one comparing dates, once you hit a date its not earlier than, insert before?
+                        // might need to convert string to date
+                        
                         
                         self.chats.append(chat)
                         self.tableView.reloadData()
+                        
+                        print("Called")
+
                     }
                 }
             }
         })
-        
     }
     
+    
+    // MARK: - Private Methods
+
+    
+    func delete(chat: Chat) {
+
+        // Get chat to delete, setup swipe to delete and also delete from chats array
+        let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+
+            let childUpdates = ["users/\(chat.customerUID)/chats/\(chat.chatID)": NSNull(),
+                                "users/\(chat.advertOwnerUID)/chats/\(chat.chatID)": NSNull(),
+                                "messages/\(chat.chatID)": NSNull()]
+
+            self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+                print("Deletion completion")
+
+            }
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+
+        present(ac, animated: true)
+    }
 
 
 }
+
+
 
 
 // MARK: - TableView Delegates & Datasource
@@ -102,7 +141,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.recipientLabel.text = recipient
-        cell.advertTitleLabel.text = chat.title
+        cell.advertTitleLabel.text = chat.title.uppercased()
         cell.latestMessageLabel.text = "\(you)\(chat.messageBody)"
         
         if chat.thumbnailURL != "" {
@@ -131,7 +170,10 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             // TODO: - load chat placeholder icon of RentSpace logo
         }
-    
+        
+//        cell.layer.cornerRadius = 60
+//        cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        
         return cell
     }
     
@@ -150,4 +192,32 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let chat = chats[indexPath.section]
+        
+        if editingStyle == .delete {
+                let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+
+                    let childUpdates = ["users/\(chat.customerUID)/chats/\(chat.chatID)": NSNull(),
+                                        "users/\(chat.advertOwnerUID)/chats/\(chat.chatID)": NSNull(),
+                                        "messages/\(chat.chatID)": NSNull()]
+
+                    self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
+                        if error != nil {
+                            print(error?.localizedDescription as Any)
+                        }
+                        print("Deletion completion")
+                    }
+                }))
+                ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+
+                present(ac, animated: true)
+            }
+        
+    }
 }

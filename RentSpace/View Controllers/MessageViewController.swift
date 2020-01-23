@@ -6,6 +6,7 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import UserNotifications
 import Firebase
 import UIKit
 
@@ -57,7 +58,14 @@ class MessageViewController: UIViewController {
         retrieveMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
+        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         updateTableContentInset()
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
