@@ -34,7 +34,7 @@ class MessageViewController: UIViewController {
     var viewingExistingChat = false
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm E, d MMM"
+        formatter.dateFormat = "HH:mm:ss E, d MMM"
         return formatter
     }()
     var thumbnail = UIImage()
@@ -150,7 +150,6 @@ class MessageViewController: UIViewController {
             var advertOwnerUID = ""
             var advertOwnerDisplayName = ""
             if let ownerUID = advert[Advert.postedByUser] as? String, let ownerDisplayName = advert[Advert.userDisplayName] as? String {
-                print(ownerUID)
                 advertOwnerUID = ownerUID
                 advertOwnerDisplayName = ownerDisplayName
             }
@@ -184,7 +183,8 @@ class MessageViewController: UIViewController {
                                  "chatID": chatID,
                                  "advertOwnerUID": advertOwnerUID,
                                  "advertOwnerDisplayName": advertOwnerDisplayName,
-                                 "thumbnailURL": thumbURL]
+                                 "thumbnailURL": thumbURL,
+                                 "messageDate": formatter.string(from: Date())]
             
             let existingChatData = ["title": advertTitleLabel.text!,
                                     "location": locationLabel.text!,
@@ -196,7 +196,8 @@ class MessageViewController: UIViewController {
                                     "chatID": chatID,
                                     "advertOwnerUID": advertOwnerUID,
                                     "advertOwnerDisplayName": advertOwnerDisplayName,
-                                    "thumbnailURL": thumbURL]
+                                    "thumbnailURL": thumbURL,
+                                    "messageDate": formatter.string(from: Date())]
             
             var chatData: [String:String] = [:]
             

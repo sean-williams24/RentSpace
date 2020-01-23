@@ -14,10 +14,14 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet var tableView: UITableView!
     
     var chats: [Chat] = []
-//    var advertSnapshot: DataSnapshot!
-//    var advert: [String: Any] = [:]
+    var unorderedChats: [Chat] = []
     var refHandle: DatabaseHandle!
     var ref: DatabaseReference!
+    let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss E, d MMM"
+        return formatter
+    }()
 
 
     
@@ -45,25 +49,38 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                         let customerUID = chat["customerUID"],
                         let advertOwnerDisplayName = chat["advertOwnerDisplayName"],
                         let customerDisplayName = chat["customerDisplayName"],
-                        let thumbnailURL = chat["thumbnailURL"] {
+                        let thumbnailURL = chat["thumbnailURL"],
+                        let messageDate = chat["messageDate"] {
 
-                        let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL)
+                        let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL, messageDate: messageDate)
                         
-                        // add latest message time stamp to chat path database
-                        // append first chat to temp array
-                        // on 2nd chat, iterate through temp array and check if date is earlier than firat one, insert after,
-                        // repeat for each one comparing dates, once you hit a date its not earlier than, insert before?
-                        // might need to convert string to date
-                        
-                        
-                        self.chats.append(chat)
-                        self.tableView.reloadData()
-                        
-                        print("Called")
+                        if self.chats.isEmpty == true {
+                            // append first chat to array
+                            self.chats.append(chat)
+                            print("Chat Appended in Empty Block: \(chat.title)")
+                        } else {
+                            // for subsequent chats, iterate through temp array and check if date is earlier than array chats.
+                            for (index, tempChat) in self.chats.enumerated() {
+                                let tempChatDate = self.formatter.date(from: tempChat.messageDate)
+                                let nextChatDate = self.formatter.date(from: chat.messageDate)
+                                
+                                if nextChatDate! > tempChatDate! {
+                                    self.chats.insert(chat, at: index)
+                                    print("Inserting chat: \(chat.title) at position \(index)")
+                                    break
+                                } else {
+                                    self.chats.append(chat)
+                                    print("Chat Appended in Else Block: \(chat.title)")
+                                    break
 
+                                }
+                            }
+                        }
                     }
                 }
             }
+            self.tableView.reloadData()
+            print("Reload data called")
         })
     }
     
@@ -141,7 +158,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.recipientLabel.text = recipient
-        cell.advertTitleLabel.text = chat.title.uppercased()
+        cell.advertTitleLabel.text = chat.title
         cell.latestMessageLabel.text = "\(you)\(chat.messageBody)"
         
         if chat.thumbnailURL != "" {
@@ -200,7 +217,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         let chat = chats[indexPath.section]
         
         if editingStyle == .delete {
-                let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
+                let ac = UIAlertController(title: "Delete Chat", message: "Are you sure you wish to permanently delete this conversation?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
 
                     let childUpdates = ["users/\(chat.customerUID)/chats/\(chat.chatID)": NSNull(),
