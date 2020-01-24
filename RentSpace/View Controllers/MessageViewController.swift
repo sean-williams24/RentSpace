@@ -32,9 +32,9 @@ class MessageViewController: UIViewController {
     var customerUID = ""
     var chat: Chat!
     var viewingExistingChat = false
-    let formatter: DateFormatter = {
+    let fullDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss E, d MMM"
+        formatter.dateFormat = "HH:mm:ss E, d MMM, yyyy"
         return formatter
     }()
     var thumbnail = UIImage()
@@ -205,7 +205,7 @@ class MessageViewController: UIViewController {
                                  "advertOwnerUID": advertOwnerUID,
                                  "advertOwnerDisplayName": advertOwnerDisplayName,
                                  "thumbnailURL": thumbURL,
-                                 "messageDate": formatter.string(from: Date()),
+                                 "messageDate": fullDateFormatter.string(from: Date()),
                                  "read": "false"]
             
             let existingChatData = ["title": advertTitleLabel.text!,
@@ -219,7 +219,7 @@ class MessageViewController: UIViewController {
                                     "advertOwnerUID": advertOwnerUID,
                                     "advertOwnerDisplayName": advertOwnerDisplayName,
                                     "thumbnailURL": thumbURL,
-                                    "messageDate": formatter.string(from: Date()),
+                                    "messageDate": fullDateFormatter.string(from: Date()),
                                     "read": "false"]
                         
             var chatData: [String:String] = [:]
@@ -231,7 +231,7 @@ class MessageViewController: UIViewController {
             }
             
             let messagesDB = Database.database().reference().child("messages/\(chatID)")
-            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": formatter.string(from: Date())]
+            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": fullDateFormatter.string(from: Date())]
             
             // Upload messages to advert owners and customers chats pathes, as well as messages path.
             advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
@@ -249,6 +249,10 @@ class MessageViewController: UIViewController {
                                     print("Error sending message: \(error?.localizedDescription as Any)")
                                     return
                                 } else {
+                                    
+                                    let senderUID = Auth.auth().currentUser?.uid
+                                    self.ref.child("users/\(senderUID!)/chats").child(self.chatID).updateChildValues(["read": "true"])
+                                    
                                     self.sendMessageButton.isEnabled = true
                                     self.messageTextField.text = ""
                                 }
@@ -298,14 +302,51 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
         if message.sender == Auth.auth().currentUser?.displayName {
             let cell = senderCell
             cell.messageLabel.text = message.messageBody
-            cell.messageContainerView.layer.cornerRadius = 8
-            cell.dateLabel.text = message.messageDate
+            
+            let calendar = Calendar.current
+            let timeFormatter = DateFormatter()
+            let dayFormatter = DateFormatter()
+            let weekFormatter = DateFormatter()
+            let now = Date()
+            let fiveMinutesAgo = calendar.date(byAdding: .minute, value: -5, to: now)
+            let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: now)
+            let lastSevenDays = sevenDaysAgo!...now
+            let lastFiveMinutes = fiveMinutesAgo!...now
+
+            timeFormatter.dateFormat = "HH:mm"
+            dayFormatter.dateFormat = "E, d MMM"
+            weekFormatter.dateFormat = "EEEE"
+            
+            if let messageDate = fullDateFormatter.date(from: message.messageDate) {
+                // set date to day and month
+                cell.dateLabel.text = dayFormatter.string(from: messageDate)
+                
+                // if message was within the last week, just show day
+                if lastSevenDays.contains(messageDate) {
+                    cell.dateLabel.text = weekFormatter.string(from: messageDate)
+                }
+                
+                // if message was today, just show time
+                if calendar.isDateInToday(messageDate) {
+                    cell.dateLabel.text = timeFormatter.string(from: messageDate)
+
+                    // if message was within the last 5 minutes, don't show time
+                    if lastFiveMinutes.contains(messageDate) {
+                        cell.dateLabel.text = ""
+                    }
+                }
+            }
+            
+            
+            cell.messageContainerView.layer.cornerRadius = 14
+            cell.messageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner]
             return cell
         } else {
             let cell = recipientCell
             cell.messageLabel.text = message.messageBody
-            cell.messageContainerView.layer.cornerRadius = 8
             cell.dateLabel.text = message.messageDate
+            cell.messageContainerView.layer.cornerRadius = 14
+            cell.messageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
             return cell
         }
     }

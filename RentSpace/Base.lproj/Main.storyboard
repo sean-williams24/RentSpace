@@ -1568,7 +1568,7 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xgz-i9-e0u">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xgz-i9-e0u">
                                 <rect key="frame" x="6" y="88" width="402" height="725"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -1983,13 +1983,13 @@ Only the best gear here.</string>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="FrQ-Gd-93z">
                                                 <rect key="frame" x="0.0" y="39.5" width="68.5" height="43.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaT-aO-IYE">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LaT-aO-IYE">
                                                         <rect key="frame" x="0.0" y="0.0" width="68.5" height="21.5"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                                         <color key="textColor" red="0.93332451579999998" green="0.9333273768" blue="0.93333357569999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="£50 P/H" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXO-jV-MCr">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="£50 P/H" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXO-jV-MCr">
                                                         <rect key="frame" x="0.0" y="26.5" width="68.5" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2013,8 +2013,8 @@ Only the best gear here.</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-gQ-hTu">
-                                <rect key="frame" x="0.0" y="216" width="414" height="595"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="216" width="414" height="597"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipientMessageCell" id="dhE-VG-hwn" userLabel="RecipientMessageCell" customClass="MessageTableViewCell" customModule="RentSpace" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="65.5"/>
@@ -2036,7 +2036,7 @@ Only the best gear here.</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="9HN-l1-qoQ" firstAttribute="top" secondItem="uxf-2X-lMz" secondAttribute="top" constant="4" id="49t-d4-NBC"/>
                                                         <constraint firstAttribute="trailing" secondItem="9HN-l1-qoQ" secondAttribute="trailing" constant="8" id="LPj-nH-FUZ"/>
@@ -2062,7 +2062,7 @@ Only the best gear here.</string>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ccB-Oi-oXK" secondAttribute="bottom" constant="-3.5" id="pkr-Yg-0IV"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dateLabel" destination="ccB-Oi-oXK" id="smY-eE-9B9"/>
                                             <outlet property="messageContainerView" destination="uxf-2X-lMz" id="B6d-0d-7Sb"/>
@@ -2086,11 +2086,11 @@ Only the best gear here.</string>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="3" id="2SX-HT-qde"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="AUY-3c-1Gu" firstAttribute="leading" secondItem="fai-R4-nKk" secondAttribute="leading" constant="8" id="17Z-8L-i2H"/>
                                                         <constraint firstAttribute="trailing" secondItem="AUY-3c-1Gu" secondAttribute="trailing" constant="8" id="8op-Q2-fTu"/>
@@ -2115,7 +2115,7 @@ Only the best gear here.</string>
                                                 <constraint firstItem="I0W-fm-p1Z" firstAttribute="top" secondItem="fai-R4-nKk" secondAttribute="bottom" constant="2" id="x4s-EM-qpE"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dateLabel" destination="I0W-fm-p1Z" id="6s3-vh-epb"/>
                                             <outlet property="messageContainerView" destination="fai-R4-nKk" id="Z4g-tg-joc"/>
@@ -2138,11 +2138,14 @@ Only the best gear here.</string>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YyV-RV-B2b" userLabel="Send Message View">
-                                <rect key="frame" x="0.0" y="814" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="816" width="414" height="46"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-ij-Ly6">
-                                        <rect key="frame" x="34" y="8" width="332" height="32"/>
+                                        <rect key="frame" x="34" y="8" width="324" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="JDD-Jt-d7Z"/>
+                                        </constraints>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
@@ -2151,7 +2154,7 @@ Only the best gear here.</string>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIB-BM-L5I">
-                                        <rect key="frame" x="5" y="12.5" width="24" height="22"/>
+                                        <rect key="frame" x="5" y="11.5" width="24" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="8dh-mr-UgO"/>
                                             <constraint firstAttribute="height" constant="24" id="CmE-s9-8k6"/>
@@ -2163,10 +2166,10 @@ Only the best gear here.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-O0-aTM">
-                                        <rect key="frame" x="376" y="10.5" width="28" height="27"/>
+                                        <rect key="frame" x="368" y="5.5" width="36" height="35"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="GLa-zf-ZCj"/>
-                                            <constraint firstAttribute="width" constant="28" id="t5L-WU-sRj"/>
+                                            <constraint firstAttribute="height" constant="36" id="2r8-jb-5OG"/>
+                                            <constraint firstAttribute="width" constant="36" id="t5L-WU-sRj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                         <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -2181,9 +2184,9 @@ Only the best gear here.</string>
                                     <constraint firstItem="gDd-ij-Ly6" firstAttribute="top" secondItem="YyV-RV-B2b" secondAttribute="top" constant="8" id="1me-rl-z8o"/>
                                     <constraint firstItem="lIB-BM-L5I" firstAttribute="centerY" secondItem="gDd-ij-Ly6" secondAttribute="centerY" id="3Sd-mM-Vmq"/>
                                     <constraint firstItem="lIB-BM-L5I" firstAttribute="leading" secondItem="YyV-RV-B2b" secondAttribute="leading" constant="5" id="GQw-Tm-EFM"/>
-                                    <constraint firstItem="RJ7-O0-aTM" firstAttribute="top" secondItem="YyV-RV-B2b" secondAttribute="top" constant="10" id="Xfp-7v-OQU"/>
+                                    <constraint firstItem="RJ7-O0-aTM" firstAttribute="top" secondItem="YyV-RV-B2b" secondAttribute="top" constant="5" id="Xfp-7v-OQU"/>
                                     <constraint firstAttribute="bottom" secondItem="gDd-ij-Ly6" secondAttribute="bottom" constant="8" id="YGG-mf-cgO"/>
-                                    <constraint firstAttribute="bottom" secondItem="RJ7-O0-aTM" secondAttribute="bottom" constant="10" id="jO7-tx-u4B"/>
+                                    <constraint firstAttribute="bottom" secondItem="RJ7-O0-aTM" secondAttribute="bottom" constant="5" id="jO7-tx-u4B"/>
                                     <constraint firstAttribute="trailing" secondItem="RJ7-O0-aTM" secondAttribute="trailing" constant="10" id="xfg-dE-f5b"/>
                                     <constraint firstItem="gDd-ij-Ly6" firstAttribute="leading" secondItem="lIB-BM-L5I" secondAttribute="trailing" constant="5" id="y8Z-X5-sVy"/>
                                     <constraint firstItem="RJ7-O0-aTM" firstAttribute="leading" secondItem="gDd-ij-Ly6" secondAttribute="trailing" constant="10" id="yPo-kn-Bn6"/>

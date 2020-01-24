@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import UserNotifications
 import Firebase
 import UIKit
 import MapKit
@@ -42,7 +43,17 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         })
         
-        // Check if there are unread messages
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Notifications", message: "Without notifications on you may miss messages from customers. Notifications can be turned on in the Settings App.")
+                }
+            } else {
+                print("Success Granted")
+            }
+        }
+        
+        // Check for unread messages
         if let UID = Auth.auth().currentUser?.uid {
             let ref = Database.database().reference()
             chatsHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
@@ -58,12 +69,16 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                                 print("Unread Messages: \(unread)")
                                 messageTab?.badgeColor = Settings.orangeTint
                                 messageTab?.badgeValue = "\(unread)"
+                                UIApplication.shared.applicationIconBadgeNumber = unread
+                                
                             } else if chat["read"] == "true"{
                                 read += 1
                                 print("Read messages: \(read)")
                                 print(dataSnapshot.childrenCount)
                                 if read == dataSnapshot.childrenCount {
                                     messageTab?.badgeValue = nil
+                                    UIApplication.shared.applicationIconBadgeNumber = 0
+
                                 }
                             }
                         }

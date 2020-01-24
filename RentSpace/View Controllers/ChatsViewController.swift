@@ -19,7 +19,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     var ref: DatabaseReference!
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss E, d MMM"
+        formatter.dateFormat = "HH:mm:ss E, d MMM, yyyy"
         return formatter
     }()
 
@@ -136,7 +136,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
+        return 2
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -201,8 +201,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
             // TODO: - load chat placeholder icon of RentSpace logo
         }
         
-//        cell.layer.cornerRadius = 60
-//        cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+
         
         return cell
     }
