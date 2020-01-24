@@ -17,6 +17,7 @@ target 'RentSpace' do
   pod 'FacebookLogin'
   pod 'MessageKit'
   pod 'AMKeyboardFrameTracker'
-  pod 'ACProgressHUD-Swift', '~> 1.1' 
+  pod 'ACProgressHUD-Swift', '~> 1.1'
+  pod 'NVActivityIndicatorView'
 
 end

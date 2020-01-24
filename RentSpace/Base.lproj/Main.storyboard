@@ -955,7 +955,7 @@ Long press and drag to reorder.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2qf-2o-eez">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2qf-2o-eez">
                                 <rect key="frame" x="6" y="88" width="402" height="725"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -967,7 +967,7 @@ Long press and drag to reorder.</string>
                                             <rect key="frame" x="0.0" y="0.0" width="402" height="150.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-vU-FRv">
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.10000000000000001" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-vU-FRv">
                                                     <rect key="frame" x="10" y="10" width="130" height="130.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="130" id="chh-hI-eDo"/>
@@ -1003,6 +1003,15 @@ Long press and drag to reorder.</string>
                                                     <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evA-Q7-sRu" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                                    <rect key="frame" x="40" y="40" width="70" height="69.5"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="circleStrokeSpin"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                            <color key="value" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="mJg-X2-CRW" firstAttribute="top" secondItem="JBU-hL-yDV" secondAttribute="bottom" constant="10" id="0YX-ap-9Dh"/>
@@ -1013,12 +1022,16 @@ Long press and drag to reorder.</string>
                                                 <constraint firstItem="jJa-tm-dhh" firstAttribute="top" secondItem="mJg-X2-CRW" secondAttribute="bottom" constant="4" id="ENA-hI-JCe"/>
                                                 <constraint firstItem="mJg-X2-CRW" firstAttribute="trailing" secondItem="B8r-6I-XsZ" secondAttribute="trailingMargin" constant="10" id="Ggq-u7-IRB"/>
                                                 <constraint firstItem="JBU-hL-yDV" firstAttribute="top" secondItem="B8r-6I-XsZ" secondAttribute="top" constant="10" id="HSw-dg-vHD"/>
+                                                <constraint firstItem="qgQ-vU-FRv" firstAttribute="trailing" secondItem="evA-Q7-sRu" secondAttribute="trailing" constant="30" id="JMb-wK-PMo"/>
                                                 <constraint firstItem="mJg-X2-CRW" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="LXc-dy-WgA"/>
                                                 <constraint firstItem="JBU-hL-yDV" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="Lez-8g-eAL"/>
                                                 <constraint firstAttribute="trailing" secondItem="nPF-BI-oAz" secondAttribute="trailing" constant="10" id="Uhq-cm-rJn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="evA-Q7-sRu" secondAttribute="bottom" constant="30" id="YXO-uh-n1A"/>
                                                 <constraint firstItem="FU5-EC-Ofs" firstAttribute="top" secondItem="jJa-tm-dhh" secondAttribute="bottom" constant="7.5" id="hGK-do-xyX"/>
                                                 <constraint firstAttribute="trailing" secondItem="JBU-hL-yDV" secondAttribute="trailing" constant="10" id="jqq-rZ-ecc"/>
                                                 <constraint firstItem="qgQ-vU-FRv" firstAttribute="leading" secondItem="B8r-6I-XsZ" secondAttribute="leading" constant="10" id="kKd-oH-Dge"/>
+                                                <constraint firstItem="evA-Q7-sRu" firstAttribute="top" secondItem="B8r-6I-XsZ" secondAttribute="topMargin" constant="29" id="kLt-dZ-hyH"/>
+                                                <constraint firstItem="evA-Q7-sRu" firstAttribute="leading" secondItem="B8r-6I-XsZ" secondAttribute="leadingMargin" constant="20" id="kd7-45-Tqa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="jJa-tm-dhh" secondAttribute="trailing" constant="10" id="pJy-SN-qj7"/>
                                                 <constraint firstItem="qgQ-vU-FRv" firstAttribute="top" secondItem="B8r-6I-XsZ" secondAttribute="top" constant="10" id="peO-Ip-8NG"/>
                                                 <constraint firstItem="FU5-EC-Ofs" firstAttribute="leading" secondItem="qgQ-vU-FRv" secondAttribute="trailing" constant="10" id="v6r-ar-2r1"/>
@@ -1027,6 +1040,7 @@ Long press and drag to reorder.</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
+                                            <outlet property="activityView" destination="evA-Q7-sRu" id="E3z-Lx-cy5"/>
                                             <outlet property="categoryLabel" destination="FU5-EC-Ofs" id="BAs-EI-axz"/>
                                             <outlet property="customImageView" destination="qgQ-vU-FRv" id="xlV-pl-T7M"/>
                                             <outlet property="descriptionLabel" destination="mJg-X2-CRW" id="dsi-AL-4Hu"/>
@@ -1041,13 +1055,38 @@ Long press and drag to reorder.</string>
                                     <outlet property="delegate" destination="T2e-aY-bb6" id="Umu-sf-gM0"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kA7-Lq-uGw" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="87" y="386.5" width="240" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="dT5-Sh-B7b"/>
+                                    <constraint firstAttribute="height" constant="128" id="dTd-lM-nRH"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballClipRotateMultiple"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding Spaces..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gus-AO-6wg">
+                                <rect key="frame" x="10" y="777" width="394" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="kA7-Lq-uGw" firstAttribute="centerY" secondItem="Euz-Rl-Tla" secondAttribute="centerY" id="4Bl-uO-xHh"/>
+                            <constraint firstItem="gus-AO-6wg" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" constant="10" id="PEu-g4-xl1"/>
+                            <constraint firstItem="Euz-Rl-Tla" firstAttribute="bottom" secondItem="gus-AO-6wg" secondAttribute="bottom" constant="15" id="Q1P-4K-K1H"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="2qf-2o-eez" secondAttribute="trailing" constant="6" id="Rml-g0-pj0"/>
+                            <constraint firstItem="kA7-Lq-uGw" firstAttribute="centerX" secondItem="Euz-Rl-Tla" secondAttribute="centerX" id="TUS-iJ-XJo"/>
                             <constraint firstItem="2qf-2o-eez" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" constant="6" id="csg-kC-l0S"/>
                             <constraint firstItem="2qf-2o-eez" firstAttribute="top" secondItem="Euz-Rl-Tla" secondAttribute="top" id="hYm-TN-kKE"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="bottom" secondItem="2qf-2o-eez" secondAttribute="bottom" id="jOH-a3-4NT"/>
+                            <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="gus-AO-6wg" secondAttribute="trailing" constant="10" id="wPY-Z0-a3p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Euz-Rl-Tla"/>
                     </view>
@@ -1055,12 +1094,14 @@ Long press and drag to reorder.</string>
                         <barButtonItem key="backBarButtonItem" title="-" id="B1F-vg-xxF"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityView" destination="kA7-Lq-uGw" id="H4c-tE-hWG"/>
+                        <outlet property="findingSpacesLabel" destination="gus-AO-6wg" id="vZQ-hT-eWa"/>
                         <outlet property="tableView" destination="2qf-2o-eez" id="r2m-ei-gvF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jo6-mY-iJr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2971" y="-731"/>
+            <point key="canvasLocation" x="2969.5652173913045" y="-731.25"/>
         </scene>
         <!--Search Radius View Controller-->
         <scene sceneID="Ppv-jd-gf1">
@@ -1152,8 +1193,24 @@ Long press and drag to reorder.</string>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpm-89-5YW" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                                        <rect key="frame" x="87" y="111" width="240" height="128"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballClipRotateMultiple"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="1oK-Yi-AvJ"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="top" secondItem="eXZ-Tc-spn" secondAttribute="top" constant="111" id="Hku-Gz-h7M"/>
+                                                    <constraint firstItem="eXZ-Tc-spn" firstAttribute="trailing" secondItem="qpm-89-5YW" secondAttribute="trailing" constant="87" id="W5e-6y-fh9"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="leading" secondItem="eXZ-Tc-spn" secondAttribute="leading" constant="87" id="jK9-rT-JW2"/>
+                                                    <constraint firstItem="eXZ-Tc-spn" firstAttribute="bottom" secondItem="qpm-89-5YW" secondAttribute="bottom" constant="111" id="llA-JT-BM7"/>
                                                 </constraints>
                                                 <viewLayoutGuide key="contentLayoutGuide" id="fua-bQ-k3o"/>
                                                 <viewLayoutGuide key="frameLayoutGuide" id="eXZ-Tc-spn"/>
@@ -1246,7 +1303,7 @@ Long press and drag to reorder.</string>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-IP-VZw">
                                                 <rect key="frame" x="0.0" y="466" width="414" height="462.5"/>
-                                                <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.11502255798450685" green="0.12089633670673536" blue="0.13153725136355099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="uIt-MQ-ARt"/>
                                                 </constraints>
@@ -1325,6 +1382,7 @@ Only the best gear here.</string>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="activityView" destination="qpm-89-5YW" id="ZMn-Ov-ltb"/>
                         <outlet property="descriptionTextView" destination="Gmj-IP-VZw" id="1qu-NO-xMm"/>
                         <outlet property="emailButton" destination="KoP-UV-CRU" id="2Kq-uh-jhn"/>
                         <outlet property="locationIcon" destination="AIm-s0-uiG" id="s0G-Ao-O1z"/>
@@ -1856,7 +1914,7 @@ Only the best gear here.</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bHA-La-2xr">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MessagesCell" rowHeight="80" id="IMz-Zq-xfH" customClass="MessagesTableViewCell" customModule="RentSpace" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="80"/>

@@ -189,6 +189,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>NVActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-RentSpace.xcscheme</key>
 		<dict>
 			<key>isShown</key>

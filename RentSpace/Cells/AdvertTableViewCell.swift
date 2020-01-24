@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import NVActivityIndicatorView
 import UIKit
 
 class AdvertTableViewCell: UITableViewCell {
@@ -16,6 +17,7 @@ class AdvertTableViewCell: UITableViewCell {
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var categoryLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
+    @IBOutlet var activityView: NVActivityIndicatorView!
     
     
 

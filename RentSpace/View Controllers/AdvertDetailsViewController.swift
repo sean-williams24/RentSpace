@@ -8,6 +8,7 @@
 
 import Firebase
 import MapKit
+import NVActivityIndicatorView
 import UIKit
 
 class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
@@ -23,6 +24,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var phoneButton: UIButton!
     @IBOutlet var messagesButton: UIButton!
+    @IBOutlet var activityView: NVActivityIndicatorView!
     
     var images = [UIImage]()
     var advertSnapshot: DataSnapshot!
@@ -161,6 +163,10 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     // refactor this and cloud delete to Firebase client class
     func downloadFirebaseImages(completion: @escaping () -> ()) {
+
+        activityView.startAnimating()
+        
+        
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
             self.imageURLsDict = imageURLsDict
             

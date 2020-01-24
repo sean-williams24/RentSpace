@@ -8,6 +8,7 @@
 
 import Firebase
 import MapKit
+import NVActivityIndicatorView
 import UIKit
 
 protocol UpdateSearchLocationDelegate {
@@ -19,12 +20,13 @@ class RentSpaceViewController: UIViewController {
 
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var findingSpacesLabel: UILabel!
     
     var ref: DatabaseReference!
     var storageRef: StorageReference!
     fileprivate var _refHandle: DatabaseHandle!
     
-//    var adverts: [DataSnapshot] = []
     var filteredAdverts: [DataSnapshot] = []
     var array: [DataSnapshot]!
     var chosenAdvert: DataSnapshot!
@@ -65,7 +67,7 @@ class RentSpaceViewController: UIViewController {
         
         storageRef = Storage.storage().reference()
 
-        configureDatabase(for: Constants.customCLLocation, within: UserDefaults.standard.double(forKey: "Distance"))
+        getAdverts(for: Constants.customCLLocation, within: UserDefaults.standard.double(forKey: "Distance"))
         print(UserDefaults.standard.double(forKey: "Distance"))
 //        Constants.customCLLocation.coordinate
     }
@@ -83,13 +85,16 @@ class RentSpaceViewController: UIViewController {
     
     // MARK: - Config
 
-    func configureDatabase(for userLocation: CLLocation, within setMiles: Double) {
+    func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
+        activityView.startAnimating()
+        UIView.animate(withDuration: 7) {
+            self.findingSpacesLabel.alpha = 1
+        }
+        
         filteredAdverts.removeAll()
         distances.removeAll()
         ref = Database.database().reference()
-        
-        //TODO: - SHOW user feedback of downloading of adverts
-        
+                
         if setMiles == 310.0 {
             // Nationwide results, i.e. all adverts
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
@@ -98,6 +103,8 @@ class RentSpaceViewController: UIViewController {
                     if let advertSnapshot = child as? DataSnapshot {
                         self.filteredAdverts.append(advertSnapshot)
                     }
+                    self.activityView.stopAnimating()
+                    self.findingSpacesLabel.alpha = 0
                     self.tableView.reloadData()
                 }
             })
@@ -118,6 +125,8 @@ class RentSpaceViewController: UIViewController {
 
                                     if distanceInMiles < setMiles {
                                         print("Distance: \(distanceInMiles)")
+                                        self.activityView.stopAnimating()
+                                        self.findingSpacesLabel.alpha = 0
                                         self.filteredAdverts.append(advertSnapshot)
                                         self.tableView.reloadData()
                                     }
@@ -177,6 +186,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
         cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
+        cell.activityView.startAnimating()
         
         let advertSnapshot = filteredAdverts[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]
@@ -205,6 +215,8 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                     // Check to see if cell is still on screen, if so update cell
                     if cell == tableView.cellForRow(at: indexPath) {
                         DispatchQueue.main.async {
+                            cell.activityView.stopAnimating()
+                            cell.customImageView.alpha = 1
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
                         }
@@ -225,12 +237,12 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
 extension RentSpaceViewController: UpdateSearchLocationDelegate {
     
     func didUpdate(distance: Double) {
-        configureDatabase(for: Constants.customCLLocation, within: distance)
+        getAdverts(for: Constants.customCLLocation, within: distance)
     }
 
     
     func didUpdateLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation, distance: Double) {
-        configureDatabase(for: location, within: distance)
+        getAdverts(for: location, within: distance)
         rightBarButton.title = town
         if town == "" {
             rightBarButton.title = city

@@ -86,6 +86,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 }
             })
         }
+        
     }
     
     override func viewDidLoad() {

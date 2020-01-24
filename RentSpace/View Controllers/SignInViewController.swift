@@ -6,6 +6,7 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import ACProgressHUD_Swift
 import FacebookLogin
 import FirebaseUI
 import Firebase
@@ -116,12 +117,15 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     // MARK: - Action Methods
 
     @IBAction func signInButtonTapped(_ sender: Any) {
-        
+        let progressView = ACProgressHUD.shared
+        progressView.progressText = "Signing In"
+        progressView.showHUD()
         
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authUser, error) in
             if error == nil {
                 self.dismiss(animated: true)
                 self.delegate?.updateSignInButton()
+                progressView.hideHUD()
             } else {
                 if let error = error, authUser == nil {
                     self.showAlert(title: "Problem Signing In", message: error.localizedDescription)
