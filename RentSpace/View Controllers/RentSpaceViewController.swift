@@ -21,7 +21,7 @@ class RentSpaceViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var activityView: NVActivityIndicatorView!
-    @IBOutlet var findingSpacesLabel: UILabel!
+    @IBOutlet var loadingLabel: UILabel!
     
     var ref: DatabaseReference!
     var storageRef: StorageReference!
@@ -86,10 +86,7 @@ class RentSpaceViewController: UIViewController {
     // MARK: - Config
 
     func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
-        activityView.startAnimating()
-        UIView.animate(withDuration: 7) {
-            self.findingSpacesLabel.alpha = 1
-        }
+        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
         
         filteredAdverts.removeAll()
         distances.removeAll()
@@ -103,8 +100,7 @@ class RentSpaceViewController: UIViewController {
                     if let advertSnapshot = child as? DataSnapshot {
                         self.filteredAdverts.append(advertSnapshot)
                     }
-                    self.activityView.stopAnimating()
-                    self.findingSpacesLabel.alpha = 0
+                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     self.tableView.reloadData()
                 }
             })
@@ -125,8 +121,8 @@ class RentSpaceViewController: UIViewController {
 
                                     if distanceInMiles < setMiles {
                                         print("Distance: \(distanceInMiles)")
-                                        self.activityView.stopAnimating()
-                                        self.findingSpacesLabel.alpha = 0
+                                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                                        
                                         self.filteredAdverts.append(advertSnapshot)
                                         self.tableView.reloadData()
                                     }
@@ -186,7 +182,12 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
         cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
-        cell.activityView.startAnimating()
+        cell.activityView.alpha = 0
+
+        UIView.animate(withDuration: 1) {
+            cell.activityView.alpha = 1
+            cell.activityView.startAnimating()
+        }
         
         let advertSnapshot = filteredAdverts[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]

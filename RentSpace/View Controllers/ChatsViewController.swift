@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import NVActivityIndicatorView
 import UIKit
 
 class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
@@ -14,6 +15,8 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
+    @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var loadingLabel: UILabel!
     
     var chats: [Chat] = []
     var unorderedChats: [Chat] = []
@@ -59,6 +62,8 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     // MARK: - Private Methods
 
     fileprivate func downloadChats() {
+        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
+
         let UID = Settings.currentUser!.uid
         refHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
             self.chats.removeAll()
@@ -103,6 +108,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                     }
                 }
             }
+            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
             self.tableView.reloadData()
         })
     }
@@ -167,7 +173,12 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesTableViewCell
         let chat = chats[indexPath.section]
-        
+        cell.activityView.alpha = 0
+
+        UIView.animate(withDuration: 1) {
+            cell.activityView.alpha = 1
+            cell.activityView.startAnimating()
+        }
         var recipient = ""
         // if logged in user is advert owner, chat recipient is customer
         if Auth.auth().currentUser?.uid == chat.advertOwnerUID {
@@ -212,6 +223,8 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                             ctx.cgContext.strokeEllipse(in: rectangle)
                             ctx.cgContext.drawPath(using: .stroke)
                         }
+                        cell.activityView.stopAnimating()
+                        cell.customImageView.alpha = 1
                         cell.customImageView.image = img
                     }
                 }

@@ -5,7 +5,7 @@
 //  Created by Sean Williams on 05/01/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
-
+import NVActivityIndicatorView
 import UIKit
 
 class MessagesTableViewCell: UITableViewCell {
@@ -15,6 +15,7 @@ class MessagesTableViewCell: UITableViewCell {
     @IBOutlet var advertTitleLabel: UILabel!
     @IBOutlet var latestMessageLabel: UILabel!
     @IBOutlet var newMessageImageView: UIImageView!
+    @IBOutlet var activityView: NVActivityIndicatorView!
     
 
     override func awakeFromNib() {

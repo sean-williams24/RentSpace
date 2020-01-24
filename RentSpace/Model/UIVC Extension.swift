@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import NVActivityIndicatorView
 import Foundation
 import UIKit
 
@@ -145,7 +146,7 @@ extension UIViewController {
         return path[0]
     }
     
-    //MARK: - Disnmiss keyboard when view is tapped
+    //MARK: - Dismiss keyboard when view is tapped
 
     func dismissKeyboardOnViewTap() {
         // Keyboard dismissal
@@ -153,6 +154,21 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    
+    //MARK: - Show/Hide loading animations
+    
+    
+    func showLoadingUI(_ loading: Bool, for activityView: NVActivityIndicatorView, label: UILabel) {
+        if loading {
+            activityView.startAnimating()
+            UIView.animate(withDuration: 7) {
+                label.alpha = 1
+            }
+        } else {
+            activityView.stopAnimating()
+            label.alpha = 0
+        }
+    }
 }
 
 

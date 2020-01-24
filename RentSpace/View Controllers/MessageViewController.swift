@@ -8,6 +8,7 @@
 
 import UserNotifications
 import Firebase
+import NVActivityIndicatorView
 import UIKit
 
 class MessageViewController: UIViewController {
@@ -21,6 +22,8 @@ class MessageViewController: UIViewController {
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet var sendMessageButton: UIButton!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var loadingLabel: UILabel!
     
     var messages: [Message] = []
     var advert: [String: Any] = [:]
@@ -133,12 +136,16 @@ class MessageViewController: UIViewController {
     }
     
     fileprivate func retrieveMessages() {
+        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
+
         refHandle = ref.child("messages/\(chatID)").observe(.childAdded, with: { (dataSnapshot) in
             let message = Message()
             if let messageSnapshot = dataSnapshot.value as? [String: String] {
                 message.messageBody = messageSnapshot["message"]!
                 message.sender = messageSnapshot["sender"]!
                 message.messageDate = messageSnapshot["messageDate"] ?? ""
+                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+
                 self.messages.append(message)
                 self.tableView.reloadData()
                 self.scrollToBottomMessage()

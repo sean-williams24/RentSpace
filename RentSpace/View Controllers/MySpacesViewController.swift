@@ -7,6 +7,7 @@
 //
 import FirebaseUI
 import Firebase
+import NVActivityIndicatorView
 import UIKit
 
 
@@ -15,6 +16,8 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
+    @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var loadingLabel: UILabel!
     
     var mySpaces: [DataSnapshot] = []
     var ref: DatabaseReference!
@@ -24,10 +27,19 @@ class MySpacesViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        signInButton.layer.cornerRadius = 2
+        
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil {
+                self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
                 self.mySpaces.removeAll()
                 self.tableView.reloadData()
                 self.signedOutView.isHidden = true
@@ -37,39 +49,22 @@ class MySpacesViewController: UIViewController {
                 let UID = Settings.currentUser?.uid
                 self.refHandle = self.ref.child("users/\(UID!)/adverts").observe(.childAdded, with: { (snapShot) in
                     self.mySpaces.append(snapShot)
+                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     self.tableView.reloadData()
                 })
-                
+
                 self.title = Settings.currentUser?.email
                 if let displayName = Settings.currentUser?.displayName {
                     self.title = displayName
                 }
-                
             } else {
                 self.signedOutView.isHidden = false
                 self.mySpaces.removeAll()
                 self.tableView.reloadData()
                 self.title = nil
                 self.tabBarController?.tabBar.items?[2].title = "My Spaces"
-                
             }
         }
-        
-//        for image in Global.imagesSavedToDisk {
-//            let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
-//            deleteFileFromDisk(at: imageURLInDocuments)
-//        }
-        
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        signInButton.layer.cornerRadius = 2
-        
-
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -121,6 +116,12 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "My Spaces Cell", for: indexPath) as! MySpacesTableViewCell
         cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
+        cell.activityView.alpha = 0
+
+//        UIView.animate(withDuration: 1) {
+//            cell.activityView.alpha = 1
+//            cell.activityView.startAnimating()
+//        }
         
         let advertSnapshot = mySpaces[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]
@@ -145,10 +146,12 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                         return
                     }
                     let cellImage = UIImage.init(data: data!, scale: 0.1)
-                    
+                    cell.activityView.stopAnimating()
+
                     // Check to see if cell is still on screen, if so update cell
                     if cell == tableView.cellForRow(at: indexPath) {
                         DispatchQueue.main.async {
+                            cell.customImageView.alpha = 1
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
                         }
