@@ -298,24 +298,23 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
         let recipientCell = messagesTableView.dequeueReusableCell(withIdentifier: "RecipientMessageCell", for: indexPath) as! MessageTableViewCell
         let senderCell = messagesTableView.dequeueReusableCell(withIdentifier: "SenderMessageCell", for: indexPath) as! SenderTableViewCell
         let message = messages[indexPath.row]
+        let calendar = Calendar.current
+        let timeFormatter = DateFormatter()
+        let dayFormatter = DateFormatter()
+        let weekFormatter = DateFormatter()
+        let now = Date()
+        let fiveMinutesAgo = calendar.date(byAdding: .minute, value: -5, to: now)
+        let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: now)
+        let lastSevenDays = sevenDaysAgo!...now
+        let lastFiveMinutes = fiveMinutesAgo!...now
+
+        timeFormatter.dateFormat = "HH:mm"
+        dayFormatter.dateFormat = "E, d MMM"
+        weekFormatter.dateFormat = "EEEE"
         
         if message.sender == Auth.auth().currentUser?.displayName {
             let cell = senderCell
             cell.messageLabel.text = message.messageBody
-            
-            let calendar = Calendar.current
-            let timeFormatter = DateFormatter()
-            let dayFormatter = DateFormatter()
-            let weekFormatter = DateFormatter()
-            let now = Date()
-            let fiveMinutesAgo = calendar.date(byAdding: .minute, value: -5, to: now)
-            let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: now)
-            let lastSevenDays = sevenDaysAgo!...now
-            let lastFiveMinutes = fiveMinutesAgo!...now
-
-            timeFormatter.dateFormat = "HH:mm"
-            dayFormatter.dateFormat = "E, d MMM"
-            weekFormatter.dateFormat = "EEEE"
             
             if let messageDate = fullDateFormatter.date(from: message.messageDate) {
                 // set date to day and month
@@ -337,14 +336,33 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             }
             
-            
             cell.messageContainerView.layer.cornerRadius = 14
             cell.messageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner]
             return cell
         } else {
             let cell = recipientCell
             cell.messageLabel.text = message.messageBody
-            cell.dateLabel.text = message.messageDate
+            
+            if let messageDate = fullDateFormatter.date(from: message.messageDate) {
+                // set date to day and month
+                cell.dateLabel.text = dayFormatter.string(from: messageDate)
+                
+                // if message was within the last week, just show day
+                if lastSevenDays.contains(messageDate) {
+                    cell.dateLabel.text = weekFormatter.string(from: messageDate)
+                }
+                
+                // if message was today, just show time
+                if calendar.isDateInToday(messageDate) {
+                    cell.dateLabel.text = timeFormatter.string(from: messageDate)
+
+                    // if message was within the last 5 minutes, don't show time
+                    if lastFiveMinutes.contains(messageDate) {
+                        cell.dateLabel.text = ""
+                    }
+                }
+            }
+            
             cell.messageContainerView.layer.cornerRadius = 14
             cell.messageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
             return cell
