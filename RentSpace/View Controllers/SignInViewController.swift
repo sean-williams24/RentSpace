@@ -5,6 +5,7 @@
 //  Created by Sean Williams on 05/01/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
+
 import FacebookLogin
 import FirebaseUI
 import Firebase
@@ -115,6 +116,8 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     // MARK: - Action Methods
 
     @IBAction func signInButtonTapped(_ sender: Any) {
+        
+        
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authUser, error) in
             if error == nil {
                 self.dismiss(animated: true)

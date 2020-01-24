@@ -16,5 +16,7 @@ target 'RentSpace' do
   pod 'GoogleSignIn'
   pod 'FacebookLogin'
   pod 'MessageKit'
+  pod 'AMKeyboardFrameTracker'
+  pod 'ACProgressHUD-Swift', '~> 1.1' 
 
 end

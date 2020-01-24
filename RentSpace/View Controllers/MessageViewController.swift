@@ -130,7 +130,6 @@ class MessageViewController: UIViewController {
             }
         }
         imageView.image = thumbnail
-        
     }
     
     fileprivate func retrieveMessages() {

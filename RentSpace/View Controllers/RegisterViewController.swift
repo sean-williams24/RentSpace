@@ -67,7 +67,7 @@ class RegisterViewController: UIViewController {
         switch textField.tag {
         case 0:
             if isValidEmail(emailTextField.text!) {
-                checkmark1.tintColor = .systemPurple
+                checkmark1.tintColor = Settings.orangeTint
                 emailValidated = true
             } else {
                 checkmark1.tintColor = .darkGray
@@ -76,7 +76,7 @@ class RegisterViewController: UIViewController {
 
         case 1:
             if isValidPassword(passwordTextField.text!) {
-                checkmark2.tintColor = .systemPurple
+                checkmark2.tintColor = Settings.orangeTint
             } else {
                 checkmark2.tintColor = .darkGray
             }
@@ -85,7 +85,7 @@ class RegisterViewController: UIViewController {
             }
         case 2:
             if confirmPasswordTextField.text! == passwordTextField.text! {
-                checkmark3.tintColor = .systemPurple
+                checkmark3.tintColor = Settings.orangeTint
                 passwordValidated = true
             } else {
                 checkmark3.tintColor = .darkGray

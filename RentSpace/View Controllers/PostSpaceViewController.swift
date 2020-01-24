@@ -66,7 +66,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         
         if updatingAdvert {
             loadAdvertToUpdate()
@@ -86,6 +85,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configureUI()
         subscribeToKeyboardNotificationsPostVC()
         imagesToUpload = []
         
@@ -291,7 +291,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         
-        signInButton.layer.cornerRadius = 5
+        signInButton.layer.cornerRadius = 2
         uploadView.isHidden = true
     }
     

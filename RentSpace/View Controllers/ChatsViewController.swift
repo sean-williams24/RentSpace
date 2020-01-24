@@ -12,11 +12,14 @@ import UIKit
 class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var signedOutView: UIView!
+    @IBOutlet var signInButton: UIButton!
     
     var chats: [Chat] = []
     var unorderedChats: [Chat] = []
     var refHandle: DatabaseHandle!
     var ref: DatabaseReference!
+    var authHandle: AuthStateDidChangeListenerHandle!
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss E, d MMM, yyyy"
@@ -30,14 +33,33 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
+        signInButton.layer.cornerRadius = 2
         
+        authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                self.signedOutView.isHidden = true
+                self.downloadChats()
+                
+            } else {
+                self.signedOutView.isHidden = false
+            }
+        })
     }
+    
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let UID = Settings.currentUser!.uid
-        ref = Database.database().reference()
         
+    }
+    
+
+    
+    // MARK: - Private Methods
+
+    fileprivate func downloadChats() {
+        let UID = Settings.currentUser!.uid
         refHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
             self.chats.removeAll()
             for child in dataSnapshot.children {
@@ -56,13 +78,12 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                         let thumbnailURL = chat["thumbnailURL"],
                         let messageDate = chat["messageDate"],
                         let read = chat["read"] {
-
+                        
                         let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL, messageDate: messageDate, read: read)
                         
                         if self.chats.isEmpty == true {
                             // append first chat to array
                             self.chats.append(chat)
-//                            print("Chat Appended in Empty Block: \(chat.title)")
                         } else {
                             // for subsequent chats, iterate through temp array and check if date is earlier than array chats.
                             for (index, tempChat) in self.chats.enumerated() {
@@ -71,13 +92,11 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                                 
                                 if nextChatDate! > tempChatDate! {
                                     self.chats.insert(chat, at: index)
-//                                    print("Inserting chat: \(chat.title) at position \(index)")
                                     break
                                 } else {
                                     self.chats.append(chat)
-//                                    print("Chat Appended in Else Block: \(chat.title)")
                                     break
-
+                                    
                                 }
                             }
                         }
@@ -85,14 +104,9 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 }
             }
             self.tableView.reloadData()
-//            print("Reload data called")
         })
     }
     
-
-    
-    // MARK: - Private Methods
-
     
     func delete(chat: Chat) {
 
@@ -118,6 +132,11 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     }
 
 
+    @IBAction func signInButtonTapped(_ sender: Any) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") {
+             present(vc, animated: true)
+         }
+    }
 }
 
 

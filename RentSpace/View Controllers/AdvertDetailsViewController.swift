@@ -135,6 +135,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             self.pageController.numberOfPages = self.imagesDictionary.count
         }
         
+        if advert[Advert.postedByUser] as? String == Auth.auth().currentUser?.uid {
+            messagesButton.isEnabled = false
+            messagesButton.tintColor = .clear
+        }
+        
         setLocationOnMap()
         
         
