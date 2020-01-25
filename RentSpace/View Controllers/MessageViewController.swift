@@ -122,6 +122,7 @@ class MessageViewController: UIViewController {
             advertTitleLabel.text = chat.title
             locationLabel.text = chat.location
             priceLabel.text = chat.price
+            self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
         } else {
             // New chat initiated
             let advertTitle = advert[Advert.title] as? String
@@ -136,8 +137,6 @@ class MessageViewController: UIViewController {
     }
     
     fileprivate func retrieveMessages() {
-        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
-
         refHandle = ref.child("messages/\(chatID)").observe(.childAdded, with: { (dataSnapshot) in
             let message = Message()
             if let messageSnapshot = dataSnapshot.value as? [String: String] {

@@ -652,9 +652,9 @@ Long press and drag to reorder.</string>
                     <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GfW-wh-rZ2">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
@@ -678,7 +678,7 @@ Long press and drag to reorder.</string>
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </textAttributes>
@@ -1004,7 +1004,7 @@ Long press and drag to reorder.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evA-Q7-sRu" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                    <rect key="frame" x="40" y="40" width="70" height="70"/>
+                                                    <rect key="frame" x="40" y="40" width="70" height="69.5"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="circleStrokeSpin"/>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="color">
@@ -1456,7 +1456,7 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1931,7 +1931,7 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </textAttributes>
@@ -2084,11 +2084,21 @@ Only the best gear here.</string>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cId-Sx-aKD">
+                                                    <rect key="frame" x="90" y="79" width="324" height="1"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="PBI-SZ-eLx"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="zNr-by-Sb6" firstAttribute="top" secondItem="tnw-IA-OxP" secondAttribute="topMargin" constant="9" id="0h4-yo-6Ct"/>
                                                 <constraint firstItem="OAf-we-62e" firstAttribute="leading" secondItem="tnw-IA-OxP" secondAttribute="leading" constant="10" id="CIB-37-wLX"/>
+                                                <constraint firstAttribute="bottom" secondItem="cId-Sx-aKD" secondAttribute="bottom" id="EjJ-Ao-0ub"/>
                                                 <constraint firstItem="UfG-K6-0Hg" firstAttribute="leading" secondItem="zNr-by-Sb6" secondAttribute="trailing" constant="30" id="HbC-SB-lWt"/>
+                                                <constraint firstItem="cId-Sx-aKD" firstAttribute="leading" secondItem="9vm-fT-FSG" secondAttribute="leading" id="N9G-Ya-bJg"/>
+                                                <constraint firstAttribute="trailing" secondItem="cId-Sx-aKD" secondAttribute="trailing" id="Nte-wm-wGA"/>
                                                 <constraint firstItem="UfG-K6-0Hg" firstAttribute="leading" secondItem="OAf-we-62e" secondAttribute="trailing" constant="20" id="P7G-Zo-pKA"/>
                                                 <constraint firstAttribute="trailing" secondItem="Wbj-aO-yin" secondAttribute="trailing" constant="20" id="Rs6-5b-rwc"/>
                                                 <constraint firstItem="OAf-we-62e" firstAttribute="top" secondItem="tnw-IA-OxP" secondAttribute="top" constant="10" id="V9N-Lh-mje"/>
@@ -2237,7 +2247,7 @@ Only the best gear here.</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-gQ-hTu">
-                                <rect key="frame" x="0.0" y="216" width="414" height="597"/>
+                                <rect key="frame" x="0.0" y="211" width="414" height="602"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipientMessageCell" id="dhE-VG-hwn" userLabel="RecipientMessageCell" customClass="MessageTableViewCell" customModule="RentSpace" customModuleProvider="target">
@@ -2426,7 +2436,7 @@ Only the best gear here.</string>
                         <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wQJ-9b-64r" firstAttribute="centerX" secondItem="agF-yV-ga4" secondAttribute="centerX" id="1jZ-jv-bfr"/>
-                            <constraint firstItem="aRT-gQ-hTu" firstAttribute="top" secondItem="uuj-ph-ino" secondAttribute="bottom" constant="8" symbolic="YES" id="89K-Iz-fKG"/>
+                            <constraint firstItem="aRT-gQ-hTu" firstAttribute="top" secondItem="uuj-ph-ino" secondAttribute="bottom" constant="3" id="89K-Iz-fKG"/>
                             <constraint firstItem="aRT-gQ-hTu" firstAttribute="trailing" secondItem="agF-yV-ga4" secondAttribute="trailing" id="AJY-72-Vgo"/>
                             <constraint firstItem="YyV-RV-B2b" firstAttribute="bottom" secondItem="agF-yV-ga4" secondAttribute="bottom" id="Cfy-Pe-STR"/>
                             <constraint firstItem="YyV-RV-B2b" firstAttribute="top" secondItem="Yks-Ja-vBW" secondAttribute="bottom" constant="15" id="Dkp-BC-ps9"/>
@@ -2459,7 +2469,7 @@ Only the best gear here.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5OV-A5-FBg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2934.7826086956525" y="2728.7946428571427"/>
+            <point key="canvasLocation" x="2936" y="2729"/>
         </scene>
         <!--My Space Details View Controller-->
         <scene sceneID="45m-lO-cBU">
@@ -2674,7 +2684,7 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </textAttributes>
