@@ -111,7 +111,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         downloadFirebaseImages {
             // Add images to scrollView
-            print(self.imagesDictionary)
             var i = 0
             
             for key in self.imagesDictionary.keys.sorted() {
@@ -143,8 +142,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
         
         setLocationOnMap()
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -165,7 +162,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     func downloadFirebaseImages(completion: @escaping () -> ()) {
 
         activityView.startAnimating()
-        
         
         if let imageURLsDict = advert[Advert.photos] as? [String : String] {
             self.imageURLsDict = imageURLsDict

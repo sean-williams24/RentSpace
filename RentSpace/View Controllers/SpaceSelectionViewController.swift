@@ -48,8 +48,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 DispatchQueue.main.async {
                     self.showAlert(title: "Notifications", message: "Without notifications on you may miss messages from customers. Notifications can be turned on in the Settings App.")
                 }
-            } else {
-                print("Success Granted")
             }
         }
         
@@ -66,19 +64,15 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                         if let chat = snapshot.value as? [String: String] {
                             if chat["read"] == "false" {
                                 unread += 1
-                                print("Unread Messages: \(unread)")
                                 messageTab?.badgeColor = Settings.orangeTint
                                 messageTab?.badgeValue = "\(unread)"
                                 UIApplication.shared.applicationIconBadgeNumber = unread
                                 
                             } else if chat["read"] == "true"{
                                 read += 1
-                                print("Read messages: \(read)")
-                                print(dataSnapshot.childrenCount)
                                 if read == dataSnapshot.childrenCount {
                                     messageTab?.badgeValue = nil
                                     UIApplication.shared.applicationIconBadgeNumber = 0
-
                                 }
                             }
                         }

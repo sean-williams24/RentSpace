@@ -1449,7 +1449,7 @@ Only the best gear here.</string>
         <scene sceneID="K6O-EV-dmd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d8u-Aa-oNO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rent Space" image="eyeglasses" catalog="system" selectedImage="eye" id="uj0-as-IS3"/>
+                    <tabBarItem key="tabBarItem" title="Rent Space" image="eye" catalog="system" selectedImage="eye" id="uj0-as-IS3"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="0jz-ox-ACf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tF4-K0-ztZ">
@@ -1493,18 +1493,19 @@ Only the best gear here.</string>
                                                     <segue destination="T2e-aY-bb6" kind="show" id="QGa-Qe-AzT"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintbrush" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7q9-fX-exj">
-                                                <rect key="frame" x="0.0" y="18.5" width="414" height="140"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Art Studio-1" translatesAutoresizingMaskIntoConstraints="NO" id="7q9-fX-exj">
+                                                <rect key="frame" x="0.0" y="35" width="414" height="102.5"/>
                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="3DY-EW-EmD" firstAttribute="top" secondItem="fW7-5d-pF2" secondAttribute="top" id="D5Z-TS-0ov"/>
                                             <constraint firstItem="7q9-fX-exj" firstAttribute="leading" secondItem="fW7-5d-pF2" secondAttribute="leading" id="QfM-YX-Krw"/>
-                                            <constraint firstItem="7q9-fX-exj" firstAttribute="top" secondItem="fW7-5d-pF2" secondAttribute="top" constant="20" id="TXl-2J-lDe"/>
+                                            <constraint firstItem="7q9-fX-exj" firstAttribute="top" secondItem="fW7-5d-pF2" secondAttribute="top" constant="35" id="TXl-2J-lDe"/>
                                             <constraint firstAttribute="bottom" secondItem="3DY-EW-EmD" secondAttribute="bottom" id="Tca-sj-5j7"/>
-                                            <constraint firstAttribute="bottom" secondItem="7q9-fX-exj" secondAttribute="bottom" constant="20" id="ULQ-ED-4T3"/>
+                                            <constraint firstAttribute="bottom" secondItem="7q9-fX-exj" secondAttribute="bottom" constant="40" id="ULQ-ED-4T3"/>
                                             <constraint firstAttribute="trailing" secondItem="3DY-EW-EmD" secondAttribute="trailing" id="eY3-yh-7U0"/>
                                             <constraint firstAttribute="trailing" secondItem="7q9-fX-exj" secondAttribute="trailing" id="w63-fH-Rye"/>
                                             <constraint firstItem="3DY-EW-EmD" firstAttribute="leading" secondItem="fW7-5d-pF2" secondAttribute="leading" id="woN-rZ-ZRR"/>
@@ -1521,8 +1522,9 @@ Only the best gear here.</string>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PET-Tm-ZqF">
-                                                <rect key="frame" x="0.0" y="30.5" width="414" height="115.5"/>
+                                                <rect key="frame" x="0.0" y="31" width="414" height="115"/>
                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -1548,8 +1550,9 @@ Only the best gear here.</string>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.mic" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="chi-xL-81Q">
-                                                <rect key="frame" x="20" y="31" width="374" height="115.5"/>
+                                                <rect key="frame" x="20" y="31" width="374" height="115"/>
                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -1576,8 +1579,9 @@ Only the best gear here.</string>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="desktopcomputer" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xhl-K4-63A">
-                                                <rect key="frame" x="20" y="30.5" width="374" height="115.5"/>
+                                                <rect key="frame" x="20" y="31" width="374" height="114"/>
                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
@@ -2251,14 +2255,14 @@ Only the best gear here.</string>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipientMessageCell" id="dhE-VG-hwn" userLabel="RecipientMessageCell" customClass="MessageTableViewCell" customModule="RentSpace" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="65.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dhE-VG-hwn" id="bs3-V2-lFI">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxf-2X-lMz">
-                                                    <rect key="frame" x="20" y="5" width="58" height="34"/>
+                                                    <rect key="frame" x="20" y="0.0" width="58" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-l1-qoQ">
                                                             <rect key="frame" x="8" y="4" width="42" height="26"/>
@@ -2281,7 +2285,7 @@ Only the best gear here.</string>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccB-Oi-oXK">
-                                                    <rect key="frame" x="28" y="41" width="30" height="17"/>
+                                                    <rect key="frame" x="28" y="36" width="30" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -2290,10 +2294,10 @@ Only the best gear here.</string>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ccB-Oi-oXK" secondAttribute="trailing" constant="20" symbolic="YES" id="EhL-yM-Hec"/>
                                                 <constraint firstItem="uxf-2X-lMz" firstAttribute="leading" secondItem="bs3-V2-lFI" secondAttribute="leadingMargin" id="JHz-OB-YMm"/>
-                                                <constraint firstItem="uxf-2X-lMz" firstAttribute="top" secondItem="bs3-V2-lFI" secondAttribute="top" constant="5" id="SVJ-9Y-gMo"/>
+                                                <constraint firstItem="uxf-2X-lMz" firstAttribute="top" secondItem="bs3-V2-lFI" secondAttribute="top" id="SVJ-9Y-gMo"/>
                                                 <constraint firstItem="ccB-Oi-oXK" firstAttribute="leading" secondItem="bs3-V2-lFI" secondAttribute="leadingMargin" constant="8" id="bV4-D9-mKj"/>
                                                 <constraint firstItem="ccB-Oi-oXK" firstAttribute="top" secondItem="uxf-2X-lMz" secondAttribute="bottom" constant="2" id="nci-Yv-nj6"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ccB-Oi-oXK" secondAttribute="bottom" constant="-3.5" id="pkr-Yg-0IV"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ccB-Oi-oXK" secondAttribute="bottom" constant="-6" id="pkr-Yg-0IV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2305,14 +2309,14 @@ Only the best gear here.</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SenderMessageCell" id="xOZ-Zg-49c" userLabel="SenderMessageCell" customClass="SenderTableViewCell" customModule="RentSpace" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="93.5" width="414" height="65.5"/>
+                                        <rect key="frame" x="0.0" y="86" width="414" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xOZ-Zg-49c" id="wqe-yR-Bzg">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fai-R4-nKk" customClass="SenderTableViewCell" customModule="RentSpace" customModuleProvider="target">
-                                                    <rect key="frame" x="336" y="5" width="58" height="34"/>
+                                                    <rect key="frame" x="336" y="0.0" width="58" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUY-3c-1Gu">
                                                             <rect key="frame" x="8" y="4" width="42" height="26"/>
@@ -2335,7 +2339,7 @@ Only the best gear here.</string>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0W-fm-p1Z">
-                                                    <rect key="frame" x="356" y="41" width="30" height="17"/>
+                                                    <rect key="frame" x="356" y="36" width="30" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -2343,8 +2347,8 @@ Only the best gear here.</string>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="I0W-fm-p1Z" firstAttribute="trailing" secondItem="wqe-yR-Bzg" secondAttribute="trailingMargin" constant="-8" id="CGH-GX-PY2"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="I0W-fm-p1Z" secondAttribute="bottom" constant="-3.5" id="ThH-ii-SOv"/>
-                                                <constraint firstItem="fai-R4-nKk" firstAttribute="top" secondItem="wqe-yR-Bzg" secondAttribute="top" constant="5" id="icL-vw-x4G"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="I0W-fm-p1Z" secondAttribute="bottom" constant="-6" id="ThH-ii-SOv"/>
+                                                <constraint firstItem="fai-R4-nKk" firstAttribute="top" secondItem="wqe-yR-Bzg" secondAttribute="top" id="icL-vw-x4G"/>
                                                 <constraint firstItem="fai-R4-nKk" firstAttribute="trailing" secondItem="wqe-yR-Bzg" secondAttribute="trailingMargin" id="wJa-rF-Htd"/>
                                                 <constraint firstItem="I0W-fm-p1Z" firstAttribute="top" secondItem="fai-R4-nKk" secondAttribute="bottom" constant="2" id="x4s-EM-qpE"/>
                                             </constraints>
@@ -2358,7 +2362,7 @@ Only the best gear here.</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="scW-NP-7JV">
-                                        <rect key="frame" x="0.0" y="159" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="144" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="scW-NP-7JV" id="PDI-Eb-6lL">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -2723,6 +2727,7 @@ Only the best gear here.</string>
         <image name="003-desk" width="512" height="512"/>
         <image name="005-tools" width="512" height="512"/>
         <image name="Art" width="1200" height="684"/>
+        <image name="Art Studio-1" width="200" height="195"/>
         <image name="Desk Space" width="1200" height="800"/>
         <image name="Music Studio" width="1200" height="800"/>
         <image name="Photography Studio" width="1200" height="674"/>
@@ -2736,7 +2741,6 @@ Only the best gear here.</string>
         <image name="edit" width="16" height="16"/>
         <image name="envelope" catalog="system" width="64" height="46"/>
         <image name="eye" catalog="system" width="64" height="40"/>
-        <image name="eyeglasses" catalog="system" width="64" height="26"/>
         <image name="gear" catalog="system" width="64" height="58"/>
         <image name="imagePlaceholder" width="200" height="200"/>
         <image name="location.fill" catalog="system" width="64" height="56"/>
@@ -2744,7 +2748,6 @@ Only the best gear here.</string>
         <image name="message.circle.fill" catalog="system" width="64" height="60"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>
         <image name="music.mic" catalog="system" width="64" height="58"/>
-        <image name="paintbrush" catalog="system" width="64" height="64"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="phone" catalog="system" width="64" height="56"/>

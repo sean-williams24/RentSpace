@@ -116,6 +116,9 @@ class RegisterViewController: UIViewController {
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, regError) in
             // If user account creation is successful, sign user in and pop controller
             if regError == nil {
+                
+                
+                
                 Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.confirmPasswordTextField.text!) { (user, signInError) in
                     // If there is no error, sign-in successful, dismiss all view controllers
                     if signInError == nil {

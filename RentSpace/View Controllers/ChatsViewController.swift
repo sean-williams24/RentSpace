@@ -65,6 +65,8 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
 
         let UID = Settings.currentUser!.uid
+        var indexPathSection = 0
+        
         refHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
             self.chats.removeAll()
             for child in dataSnapshot.children {
@@ -90,18 +92,19 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                             // append first chat to array
                             self.chats.append(chat)
                         } else {
-                            // for subsequent chats, iterate through temp array and check if date is earlier than array chats.
+                            // for subsequent chats, iterate through array and check if date is earlier than array chats.
                             for (index, tempChat) in self.chats.enumerated() {
                                 let tempChatDate = self.formatter.date(from: tempChat.messageDate)
                                 let nextChatDate = self.formatter.date(from: chat.messageDate)
                                 
                                 if nextChatDate! > tempChatDate! {
                                     self.chats.insert(chat, at: index)
+                                    indexPathSection = index
                                     break
                                 } else {
                                     self.chats.append(chat)
+                                    indexPathSection = self.chats.count - 1
                                     break
-                                    
                                 }
                             }
                         }
@@ -173,12 +176,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesTableViewCell
         let chat = chats[indexPath.section]
-        cell.activityView.alpha = 0
 
-        UIView.animate(withDuration: 1) {
-            cell.activityView.alpha = 1
-            cell.activityView.startAnimating()
-        }
         var recipient = ""
         // if logged in user is advert owner, chat recipient is customer
         if Auth.auth().currentUser?.uid == chat.advertOwnerUID {
@@ -223,7 +221,6 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                             ctx.cgContext.strokeEllipse(in: rectangle)
                             ctx.cgContext.drawPath(using: .stroke)
                         }
-                        cell.activityView.stopAnimating()
                         cell.customImageView.alpha = 1
                         cell.customImageView.image = img
                     }

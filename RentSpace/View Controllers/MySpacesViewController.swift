@@ -51,6 +51,10 @@ class MySpacesViewController: UIViewController {
                     self.mySpaces.append(snapShot)
                     self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     self.tableView.reloadData()
+                                        
+                    let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
+                    let cell = self.tableView.cellForRow(at: indexPath) as! MySpacesTableViewCell
+                    cell.activityView.startAnimating()
                 })
 
                 self.title = Settings.currentUser?.email
@@ -116,12 +120,6 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "My Spaces Cell", for: indexPath) as! MySpacesTableViewCell
         cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
-        cell.activityView.alpha = 0
-
-//        UIView.animate(withDuration: 1) {
-//            cell.activityView.alpha = 1
-//            cell.activityView.startAnimating()
-//        }
         
         let advertSnapshot = mySpaces[indexPath.section]
         let advert = advertSnapshot.value as! [String : Any]
@@ -159,6 +157,10 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
             }
+        } else {
+            cell.customImageView.image = UIImage(named: "003-desk")
+            cell.customImageView.alpha = 1
+            cell.activityView.stopAnimating()
         }
         return cell
     }
