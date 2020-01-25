@@ -111,6 +111,7 @@ class RentSpaceViewController: UIViewController {
         } else {
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
                 self.filteredAdverts = []
+                self.tableView.reloadData()
                 for child in snapshot.children {
                     if let advertSnapshot = child as? DataSnapshot {
                         let advert = advertSnapshot.value as? NSDictionary ?? [:]
@@ -126,7 +127,6 @@ class RentSpaceViewController: UIViewController {
                                     if distanceInMiles < setMiles {
                                         print("Distance: \(distanceInMiles)")
                                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                                        
                                         self.filteredAdverts.append(advertSnapshot)
                                         self.tableView.reloadData()
                                         self.startCellLoadingActivityView()
@@ -196,7 +196,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = advert[Advert.description] as? String
         cell.categoryLabel.text = advert[Advert.category] as? String
         cell.locationLabel.text = formatAddress(for: advert)
-        
+
         if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
             cell.priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
         }

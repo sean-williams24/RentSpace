@@ -14,14 +14,18 @@ class RegisterViewController: UIViewController {
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var confirmPasswordTextField: UITextField!
+    @IBOutlet var displayNameTextField: UITextField!
     @IBOutlet var registerButton: UIButton!
     @IBOutlet var checkmark1: UIImageView!
     @IBOutlet var checkmark2: UIImageView!
     @IBOutlet var checkmark3: UIImageView!
+    @IBOutlet var checkmark4: UIImageView!
     @IBOutlet var passwordDetailsLabel: UILabel!
     
     var emailValidated = false
-    var passwordValidated = false
+    var password1Validated = false
+    var password2Validated = false
+    var displayNameValidated = false
 
     
     // MARK: - Life Cycle
@@ -35,11 +39,16 @@ class RegisterViewController: UIViewController {
         configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
         configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")
         configureTextFieldPlaceholders(for: confirmPasswordTextField, withText: "Confirm Password")
+        configureTextFieldPlaceholders(for: displayNameTextField, withText: "Display Name")
+        
+        passwordTextField.isSecureTextEntry = true
+        confirmPasswordTextField.isSecureTextEntry = true
 
         // Detect when a key is pressed in textfields
         emailTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         confirmPasswordTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
+        displayNameTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
 
     }
     
@@ -63,6 +72,10 @@ class RegisterViewController: UIViewController {
         return passwordPred.evaluate(with: password)
     }
     
+    func isValidDisplayName(_ displayName: String) -> Bool {
+        return displayName.count > 2
+    }
+    
     @objc func textFieldTyping(textField: UITextField) {
         switch textField.tag {
         case 0:
@@ -71,14 +84,19 @@ class RegisterViewController: UIViewController {
                 emailValidated = true
             } else {
                 checkmark1.tintColor = .darkGray
+                emailValidated = false
             }
             passwordDetailsLabel.isHidden = true
 
         case 1:
             if isValidPassword(passwordTextField.text!) {
                 checkmark2.tintColor = Settings.orangeTint
+                password1Validated = true
             } else {
                 checkmark2.tintColor = .darkGray
+                registerButton.isEnabled = false
+                registerButton.backgroundColor = .darkGray
+                password1Validated = false
             }
             UIView.animate(withDuration: 4) {
                 self.passwordDetailsLabel.alpha = 1
@@ -86,19 +104,31 @@ class RegisterViewController: UIViewController {
         case 2:
             if confirmPasswordTextField.text! == passwordTextField.text! {
                 checkmark3.tintColor = Settings.orangeTint
-                passwordValidated = true
+                password2Validated = true
             } else {
                 checkmark3.tintColor = .darkGray
+                password2Validated = false
             }
             passwordDetailsLabel.isHidden = true
 
+        case 3:
+            if isValidDisplayName(displayNameTextField.text!) {
+                checkmark4.tintColor = Settings.orangeTint
+                displayNameValidated = true
+            } else {
+                checkmark4.tintColor = .darkGray
+                displayNameValidated = false
+            }
         default:
             print("")
         }
         
-        if emailValidated == true && passwordValidated == true {
+        if emailValidated == true && password1Validated == true && password2Validated && displayNameValidated == true {
             registerButton.isEnabled = true
-            registerButton.backgroundColor = .systemPurple
+            registerButton.backgroundColor = Settings.orangeTint
+        } else {
+            registerButton.isEnabled = false
+            registerButton.backgroundColor = .darkGray
         }
     }
     
