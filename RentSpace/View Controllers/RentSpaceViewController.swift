@@ -84,7 +84,7 @@ class RentSpaceViewController: UIViewController {
 
     fileprivate func startCellLoadingActivityView() {
         let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
-        let cell = self.tableView.cellForRow(at: indexPath) as! AdvertTableViewCell
+        guard let cell = self.tableView.cellForRow(at: indexPath) as? AdvertTableViewCell else { return }
         cell.activityView.startAnimating()
     }
     
@@ -173,7 +173,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
+        return 3
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -184,7 +184,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
-        cell.layer.cornerRadius = 8
+//        cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
         
         let advertSnapshot = filteredAdverts[indexPath.section]

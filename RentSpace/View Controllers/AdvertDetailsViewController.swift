@@ -36,6 +36,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var trashButton: UIBarButtonItem!
     var editButton: UIBarButtonItem!
     var ref: DatabaseReference!
+    var authHandle: AuthStateDidChangeListenerHandle!
     var imageURLsDict: [String: String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
     var thumbnail = UIImage()
@@ -45,11 +46,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(getDocumentsDirectory())
         ref = Database.database().reference()
-        
         advert = advertSnapshot.value as! [String : Any]
-        
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
         navigationItem.rightBarButtonItems = [trashButton, editButton]
@@ -69,6 +67,13 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             messagesButton.isEnabled = true
             messagesButton.tintColor = Settings.orangeTint
         }
+        
+        authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user == nil {
+                self.messagesButton.isEnabled = false
+                self.messagesButton.tintColor = .clear
+            }
+        })
         
         titleLabel.text = (advert[Advert.title] as! String).uppercased()
         if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
@@ -150,13 +155,20 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(authHandle)
+    }
+    
+
+    
+    //MARK: - Private Methods
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width
         pageController.currentPage = Int(pageIndex)
     }
-    
-    //MARK: - Private Methods
     
     // refactor this and cloud delete to Firebase client class
     func downloadFirebaseImages(completion: @escaping () -> ()) {

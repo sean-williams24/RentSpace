@@ -26,10 +26,10 @@ class RegisterViewController: UIViewController {
     var password1Validated = false
     var password2Validated = false
     var displayNameValidated = false
-
+    
     
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerButton.isEnabled = false
@@ -43,24 +43,26 @@ class RegisterViewController: UIViewController {
         
         passwordTextField.isSecureTextEntry = true
         confirmPasswordTextField.isSecureTextEntry = true
-
+        
         // Detect when a key is pressed in textfields
         emailTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         confirmPasswordTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         displayNameTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
-
+        
+        dismissKeyboardOnViewTap()
+        
     }
     
-
+    
     
     // MARK: - Private Methods
-
+    
     // Use regEx and NSPredicate to validate email address and password
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z.]{2,64}"
-
+        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
@@ -86,8 +88,7 @@ class RegisterViewController: UIViewController {
                 checkmark1.tintColor = .darkGray
                 emailValidated = false
             }
-            passwordDetailsLabel.isHidden = true
-
+            
         case 1:
             if isValidPassword(passwordTextField.text!) {
                 checkmark2.tintColor = Settings.orangeTint
@@ -109,8 +110,7 @@ class RegisterViewController: UIViewController {
                 checkmark3.tintColor = .darkGray
                 password2Validated = false
             }
-            passwordDetailsLabel.isHidden = true
-
+            
         case 3:
             if isValidDisplayName(displayNameTextField.text!) {
                 checkmark4.tintColor = Settings.orangeTint
@@ -134,7 +134,7 @@ class RegisterViewController: UIViewController {
     
     
     // MARK: - Action Methods
-
+    
     
     @IBAction func registerButtonTapped(_ sender: Any) {
         if let email = emailTextField.text {
@@ -144,16 +144,21 @@ class RegisterViewController: UIViewController {
         }
         
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, regError) in
-            // If user account creation is successful, sign user in and pop controller
+            // If user account creation is successful, update displayName, sign user in and pop controller
             if regError == nil {
                 
-                
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                changeRequest?.displayName = self.displayNameTextField.text!
+                changeRequest?.commitChanges(completion: { (error) in
+                    print(error?.localizedDescription as Any)
+                    self.showAlert(title: "Problem Saving Display Name", message: "Please update your display name in settings before posting a space")
+                })
                 
                 Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.confirmPasswordTextField.text!) { (user, signInError) in
                     // If there is no error, sign-in successful, dismiss all view controllers
                     if signInError == nil {
                         UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
-
+                            
                         })
                     } else {
                         if let error = signInError, user == nil {
@@ -171,8 +176,8 @@ class RegisterViewController: UIViewController {
     
     
     
-
-
+    
+    
 }
 
 // MARK: - Text Field Delegates

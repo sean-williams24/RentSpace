@@ -48,7 +48,8 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         signInButton.layer.cornerRadius = 5
         configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
         configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")
-        passwordTextField.isSecureTextEntry = true        
+        passwordTextField.isSecureTextEntry = true
+        dismissKeyboardOnViewTap()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
 //        GIDSignIn.sharedInstance().signIn()

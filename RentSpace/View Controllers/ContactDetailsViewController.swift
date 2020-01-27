@@ -94,11 +94,10 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
             viewOnMapSwitch.setOn(UserDefaults.standard.bool(forKey: "ViewOnMap"), animated: true)
         }
-
         
-        // Keyboard dismissal
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(tap)
+        dismissKeyboardOnViewTap()
+        
+
         
     }
     

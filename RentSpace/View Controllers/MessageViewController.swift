@@ -51,7 +51,9 @@ class MessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        customerUID = Settings.currentUser!.uid
+        if let UID = Settings.currentUser?.uid {
+            customerUID = UID
+        }
         if let ID = advertSnapshot?.key {
             chatID = ID
         }
@@ -62,15 +64,6 @@ class MessageViewController: UIViewController {
         retrieveMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
-        
-//        if messageRead == "true" {
-////            uploadToFirebase(message: chat.messageBody, read: "true")
-//            let customerDB = ref.child("users/\(chat.customerUID)/chats")
-//            let advertOwnerDB = ref.child("users/\(chat.advertOwnerUID)/chats")
-//            customerDB.child(chatID).updateChildValues(["read": "true"])
-//            advertOwnerDB.child(chatID).updateChildValues(["read": "true"])
-//
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

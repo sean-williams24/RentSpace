@@ -22,7 +22,7 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     

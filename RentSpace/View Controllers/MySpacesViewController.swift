@@ -30,14 +30,8 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        signInButton.layer.cornerRadius = 2
-        
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+
             if user != nil {
                 self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
                 self.mySpaces.removeAll()
@@ -51,14 +45,14 @@ class MySpacesViewController: UIViewController {
                     self.mySpaces.append(snapShot)
                     self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     self.tableView.reloadData()
-                                        
+                    
                     let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
-                    let cell = self.tableView.cellForRow(at: indexPath) as! MySpacesTableViewCell
+                    guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
                     cell.activityView.startAnimating()
                 })
 
                 self.title = Settings.currentUser?.email
-                if let displayName = Settings.currentUser?.displayName {
+                if let displayName = Auth.auth().currentUser?.displayName {
                     self.title = displayName
                 }
             } else {
@@ -69,6 +63,13 @@ class MySpacesViewController: UIViewController {
                 self.tabBarController?.tabBar.items?[2].title = "My Spaces"
             }
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        signInButton.layer.cornerRadius = 2
+        
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {

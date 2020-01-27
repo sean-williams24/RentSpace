@@ -820,7 +820,7 @@ Long press and drag to reorder.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUr-5D-245">
-                                <rect key="frame" x="20" y="212" width="314" height="50"/>
+                                <rect key="frame" x="20" y="182" width="314" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -833,7 +833,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gme-oF-OL0">
-                                <rect key="frame" x="20" y="159" width="314" height="50"/>
+                                <rect key="frame" x="20" y="129" width="314" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -846,7 +846,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6l-al-EXb">
-                                <rect key="frame" x="20" y="330" width="374" height="40"/>
+                                <rect key="frame" x="20" y="300" width="374" height="40"/>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="iaa-yP-1f0"/>
@@ -860,20 +860,20 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zGC-NH-GGr">
-                                <rect key="frame" x="20" y="265" width="314" height="50"/>
+                                <rect key="frame" x="20" y="235" width="314" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Zl8-5x-Qkw"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="go" textContentType="new-password"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" textContentType="new-password"/>
                                 <connections>
                                     <outlet property="delegate" destination="XN8-Fk-fre" id="09i-sv-kkd"/>
                                 </connections>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="h7N-AX-sng">
-                                <rect key="frame" x="335" y="171" width="65" height="25.5"/>
+                                <rect key="frame" x="335" y="141" width="65" height="25.5"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="ONS-7p-pdF"/>
@@ -881,7 +881,7 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="e7o-pG-1Fm">
-                                <rect key="frame" x="335" y="224" width="65" height="25.5"/>
+                                <rect key="frame" x="335" y="194" width="65" height="25.5"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="PeT-Am-RUd"/>
@@ -889,7 +889,7 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DTy-ZQ-ojS">
-                                <rect key="frame" x="335" y="277" width="65" height="25.5"/>
+                                <rect key="frame" x="335" y="247" width="65" height="25.5"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="65" id="Z8m-iu-JEo"/>
@@ -897,16 +897,16 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btF-tq-Tjj">
-                                <rect key="frame" x="20" y="389" width="374" height="67"/>
+                                <rect key="frame" x="20" y="340" width="374" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="La8-iB-NvH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
-                                <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Display Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RL4-WB-krJ">
-                                <rect key="frame" x="20" y="106" width="314" height="50"/>
+                                <rect key="frame" x="20" y="76" width="314" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -919,7 +919,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="az1-AG-aQe">
-                                <rect key="frame" x="335" y="118" width="65" height="25.5"/>
+                                <rect key="frame" x="335" y="88" width="65" height="25.5"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Dlg-tZ-E7l"/>
@@ -943,11 +943,11 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="gme-oF-OL0" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="SfB-n9-0sy"/>
                             <constraint firstItem="e7o-pG-1Fm" firstAttribute="leading" secondItem="hUr-5D-245" secondAttribute="trailing" constant="1" id="Ton-ck-3k8"/>
                             <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="az1-AG-aQe" secondAttribute="trailing" constant="14" id="YHZ-Ng-6uU"/>
-                            <constraint firstItem="RL4-WB-krJ" firstAttribute="top" secondItem="6yL-Cb-KDC" secondAttribute="top" constant="50" id="bxs-Dl-zeD"/>
+                            <constraint firstItem="RL4-WB-krJ" firstAttribute="top" secondItem="6yL-Cb-KDC" secondAttribute="top" constant="20" id="bxs-Dl-zeD"/>
                             <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="h7N-AX-sng" secondAttribute="trailing" constant="14" id="dn4-x8-cMa"/>
                             <constraint firstItem="zGC-NH-GGr" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="gjI-68-d0y"/>
                             <constraint firstItem="e7o-pG-1Fm" firstAttribute="centerY" secondItem="hUr-5D-245" secondAttribute="centerY" id="kS4-4i-42T"/>
-                            <constraint firstItem="btF-tq-Tjj" firstAttribute="top" secondItem="I6l-al-EXb" secondAttribute="bottom" constant="19" id="lif-1A-b8g"/>
+                            <constraint firstItem="btF-tq-Tjj" firstAttribute="top" secondItem="I6l-al-EXb" secondAttribute="bottom" id="lif-1A-b8g"/>
                             <constraint firstItem="btF-tq-Tjj" firstAttribute="leading" secondItem="6yL-Cb-KDC" secondAttribute="leading" constant="20" id="mDk-RV-4ym"/>
                             <constraint firstItem="6yL-Cb-KDC" firstAttribute="trailing" secondItem="DTy-ZQ-ojS" secondAttribute="trailing" constant="14" id="o1e-m7-BEq"/>
                             <constraint firstItem="btF-tq-Tjj" firstAttribute="centerX" secondItem="6yL-Cb-KDC" secondAttribute="centerX" id="rIv-Fb-vK1"/>
@@ -990,15 +990,15 @@ Long press and drag to reorder.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2qf-2o-eez">
-                                <rect key="frame" x="6" y="88" width="402" height="725"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="Advert Cell" rowHeight="150.5" id="5j6-bm-9Cd" customClass="AdvertTableViewCell" customModule="RentSpace" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="402" height="150.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="150.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5j6-bm-9Cd" id="B8r-6I-XsZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="402" height="150.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="150.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.10000000000000001" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="imagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="qgQ-vU-FRv">
@@ -1008,31 +1008,31 @@ Long press and drag to reorder.</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJa-tm-dhh">
-                                                    <rect key="frame" x="150" y="91" width="222" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <rect key="frame" x="150" y="93" width="234" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="243" verticalHuggingPriority="253" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-EC-Ofs">
-                                                    <rect key="frame" x="150" y="119" width="193" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="150" y="120" width="205" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPF-BI-oAz">
-                                                    <rect key="frame" x="353" y="119.5" width="39" height="21"/>
+                                                    <rect key="frame" x="365" y="119.5" width="39" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="TITLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="JBU-hL-yDV">
-                                                    <rect key="frame" x="150" y="10" width="242" height="23"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                                    <rect key="frame" x="150" y="10" width="254" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descritpion Descritpion Descritpion Descritpion Descritpion" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJg-X2-CRW">
-                                                    <rect key="frame" x="150" y="43" width="242" height="44"/>
+                                                    <rect key="frame" x="150" y="40.5" width="254" height="48.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
@@ -1115,9 +1115,9 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="kA7-Lq-uGw" firstAttribute="centerY" secondItem="Euz-Rl-Tla" secondAttribute="centerY" id="4Bl-uO-xHh"/>
                             <constraint firstItem="gus-AO-6wg" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" constant="10" id="PEu-g4-xl1"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="bottom" secondItem="gus-AO-6wg" secondAttribute="bottom" constant="15" id="Q1P-4K-K1H"/>
-                            <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="2qf-2o-eez" secondAttribute="trailing" constant="6" id="Rml-g0-pj0"/>
+                            <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="2qf-2o-eez" secondAttribute="trailing" id="Rml-g0-pj0"/>
                             <constraint firstItem="kA7-Lq-uGw" firstAttribute="centerX" secondItem="Euz-Rl-Tla" secondAttribute="centerX" id="TUS-iJ-XJo"/>
-                            <constraint firstItem="2qf-2o-eez" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" constant="6" id="csg-kC-l0S"/>
+                            <constraint firstItem="2qf-2o-eez" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" id="csg-kC-l0S"/>
                             <constraint firstItem="2qf-2o-eez" firstAttribute="top" secondItem="Euz-Rl-Tla" secondAttribute="top" id="hYm-TN-kKE"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="bottom" secondItem="2qf-2o-eez" secondAttribute="bottom" id="jOH-a3-4NT"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="gus-AO-6wg" secondAttribute="trailing" constant="10" id="wPY-Z0-a3p"/>
@@ -1223,7 +1223,7 @@ Long press and drag to reorder.</string>
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1256.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1267.5"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
@@ -1335,8 +1335,15 @@ Long press and drag to reorder.</string>
                                                     <constraint firstAttribute="height" constant="40" id="8ts-GO-wFR"/>
                                                 </constraints>
                                             </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2x-jo-Tk4">
+                                                <rect key="frame" x="0.0" y="466" width="414" height="2"/>
+                                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="2" id="GFe-h7-KaW"/>
+                                                </constraints>
+                                            </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-IP-VZw">
-                                                <rect key="frame" x="0.0" y="466" width="414" height="462.5"/>
+                                                <rect key="frame" x="0.0" y="477" width="414" height="462.5"/>
                                                 <color key="backgroundColor" red="0.11502255798450685" green="0.12089633670673536" blue="0.13153725136355099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="uIt-MQ-ARt"/>
@@ -1358,7 +1365,7 @@ Only the best gear here.</string>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="CV6-2b-oKf">
-                                                <rect key="frame" x="0.0" y="937.5" width="414" height="20"/>
+                                                <rect key="frame" x="0.0" y="948.5" width="414" height="20"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AIm-s0-uiG">
                                                         <rect key="frame" x="0.0" y="0.5" width="40" height="19"/>
@@ -1376,7 +1383,7 @@ Only the best gear here.</string>
                                                 </subviews>
                                             </stackView>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Ul-2MJ">
-                                                <rect key="frame" x="0.0" y="966.5" width="414" height="290"/>
+                                                <rect key="frame" x="0.0" y="977.5" width="414" height="290"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="290" id="3po-QG-QmH"/>
                                                 </constraints>
