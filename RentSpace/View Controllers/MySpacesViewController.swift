@@ -21,8 +21,9 @@ class MySpacesViewController: UIViewController {
     
     var mySpaces: [DataSnapshot] = []
     var ref: DatabaseReference!
-    fileprivate var handle: AuthStateDidChangeListenerHandle!
+    fileprivate var authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var refHandle: DatabaseHandle!
+    var UID = ""
     
     
     // MARK: - Life Cycle
@@ -30,19 +31,33 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        signInButton.layer.cornerRadius = 2
+        
+        authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
 
             if user != nil {
                 self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
-                self.mySpaces.removeAll()
-                self.tableView.reloadData()
+
                 self.signedOutView.isHidden = true
                 Settings.currentUser = user
                 
                 self.ref = Database.database().reference()
-                let UID = Settings.currentUser?.uid
-                self.refHandle = self.ref.child("users/\(UID!)/adverts").observe(.childAdded, with: { (snapShot) in
-                    self.mySpaces.append(snapShot)
+                self.UID = user!.uid
+                self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
+                    self.mySpaces.removeAll()
+                    self.tableView.reloadData()
+                    
+                    for child in snapShot.children {
+                        if let advertSnapshot = child as? DataSnapshot {
+                            self.mySpaces.append(advertSnapshot)
+                        }
+                    }
+                    
                     self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     self.tableView.reloadData()
                     
@@ -64,23 +79,16 @@ class MySpacesViewController: UIViewController {
             }
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        signInButton.layer.cornerRadius = 2
-        
-
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(handle)
+//        Auth.auth().removeStateDidChangeListener(authHandle)
 
     }
     
     deinit {
-//        Auth.auth().removeStateDidChangeListener(handle)
-//        ref.child("adverts/\(Constants.userLocationCountry)/Music Studio").removeObserver(withHandle: refHandle)
+        Auth.auth().removeStateDidChangeListener(authHandle)
+        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
     }
     
     
