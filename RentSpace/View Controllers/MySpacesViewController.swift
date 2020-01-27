@@ -31,7 +31,10 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        if let displayName = Auth.auth().currentUser?.displayName {
+            self.title = displayName
+        }
     }
 
     override func viewDidLoad() {
@@ -82,8 +85,8 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(authHandle)
-        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
+//        Auth.auth().removeStateDidChangeListener(authHandle)
+//        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
 
     }
     

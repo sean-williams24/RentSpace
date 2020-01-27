@@ -48,17 +48,17 @@ class RentSpaceViewController: UIViewController {
         // Set title of location button to saved user location. If none then users current location.
         
         if let UDTitle = UserDefaults.standard.string(forKey: "Location") {
-            searchAreaButtonTitle = UDTitle
+            searchAreaButtonTitle = UDTitle.uppercased()
         } else {
             if let town = Constants.userLocationAddress?.subLocality {
-                searchAreaButtonTitle = town
+                searchAreaButtonTitle = town.uppercased()
                 if town == "" {
                     searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
                 }
             } else if let city = Constants.userLocationAddress?.city {
-                searchAreaButtonTitle = city
+                searchAreaButtonTitle = city.uppercased()
             } else if let postcode = Constants.userLocationAddress?.postalCode {
-                searchAreaButtonTitle = postcode
+                searchAreaButtonTitle = postcode.uppercased()
             }
         }
         
@@ -267,13 +267,13 @@ extension RentSpaceViewController: UpdateSearchLocationDelegate {
         getAdverts(for: location, within: distance)
         rightBarButton.title = town
         if town == "" {
-            rightBarButton.title = city
+            rightBarButton.title = city.uppercased()
             if city == "" {
-                rightBarButton.title = county
+                rightBarButton.title = county.uppercased()
                 if county == "" {
-                    rightBarButton.title = country
+                    rightBarButton.title = country.uppercased()
                     if country == "" {
-                        rightBarButton.title = postcode
+                        rightBarButton.title = postcode.uppercased()
                     }
                 }
             }

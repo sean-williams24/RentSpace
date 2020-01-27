@@ -133,7 +133,24 @@ class RegisterViewController: UIViewController {
     }
     
     
+    fileprivate func signIntoFirbase() {
+        Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.confirmPasswordTextField.text!) { (user, signInError) in
+            // If there is no error, sign-in successful, dismiss all view controllers
+            if signInError == nil {
+                UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
+                    
+                })
+            } else {
+                if let error = signInError, user == nil {
+                    self.showAlert(title: "Problem Signing In", message: error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    
     // MARK: - Action Methods
+    
     
     
     @IBAction func registerButtonTapped(_ sender: Any) {
@@ -147,25 +164,16 @@ class RegisterViewController: UIViewController {
             // If user account creation is successful, update displayName, sign user in and pop controller
             if regError == nil {
                 
-                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                let changeRequest = authResult?.user.createProfileChangeRequest()
                 changeRequest?.displayName = self.displayNameTextField.text!
                 changeRequest?.commitChanges(completion: { (error) in
-                    print(error?.localizedDescription as Any)
-                    self.showAlert(title: "Problem Saving Display Name", message: "Please update your display name in settings before posting a space")
-                })
-                
-                Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.confirmPasswordTextField.text!) { (user, signInError) in
-                    // If there is no error, sign-in successful, dismiss all view controllers
-                    if signInError == nil {
-                        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
-                            
-                        })
+                    if error != nil {
+                        print(error?.localizedDescription as Any)
+                        self.showAlert(title: "Problem Saving Display Name", message: "Please update your display name in settings before posting a space")
                     } else {
-                        if let error = signInError, user == nil {
-                            self.showAlert(title: "Problem Signing In", message: error.localizedDescription)
-                        }
+                        self.signIntoFirbase()
                     }
-                }
+                })
             } else {
                 if let error = regError {
                     self.showAlert(title: "Registration Error", message: error.localizedDescription)

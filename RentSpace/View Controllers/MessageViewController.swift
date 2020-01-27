@@ -54,8 +54,10 @@ class MessageViewController: UIViewController {
         if let UID = Settings.currentUser?.uid {
             customerUID = UID
         }
+        
+        // If arriving from AdvertDetailsVC, this is a new chat - create new unique chat ID using current users UID + advert key
         if let ID = advertSnapshot?.key {
-            chatID = ID
+            chatID = customerUID + "-" + ID
         }
         
         ref = Database.database().reference()
@@ -142,8 +144,13 @@ class MessageViewController: UIViewController {
                 self.tableView.reloadData()
                 self.scrollToBottomMessage()
                 
+                print(self.messages.count)
+                print(message.messageBody)
+                print(message.sender)
+                print(self.chatID)
+                
                 // If sender of message is not signed in user
-                if message.sender != Auth.auth().currentUser?.displayName {
+                if message.sender != Auth.auth().currentUser?.displayName && self.messages.count > 1 {
                     //Update message as read
                     let customerDB = self.ref.child("users/\(self.chat.customerUID)/chats")
                     let advertOwnerDB = self.ref.child("users/\(self.chat.advertOwnerUID)/chats")

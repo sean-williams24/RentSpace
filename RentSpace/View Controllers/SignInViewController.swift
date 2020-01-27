@@ -54,15 +54,13 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
 //        dismissKeyboardOnViewTap()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
-//        googleSignInButton.layer.cornerRadius = Settings.cornerRadius
         googleSignInButton.style = .wide
         
         let loginButton = FBLoginButton(permissions: [ .publicProfile, .email ])
         loginButton.permissions = ["email"]
         
         // TODO - try to use constraints instead of frame
-        loginButton.frame = CGRect(x: 24, y: 435, width: view.frame.width - 48, height: googleSignInButton.frame.height)
-        loginButton.layer.cornerRadius = Settings.cornerRadius
+        loginButton.frame = CGRect(x: 24, y: 425, width: view.frame.width - 48, height: 40)
         loginButton.delegate = self
         view.addSubview(loginButton)
         

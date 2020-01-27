@@ -55,6 +55,10 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         let currentLocation = UserDefaults.standard.string(forKey: "Location")
         locationButton.setTitle(currentLocation, for: .normal)
         
+        locationButton.layer.borderColor = Settings.orangeTint.cgColor
+        locationButton.layer.borderWidth = 1
+        locationButton.layer.cornerRadius = Settings.cornerRadius
+        
         
         
         // DISTANCE
