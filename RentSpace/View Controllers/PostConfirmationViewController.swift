@@ -21,8 +21,8 @@ class PostConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewAdvertsButton.layer.cornerRadius = 5
-        postAnotherSpaceButton.layer.cornerRadius = 5
+        viewAdvertsButton.layer.cornerRadius = Settings.cornerRadius
+        postAnotherSpaceButton.layer.cornerRadius = Settings.cornerRadius
         
         if updatingAdvert {
             postAnotherSpaceButton.isHidden = true

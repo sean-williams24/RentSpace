@@ -82,17 +82,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
       // ...
+        print("Google sign in called")
       if let error = error {
         // ...
+        print(error.localizedDescription)
         return
       }
 
       guard let authentication = user.authentication else { return }
       let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
       // ...
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-          if let error = error {
+        Auth.auth().signIn(with: credential) { (authResult, FBerror) in
+          if let FBerror = FBerror {
             // ...
+            print(FBerror.localizedDescription)
             return
           }
           // User is signed in

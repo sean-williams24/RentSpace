@@ -34,7 +34,7 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         registerButton.isEnabled = false
         registerButton.backgroundColor = .darkGray
-        registerButton.layer.cornerRadius = 5
+        registerButton.layer.cornerRadius = Settings.cornerRadius
         passwordDetailsLabel.alpha = 0
         configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
         configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")

@@ -101,20 +101,19 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 Settings.currentUser = user
             }
         })
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
         var email = ""
         var postcode = ""
         if updatingAdvert {
             loadUDImages(for: "UpdateImages")
+            descriptionTextView.text = defaults.string(forKey: "UpdateDescription")
             email = defaults.string(forKey: "UpdateEmail") ?? ""
             postcode = defaults.string(forKey: "UpdatePostCode") ?? ""
             location = defaults.string(forKey: "UpdateCountry") ?? ""
             
         } else {
             loadUDImages(for: "Images")
+            descriptionTextView.text = defaults.string(forKey: "Description")
             email = defaults.string(forKey: "Email") ?? ""
             postcode = defaults.string(forKey: "PostCode") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
@@ -125,13 +124,17 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             locationButton.titleLabel?.text = "  Contact & Address"
         }
         
-        
         // Add Photos Button
         if imagesSavedToDisk.isEmpty == false {
             UIView.animate(withDuration: 0.5) {
                 self.addPhotosButton.imageView?.alpha = 0.1
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         
     }
     
@@ -190,6 +193,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         defaults.set(advert[Advert.country] as? String, forKey: "UpdateCountry")
         defaults.set(advert[Advert.postCode] as? String, forKey: "UpdatePostCode")
         defaults.set(advert[Advert.viewOnMap] as! Bool, forKey: "UpdateViewOnMap")
+        defaults.set(advert[Advert.description] as! String, forKey: "UpdateDescription")
         
         // Download images from Firebase Storage
         downloadFirebaseImages {
@@ -291,7 +295,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         
-        signInButton.layer.cornerRadius = 2
+        signInButton.layer.cornerRadius = Settings.cornerRadius
         uploadView.isHidden = true
     }
     
@@ -610,6 +614,9 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
         if descriptionTextView.text == "" {
             descriptionTextView.text = descriptionViewPlaceholder
             descriptionTextView.textColor = .lightGray
+            UD.set(descriptionTextView.text, forKey: "Description")
+        } else {
+            UD.set(descriptionTextView.text, forKey: "Description")
         }
         descriptionTextView.resignFirstResponder()
     }

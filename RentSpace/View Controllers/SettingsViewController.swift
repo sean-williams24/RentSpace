@@ -41,7 +41,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        signInOrOutButton.layer.cornerRadius = 5
+        signInOrOutButton.layer.cornerRadius = Settings.cornerRadius
     }
     
     override func viewWillDisappear(_ animated: Bool) {

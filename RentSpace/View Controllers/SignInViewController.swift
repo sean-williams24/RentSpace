@@ -18,6 +18,8 @@ protocol UpdateSignInDelegate {
 }
 
 class SignInViewController: UIViewController, LoginButtonDelegate {
+
+    
     
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
@@ -45,20 +47,22 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        signInButton.layer.cornerRadius = 5
+        signInButton.layer.cornerRadius = Settings.cornerRadius
         configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
         configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")
         passwordTextField.isSecureTextEntry = true
-        dismissKeyboardOnViewTap()
+//        dismissKeyboardOnViewTap()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
-//        GIDSignIn.sharedInstance().signIn()
+//        googleSignInButton.layer.cornerRadius = Settings.cornerRadius
+        googleSignInButton.style = .wide
         
         let loginButton = FBLoginButton(permissions: [ .publicProfile, .email ])
         loginButton.permissions = ["email"]
         
         // TODO - try to use constraints instead of frame
-        loginButton.frame = CGRect(x: 24, y: 425, width: view.frame.width - 48, height: signInButton.frame.height)
+        loginButton.frame = CGRect(x: 24, y: 435, width: view.frame.width - 48, height: googleSignInButton.frame.height)
+        loginButton.layer.cornerRadius = Settings.cornerRadius
         loginButton.delegate = self
         view.addSubview(loginButton)
         

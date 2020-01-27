@@ -37,7 +37,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        signInButton.layer.cornerRadius = 2
+        signInButton.layer.cornerRadius = Settings.cornerRadius
         
         authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
