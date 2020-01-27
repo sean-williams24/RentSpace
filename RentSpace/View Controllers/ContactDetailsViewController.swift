@@ -84,7 +84,13 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             viewOnMapSwitch.setOn(UserDefaults.standard.bool(forKey: "UpdateViewOnMap"), animated: true)
             
         } else {
+            // If email textfield is empty, set it to current users email address
             emailTextField.text = UserDefaults.standard.string(forKey: "Email")
+            if emailTextField.text == "" {
+                if let email = Settings.currentUser?.email {
+                    emailTextField.text = email
+                }
+            
             phoneNumberTextField.text = UserDefaults.standard.string(forKey: "Phone")
             townLabel.text = UserDefaults.standard.string(forKey: "Town")
             cityLabel.text = UserDefaults.standard.string(forKey: "City")
@@ -96,9 +102,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         }
         
         dismissKeyboardOnViewTap()
-        
-
-        
+    }
     }
     
 
