@@ -167,6 +167,7 @@ extension UIViewController {
         } else {
             activityView.stopAnimating()
             label.alpha = 0
+            label.isHidden = true
         }
     }
     

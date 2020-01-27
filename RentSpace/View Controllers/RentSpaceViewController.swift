@@ -70,6 +70,23 @@ class RentSpaceViewController: UIViewController {
         getAdverts(for: Constants.customCLLocation, within: UserDefaults.standard.double(forKey: "Distance"))
         print(UserDefaults.standard.double(forKey: "Distance"))
 //        Constants.customCLLocation.coordinate
+        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            if self.filteredAdverts.isEmpty {
+                UIView.animate(withDuration: 1) {
+                    self.loadingLabel.alpha = 0
+                    self.loadingLabel.text = "No spaces were found, try expanding your search radius"
+                    UIView.animate(withDuration: 3) {
+                        self.loadingLabel.alpha = 1
+                    }
+                }
+            }
+        }
     }
     
 
@@ -241,6 +258,8 @@ extension RentSpaceViewController: UpdateSearchLocationDelegate {
     
     func didUpdate(distance: Double) {
         getAdverts(for: Constants.customCLLocation, within: distance)
+        loadingLabel.isHidden = false
+        loadingLabel.text = "Finding Spaces..."
     }
 
     

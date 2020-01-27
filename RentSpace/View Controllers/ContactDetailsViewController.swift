@@ -34,8 +34,8 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     var selectedAddress = ""
     var inUpdateMode = false
     var advert: [String : Any] = [:]
-
-//    var viewOnMap = true
+    
+    //    var viewOnMap = true
     
     
     // MARK: - Life Cycle
@@ -56,7 +56,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
-                
+        
         configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
         configureTextFieldPlaceholders(for: phoneNumberTextField, withText: "Phone")
         configureTextFieldPlaceholders(for: streetLabel, withText: "Street")
@@ -69,9 +69,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         
         if Constants.userLocationCountry == "United States" {
             configureTextFieldPlaceholders(for: postcodeLabel, withText: "Zip Code")
-
+            
         }
-
+        
         if inUpdateMode {
             emailTextField.text = UserDefaults.standard.string(forKey: "UpdateEmail")
             phoneNumberTextField.text = UserDefaults.standard.string(forKey: "UpdatePhone")
@@ -90,6 +90,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
                 if let email = Settings.currentUser?.email {
                     emailTextField.text = email
                 }
+            }
             
             phoneNumberTextField.text = UserDefaults.standard.string(forKey: "Phone")
             townLabel.text = UserDefaults.standard.string(forKey: "Town")
@@ -98,14 +99,13 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             stateLabel.text = UserDefaults.standard.string(forKey: "State")
             countryLabel.text = UserDefaults.standard.string(forKey: "Country")
             postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
-            viewOnMapSwitch.setOn(UserDefaults.standard.bool(forKey: "ViewOnMap"), animated: true)
+            viewOnMapSwitch.isOn = UserDefaults.standard.bool(forKey: "ViewOnMap")
+            
+            dismissKeyboardOnViewTap()
         }
-        
-        dismissKeyboardOnViewTap()
-    }
     }
     
-
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -131,20 +131,20 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             UserDefaults.standard.set(postcodeLabel.text, forKey: "PostCode")
             UserDefaults.standard.set(viewOnMapSwitch.isOn, forKey: "ViewOnMap")
         }
-
+        
     }
     
-
-
-
+    
+    
+    
     // MARK: - Private Methods
-
-
+    
+    
     
     
     func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
         
-//        streetLabel.text = street
+        //        streetLabel.text = street
         
         if town == "" {
             townLabel.isHidden = true
@@ -163,9 +163,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     //MARK: - Action Methods
     
     @IBAction func mapSelectionSwitchTapped(_ sender: UISwitch) {
-//       
-//        viewOnMap = sender.isOn
-//        print(viewOnMap)
+        //
+        //        viewOnMap = sender.isOn
+        //        print(viewOnMap)
     }
     
     
@@ -184,10 +184,10 @@ extension ContactDetailsViewController: UITextFieldDelegate {
     }
     
     // - Move screen up
-//    @objc func keyboardWillShow(_ notifictation: Notification) {
-//        if postcodeLabel.isEditing || countryLabel.isEditing || stateLabel.isEditing {
-//            view.frame.origin.y = CGFloat(integerLiteral: -100)
-//        }
-//    }
-
+    //    @objc func keyboardWillShow(_ notifictation: Notification) {
+    //        if postcodeLabel.isEditing || countryLabel.isEditing || stateLabel.isEditing {
+    //            view.frame.origin.y = CGFloat(integerLiteral: -100)
+    //        }
+    //    }
+    
 }

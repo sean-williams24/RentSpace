@@ -110,15 +110,14 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             email = defaults.string(forKey: "UpdateEmail") ?? ""
             postcode = defaults.string(forKey: "UpdatePostCode") ?? ""
             location = defaults.string(forKey: "UpdateCountry") ?? ""
-            
         } else {
             loadUDImages(for: "Images")
             descriptionTextView.text = defaults.string(forKey: "Description")
             email = defaults.string(forKey: "Email") ?? ""
             postcode = defaults.string(forKey: "PostCode") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
-            
         }
+        
         locationButton.titleLabel?.text = " \(postcode) / \(email)"
         if email == "" || postcode == "" {
             locationButton.titleLabel?.text = "  Contact & Address"

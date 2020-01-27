@@ -82,13 +82,13 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        Auth.auth().removeStateDidChangeListener(authHandle)
+        Auth.auth().removeStateDidChangeListener(authHandle)
+        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
 
     }
     
     deinit {
-        Auth.auth().removeStateDidChangeListener(authHandle)
-        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
+//        Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
     
