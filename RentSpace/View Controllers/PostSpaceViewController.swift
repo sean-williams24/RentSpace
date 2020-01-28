@@ -87,6 +87,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUI()
+        loadUserDataFromUserDefaults()
         subscribeToKeyboardNotificationsPostVC()
         imagesToUpload = []
         
@@ -101,7 +102,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         })
         
-        loadUserDataFromUserDefaults()
         
         // Add Photos Button
         if imagesSavedToDisk.isEmpty == false {
@@ -152,7 +152,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             location = defaults.string(forKey: "UpdateCountry") ?? ""
         } else {
             loadUDImages(for: "Images")
-            descriptionTextView.text = defaults.string(forKey: "Description")
+            descriptionTextView.text = defaults.string(forKey: "Description") ?? descriptionViewPlaceholder
             email = defaults.string(forKey: "Email") ?? ""
             postcode = defaults.string(forKey: "PostCode") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
@@ -387,9 +387,18 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     }
                     
                     print("Upload Complete")
-                    let domain = Bundle.main.bundleIdentifier!
-                    self.UD.removePersistentDomain(forName: domain)
-                    self.UD.synchronize()
+                    
+                    self.UD.removeObject(forKey: "Phone")
+                    self.UD.removeObject(forKey: "Email")
+                    self.UD.removeObject(forKey: "Address")
+                    self.UD.removeObject(forKey: "PostCode")
+                    self.UD.removeObject(forKey: "City")
+                    self.UD.removeObject(forKey: "SubAdminArea")
+                    self.UD.removeObject(forKey: "State")
+                    self.UD.removeObject(forKey: "Country")
+                    self.UD.removeObject(forKey: "Town")
+                    self.UD.set(self.descriptionViewPlaceholder, forKey: "Description")
+                    self.UD.set(true, forKey: "ViewOnMap")
                     
                     self.titleTextField.text = ""
                     self.priceTextField.text = ""
