@@ -71,7 +71,7 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
             let formattedAddress = formatter.string(from: postalAddress)
                   
             handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress, town: postalAddress.subLocality, city: postalAddress.city, subAdminArea: postalAddress.subAdministrativeArea, state: postalAddress.state, country: postalAddress.country, postCode: postalAddress.postalCode)
-            
+ 
             UserDefaults.standard.set(postalAddress.subLocality, forKey: "Town")
             UserDefaults.standard.set(postalAddress.city, forKey: "City")
             UserDefaults.standard.set(postalAddress.subAdministrativeArea, forKey: "SubAdminArea")

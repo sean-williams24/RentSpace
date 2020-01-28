@@ -144,13 +144,8 @@ class MessageViewController: UIViewController {
                 self.tableView.reloadData()
                 self.scrollToBottomMessage()
                 
-                print(self.messages.count)
-                print(message.messageBody)
-                print(message.sender)
-                print(self.chatID)
-                
                 // If sender of message is not signed in user
-                if message.sender != Auth.auth().currentUser?.displayName && self.messages.count > 1 {
+                if message.sender != Auth.auth().currentUser?.displayName {
                     //Update message as read
                     let customerDB = self.ref.child("users/\(self.chat.customerUID)/chats")
                     let advertOwnerDB = self.ref.child("users/\(self.chat.advertOwnerUID)/chats")

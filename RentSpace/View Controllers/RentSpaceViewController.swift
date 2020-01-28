@@ -34,7 +34,7 @@ class RentSpaceViewController: UIViewController {
     var location = ""
     var searchAreaButtonTitle = ""
     var rightBarButton = UIBarButtonItem()
-    var searchDistance = 10.00
+    var searchDistance = 20.00
     var distances: [Double] = []
     
     
@@ -67,9 +67,15 @@ class RentSpaceViewController: UIViewController {
         
         storageRef = Storage.storage().reference()
 
-        getAdverts(for: Constants.customCLLocation, within: UserDefaults.standard.double(forKey: "Distance"))
-        print(UserDefaults.standard.double(forKey: "Distance"))
-//        Constants.customCLLocation.coordinate
+        if UserDefaults.standard.double(forKey: "Distance") != 0.0 {
+            Constants.searchDistance = UserDefaults.standard.double(forKey: "Distance")
+        } 
+        
+        if Constants.savedLocationExists == true {
+            getAdverts(for: Constants.customCLLocation, within: Constants.searchDistance)
+        } else {
+            getAdverts(for: Constants.userCLLocation, within: Constants.searchDistance)
+        }
         
 
     }
@@ -140,8 +146,9 @@ class RentSpaceViewController: UIViewController {
                                 let advertLocation = placemark.location
                                 if let distance = advertLocation?.distance(from: userLocation) {
                                     let distanceInMiles = distance / 1609.344
-
+                                    
                                     if distanceInMiles < setMiles {
+                                        print("Set Miles: \(setMiles)")
                                         print("Distance: \(distanceInMiles)")
                                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                                         self.filteredAdverts.append(advertSnapshot)
@@ -257,7 +264,12 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
 extension RentSpaceViewController: UpdateSearchLocationDelegate {
     
     func didUpdate(distance: Double) {
-        getAdverts(for: Constants.customCLLocation, within: distance)
+        if Constants.savedLocationExists == true {
+            getAdverts(for: Constants.customCLLocation, within: distance)
+        } else {
+            getAdverts(for: Constants.userCLLocation, within: distance)
+        }
+        
         loadingLabel.isHidden = false
         loadingLabel.text = "Finding Spaces..."
     }
@@ -279,5 +291,6 @@ extension RentSpaceViewController: UpdateSearchLocationDelegate {
             }
         }
         UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
+        UserDefaults.standard.set(postcode, forKey: "LocationPostcode")
     }
 }

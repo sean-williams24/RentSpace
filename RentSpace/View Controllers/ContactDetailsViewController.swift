@@ -157,6 +157,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         stateLabel.text = state
         countryLabel.text = country
         postcodeLabel.text = postCode
+
         
     }
     

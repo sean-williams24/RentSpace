@@ -79,9 +79,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
-        
-        
+
     }
+    
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -91,8 +92,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user == nil {
-                //                let vc = self.storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
-                //                self.present(vc, animated: true)
                 self.signedOutView.isHidden = false
                 self.postButton.isEnabled = false
             } else {
@@ -102,26 +101,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         })
         
-        var email = ""
-        var postcode = ""
-        if updatingAdvert {
-            loadUDImages(for: "UpdateImages")
-            descriptionTextView.text = defaults.string(forKey: "UpdateDescription")
-            email = defaults.string(forKey: "UpdateEmail") ?? ""
-            postcode = defaults.string(forKey: "UpdatePostCode") ?? ""
-            location = defaults.string(forKey: "UpdateCountry") ?? ""
-        } else {
-            loadUDImages(for: "Images")
-            descriptionTextView.text = defaults.string(forKey: "Description")
-            email = defaults.string(forKey: "Email") ?? ""
-            postcode = defaults.string(forKey: "PostCode") ?? ""
-            location = defaults.string(forKey: "Country") ?? ""
-        }
-        
-        locationButton.titleLabel?.text = " \(postcode) / \(email)"
-        if email == "" || postcode == "" {
-            locationButton.titleLabel?.text = "  Contact & Address"
-        }
+        loadUserDataFromUserDefaults()
         
         // Add Photos Button
         if imagesSavedToDisk.isEmpty == false {
@@ -159,6 +139,30 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     
     //MARK: - Private Methods
+    
+    
+    fileprivate func loadUserDataFromUserDefaults() {
+        var email = ""
+        var postcode = ""
+        if updatingAdvert {
+            loadUDImages(for: "UpdateImages")
+            descriptionTextView.text = defaults.string(forKey: "UpdateDescription")
+            email = defaults.string(forKey: "UpdateEmail") ?? ""
+            postcode = defaults.string(forKey: "UpdatePostCode") ?? ""
+            location = defaults.string(forKey: "UpdateCountry") ?? ""
+        } else {
+            loadUDImages(for: "Images")
+            descriptionTextView.text = defaults.string(forKey: "Description")
+            email = defaults.string(forKey: "Email") ?? ""
+            postcode = defaults.string(forKey: "PostCode") ?? ""
+            location = defaults.string(forKey: "Country") ?? ""
+        }
+ 
+        locationButton.setTitle(" \(postcode) / \(email)", for: .normal)
+        if email == "" || postcode == "" {
+            locationButton.setTitle("  Contact & Address", for: .normal)
+        }
+    }
     
     func loadAdvertToUpdate() {
         defaults.removeObject(forKey: "UpdateImages")

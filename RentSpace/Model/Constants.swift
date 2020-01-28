@@ -20,5 +20,6 @@ class Constants {
     
     static var customCLLocation = CLLocation()
     static var searchDistance: Double = 20
+    static var savedLocationExists = false
 
 }
