@@ -130,7 +130,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 
                 let imageView = UIImageView()
                 imageView.image = image
-                imageView.contentMode = .scaleAspectFill
+                imageView.contentMode = .scaleAspectFit
                 let xPosition = self.view.frame.width * CGFloat(i)
                 imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
                 

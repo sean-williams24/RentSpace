@@ -168,11 +168,12 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         config.colors.tintColor = Settings.orangeTint // Right bar buttons (actions)
         config.icons.multipleSelectionOnIcon.withTintColor(Settings.orangeTint)
         config.colors.multipleItemsSelectedCircleColor = Settings.orangeTint
-        config.showsCrop = .rectangle(ratio: 1.0)
+       // config.showsCrop = .rectangle(ratio: 1.0)
         config.icons.capturePhotoImage = UIImage(named: "Shutter-Black")!
         config.hidesStatusBar = false
         config.preferredStatusBarStyle = .lightContent
         config.startOnScreen = .library
+        config.shouldSaveNewPicturesToAlbum = false
         if UIImagePickerController.isSourceTypeAvailable(.camera) == false {
             config.screens = [.library]
         }
