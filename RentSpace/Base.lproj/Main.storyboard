@@ -48,6 +48,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" keyboardAppearance="alert"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="MTi-9e-2E1"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -86,6 +89,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="OpG-JD-B88"/>
+                                </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nb7-eZ-pqt">
                                 <rect key="frame" x="0.0" y="131" width="414" height="350"/>
@@ -93,6 +99,9 @@
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="5Ak-jc-B7U"/>
+                                </connections>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AIF-4g-oTh">
                                 <rect key="frame" x="0.0" y="643" width="414" height="170"/>
@@ -2510,6 +2519,7 @@ Only the best gear here.</string>
         <!--My Space Details View Controller-->
         <scene sceneID="45m-lO-cBU">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fp3-og-5OH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MySpaceDetailsVC" id="8RL-C7-RI1" customClass="MySpaceDetailsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hra-Mi-Dt8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -2706,7 +2716,6 @@ Only the best gear here.</string>
                         <outlet property="titleLabel" destination="T9n-Dm-ATI" id="Xhx-6A-O8U"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fp3-og-5OH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2954" y="2023"/>
         </scene>

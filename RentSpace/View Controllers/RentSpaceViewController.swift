@@ -139,14 +139,14 @@ class RentSpaceViewController: UIViewController {
                     if let advertSnapshot = child as? DataSnapshot {
                         let advert = advertSnapshot.value as? NSDictionary ?? [:]
                         let postcode = advert[Advert.postCode] as! String
-                        
+                        let city = advert[Advert.city] as! String
                         // Get distance of advert location from users chosen location and add to table if within search radius
-                        CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
+                        CLGeocoder().geocodeAddressString(postcode + " " + city) { (placemark, error) in
                             if let placemark = placemark?.first {
                                 let advertLocation = placemark.location
                                 if let distance = advertLocation?.distance(from: userLocation) {
                                     let distanceInMiles = distance / 1609.344
-                                    
+
                                     if distanceInMiles < setMiles {
                                         print("Set Miles: \(setMiles)")
                                         print("Distance: \(distanceInMiles)")
@@ -154,6 +154,7 @@ class RentSpaceViewController: UIViewController {
                                         self.filteredAdverts.append(advertSnapshot)
                                         self.tableView.reloadData()
                                         self.startCellLoadingActivityView()
+                                        print(self.filteredAdverts.count)
                                     }
                                 }
                             }

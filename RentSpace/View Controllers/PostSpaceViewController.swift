@@ -79,7 +79,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
-
     }
     
 
@@ -397,6 +396,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     self.UD.removeObject(forKey: "State")
                     self.UD.removeObject(forKey: "Country")
                     self.UD.removeObject(forKey: "Town")
+                    self.UD.removeObject(forKey: "Images")
                     self.UD.set(self.descriptionViewPlaceholder, forKey: "Description")
                     self.UD.set(true, forKey: "ViewOnMap")
                     
