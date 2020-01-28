@@ -59,10 +59,24 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         let loginButton = FBLoginButton(permissions: [ .publicProfile, .email ])
         loginButton.permissions = ["email"]
         
-        // TODO - try to use constraints instead of frame
-        loginButton.frame = CGRect(x: 24, y: 425, width: view.frame.width - 48, height: 40)
+        for const in loginButton.constraints{
+            if const.firstAttribute == NSLayoutConstraint.Attribute.height && const.constant == 28{
+                loginButton.removeConstraint(const)
+            }
+        }
+//        loginButton.frame = CGRect(x: 24, y: 425, width: view.frame.width - 48, height: 40)
+        
         loginButton.delegate = self
         view.addSubview(loginButton)
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        loginButton.leadingAnchor.constraint(equalTo: googleSignInButton.leadingAnchor, constant: 4).isActive = true
+        loginButton.trailingAnchor.constraint(equalTo: googleSignInButton.trailingAnchor, constant: -4).isActive = true
+        loginButton.topAnchor.constraint(equalTo: googleSignInButton.bottomAnchor, constant: 10).isActive = true
+        
+        
+        
+
         
     }
     
