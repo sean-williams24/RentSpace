@@ -18,6 +18,8 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var signInButton: UIButton!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
+    @IBOutlet var infoLabel: UILabel!
+    @IBOutlet var favouritesButton: UIBarButtonItem!
     
     var mySpaces: [DataSnapshot] = []
     var ref: DatabaseReference!
@@ -73,6 +75,13 @@ class MySpacesViewController: UIViewController {
                 if let displayName = Auth.auth().currentUser?.displayName {
                     self.title = displayName
                 }
+                
+                if self.mySpaces.isEmpty {
+                    self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
+                } else {
+                    self.infoLabel.text = ""
+                }
+                
             } else {
                 self.signedOutView.isHidden = false
                 self.mySpaces.removeAll()
@@ -92,6 +101,14 @@ class MySpacesViewController: UIViewController {
     
     deinit {
 //        Auth.auth().removeStateDidChangeListener(authHandle)
+    }
+    
+    //MARK: - Action Methods
+    
+    
+    @IBAction func favouritesButtonTapped(_ sender: Any) {
+        
+        
     }
     
     

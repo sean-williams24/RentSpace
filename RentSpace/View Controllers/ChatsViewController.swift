@@ -17,6 +17,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet var signInButton: UIButton!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
+    @IBOutlet var infoLabel: UILabel!
     
     var chats: [Chat] = []
     var unorderedChats: [Chat] = []
@@ -88,7 +89,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                         
                         let chat = Chat(latestSender: latestSender, lastMessage: lastMessage, title: title, chatID: chatID, location: location, price: price, advertOwnerUID: advertOwnerUID, customerUID: customerUID, advertOwnerDisplayName: advertOwnerDisplayName, customerDisplayName: customerDisplayName, thumbnailURL: thumbnailURL, messageDate: messageDate, read: read)
                         
-                        if self.chats.isEmpty == true {
+                        if self.chats.isEmpty {
                             // append first chat to array
                             self.chats.append(chat)
                         } else {
@@ -113,6 +114,13 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
             }
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
             self.tableView.reloadData()
+            print("Called")
+            
+            if self.chats.isEmpty {
+                self.infoLabel.text = "Your conversations will appear here once chatting begins."
+            } else {
+                self.infoLabel.text = ""
+            }
         })
     }
     

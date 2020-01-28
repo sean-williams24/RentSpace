@@ -1830,7 +1830,13 @@ Only the best gear here.</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballClipRotateMultiple"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLo-YL-EO3" userLabel="Signed Out View">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LABEL" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjU-9r-ZxO">
+                                <rect key="frame" x="20" y="438.5" width="374" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLo-YL-EO3" userLabel="Signed Out View">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="003-desk" translatesAutoresizingMaskIntoConstraints="NO" id="Ijf-WQ-kHG">
@@ -1915,16 +1921,24 @@ Only the best gear here.</string>
                             <constraint firstItem="LWn-rU-Kxv" firstAttribute="leading" secondItem="Naf-qd-OTQ" secondAttribute="leading" constant="10" id="HyV-As-107"/>
                             <constraint firstItem="Naf-qd-OTQ" firstAttribute="trailing" secondItem="xgz-i9-e0u" secondAttribute="trailing" constant="6" id="L5U-Fv-vlb"/>
                             <constraint firstItem="Naf-qd-OTQ" firstAttribute="trailing" secondItem="OLo-YL-EO3" secondAttribute="trailing" id="N3s-pL-sGm"/>
+                            <constraint firstItem="Naf-qd-OTQ" firstAttribute="trailing" secondItem="GjU-9r-ZxO" secondAttribute="trailing" constant="20" id="P9m-No-DYa"/>
                             <constraint firstItem="OLo-YL-EO3" firstAttribute="top" secondItem="Naf-qd-OTQ" secondAttribute="top" id="QMU-vE-TKd"/>
                             <constraint firstItem="Naf-qd-OTQ" firstAttribute="bottom" secondItem="OLo-YL-EO3" secondAttribute="bottom" id="TeT-Bs-ahw"/>
                             <constraint firstItem="xgz-i9-e0u" firstAttribute="top" secondItem="Naf-qd-OTQ" secondAttribute="top" id="VYJ-Xp-8qf"/>
+                            <constraint firstItem="GjU-9r-ZxO" firstAttribute="leading" secondItem="Naf-qd-OTQ" secondAttribute="leading" constant="20" id="YYb-8K-7ly"/>
                             <constraint firstItem="XK9-fm-Nsx" firstAttribute="centerY" secondItem="Naf-qd-OTQ" secondAttribute="centerY" id="cBM-yS-MDt"/>
                             <constraint firstItem="OLo-YL-EO3" firstAttribute="leading" secondItem="Naf-qd-OTQ" secondAttribute="leading" id="nX0-U2-dPF"/>
+                            <constraint firstItem="GjU-9r-ZxO" firstAttribute="centerY" secondItem="cJt-rc-tNT" secondAttribute="centerY" id="y9V-gP-gFd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Naf-qd-OTQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="llA-Tc-h7s">
                         <barButtonItem key="backBarButtonItem" title="-" id="gwe-8c-o8a"/>
+                        <barButtonItem key="leftBarButtonItem" title="Favourites" style="plain" id="9vt-BK-xkz">
+                            <connections>
+                                <action selector="favouritesButtonTapped:" destination="SMh-PC-nNU" id="dnw-Mi-Ay2"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="gear" catalog="system" id="1Hd-EE-wqX">
                             <connections>
                                 <segue destination="w7C-0x-aHl" kind="show" id="9BH-LC-ldg"/>
@@ -1933,6 +1947,8 @@ Only the best gear here.</string>
                     </navigationItem>
                     <connections>
                         <outlet property="activityView" destination="XK9-fm-Nsx" id="1nt-S2-wCJ"/>
+                        <outlet property="favouritesButton" destination="9vt-BK-xkz" id="zTc-RX-F8y"/>
+                        <outlet property="infoLabel" destination="GjU-9r-ZxO" id="IsR-sE-IR9"/>
                         <outlet property="loadingLabel" destination="LWn-rU-Kxv" id="L6v-Iz-EK8"/>
                         <outlet property="signInButton" destination="dp3-iE-oYe" id="soy-Ai-Iuo"/>
                         <outlet property="signedOutView" destination="OLo-YL-EO3" id="iNL-NC-bRA"/>
@@ -2157,6 +2173,12 @@ Only the best gear here.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg4-VZ-5W3">
+                                <rect key="frame" x="20" y="438.5" width="374" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kT1-Mf-nv4" userLabel="Signed Out View">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
@@ -2237,6 +2259,7 @@ Only the best gear here.</string>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="leading" secondItem="2WR-fc-8pB" secondAttribute="leading" id="0jU-JH-rmk"/>
                             <constraint firstItem="D2v-fL-ekj" firstAttribute="leading" secondItem="2WR-fc-8pB" secondAttribute="leading" constant="10" id="29Q-rv-z3i"/>
                             <constraint firstItem="kT1-Mf-nv4" firstAttribute="top" secondItem="2WR-fc-8pB" secondAttribute="top" id="2hV-Ar-gEG"/>
+                            <constraint firstItem="2WR-fc-8pB" firstAttribute="trailing" secondItem="xg4-VZ-5W3" secondAttribute="trailing" constant="20" id="69f-ZG-4OI"/>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="leading" secondItem="2WR-fc-8pB" secondAttribute="leading" id="CVv-JQ-1RC"/>
                             <constraint firstAttribute="trailing" secondItem="kT1-Mf-nv4" secondAttribute="trailing" id="Cvt-yk-N8h"/>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="trailing" secondItem="2WR-fc-8pB" secondAttribute="trailing" id="F5g-ng-2k5"/>
@@ -2249,6 +2272,8 @@ Only the best gear here.</string>
                             <constraint firstItem="2WR-fc-8pB" firstAttribute="bottom" secondItem="kT1-Mf-nv4" secondAttribute="bottom" id="eP5-Ra-TvN"/>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="top" secondItem="2WR-fc-8pB" secondAttribute="top" id="g2Y-5L-PWj"/>
                             <constraint firstItem="hYG-Ks-mrJ" firstAttribute="centerX" secondItem="2WR-fc-8pB" secondAttribute="centerX" id="iP0-k1-EKZ"/>
+                            <constraint firstItem="xg4-VZ-5W3" firstAttribute="centerY" secondItem="NIq-19-2CX" secondAttribute="centerY" id="jwA-An-5kv"/>
+                            <constraint firstItem="xg4-VZ-5W3" firstAttribute="leading" secondItem="2WR-fc-8pB" secondAttribute="leading" constant="20" id="noJ-9P-XcT"/>
                             <constraint firstItem="bHA-La-2xr" firstAttribute="trailing" secondItem="2WR-fc-8pB" secondAttribute="trailing" id="uUL-V3-bUT"/>
                             <constraint firstItem="2WR-fc-8pB" firstAttribute="bottom" secondItem="D2v-fL-ekj" secondAttribute="bottom" constant="15" id="yfT-mw-JGd"/>
                         </constraints>
@@ -2259,6 +2284,7 @@ Only the best gear here.</string>
                     </navigationItem>
                     <connections>
                         <outlet property="activityView" destination="hYG-Ks-mrJ" id="zgk-WU-eJt"/>
+                        <outlet property="infoLabel" destination="xg4-VZ-5W3" id="pQj-ac-lB9"/>
                         <outlet property="loadingLabel" destination="D2v-fL-ekj" id="dcz-r3-Rog"/>
                         <outlet property="signInButton" destination="nir-7A-wbv" id="57z-v0-2ba"/>
                         <outlet property="signedOutView" destination="kT1-Mf-nv4" id="pgv-aD-wUv"/>
