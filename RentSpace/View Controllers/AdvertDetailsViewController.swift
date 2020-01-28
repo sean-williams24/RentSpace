@@ -25,6 +25,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var phoneButton: UIButton!
     @IBOutlet var messagesButton: UIButton!
     @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var directionsButton: UIButton!
     
     var images = [UIImage]()
     var advertSnapshot: DataSnapshot!
@@ -40,6 +41,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var imageURLsDict: [String: String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
     var thumbnail = UIImage()
+    var coordinate = CLLocationCoordinate2D()
     
     
     // MARK: - Life Cycle
@@ -92,6 +94,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         if advert[Advert.viewOnMap] as? Bool == false {
             mapView.isHidden = true
+            directionsButton.isHidden = true
         }
         
         if advert[Advert.email] as? String == "" {
@@ -145,6 +148,10 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             messagesButton.isEnabled = false
             messagesButton.tintColor = .clear
         }
+        
+        directionsButton.layer.cornerRadius = 15
+        directionsButton.layer.borderWidth = 1
+        directionsButton.layer.borderColor = Settings.orangeTint.cgColor
         
         setLocationOnMap()
     }
@@ -286,6 +293,15 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
+    
+    
+    @IBAction func directionsButtonTapped(_ sender: Any) {
+        let mkPlacemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: MKPlacemark(placemark: mkPlacemark))
+        mapItem.name = titleLabel.text!
+        mapItem.openInMaps()
+        
+    }
 }
 
 
@@ -301,6 +317,7 @@ extension AdvertDetailsViewController: MKMapViewDelegate {
             
             if let placemark = placemark?.first {
                 if let coordinate = placemark.location?.coordinate {
+                    self.coordinate = coordinate
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinate
                     self.mapView.addAnnotation(annotation)
