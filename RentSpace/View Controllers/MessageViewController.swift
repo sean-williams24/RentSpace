@@ -268,19 +268,10 @@ class MessageViewController: UIViewController {
     
     
     
-    // MARK: - Action Methods
-    
-    
-    @IBAction func pictureButtonTapped(_ sender: Any) {
-    }
-    
+    // MARK: - Action Methods    
     
     @IBAction func sendMessageButtonTapped(_ sender: Any) {
-        
-        //        let _ = textFieldShouldReturn(messageTextField)
-        
         sendMessage()
-
     }
 }
 

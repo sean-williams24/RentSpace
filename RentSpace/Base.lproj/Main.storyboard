@@ -93,7 +93,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="OpG-JD-B88"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nb7-eZ-pqt">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nb7-eZ-pqt">
                                 <rect key="frame" x="0.0" y="131" width="414" height="350"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -779,13 +779,22 @@ Long press and drag to reorder.</string>
                                     <constraint firstAttribute="height" constant="40" id="jbf-QT-jKh"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please sign in to enable chat with space owners, favourite spaces and post your own spaces." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZX-Xd-Fqd">
+                                <rect key="frame" x="20" y="803.5" width="374" height="38.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="iZX-Xd-Fqd" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="4jl-22-eBk"/>
+                            <constraint firstItem="iZX-Xd-Fqd" firstAttribute="bottom" secondItem="TV2-Un-BpR" secondAttribute="bottom" constant="-20" id="7lM-v3-Xnz"/>
                             <constraint firstItem="dNX-df-tru" firstAttribute="top" secondItem="TV2-Un-BpR" secondAttribute="top" constant="80" id="GAz-Xc-Yzn"/>
                             <constraint firstItem="bSN-xd-ry2" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="Hu5-RR-wNA"/>
                             <constraint firstItem="bSN-xd-ry2" firstAttribute="top" secondItem="NdX-wC-fyU" secondAttribute="bottom" constant="10" id="Jpw-CH-cPE"/>
+                            <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="iZX-Xd-Fqd" secondAttribute="trailing" constant="20" id="LAr-53-kWr"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="LFJ-GS-ZMg"/>
                             <constraint firstItem="NdX-wC-fyU" firstAttribute="centerX" secondItem="uke-cJ-Y74" secondAttribute="centerX" id="MSP-6a-WUO"/>
                             <constraint firstItem="dNX-df-tru" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="R1C-pp-xha"/>
@@ -1312,8 +1321,17 @@ Long press and drag to reorder.</string>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AF3-U3-bsw">
                                                         <rect key="frame" x="207" y="0.0" width="207" height="40"/>
                                                         <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vp-YR-fEc">
+                                                                <rect key="frame" x="0.0" y="0.0" width="52" height="40"/>
+                                                                <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <state key="normal" image="heart" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="favouritesButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="TUe-JZ-uGp"/>
+                                                                    <action selector="messageButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="L2K-gh-uBF"/>
+                                                                </connections>
+                                                            </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JS-xD-q20">
-                                                                <rect key="frame" x="0.0" y="0.0" width="69" height="40"/>
+                                                                <rect key="frame" x="52" y="0.0" width="51.5" height="40"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <state key="normal" image="message" catalog="system"/>
@@ -1322,7 +1340,7 @@ Long press and drag to reorder.</string>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oH1-e6-cRV">
-                                                                <rect key="frame" x="69" y="0.0" width="69" height="40"/>
+                                                                <rect key="frame" x="103.5" y="0.0" width="52" height="40"/>
                                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <state key="normal" image="phone" catalog="system"/>
                                                                 <connections>
@@ -1330,7 +1348,7 @@ Long press and drag to reorder.</string>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoP-UV-CRU">
-                                                                <rect key="frame" x="138" y="0.0" width="69" height="40"/>
+                                                                <rect key="frame" x="155.5" y="0.0" width="51.5" height="40"/>
                                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <state key="normal" image="envelope" catalog="system"/>
                                                                 <connections>
@@ -1446,6 +1464,7 @@ Only the best gear here.</string>
                         <outlet property="descriptionTextView" destination="Gmj-IP-VZw" id="1qu-NO-xMm"/>
                         <outlet property="directionsButton" destination="X8L-yX-097" id="V37-mF-hUP"/>
                         <outlet property="emailButton" destination="KoP-UV-CRU" id="2Kq-uh-jhn"/>
+                        <outlet property="favouritesButton" destination="5vp-YR-fEc" id="HHD-B5-pR3"/>
                         <outlet property="locationIcon" destination="AIm-s0-uiG" id="s0G-Ao-O1z"/>
                         <outlet property="locationLabel" destination="EdI-6D-t79" id="dqw-bP-0ga"/>
                         <outlet property="mapView" destination="HoM-Ul-2MJ" id="Byw-fF-wFH"/>
@@ -2458,6 +2477,7 @@ Only the best gear here.</string>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="gDd-ij-Ly6" firstAttribute="top" secondItem="YyV-RV-B2b" secondAttribute="top" constant="8" id="1me-rl-z8o"/>
                                     <constraint firstItem="gDd-ij-Ly6" firstAttribute="leading" secondItem="YyV-RV-B2b" secondAttribute="leading" constant="10" id="BOo-nM-qSK"/>
@@ -2593,6 +2613,7 @@ Only the best gear here.</string>
         <image name="eye" catalog="system" width="64" height="40"/>
         <image name="gear" catalog="system" width="64" height="58"/>
         <image name="handshake-2" width="512" height="512"/>
+        <image name="heart" catalog="system" width="64" height="54"/>
         <image name="imagePlaceholder" width="200" height="200"/>
         <image name="location.fill" catalog="system" width="64" height="56"/>
         <image name="message" catalog="system" width="64" height="56"/>

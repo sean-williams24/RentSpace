@@ -26,6 +26,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var messagesButton: UIButton!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var directionsButton: UIButton!
+    @IBOutlet var favouritesButton: UIButton!
     
     var images = [UIImage]()
     var advertSnapshot: DataSnapshot!
@@ -61,6 +62,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             editButton.tintColor = Settings.orangeTint
             messagesButton.isEnabled = false
             messagesButton.tintColor = .clear
+            favouritesButton.isEnabled = false
+            favouritesButton.tintColor = .clear
         } else {
             trashButton.isEnabled = false
             trashButton.tintColor = .clear
@@ -68,14 +71,16 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             editButton.tintColor = .clear
             messagesButton.isEnabled = true
             messagesButton.tintColor = Settings.orangeTint
+            favouritesButton.isEnabled = true
+            favouritesButton.tintColor = Settings.orangeTint
         }
         
-        authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-            if user == nil {
-                self.messagesButton.isEnabled = false
-                self.messagesButton.tintColor = .clear
-            }
-        })
+//        authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+//            if user == nil {
+//                self.messagesButton.isEnabled = false
+//                self.messagesButton.tintColor = .clear
+//            }
+//        })
         
         titleLabel.text = (advert[Advert.title] as! String).uppercased()
         if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
@@ -164,7 +169,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(authHandle)
+//        Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
 
@@ -268,14 +273,29 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     //MARK: - Action Methods
     
+    @IBAction func favouritesButtonTapped(_ sender: Any) {
+        if Auth.auth().currentUser != nil {
+            //TODO : - favourtites
+            
+        } else {
+            let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+            present(vc, animated: true)
+        }
+    }
+    
     
     @IBAction func messageButtonTapped(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
-        vc.advert = advert
-        vc.advertSnapshot = advertSnapshot
-        vc.thumbnail = thumbnail
-        
-        navigationController?.pushViewController(vc, animated: true)
+        if Auth.auth().currentUser != nil {
+            let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
+            vc.advert = advert
+            vc.advertSnapshot = advertSnapshot
+            vc.thumbnail = thumbnail
+            navigationController?.pushViewController(vc, animated: true)
+            
+        } else {
+            let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+            present(vc, animated: true)
+        }
     }
     
     @IBAction func phoneButtonTapped(_ sender: Any) {
