@@ -27,7 +27,7 @@ class RentSpaceViewController: UIViewController {
     var storageRef: StorageReference!
     fileprivate var _refHandle: DatabaseHandle!
     
-    var filteredAdverts: [Advert] = []
+    var spaces: [Space] = []
 //    var array: [DataSnapshot]!
     var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
@@ -83,7 +83,7 @@ class RentSpaceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            if self.filteredAdverts.isEmpty {
+            if self.spaces.isEmpty {
                 UIView.animate(withDuration: 1) {
                     self.loadingLabel.alpha = 0
                     self.loadingLabel.text = "No spaces were found, try expanding your search radius"
@@ -114,18 +114,18 @@ class RentSpaceViewController: UIViewController {
     func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
         
-        filteredAdverts.removeAll()
+        spaces.removeAll()
         distances.removeAll()
         ref = Database.database().reference()
                 
         if setMiles == 310.0 {
             // Nationwide results, i.e. all adverts
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
-                self.filteredAdverts = []
+                self.spaces = []
                 for child in snapshot.children {
-                    if let advertSnapshot = child as? DataSnapshot {
-                        if let advert = Advert(snapshot: advertSnapshot) {
-                        self.filteredAdverts.append(advert)
+                    if let spaceSnapshot = child as? DataSnapshot {
+                        if let space = Space(snapshot: spaceSnapshot) {
+                        self.spaces.append(space)
                     }
                     self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     self.tableView.reloadData()
@@ -135,14 +135,14 @@ class RentSpaceViewController: UIViewController {
             })
         } else {
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
-                self.filteredAdverts = []
+                self.spaces = []
                 self.tableView.reloadData()
                 
                 for child in snapshot.children {
-                    if let advertSnapshot = child as? DataSnapshot,
-                        let advert = Advert(snapshot: advertSnapshot) {
-                        let postcode = advert.postcode
-                        let city = advert.city
+                    if let spaceSnapshot = child as? DataSnapshot,
+                        let space = Space(snapshot: spaceSnapshot) {
+                        let postcode = space.postcode
+                        let city = space.city
                         
                         // Get distance of advert location from users chosen location and add to table if within search radius
                         CLGeocoder().geocodeAddressString(postcode + " " + city) { (placemark, error) in
@@ -155,10 +155,10 @@ class RentSpaceViewController: UIViewController {
                                         print("Set Miles: \(setMiles)")
                                         print("Distance: \(distanceInMiles)")
                                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                                        self.filteredAdverts.append(advert)
+                                        self.spaces.append(space)
                                         self.tableView.reloadData()
                                         self.startCellLoadingActivityView()
-                                        print(self.filteredAdverts.count)
+                                        print(self.spaces.count)
                                     }
                                 }
                             }
@@ -194,7 +194,7 @@ class RentSpaceViewController: UIViewController {
 extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return filteredAdverts.count
+        return spaces.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -216,17 +216,16 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
 //        cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
         
-        let advert = filteredAdverts[indexPath.section]
-//        let advert = advertSnapshot.value as! [String : Any]
-        print(advert.title)
+        let space = spaces[indexPath.section]
+        print(space.title)
         // Populate cell content from downloaded advert data from Firebase
-        cell.titleLabel.text = advert.title.uppercased()
-        cell.descriptionLabel.text = advert.description
-        cell.categoryLabel.text = advert.category
-        cell.locationLabel.text = formatAddress(for: advert)
-        cell.priceLabel.text = "£\(advert.price) \(priceRateFormatter(rate: advert.priceRate))"
+        cell.titleLabel.text = space.title.uppercased()
+        cell.descriptionLabel.text = space.description
+        cell.categoryLabel.text = space.category
+        cell.locationLabel.text = formatAddress(for: space)
+        cell.priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         
-        if let imageURLsDict = advert.photos {
+        if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {
             
                 Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -258,7 +257,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
 //        vc.advertSnapshot = filteredAdverts[indexPath.section]
-        vc.advert = filteredAdverts[indexPath.section]
+        vc.space = spaces[indexPath.section]
         show(vc, sender: self)
     }
 }

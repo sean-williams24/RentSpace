@@ -71,7 +71,7 @@ extension UIViewController {
     
     //MARK: - Format address for location labels from address data
     
-    func formatAddress(for advert: Advert) -> String {
+    func formatAddress(for advert: Space) -> String {
         
         var location = ""
         let city = advert.city

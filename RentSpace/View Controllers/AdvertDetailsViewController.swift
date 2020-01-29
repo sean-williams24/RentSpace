@@ -30,7 +30,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     var images = [UIImage]()
 //    var advertSnapshot: DataSnapshot!
-    var advert: Advert!
+    var space: Space!
     var emailAddress: String?
     var phoneNumber: String?
     var postcode = ""
@@ -82,42 +82,42 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 //            }
 //        })
         
-        titleLabel.text = advert.title.uppercased()
-        priceLabel.text = "£\(advert.price) \(priceRateFormatter(rate: advert.priceRate))"
+        titleLabel.text = space.title.uppercased()
+        priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         
-        locationLabel.text = formatAddress(for: advert)
+        locationLabel.text = formatAddress(for: space)
         scrollView.delegate = self
         pageController.hidesForSinglePage = true
-        postcode = advert.postcode
+        postcode = space.postcode
         
-        if advert.photos == nil {
+        if space.photos == nil {
             scrollView.isHidden = true
             pageController.isHidden = true
         }
         
-        if advert.viewOnMap == false {
+        if space.viewOnMap == false {
             mapView.isHidden = true
             directionsButton.isHidden = true
         }
         
-        if advert.email == "" {
+        if space.email == "" {
             emailButton.isEnabled = false
             emailButton.tintColor = .gray
         } else {
-            emailAddress = advert.email
+            emailAddress = space.email
         }
         
-        if advert.phone == "" {
+        if space.phone == "" {
             phoneButton.isEnabled = false
             phoneButton.tintColor = .gray
         } else {
-            phoneNumber = advert.phone
+            phoneNumber = space.phone
         }
         
-        if advert.description == "" {
+        if space.description == "" {
             descriptionTextView.isHidden = true
         } else {
-            descriptionTextView.text = advert.description
+            descriptionTextView.text = space.description
         }
         
         downloadFirebaseImages {
@@ -147,7 +147,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             self.pageController.numberOfPages = self.imagesDictionary.count
         }
         
-        if advert.postedByUser == Auth.auth().currentUser?.uid {
+        if space.postedByUser == Auth.auth().currentUser?.uid {
             messagesButton.isEnabled = false
             messagesButton.tintColor = .clear
         }
@@ -185,7 +185,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 
         activityView.startAnimating()
         
-        if let imageURLsDict = advert.photos {
+        if let imageURLsDict = space.photos {
             self.imageURLsDict = imageURLsDict
             
             for key in imageURLsDict.keys.sorted()  {
@@ -213,7 +213,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @objc func editAdvert() {
         if let vc = storyboard?.instantiateViewController(identifier: "PostSpaceNavVC") {
             let postSpaceVC = vc.children[0] as! PostSpaceViewController
-            postSpaceVC.advert = self.advert
+            postSpaceVC.space = self.space
             postSpaceVC.updatingAdvert = true
 //            postSpaceVC.advertSnapshot = advertSnapshot
             present(vc, animated: true)
@@ -222,10 +222,10 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     
     @objc func deleteAdvert() {
-        let category = advert.category
-        let key = advert.key
+        let category = space.category
+        let key = space.key
         let UID = Settings.currentUser?.uid
-        let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
+        let ac = UIAlertController(title: "Delete Space", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             
             let childUpdates = ["adverts/\(Constants.userLocationCountry)/\(category)/\(UID!)-\(key)": NSNull(),
@@ -274,8 +274,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func favouritesButtonTapped(_ sender: Any) {
         if Auth.auth().currentUser != nil {
             
-            let key = advert.key
-            let category = advert.category
+            let key = space.key
+            let category = space.category
             let favouriteURL = category + "/" + key
             
             print(favouriteURL)
@@ -292,7 +292,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func messageButtonTapped(_ sender: Any) {
         if Auth.auth().currentUser != nil {
             let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
-            vc.advert = advert
+            vc.space = space
 //            vc.advertSnapshot = advertSnapshot
             vc.thumbnail = thumbnail
             navigationController?.pushViewController(vc, animated: true)

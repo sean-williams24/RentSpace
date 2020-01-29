@@ -26,7 +26,7 @@
 		CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */; };
 		CE6583A123941302001FFA8A /* UIVC Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A023941302001FFA8A /* UIVC Extension.swift */; };
 		CE6583A32397C0E6001FFA8A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE6583A22397C0E6001FFA8A /* GoogleService-Info.plist */; };
-		CE6583A52397E26C001FFA8A /* Advert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A42397E26C001FFA8A /* Advert.swift */; };
+		CE6583A52397E26C001FFA8A /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A42397E26C001FFA8A /* Space.swift */; };
 		CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */; };
 		CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */; };
 		CE6583AC239A8A13001FFA8A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AB239A8A13001FFA8A /* Constants.swift */; };
@@ -73,7 +73,7 @@
 		CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchTableViewController.swift; sourceTree = "<group>"; };
 		CE6583A023941302001FFA8A /* UIVC Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVC Extension.swift"; sourceTree = "<group>"; };
 		CE6583A22397C0E6001FFA8A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		CE6583A42397E26C001FFA8A /* Advert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advert.swift; sourceTree = "<group>"; };
+		CE6583A42397E26C001FFA8A /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
 		CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertTableViewCell.swift; sourceTree = "<group>"; };
 		CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSelectionViewController.swift; sourceTree = "<group>"; };
 		CE6583AB239A8A13001FFA8A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
 				CE5D27CE238EC8AA0098B0FA /* Photo.swift */,
 				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
-				CE6583A42397E26C001FFA8A /* Advert.swift */,
+				CE6583A42397E26C001FFA8A /* Space.swift */,
 				CE6583AB239A8A13001FFA8A /* Constants.swift */,
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
 				CEC0B93423D1C286004DC4E6 /* Chat.swift */,
@@ -357,7 +357,7 @@
 				CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */,
 				CEC0B93523D1C286004DC4E6 /* Chat.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
-				CE6583A52397E26C001FFA8A /* Advert.swift in Sources */,
+				CE6583A52397E26C001FFA8A /* Space.swift in Sources */,
 				CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */,
 				CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */,
 				CEC0B93D23D72013004DC4E6 /* SenderTableViewCell.swift in Sources */,

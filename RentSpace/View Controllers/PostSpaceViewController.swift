@@ -42,7 +42,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var priceRate = "Hourly"
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
-    var advert: Advert!
+    var space: Space!
     var updatingAdvert = false
     let placeHolderImage = UIImage(named: "imagePlaceholder")
     
@@ -165,10 +165,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         defaults.removeObject(forKey: "UpdateImages")
         
         postButton.title = "Update"
-        titleTextField.text = advert.title
-        descriptionTextView.text = advert.description
-        category = advert.category
-        previousCategory = advert.category
+        titleTextField.text = space.title
+        descriptionTextView.text = space.description
+        category = space.category
+        previousCategory = space.category
         
         for (i, spaceType) in spaceTypePickerContent.enumerated() {
             if spaceType == category {
@@ -176,24 +176,24 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
         
-        priceTextField.text = advert.price
-        priceRate = advert.priceRate
+        priceTextField.text = space.price
+        priceRate = space.priceRate
         for (i, rate) in priceRatePickerContent.enumerated() {
             if rate == priceRate {
                 priceRatePicker.selectRow(i, inComponent: 0, animated: true)
             }
         }
         
-        defaults.set(advert.email, forKey: "UpdateEmail")
-        defaults.set(advert.phone, forKey: "UpdatePhone")
-        defaults.set(advert.town, forKey: "UpdateTown")
-        defaults.set(advert.city, forKey: "UpdateCity")
-        defaults.set(advert.subAdminArea, forKey: "UpdateSubAdminArea")
-        defaults.set(advert.state, forKey: "UpdateState")
-        defaults.set(advert.country, forKey: "UpdateCountry")
-        defaults.set(advert.postcode, forKey: "UpdatePostCode")
-        defaults.set(advert.viewOnMap, forKey: "UpdateViewOnMap")
-        defaults.set(advert.description, forKey: "UpdateDescription")
+        defaults.set(space.email, forKey: "UpdateEmail")
+        defaults.set(space.phone, forKey: "UpdatePhone")
+        defaults.set(space.town, forKey: "UpdateTown")
+        defaults.set(space.city, forKey: "UpdateCity")
+        defaults.set(space.subAdminArea, forKey: "UpdateSubAdminArea")
+        defaults.set(space.state, forKey: "UpdateState")
+        defaults.set(space.country, forKey: "UpdateCountry")
+        defaults.set(space.postcode, forKey: "UpdatePostCode")
+        defaults.set(space.viewOnMap, forKey: "UpdateViewOnMap")
+        defaults.set(space.description, forKey: "UpdateDescription")
         
         // Download images from Firebase Storage
         downloadFirebaseImages {
@@ -220,7 +220,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     // maybe refactor this as its used also in advert deails VC
     func downloadFirebaseImages(completion: @escaping () -> ()) {
-        if let imageURLsDict = advert.photos {
+        if let imageURLsDict = space.photos {
             self.firebaseImageURLsDict = imageURLsDict
             
             for key in imageURLsDict.keys.sorted()  {

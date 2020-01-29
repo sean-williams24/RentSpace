@@ -18,8 +18,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var pickerView: UIPickerView!
     
-    
-//    var currentLocation = "SeanTown"
     var searchDistance: Double = 20.00
     var resultsSearchController: UISearchController?
     var delegate: UpdateSearchLocationDelegate?

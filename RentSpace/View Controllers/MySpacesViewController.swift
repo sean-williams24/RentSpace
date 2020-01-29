@@ -21,7 +21,7 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var favouritesButton: UIBarButtonItem!
     
-    var mySpaces: [Advert] = []
+    var mySpaces: [Space] = []
     var ref: DatabaseReference!
     fileprivate var authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var refHandle: DatabaseHandle!
@@ -65,7 +65,7 @@ class MySpacesViewController: UIViewController {
 
                     for child in snapShot.children {
                         if let snapshot = child as? DataSnapshot,
-                            let space = Advert(snapshot: snapshot){
+                            let space = Space(snapshot: snapshot){
                             self.mySpaces.append(space)
                         }
                     }
@@ -198,7 +198,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
 //        vc.advertSnapshot = mySpaces[indexPath.section]
-        vc.advert = mySpaces[indexPath.section]
+        vc.space = mySpaces[indexPath.section]
         vc.editingMode = true
         show(vc, sender: self)
     }

@@ -26,7 +26,7 @@ class MessageViewController: UIViewController {
     @IBOutlet var loadingLabel: UILabel!
     
     var messages: [Message] = []
-    var advert: Advert!
+    var space: Space!
 //    var advertSnapshot: DataSnapshot?
     var ref: DatabaseReference!
     var handle: AuthStateDidChangeListenerHandle!
@@ -57,7 +57,7 @@ class MessageViewController: UIViewController {
         
         // If arriving from AdvertDetailsVC, this is a new chat - create new unique chat ID using current users UID + advert key
         if !viewingExistingChat {
-            chatID = customerUID + "-" + advert.key
+            chatID = customerUID + "-" + space.key
         }
         
         ref = Database.database().reference()
@@ -120,10 +120,10 @@ class MessageViewController: UIViewController {
             self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
         } else {
             // New chat initiated
-            let advertTitle = advert.title
+            let advertTitle = space.title
             advertTitleLabel.text = advertTitle
-            locationLabel.text = formatAddress(for: advert)
-            priceLabel.text = "£\(advert.price) \(priceRateFormatter(rate: advert.priceRate))"
+            locationLabel.text = formatAddress(for: space)
+            priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         }
         imageView.image = thumbnail
     }
@@ -166,8 +166,8 @@ class MessageViewController: UIViewController {
             sendMessageButton.isEnabled = false
             
             // If this is a new chat, set advertOwner details from advert object
-            var advertOwnerUID = advert.postedByUser
-            var advertOwnerDisplayName = advert.userDisplayName
+            var advertOwnerUID = space.postedByUser
+            var advertOwnerDisplayName = space.userDisplayName
             
             // If chat already exists, set customer, advert owner data and thumbnail URL from chat data downloaded from Firebase
             var customerDisplayName = ""
@@ -180,7 +180,7 @@ class MessageViewController: UIViewController {
                 advertOwnerDisplayName = chat.advertOwnerDisplayName
                 thumbURL = chat.thumbnailURL
             } else {
-                if let imageURLsDict = advert.photos {
+                if let imageURLsDict = space.photos {
                     thumbURL = imageURLsDict["image 1"] ?? ""
                 }
             }

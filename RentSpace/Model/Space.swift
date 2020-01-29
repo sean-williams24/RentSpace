@@ -9,7 +9,7 @@
 import Firebase
 import Foundation
 
-struct Advert {
+struct Space {
     
     let ref: DatabaseReference?
     let key: String

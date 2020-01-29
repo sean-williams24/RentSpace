@@ -26,7 +26,7 @@ class PostConfirmationViewController: UIViewController {
         
         if updatingAdvert {
             postAnotherSpaceButton.isHidden = true
-            viewAdvertsButton.titleLabel?.text = "VIEW YOUR ADVERTS"
+            viewAdvertsButton.titleLabel?.text = "VIEW YOUR SPACES"
             updateLabel.text = "Your changes have been updated on RentSpace."
         }
 
