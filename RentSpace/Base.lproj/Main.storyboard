@@ -1933,7 +1933,7 @@ Only the best gear here.</string>
                     </view>
                     <navigationItem key="navigationItem" id="llA-Tc-h7s">
                         <barButtonItem key="backBarButtonItem" title="-" id="gwe-8c-o8a"/>
-                        <barButtonItem key="leftBarButtonItem" title="Favourites" style="plain" id="9vt-BK-xkz">
+                        <barButtonItem key="leftBarButtonItem" title="View Favourites" style="plain" id="9vt-BK-xkz">
                             <connections>
                                 <action selector="favouritesButtonTapped:" destination="SMh-PC-nNU" id="dnw-Mi-Ay2"/>
                             </connections>

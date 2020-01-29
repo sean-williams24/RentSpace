@@ -8,6 +8,16 @@
 
 import Foundation
 
-class Favourites {
+struct Favourites {
     static var spaces = [FavouriteSpace]()
+}
+
+struct FavouriteSpace: Equatable, Codable {
+    let key: String
+    let url: String
+    
+    init(key: String, url: String) {
+        self.key = key
+        self.url = url
+    }
 }

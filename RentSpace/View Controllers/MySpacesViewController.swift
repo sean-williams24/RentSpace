@@ -26,19 +26,13 @@ class MySpacesViewController: UIViewController {
     fileprivate var authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var refHandle: DatabaseHandle!
     var UID = ""
+    var signedIn = false
+    var viewingFavourites = false
     
     
     // MARK: - Life Cycle
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let displayName = Auth.auth().currentUser?.displayName {
-            self.title = displayName
-        }
-    }
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
@@ -47,41 +41,14 @@ class MySpacesViewController: UIViewController {
 
             if user != nil {
                 self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
-
                 self.signedOutView.isHidden = true
+                self.signedIn = true
                 Settings.currentUser = user
                 
                 self.ref = Database.database().reference()
                 self.UID = user!.uid
 
-                for favourite in Favourites.spaces {
-                    self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
-                         if let space = Space(snapshot: favSnapshot) {
-                             self.mySpaces.append(space)
-                         }
-                         self.tableView.reloadData()
-                     })
-                }
- 
-
-//                self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
-//                    self.mySpaces.removeAll()
-//                    self.tableView.reloadData()
-//
-//                    for child in snapShot.children {
-//                        if let snapshot = child as? DataSnapshot,
-//                            let space = Space(snapshot: snapshot){
-//                            self.mySpaces.append(space)
-//                        }
-//                    }
-//
-//                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-//                    self.tableView.reloadData()
-//
-//                    let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
-//                    guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
-//                    cell.activityView.startAnimating()
-//                })
+                self.loadUserSpaces()
 
                 self.title = Settings.currentUser?.email
                 if let displayName = Auth.auth().currentUser?.displayName {
@@ -104,6 +71,21 @@ class MySpacesViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let displayName = Auth.auth().currentUser?.displayName {
+            self.title = displayName
+        }
+        
+        if !mySpaces.isEmpty {
+            viewingFavourites ? loadFavourites() : loadUserSpaces()
+        }
+        
+        
+
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 //        Auth.auth().removeStateDidChangeListener(authHandle)
@@ -115,11 +97,62 @@ class MySpacesViewController: UIViewController {
 //        Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
+    
+    // MARK: - Private Methods
+    
+    fileprivate func loadUserSpaces() {
+        self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
+            self.mySpaces.removeAll()
+            self.tableView.reloadData()
+            
+            for child in snapShot.children {
+                if let snapshot = child as? DataSnapshot,
+                    let space = Space(snapshot: snapshot){
+                    self.mySpaces.append(space)
+                }
+            }
+            
+            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+            self.tableView.reloadData()
+            
+            let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
+            guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
+            cell.activityView.startAnimating()
+            
+            if self.mySpaces.isEmpty {
+                self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
+            } else {
+                self.infoLabel.text = ""
+            }
+        })
+    }
+    
+    
+    fileprivate func loadFavourites() {
+        mySpaces.removeAll()
+        for favourite in Favourites.spaces {
+            self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
+                if let space = Space(snapshot: favSnapshot) {
+                    self.mySpaces.append(space)
+                }
+                self.tableView.reloadData()
+            })
+        }
+    }
+    
     //MARK: - Action Methods
     
     
     @IBAction func favouritesButtonTapped(_ sender: Any) {
+        if viewingFavourites {
+            loadUserSpaces()
+            favouritesButton.title = "View Favourites"
+        } else {
+            loadFavourites()
+            favouritesButton.title = "View Spaces"
+        }
         
+        viewingFavourites = !viewingFavourites
         
     }
     
