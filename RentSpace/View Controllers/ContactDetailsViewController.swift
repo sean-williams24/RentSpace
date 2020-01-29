@@ -33,7 +33,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     var resultsSearchController: UISearchController?
     var selectedAddress = ""
     var inUpdateMode = false
-    var advert: [String : Any] = [:]
+//    var advert: [String : Any] = [:]
     
     //    var viewOnMap = true
     

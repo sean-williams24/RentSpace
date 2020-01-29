@@ -27,8 +27,8 @@ class RentSpaceViewController: UIViewController {
     var storageRef: StorageReference!
     fileprivate var _refHandle: DatabaseHandle!
     
-    var filteredAdverts: [DataSnapshot] = []
-    var array: [DataSnapshot]!
+    var filteredAdverts: [Advert] = []
+//    var array: [DataSnapshot]!
     var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
     var location = ""
@@ -96,15 +96,15 @@ class RentSpaceViewController: UIViewController {
     }
     
 
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         let location = rightBarButton.title
         UserDefaults.standard.set(location, forKey: "Location")
     }
+    
+    
     // MARK: - Private Methods
     
-
     fileprivate func startCellLoadingActivityView() {
         let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
         guard let cell = self.tableView.cellForRow(at: indexPath) as? AdvertTableViewCell else { return }
@@ -124,22 +124,26 @@ class RentSpaceViewController: UIViewController {
                 self.filteredAdverts = []
                 for child in snapshot.children {
                     if let advertSnapshot = child as? DataSnapshot {
-                        self.filteredAdverts.append(advertSnapshot)
+                        if let advert = Advert(snapshot: advertSnapshot) {
+                        self.filteredAdverts.append(advert)
                     }
                     self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     self.tableView.reloadData()
                     self.startCellLoadingActivityView()
+                    }
                 }
             })
         } else {
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
                 self.filteredAdverts = []
                 self.tableView.reloadData()
+                
                 for child in snapshot.children {
-                    if let advertSnapshot = child as? DataSnapshot {
-                        let advert = advertSnapshot.value as? NSDictionary ?? [:]
-                        let postcode = advert[Advert.postCode] as! String
-                        let city = advert[Advert.city] as! String
+                    if let advertSnapshot = child as? DataSnapshot,
+                        let advert = Advert(snapshot: advertSnapshot) {
+                        let postcode = advert.postcode
+                        let city = advert.city
+                        
                         // Get distance of advert location from users chosen location and add to table if within search radius
                         CLGeocoder().geocodeAddressString(postcode + " " + city) { (placemark, error) in
                             if let placemark = placemark?.first {
@@ -151,7 +155,7 @@ class RentSpaceViewController: UIViewController {
                                         print("Set Miles: \(setMiles)")
                                         print("Distance: \(distanceInMiles)")
                                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                                        self.filteredAdverts.append(advertSnapshot)
+                                        self.filteredAdverts.append(advert)
                                         self.tableView.reloadData()
                                         self.startCellLoadingActivityView()
                                         print(self.filteredAdverts.count)
@@ -212,21 +216,17 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
 //        cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
         
-        let advertSnapshot = filteredAdverts[indexPath.section]
-        let advert = advertSnapshot.value as! [String : Any]
-                
+        let advert = filteredAdverts[indexPath.section]
+//        let advert = advertSnapshot.value as! [String : Any]
+        print(advert.title)
         // Populate cell content from downloaded advert data from Firebase
-        let title = advert[Advert.title] as? String
-        cell.titleLabel.text = title?.uppercased()
-        cell.descriptionLabel.text = advert[Advert.description] as? String
-        cell.categoryLabel.text = advert[Advert.category] as? String
+        cell.titleLabel.text = advert.title.uppercased()
+        cell.descriptionLabel.text = advert.description
+        cell.categoryLabel.text = advert.category
         cell.locationLabel.text = formatAddress(for: advert)
-
-        if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
-            cell.priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
-        }
+        cell.priceLabel.text = "£\(advert.price) \(priceRateFormatter(rate: advert.priceRate))"
         
-        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+        if let imageURLsDict = advert.photos {
             if let imageURL = imageURLsDict["image 1"] {
             
                 Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -257,7 +257,8 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
-        vc.advertSnapshot = filteredAdverts[indexPath.section]
+//        vc.advertSnapshot = filteredAdverts[indexPath.section]
+        vc.advert = filteredAdverts[indexPath.section]
         show(vc, sender: self)
     }
 }

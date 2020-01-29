@@ -32,7 +32,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var priceRatePickerContent = [String]()
     var imagesSavedToDisk = [Image]()
     var imagesToUpload: [Image] = []
-    
     let itemsPerRow: CGFloat = 5
     let collectionViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     var ref: DatabaseReference!
@@ -43,9 +42,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var priceRate = "Hourly"
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
-    var advert: [String : Any] = [:]
+    var advert: Advert!
     var updatingAdvert = false
-    //    var firebaseCloudUIImages = [UIImage]()
     let placeHolderImage = UIImage(named: "imagePlaceholder")
     
     let defaults = UserDefaults.standard
@@ -167,10 +165,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         defaults.removeObject(forKey: "UpdateImages")
         
         postButton.title = "Update"
-        titleTextField.text = advert[Advert.title] as? String
-        descriptionTextView.text = advert[Advert.description] as? String
-        category = advert[Advert.category] as? String ?? "Art Studio"
-        previousCategory = advert[Advert.category] as? String ?? "Art Studio"
+        titleTextField.text = advert.title
+        descriptionTextView.text = advert.description
+        category = advert.category
+        previousCategory = advert.category
         
         for (i, spaceType) in spaceTypePickerContent.enumerated() {
             if spaceType == category {
@@ -178,24 +176,24 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
         
-        priceTextField.text = advert[Advert.price] as? String
-        priceRate = advert[Advert.priceRate] as? String ?? "Hourly"
+        priceTextField.text = advert.price
+        priceRate = advert.priceRate
         for (i, rate) in priceRatePickerContent.enumerated() {
             if rate == priceRate {
                 priceRatePicker.selectRow(i, inComponent: 0, animated: true)
             }
         }
         
-        defaults.set(advert[Advert.email] as? String, forKey: "UpdateEmail")
-        defaults.set(advert[Advert.phone] as? String, forKey: "UpdatePhone")
-        defaults.set(advert[Advert.town] as? String, forKey: "UpdateTown")
-        defaults.set(advert[Advert.city] as? String, forKey: "UpdateCity")
-        defaults.set(advert[Advert.subAdminArea] as? String, forKey: "UpdateSubAdminArea")
-        defaults.set(advert[Advert.state] as? String, forKey: "UpdateState")
-        defaults.set(advert[Advert.country] as? String, forKey: "UpdateCountry")
-        defaults.set(advert[Advert.postCode] as? String, forKey: "UpdatePostCode")
-        defaults.set(advert[Advert.viewOnMap] as! Bool, forKey: "UpdateViewOnMap")
-        defaults.set(advert[Advert.description] as! String, forKey: "UpdateDescription")
+        defaults.set(advert.email, forKey: "UpdateEmail")
+        defaults.set(advert.phone, forKey: "UpdatePhone")
+        defaults.set(advert.town, forKey: "UpdateTown")
+        defaults.set(advert.city, forKey: "UpdateCity")
+        defaults.set(advert.subAdminArea, forKey: "UpdateSubAdminArea")
+        defaults.set(advert.state, forKey: "UpdateState")
+        defaults.set(advert.country, forKey: "UpdateCountry")
+        defaults.set(advert.postcode, forKey: "UpdatePostCode")
+        defaults.set(advert.viewOnMap, forKey: "UpdateViewOnMap")
+        defaults.set(advert.description, forKey: "UpdateDescription")
         
         // Download images from Firebase Storage
         downloadFirebaseImages {
@@ -222,7 +220,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     // maybe refactor this as its used also in advert deails VC
     func downloadFirebaseImages(completion: @escaping () -> ()) {
-        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+        if let imageURLsDict = advert.photos {
             self.firebaseImageURLsDict = imageURLsDict
             
             for key in imageURLsDict.keys.sorted()  {
@@ -330,24 +328,30 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         }
         
         // Package advert into data dictionary
-        let data: [String : Any] = [Advert.title: self.titleTextField.text!,
-                                    Advert.description: descriptionText as Any,
-                                    Advert.category: self.category,
-                                    Advert.price: priceTextField.text as Any,
-                                    Advert.priceRate: priceRate,
-                                    Advert.phone: UD.string(forKey: "\(update)Phone") as Any,
-                                    Advert.email: UD.string(forKey: "\(update)Email") as Any,
-                                    Advert.address: UD.string(forKey: "\(update)Address") as Any,
-                                    Advert.postCode: UD.string(forKey: "\(update)PostCode") as Any,
-                                    Advert.city: UD.string(forKey: "\(update)City") as Any,
-                                    Advert.subAdminArea: UD.string(forKey: "\(update)SubAdminArea") as Any,
-                                    Advert.state: UD.string(forKey: "\(update)State") as Any,
-                                    Advert.country: UD.string(forKey: "\(update)Country") as Any,
-                                    Advert.town: UD.string(forKey: "\(update)Town") as Any,
-                                    Advert.photos: imageURLs as Any,
-                                    Advert.viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
-                                    Advert.postedByUser: Settings.currentUser?.uid as Any,
-                                    Advert.userDisplayName: Settings.currentUser?.displayName as Any]
+//        let data: [String : Any] = [Advert.title: self.titleTextField.text!,
+//                                    Advert.description: descriptionText as Any,
+//                                    Advert.category: self.category,
+//                                    Advert.price: priceTextField.text as Any,
+//                                    Advert.priceRate: priceRate,
+//                                    Advert.phone: UD.string(forKey: "\(update)Phone") as Any,
+//                                    Advert.email: UD.string(forKey: "\(update)Email") as Any,
+//                                    Advert.address: UD.string(forKey: "\(update)Address") as Any,
+//                                    Advert.postCode: UD.string(forKey: "\(update)PostCode") as Any,
+//                                    Advert.city: UD.string(forKey: "\(update)City") as Any,
+//                                    Advert.subAdminArea: UD.string(forKey: "\(update)SubAdminArea") as Any,
+//                                    Advert.state: UD.string(forKey: "\(update)State") as Any,
+//                                    Advert.country: UD.string(forKey: "\(update)Country") as Any,
+//                                    Advert.town: UD.string(forKey: "\(update)Town") as Any,
+//                                    Advert.photos: imageURLs as Any,
+//                                    Advert.viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
+//                                    Advert.postedByUser: Settings.currentUser?.uid as Any,
+//                                    Advert.userDisplayName: Settings.currentUser?.displayName as Any]
+//
+        
+        // DETELE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        let data: [String:Any] = [:]
+        // DETELE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
         
         // Write to Adverts firebase pathes
         
@@ -554,7 +558,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             if updatingAdvert {
                 let contactVC = segue.destination as! ContactDetailsViewController
                 contactVC.inUpdateMode = true
-                contactVC.advert = advert
+//                contactVC.advert = advert
             }
         } else if segue.identifier == "AddPhotos" {
             if updatingAdvert {

@@ -71,12 +71,12 @@ extension UIViewController {
     
     //MARK: - Format address for location labels from address data
     
-    func formatAddress(for advert: [String : Any]) -> String {
+    func formatAddress(for advert: Advert) -> String {
         
         var location = ""
-        let city = advert[Advert.city] as? String ?? ""
-        let subAdminArea = advert[Advert.subAdminArea] as? String ?? ""
-        let town = advert[Advert.town] as? String ?? ""
+        let city = advert.city
+        let subAdminArea = advert.subAdminArea
+        let town = advert.town
         
         if city == subAdminArea {
             location = "\(town), \(city)"
@@ -93,9 +93,9 @@ extension UIViewController {
             }
         }
         
-        if location == ", " {
-            location = advert[Advert.address] as? String ?? ""
-        }
+//        if location == ", " {
+//            location = advert.address
+//        }
         return location
     }
     

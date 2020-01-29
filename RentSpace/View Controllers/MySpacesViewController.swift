@@ -21,7 +21,7 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var favouritesButton: UIBarButtonItem!
     
-    var mySpaces: [DataSnapshot] = []
+    var mySpaces: [Advert] = []
     var ref: DatabaseReference!
     fileprivate var authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var refHandle: DatabaseHandle!
@@ -54,28 +54,29 @@ class MySpacesViewController: UIViewController {
                 self.ref = Database.database().reference()
                 self.UID = user!.uid
 
-                self.refHandle = self.ref.child("adverts/United Kingdom/Photography Studio/LfEJaWGkcSbhuP98dltKRUshc9P2-EB0A7706-5146-4636-8AC6-DD00D567E471").observe(.value, with: { (favSnapshot) in
-                    self.mySpaces.append(favSnapshot)
-                    self.tableView.reloadData()
-                })
-
-//                self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
-//                    self.mySpaces.removeAll()
+//                self.refHandle = self.ref.child("adverts/United Kingdom/Photography Studio/LfEJaWGkcSbhuP98dltKRUshc9P2-EB0A7706-5146-4636-8AC6-DD00D567E471").observe(.value, with: { (favSnapshot) in
+//                    self.mySpaces.append(favSnapshot)
 //                    self.tableView.reloadData()
-//
-//                    for child in snapShot.children {
-//                        if let advertSnapshot = child as? DataSnapshot {
-//                            self.mySpaces.append(advertSnapshot)
-//                        }
-//                    }
-//
-//                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-//                    self.tableView.reloadData()
-//
-//                    let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
-//                    guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
-//                    cell.activityView.startAnimating()
 //                })
+
+                self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
+                    self.mySpaces.removeAll()
+                    self.tableView.reloadData()
+
+                    for child in snapShot.children {
+                        if let snapshot = child as? DataSnapshot,
+                            let space = Advert(snapshot: snapshot){
+                            self.mySpaces.append(space)
+                        }
+                    }
+
+                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                    self.tableView.reloadData()
+
+                    let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
+                    guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
+                    cell.activityView.startAnimating()
+                })
 
                 self.title = Settings.currentUser?.email
                 if let displayName = Auth.auth().currentUser?.displayName {
@@ -156,21 +157,15 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
         
-        let advertSnapshot = mySpaces[indexPath.section]
-        let advert = advertSnapshot.value as! [String : Any]
+        let space = mySpaces[indexPath.section]
         
-        // Populate cell content from downloaded advert data from Firebase
-        let title = advert[Advert.title] as? String
-        cell.titleLabel.text = title?.uppercased()
-        cell.descriptionLabel.text = advert[Advert.description] as? String
-        cell.categoryLabel.text = advert[Advert.category] as? String
-        cell.locationLabel.text = formatAddress(for: advert)
-        
-        if let price = advert[Advert.price] as? String, let priceRate = advert[Advert.priceRate] as? String {
-            cell.priceLabel.text = "£\(price) \(priceRateFormatter(rate: priceRate))"
-        }
-        
-        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
+        cell.titleLabel.text = space.title.uppercased()
+        cell.descriptionLabel.text = space.description
+        cell.categoryLabel.text = space.category
+        cell.locationLabel.text = formatAddress(for: space)
+        cell.priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
+                
+        if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {
             
                 Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
@@ -202,7 +197,8 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
-        vc.advertSnapshot = mySpaces[indexPath.section]
+//        vc.advertSnapshot = mySpaces[indexPath.section]
+        vc.advert = mySpaces[indexPath.section]
         vc.editingMode = true
         show(vc, sender: self)
     }
