@@ -213,12 +213,9 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
-//        cell.layer.cornerRadius = 8
-        cell.layer.borderWidth = 1
-        
         let space = spaces[indexPath.section]
-        print(space.title)
-        // Populate cell content from downloaded advert data from Firebase
+        
+        cell.layer.borderWidth = 1
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category

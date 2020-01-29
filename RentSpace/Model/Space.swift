@@ -34,6 +34,29 @@ struct Space {
     let userDisplayName: String
 //    let timestamp: Timestamp
     
+    init(key: String = "", title: String, description: String, category: String, price: String, priceRate: String, email: String, phone: String, photos: Dictionary<String,String>?, town: String, city: String, subAdminArea: String, postcode: String, state: String, country: String, viewOnMap: Bool, postedByUser: String, userDisplayName: String) {
+        self.ref = nil
+        self.key = key
+        self.title = title
+        self.description = description
+        self.category = category
+        self.price = price
+        self.priceRate = priceRate
+        self.email = email
+        self.phone = phone
+        self.photos = photos
+        self.town = town
+        self.city = city
+        self.subAdminArea = subAdminArea
+        self.postcode = postcode
+        self.state = state
+        self.country = country
+        self.viewOnMap = viewOnMap
+        self.postedByUser = postedByUser
+        self.userDisplayName = userDisplayName
+    }
+    
+    
     
     init?(snapshot: DataSnapshot) {
         guard
@@ -85,6 +108,27 @@ struct Space {
         
     }
     
+    func toAnyObject() -> Any {
+        return [
+            "title": title,
+            "description": description,
+            "category": category,
+            "price": price,
+            "priceRate": priceRate,
+            "email": email,
+            "phone": phone,
+            "photos": photos as Any,
+            "town": town,
+            "city": city,
+            "subAdminArea": subAdminArea,
+            "postcode": postcode,
+            "state": state,
+            "country": country,
+            "viewOnMap": viewOnMap,
+            "postedByUser": postedByUser,
+            "userDisplayName": userDisplayName
+        ]
+    }
     
     
 }

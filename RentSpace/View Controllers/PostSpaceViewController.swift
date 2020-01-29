@@ -346,17 +346,31 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
 //                                    Advert.viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
 //                                    Advert.postedByUser: Settings.currentUser?.uid as Any,
 //                                    Advert.userDisplayName: Settings.currentUser?.displayName as Any]
-//
+
         
-        // DETELE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        let data: [String:Any] = [:]
-        // DETELE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        let data = Space(title: self.titleTextField.text ?? "",
+                              description: descriptionText ?? "",
+                              category: self.category,
+                              price: priceTextField.text ?? "",
+                              priceRate: priceRate,
+                              email: UD.string(forKey: "\(update)Email") ?? "",
+                              phone: UD.string(forKey: "\(update)Phone") ?? "",
+                              photos: imageURLs,
+                              town: UD.string(forKey: "\(update)Town") ?? "",
+                              city: UD.string(forKey: "\(update)City") ?? "",
+                              subAdminArea: UD.string(forKey: "\(update)SubAdminArea") ?? "",
+                              postcode: UD.string(forKey: "\(update)PostCode") ?? "",
+                              state: UD.string(forKey: "\(update)State") ?? "",
+                              country: UD.string(forKey: "\(update)Country") ?? "",
+                              viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
+                              postedByUser: Settings.currentUser?.uid ?? "",
+                              userDisplayName: Settings.currentUser?.displayName ?? "")
 
         
         // Write to Adverts firebase pathes
         
         if updatingAdvert {
-            var childUpdates = ["\(advertsPath)-\(key)": data,
+            var childUpdates = ["\(advertsPath)-\(key)": data.toAnyObject(),
                                 "\(userAdvertsPath)/\(key)": data] as [String : Any]
             
             // If user has changed categories - add another path to dictionary to delete old advert
@@ -377,14 +391,14 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 self.present(vc, animated: true)
             }
         } else {
-            self.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data) { (error, reference) in
+            self.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { (error, reference) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                     // TODO: - HANDLE ERROR
                     return
                 }
                 
-                self.ref.child("\(self.userAdvertsPath)/\(self.uniqueAdvertID)").setValue(data) { (userError, ref) in
+                self.ref.child("\(self.userAdvertsPath)/\(self.uniqueAdvertID)").setValue(data.toAnyObject()) { (userError, ref) in
                     if userError != nil {
                         print(userError as Any)
                     }

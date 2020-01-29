@@ -81,9 +81,6 @@ class MySpacesViewController: UIViewController {
         if !mySpaces.isEmpty {
             viewingFavourites ? loadFavourites() : loadUserSpaces()
         }
-        
-        
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
