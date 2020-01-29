@@ -9,11 +9,11 @@
 import Foundation
 
 struct FavouriteSpace: Equatable, Codable {
-    let title: String
+    let key: String
     let url: String
     
-    init(title: String, url: String) {
-        self.title = title
+    init(key: String, url: String) {
+        self.key = key
         self.url = url
     }
 }

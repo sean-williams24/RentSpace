@@ -1324,7 +1324,7 @@ Long press and drag to reorder.</string>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vp-YR-fEc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="52" height="40"/>
                                                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="heart" catalog="system"/>
+                                                                <state key="normal" image="heart.fill" catalog="system"/>
                                                                 <connections>
                                                                     <action selector="favouritesButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="TUe-JZ-uGp"/>
                                                                 </connections>
@@ -2638,7 +2638,7 @@ Only the best gear here.</string>
         <image name="eye" catalog="system" width="64" height="40"/>
         <image name="gear" catalog="system" width="64" height="58"/>
         <image name="handshake-2" width="512" height="512"/>
-        <image name="heart" catalog="system" width="64" height="54"/>
+        <image name="heart.fill" catalog="system" width="64" height="54"/>
         <image name="imagePlaceholder" width="200" height="200"/>
         <image name="location.fill" catalog="system" width="64" height="56"/>
         <image name="message" catalog="system" width="64" height="56"/>

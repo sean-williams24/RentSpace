@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 
+        // Load favourites
         let jsonDecoder = JSONDecoder()
         if let data = UserDefaults.standard.data(forKey: "Favourites") {
             print("Got Data")

@@ -29,7 +29,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var favouritesButton: UIButton!
     
     var images = [UIImage]()
-//    var advertSnapshot: DataSnapshot!
+    //    var advertSnapshot: DataSnapshot!
     var space: Space!
     var emailAddress: String?
     var phoneNumber: String?
@@ -43,8 +43,15 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var imagesDictionary: [String: UIImage] = [:]
     var thumbnail = UIImage()
     var coordinate = CLLocationCoordinate2D()
-    var spaceIsFavourite = false
-
+    var spaceIsFavourite: Bool {
+        for favSpace in Favourites.spaces {
+            if favSpace.key == space.key {
+                return true
+            }
+        }
+        return false
+    }
+    
     
     
     // MARK: - Life Cycle
@@ -52,7 +59,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-//        advert = advertSnapshot.value as! [String : Any]
+        //        advert = advertSnapshot.value as! [String : Any]
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
         navigationItem.rightBarButtonItems = [trashButton, editButton]
@@ -77,12 +84,12 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             favouritesButton.tintColor = Settings.orangeTint
         }
         
-//        authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-//            if user == nil {
-//                self.messagesButton.isEnabled = false
-//                self.messagesButton.tintColor = .clear
-//            }
-//        })
+        //        authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+        //            if user == nil {
+        //                self.messagesButton.isEnabled = false
+        //                self.messagesButton.tintColor = .clear
+        //            }
+        //        })
         
         titleLabel.text = space.title.uppercased()
         priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
@@ -161,18 +168,27 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         setLocationOnMap()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if spaceIsFavourite {
+            favouritesButton.tintColor = Settings.orangeTint
+        } else {
+            favouritesButton.tintColor = .lightGray
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UserDefaults.standard.removeObject(forKey: "ImagesUpdated")
-        
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        Auth.auth().removeStateDidChangeListener(authHandle)
+        //        Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
-
+    
     
     //MARK: - Private Methods
     
@@ -184,7 +200,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     // refactor this and cloud delete to Firebase client class
     func downloadFirebaseImages(completion: @escaping () -> ()) {
-
+        
         activityView.startAnimating()
         
         if let imageURLsDict = space.photos {
@@ -217,7 +233,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             let postSpaceVC = vc.children[0] as! PostSpaceViewController
             postSpaceVC.space = self.space
             postSpaceVC.updatingAdvert = true
-//            postSpaceVC.advertSnapshot = advertSnapshot
+            //            postSpaceVC.advertSnapshot = advertSnapshot
             present(vc, animated: true)
         }
     }
@@ -275,34 +291,24 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func favouritesButtonTapped(_ sender: Any) {
         if Auth.auth().currentUser != nil {
-            
             let key = space.key
             let category = space.category
             let favouriteURL = category + "/" + key
-            let newFavourite = FavouriteSpace(title: space.title, url: favouriteURL)
+            let newFavourite = FavouriteSpace(key: key, url: favouriteURL)
             
             if spaceIsFavourite {
-                for (i, favSpace) in Favourites.spaces.enumerated().reversed() {
-                    if favSpace.title == newFavourite.title {
-                        Favourites.spaces.remove(at: i)
-                        favouritesButton.tintColor = Settings.orangeTint
-                        spaceIsFavourite = false
-                    }
-                }
+                Favourites.spaces = Favourites.spaces.filter() {$0 != newFavourite}
+                favouritesButton.tintColor = .lightGray
             } else {
                 Favourites.spaces.append(newFavourite)
-                favouritesButton.tintColor = .red
-                spaceIsFavourite = true
+                favouritesButton.tintColor = Settings.orangeTint
             }
             
-            print(Favourites.spaces)
-            
+            // Encode to data and save to UD
             let jsonEncoder = JSONEncoder()
-
             if let favouritesData = try? jsonEncoder.encode(Favourites.spaces) {
-                    UserDefaults.standard.set(favouritesData, forKey: "Favourites")
-            }
-    
+                UserDefaults.standard.set(favouritesData, forKey: "Favourites")
+            }            
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)
@@ -314,7 +320,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         if Auth.auth().currentUser != nil {
             let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
             vc.space = space
-//            vc.advertSnapshot = advertSnapshot
+            //            vc.advertSnapshot = advertSnapshot
             vc.thumbnail = thumbnail
             navigationController?.pushViewController(vc, animated: true)
             
