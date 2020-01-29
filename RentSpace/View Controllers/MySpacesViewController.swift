@@ -54,29 +54,34 @@ class MySpacesViewController: UIViewController {
                 self.ref = Database.database().reference()
                 self.UID = user!.uid
 
-//                self.refHandle = self.ref.child("adverts/United Kingdom/Photography Studio/LfEJaWGkcSbhuP98dltKRUshc9P2-EB0A7706-5146-4636-8AC6-DD00D567E471").observe(.value, with: { (favSnapshot) in
-//                    self.mySpaces.append(favSnapshot)
+                for favourite in Favourites.spaces {
+                    self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
+                         if let space = Space(snapshot: favSnapshot) {
+                             self.mySpaces.append(space)
+                         }
+                         self.tableView.reloadData()
+                     })
+                }
+ 
+
+//                self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
+//                    self.mySpaces.removeAll()
 //                    self.tableView.reloadData()
+//
+//                    for child in snapShot.children {
+//                        if let snapshot = child as? DataSnapshot,
+//                            let space = Space(snapshot: snapshot){
+//                            self.mySpaces.append(space)
+//                        }
+//                    }
+//
+//                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+//                    self.tableView.reloadData()
+//
+//                    let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
+//                    guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
+//                    cell.activityView.startAnimating()
 //                })
-
-                self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
-                    self.mySpaces.removeAll()
-                    self.tableView.reloadData()
-
-                    for child in snapShot.children {
-                        if let snapshot = child as? DataSnapshot,
-                            let space = Space(snapshot: snapshot){
-                            self.mySpaces.append(space)
-                        }
-                    }
-
-                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                    self.tableView.reloadData()
-
-                    let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
-                    guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
-                    cell.activityView.startAnimating()
-                })
 
                 self.title = Settings.currentUser?.email
                 if let displayName = Auth.auth().currentUser?.displayName {

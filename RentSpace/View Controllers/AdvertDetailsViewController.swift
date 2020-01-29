@@ -43,6 +43,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var imagesDictionary: [String: UIImage] = [:]
     var thumbnail = UIImage()
     var coordinate = CLLocationCoordinate2D()
+    var spaceIsFavourite = false
+
     
     
     // MARK: - Life Cycle
@@ -277,11 +279,30 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             let key = space.key
             let category = space.category
             let favouriteURL = category + "/" + key
+            let newFavourite = FavouriteSpace(title: space.title, url: favouriteURL)
             
-            print(favouriteURL)
+            if spaceIsFavourite {
+                for (i, favSpace) in Favourites.spaces.enumerated().reversed() {
+                    if favSpace.title == newFavourite.title {
+                        Favourites.spaces.remove(at: i)
+                        favouritesButton.tintColor = Settings.orangeTint
+                        spaceIsFavourite = false
+                    }
+                }
+            } else {
+                Favourites.spaces.append(newFavourite)
+                favouritesButton.tintColor = .red
+                spaceIsFavourite = true
+            }
             
+            print(Favourites.spaces)
             
-            
+            let jsonEncoder = JSONEncoder()
+
+            if let favouritesData = try? jsonEncoder.encode(Favourites.spaces) {
+                    UserDefaults.standard.set(favouritesData, forKey: "Favourites")
+            }
+    
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)

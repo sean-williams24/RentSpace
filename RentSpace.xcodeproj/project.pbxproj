@@ -34,6 +34,8 @@
 		CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */; };
 		CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */; };
 		CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */; };
+		CE79981923E1BF840017E39A /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE79981823E1BF840017E39A /* Favourites.swift */; };
+		CE79981B23E1C5500017E39A /* Favourite Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE79981A23E1C5500017E39A /* Favourite Space.swift */; };
 		CEC0B93523D1C286004DC4E6 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93423D1C286004DC4E6 /* Chat.swift */; };
 		CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93623D21CF4004DC4E6 /* Message.swift */; };
 		CEC0B93923D62007004DC4E6 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */; };
@@ -81,6 +83,8 @@
 		CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostConfirmationViewController.swift; sourceTree = "<group>"; };
 		CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRadiusViewController.swift; sourceTree = "<group>"; };
 		CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSearchLocationTableViewController.swift; sourceTree = "<group>"; };
+		CE79981823E1BF840017E39A /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
+		CE79981A23E1C5500017E39A /* Favourite Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite Space.swift"; sourceTree = "<group>"; };
 		CEC0B93423D1C286004DC4E6 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		CEC0B93623D21CF4004DC4E6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -196,6 +200,8 @@
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
 				CEC0B93423D1C286004DC4E6 /* Chat.swift */,
 				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
+				CE79981823E1BF840017E39A /* Favourites.swift */,
+				CE79981A23E1C5500017E39A /* Favourite Space.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -350,11 +356,13 @@
 			files = (
 				CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */,
 				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
+				CE79981B23E1C5500017E39A /* Favourite Space.swift in Sources */,
 				CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */,
 				CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
 				CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */,
 				CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */,
+				CE79981923E1BF840017E39A /* Favourites.swift in Sources */,
 				CEC0B93523D1C286004DC4E6 /* Chat.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
 				CE6583A52397E26C001FFA8A /* Space.swift in Sources */,
