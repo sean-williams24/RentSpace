@@ -275,7 +275,14 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func favouritesButtonTapped(_ sender: Any) {
         if Auth.auth().currentUser != nil {
-            //TODO : - favourtites
+            
+            let key = advertSnapshot.key
+            let category = advert[Advert.category] as! String
+            let favouriteURL = category + "/" + key
+            
+            print(favouriteURL)
+            
+            
             
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController

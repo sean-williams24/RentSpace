@@ -1327,7 +1327,6 @@ Long press and drag to reorder.</string>
                                                                 <state key="normal" image="heart" catalog="system"/>
                                                                 <connections>
                                                                     <action selector="favouritesButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="TUe-JZ-uGp"/>
-                                                                    <action selector="messageButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="L2K-gh-uBF"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JS-xD-q20">

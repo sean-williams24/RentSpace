@@ -190,7 +190,7 @@ class MessageViewController: UIViewController {
                     thumbURL = imageURLsDict["image 1"] ?? ""
                 }
             }
-            
+                        
             let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
             let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
             
@@ -221,7 +221,7 @@ class MessageViewController: UIViewController {
                                     "thumbnailURL": thumbURL,
                                     "messageDate": fullDateFormatter.string(from: Date()),
                                     "read": "false"]
-                        
+            
             var chatData: [String:String] = [:]
             
             if viewingExistingChat {
