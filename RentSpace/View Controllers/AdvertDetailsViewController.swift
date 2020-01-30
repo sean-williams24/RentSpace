@@ -35,6 +35,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var phoneNumber: String?
     var postcode = ""
     var editingMode = false
+    var arrivedFromFavourites = false
     var trashButton: UIBarButtonItem!
     var editButton: UIBarButtonItem!
     var ref: DatabaseReference!
@@ -59,20 +60,19 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-        //        advert = advertSnapshot.value as! [String : Any]
+
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
         navigationItem.rightBarButtonItems = [trashButton, editButton]
-        
+
         if editingMode {
             trashButton.isEnabled = true
             trashButton.tintColor = Settings.orangeTint
             editButton.isEnabled = true
             editButton.tintColor = Settings.orangeTint
             messagesButton.isEnabled = false
-            messagesButton.tintColor = .clear
-            favouritesButton.isEnabled = false
-            favouritesButton.tintColor = .clear
+            messagesButton.tintColor = .gray
+            favouritesButton.isHidden = true
         } else {
             trashButton.isEnabled = false
             trashButton.tintColor = .clear
@@ -82,14 +82,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             messagesButton.tintColor = Settings.orangeTint
             favouritesButton.isEnabled = true
             favouritesButton.tintColor = Settings.orangeTint
+            
+            if arrivedFromFavourites {
+                favouritesButton.isHidden = true
+            }
         }
-        
-        //        authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-        //            if user == nil {
-        //                self.messagesButton.isEnabled = false
-        //                self.messagesButton.tintColor = .clear
-        //            }
-        //        })
         
         titleLabel.text = space.title.uppercased()
         priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
@@ -100,7 +97,12 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         postcode = space.postcode
         
         if space.photos == nil {
-            scrollView.isHidden = true
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: "003-desk")
+
+            imageView.contentMode = .scaleAspectFit
+            imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
+            scrollView.addSubview(imageView)
             pageController.isHidden = true
         }
         
@@ -173,7 +175,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         if spaceIsFavourite {
             favouritesButton.tintColor = Settings.orangeTint
         } else {
-            favouritesButton.tintColor = .lightGray
+            favouritesButton.tintColor = .white
         }
     }
     
@@ -225,6 +227,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
             }
+        } else {
+            activityView.stopAnimating()
         }
     }
     
@@ -298,21 +302,13 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             let newFavourite = FavouriteSpace(key: key, url: favouriteURL)
             
             if spaceIsFavourite {
-//                Favourites.spaces = Favourites.spaces.filter() {$0 != newFavourite}
                 ref.child("users/\(UID)/favourites/\(key)").removeValue()
-                favouritesButton.tintColor = .lightGray
+                favouritesButton.tintColor = .white
             } else {
-//                Favourites.spaces.append(newFavourite)
                 ref.child("users/\(UID)/favourites/\(key)").setValue(newFavourite.toDictionaryObject())
                 favouritesButton.tintColor = Settings.orangeTint
             }
-            
-            
-//            // Encode to data and save to UD
-//            let jsonEncoder = JSONEncoder()
-//            if let favouritesData = try? jsonEncoder.encode(Favourites.spaces) {
-//                UserDefaults.standard.set(favouritesData, forKey: "Favourites")
-//            }
+
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)

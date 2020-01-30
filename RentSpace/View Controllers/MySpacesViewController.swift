@@ -82,6 +82,8 @@ class MySpacesViewController: UIViewController {
         
         if !mySpaces.isEmpty {
             viewingFavourites ? loadFavourites() : loadUserSpaces()
+        } else {
+            tableView.reloadData()
         }
         
         if Favourites.spaces.isEmpty {
@@ -197,10 +199,18 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "My Spaces Cell", for: indexPath) as! MySpacesTableViewCell
-        cell.layer.cornerRadius = 8
         cell.layer.borderWidth = 1
         
         let space = mySpaces[indexPath.section]
+        
+        if viewingFavourites {
+            cell.backgroundColor = .gray
+            cell.layer.borderColor = UIColor.white.cgColor
+        } else {
+            cell.backgroundColor = .darkGray
+            cell.layer.borderColor = UIColor.black.cgColor
+        }
+        
         
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
@@ -240,13 +250,45 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
-//        vc.advertSnapshot = mySpaces[indexPath.section]
         vc.space = mySpaces[indexPath.section]
-        vc.editingMode = true
+        
+        if viewingFavourites {
+             vc.editingMode = false
+             vc.arrivedFromFavourites = true
+        } else {
+            vc.editingMode = true
+        }
+        
         show(vc, sender: self)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let space = mySpaces[indexPath.section]
+        
+        if editingStyle == .delete {
+            
+            let ac = UIAlertController(title: "Remove Favourite", message: "Are you sure you wish to remove this space from your favourites?", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.ref.child("users/\(self.UID)/favourites/\(space.key)").removeValue()
+                
+                for (i, spaceToDelete) in self.mySpaces.enumerated().reversed() {
+                    if space.key == spaceToDelete.key {
+                        self.mySpaces.remove(at: i)
+                    }
+                }
+                tableView.reloadData()
+            }))
+            
+            ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+            present(ac, animated: true)
+            
+
+        }
+    }
     
 }
 

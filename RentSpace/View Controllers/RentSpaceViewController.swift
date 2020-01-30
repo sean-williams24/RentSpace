@@ -77,6 +77,8 @@ class RentSpaceViewController: UIViewController {
             getAdverts(for: Constants.userCLLocation, within: Constants.searchDistance)
         }
         
+        self.tableView.rowHeight = 150
+
 
     }
     
@@ -158,7 +160,6 @@ class RentSpaceViewController: UIViewController {
                                         self.spaces.append(space)
                                         self.tableView.reloadData()
                                         self.startCellLoadingActivityView()
-                                        print(self.spaces.count)
                                     }
                                 }
                             }
@@ -237,6 +238,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                         DispatchQueue.main.async {
                             cell.activityView.stopAnimating()
                             cell.customImageView.alpha = 1
+                            cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
                         }
@@ -244,18 +246,71 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         } else {
-            cell.customImageView.image = UIImage(named: "003-desk")
-            cell.customImageView.alpha = 1
             cell.activityView.stopAnimating()
+            if space.category == "Art Studio" {
+                
+                let image = iconThumbnail(for: space.category)
+                let view = UIView()
+                view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
+                view.layer.borderColor = Settings.flipsideBlackColour.cgColor
+                view.layer.borderWidth = 1
+                cell.addSubview(view)
+                
+                cell.customImageView.image = image
+                cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+                cell.customImageView.contentMode = .scaleAspectFit
+                cell.customImageView.layer.borderWidth = 0
+
+            } else {
+                cell.customImageView.image = iconThumbnail(for: space.category)
+                cell.customImageView.contentMode = .scaleAspectFit
+                cell.customImageView.layer.borderWidth = 1
+            }
+//            cell.customImageView.contentMode = .scaleAspectFit
+            cell.customImageView.tintColor = Settings.flipsideBlackColour
+            cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
+            cell.customImageView.alpha = 0.7
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
-//        vc.advertSnapshot = filteredAdverts[indexPath.section]
         vc.space = spaces[indexPath.section]
         show(vc, sender: self)
+    }
+    
+    func iconThumbnail(for category: String) -> UIImage {
+        var categoryImage = UIImage()
+        
+        switch category {
+        case "Art Studio":
+            if let image = UIImage(named: "Art Studio") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        case "Photography Studio":
+            if let image = UIImage(systemName: "camera") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        case "Music Studio":
+            if let image = UIImage(systemName: "music.mic") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        case "Desk Space":
+            if let image = UIImage(systemName: "desktopcomputer") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        default:
+            if let image = UIImage(named: "Rentspace") {
+                categoryImage = image
+            }
+        }
+        return categoryImage
     }
 }
 

@@ -54,7 +54,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         if let UID = Auth.auth().currentUser?.uid {
             let ref = Database.database().reference()
             
-            // Load Favourites
+            // Load and listen for changes to Favourites
             ref.child("users/\(UID)/favourites").observe(.value) { (snapshot) in
                 var newItems: [FavouriteSpace] = []
                 for child in snapshot.children {
@@ -65,7 +65,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                     }
                 }
                 Favourites.spaces = newItems
-                print(Favourites.spaces.count)
             }
             
             
