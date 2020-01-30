@@ -364,14 +364,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                               country: UD.string(forKey: "\(update)Country") ?? "",
                               viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
                               postedByUser: Settings.currentUser?.uid ?? "",
-                              userDisplayName: Settings.currentUser?.displayName ?? "")
+                              userDisplayName: Settings.currentUser?.displayName ?? "",
+                              timestamp: Timestamp())
 
         
         // Write to Adverts firebase pathes
         
         if updatingAdvert {
             var childUpdates = ["\(advertsPath)-\(key)": data.toAnyObject(),
-                                "\(userAdvertsPath)/\(key)": data] as [String : Any]
+                                "\(userAdvertsPath)/\(key)": data.toAnyObject()] 
             
             // If user has changed categories - add another path to dictionary to delete old advert
             if category != previousCategory {

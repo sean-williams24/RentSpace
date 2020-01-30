@@ -291,24 +291,28 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func favouritesButtonTapped(_ sender: Any) {
         if Auth.auth().currentUser != nil {
+            let UID = Auth.auth().currentUser?.uid ?? ""
             let key = space.key
             let category = space.category
             let favouriteURL = category + "/" + key
             let newFavourite = FavouriteSpace(key: key, url: favouriteURL)
             
             if spaceIsFavourite {
-                Favourites.spaces = Favourites.spaces.filter() {$0 != newFavourite}
+//                Favourites.spaces = Favourites.spaces.filter() {$0 != newFavourite}
+                ref.child("users/\(UID)/favourites/\(key)").removeValue()
                 favouritesButton.tintColor = .lightGray
             } else {
-                Favourites.spaces.append(newFavourite)
+//                Favourites.spaces.append(newFavourite)
+                ref.child("users/\(UID)/favourites/\(key)").setValue(newFavourite.toDictionaryObject())
                 favouritesButton.tintColor = Settings.orangeTint
             }
             
-            // Encode to data and save to UD
-            let jsonEncoder = JSONEncoder()
-            if let favouritesData = try? jsonEncoder.encode(Favourites.spaces) {
-                UserDefaults.standard.set(favouritesData, forKey: "Favourites")
-            }            
+            
+//            // Encode to data and save to UD
+//            let jsonEncoder = JSONEncoder()
+//            if let favouritesData = try? jsonEncoder.encode(Favourites.spaces) {
+//                UserDefaults.standard.set(favouritesData, forKey: "Favourites")
+//            }
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)

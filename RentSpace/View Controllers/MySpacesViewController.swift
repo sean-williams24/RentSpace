@@ -50,16 +50,18 @@ class MySpacesViewController: UIViewController {
 
                 self.loadUserSpaces()
 
-                self.title = Settings.currentUser?.email
-                if let displayName = Auth.auth().currentUser?.displayName {
-                    self.title = displayName
+//                self.title = Settings.currentUser?.email
+//                if let displayName = Auth.auth().currentUser?.displayName {
+//                    self.title = displayName
+//                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    if self.mySpaces.isEmpty {
+                        self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
+                    } else {
+                        self.infoLabel.text = ""
+                    }
                 }
-                
-                if self.mySpaces.isEmpty {
-                    self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
-                } else {
-                    self.infoLabel.text = ""
-                }
+
                 
             } else {
                 self.signedOutView.isHidden = false
@@ -74,12 +76,18 @@ class MySpacesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let displayName = Auth.auth().currentUser?.displayName {
-            self.title = displayName
-        }
+//        if let displayName = Auth.auth().currentUser?.displayName {
+//            self.title = displayName
+//        }
         
         if !mySpaces.isEmpty {
             viewingFavourites ? loadFavourites() : loadUserSpaces()
+        }
+        
+        if Favourites.spaces.isEmpty {
+            favouritesButton.isEnabled = false
+        } else {
+            favouritesButton.isEnabled = true
         }
     }
     
@@ -105,9 +113,7 @@ class MySpacesViewController: UIViewController {
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
                     let space = Space(snapshot: snapshot) {
-                    print(snapshot)
                     self.mySpaces.append(space)
-                    print(self.mySpaces.count)
                 }
             }
             

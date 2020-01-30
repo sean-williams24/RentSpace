@@ -51,9 +51,25 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         }
         
-        // Check for unread messages
         if let UID = Auth.auth().currentUser?.uid {
             let ref = Database.database().reference()
+            
+            // Load Favourites
+            ref.child("users/\(UID)/favourites").observe(.value) { (snapshot) in
+                var newItems: [FavouriteSpace] = []
+                for child in snapshot.children {
+                    if let favSnap = child as? DataSnapshot {
+                        if let favourite = FavouriteSpace(snapshot: favSnap) {
+                            newItems.append(favourite)
+                        }
+                    }
+                }
+                Favourites.spaces = newItems
+                print(Favourites.spaces.count)
+            }
+            
+            
+            // Check for unread messages
             chatsHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
                 var unread = 0
                 var read = 0
