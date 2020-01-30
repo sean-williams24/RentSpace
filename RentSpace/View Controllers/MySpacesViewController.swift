@@ -104,8 +104,10 @@ class MySpacesViewController: UIViewController {
             
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
-                    let space = Space(snapshot: snapshot){
+                    let space = Space(snapshot: snapshot) {
+                    print(snapshot)
                     self.mySpaces.append(space)
+                    print(self.mySpaces.count)
                 }
             }
             

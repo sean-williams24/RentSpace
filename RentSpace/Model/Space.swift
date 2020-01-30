@@ -57,7 +57,7 @@ struct Space {
     }
     
     
-    
+    // Failable initializer
     init?(snapshot: DataSnapshot) {
         guard
             let value = snapshot.value as? [String : AnyObject],
@@ -70,7 +70,7 @@ struct Space {
             let email = value["email"] as? String,
             let phone = value["phone"] as? String,
 //            let address = value["address"] as? String,
-            let photos = value["photos"] as? [String : String],
+            let photos = value["photos"] as? [String : String]?,
             let town = value["town"] as? String,
             let city = value["city"] as? String,
             let subAdminArea = value["subAdminArea"] as? String,
