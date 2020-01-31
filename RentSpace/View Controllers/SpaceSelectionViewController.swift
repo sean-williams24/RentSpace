@@ -76,14 +76,14 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 
                 for child in dataSnapshot.children {
                     if let snapshot = child as? DataSnapshot {
-                        if let chat = snapshot.value as? [String: String] {
-                            if chat["read"] == "false" {
+                        if let chat = Chat(snapshot: snapshot) {
+                            if chat.read == "false" {
                                 unread += 1
                                 messageTab?.badgeColor = Settings.orangeTint
                                 messageTab?.badgeValue = "\(unread)"
                                 UIApplication.shared.applicationIconBadgeNumber = unread
                                 
-                            } else if chat["read"] == "true"{
+                            } else if chat.read == "true"{
                                 read += 1
                                 if read == dataSnapshot.childrenCount {
                                     messageTab?.badgeValue = nil
