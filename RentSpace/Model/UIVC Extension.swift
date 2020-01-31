@@ -171,6 +171,41 @@ extension UIViewController {
         }
     }
     
+    //MARK: - Tintable category icon method
+
+    
+    func iconThumbnail(for category: String) -> UIImage {
+        var categoryImage = UIImage()
+        
+        switch category {
+        case "Art Studio":
+            if let image = UIImage(named: "Art Studio") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        case "Photography Studio":
+            if let image = UIImage(systemName: "camera") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        case "Music Studio":
+            if let image = UIImage(systemName: "music.mic") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        case "Desk Space":
+            if let image = UIImage(systemName: "desktopcomputer") {
+                let tintableImage = image.withRenderingMode(.alwaysTemplate)
+                categoryImage = tintableImage
+            }
+        default:
+            if let image = UIImage(named: "Rentspace") {
+                categoryImage = image
+            }
+        }
+        return categoryImage
+    }
+    
  
 }
 

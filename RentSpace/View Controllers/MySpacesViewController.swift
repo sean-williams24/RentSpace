@@ -71,6 +71,9 @@ class MySpacesViewController: UIViewController {
                 self.tabBarController?.tabBar.items?[2].title = "My Spaces"
             }
         }
+        
+        self.tableView.rowHeight = 150
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,9 +125,9 @@ class MySpacesViewController: UIViewController {
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
             self.tableView.reloadData()
             
-            let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
-            guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
-            cell.activityView.startAnimating()
+//            let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
+//            guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
+//            cell.activityView.startAnimating()
             
             if self.mySpaces.isEmpty {
                 self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
@@ -205,13 +208,16 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         
         if viewingFavourites {
             cell.backgroundColor = .gray
-            cell.layer.borderColor = UIColor.white.cgColor
         } else {
             cell.backgroundColor = .darkGray
             cell.layer.borderColor = UIColor.black.cgColor
         }
         
-        
+        cell.customImageView.image = nil
+        cell.customImageView.alpha = 1
+        cell.activityView.startAnimating()
+        cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
+        cell.customImageView.layer.borderWidth = 1
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category
@@ -227,12 +233,12 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                         return
                     }
                     let cellImage = UIImage.init(data: data!, scale: 0.1)
-                    cell.activityView.stopAnimating()
 
                     // Check to see if cell is still on screen, if so update cell
                     if cell == tableView.cellForRow(at: indexPath) {
                         DispatchQueue.main.async {
-                            cell.customImageView.alpha = 1
+                            cell.activityView.stopAnimating()
+                            cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
                         }
@@ -241,9 +247,31 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
         } else {
-            cell.customImageView.image = UIImage(named: "003-desk")
-            cell.customImageView.alpha = 1
             cell.activityView.stopAnimating()
+            if space.category == "Art Studio" {
+                
+                // Scale Art studio image down to match SFSymbol icons and add another view to get matching image border
+                let view = UIView()
+                view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
+                view.layer.borderColor = Settings.flipsideBlackColour.cgColor
+                view.layer.borderWidth = 1
+                cell.addSubview(view)
+                
+                cell.customImageView.image = iconThumbnail(for: space.category)
+                cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+                cell.customImageView.contentMode = .scaleAspectFit
+                cell.customImageView.layer.borderWidth = 0
+
+            } else {
+                cell.customImageView.image = iconThumbnail(for: space.category)
+                cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                cell.customImageView.contentMode = .scaleAspectFit
+                cell.customImageView.layer.borderWidth = 1
+            }
+            cell.customImageView.tintColor = Settings.flipsideBlackColour
+            cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
+            cell.customImageView.alpha = 0.7
+            
         }
         return cell
     }

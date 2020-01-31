@@ -124,30 +124,37 @@ class RentSpaceViewController: UIViewController {
             // Nationwide results, i.e. all adverts
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
                 self.spaces = []
+                var newSpaces: [Space] = []
+                
                 for child in snapshot.children {
                     if let spaceSnapshot = child as? DataSnapshot {
                         if let space = Space(snapshot: spaceSnapshot) {
-                        self.spaces.append(space)
-                    }
+                        newSpaces.append(space)
+                        }
                     self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                    self.tableView.reloadData()
-                    self.startCellLoadingActivityView()
                     }
                 }
+                self.spaces = newSpaces
+                self.tableView.reloadData()
+
             })
         } else {
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
                 self.spaces = []
                 self.tableView.reloadData()
-                
+                let spaceCount = snapshot.children.allObjects.count
+                var index = 0
+                print(spaceCount)
+                var newSpaces: [Space] = []
+
                 for child in snapshot.children {
                     if let spaceSnapshot = child as? DataSnapshot,
                         let space = Space(snapshot: spaceSnapshot) {
-                        let postcode = space.postcode
-                        let city = space.city
+                        let address = space.postcode + " " + space.city
+                        
                         
                         // Get distance of advert location from users chosen location and add to table if within search radius
-                        CLGeocoder().geocodeAddressString(postcode + " " + city) { (placemark, error) in
+                        CLGeocoder().geocodeAddressString(address) { (placemark, error) in
                             if let placemark = placemark?.first {
                                 let advertLocation = placemark.location
                                 if let distance = advertLocation?.distance(from: userLocation) {
@@ -157,15 +164,21 @@ class RentSpaceViewController: UIViewController {
                                         print("Set Miles: \(setMiles)")
                                         print("Distance: \(distanceInMiles)")
                                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                                        self.spaces.append(space)
+                                        newSpaces.append(space)
+                                    }
+                                    index += 1
+                                    if index == spaceCount {
+                                        self.spaces = newSpaces
+                                        print(self.spaces.count)
                                         self.tableView.reloadData()
-                                        self.startCellLoadingActivityView()
                                     }
                                 }
                             }
                         }
                     }
                 }
+
+
             })
         }
     }
@@ -214,9 +227,14 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
+        cell.layer.borderWidth = 1
         let space = spaces[indexPath.section]
         
-        cell.layer.borderWidth = 1
+        cell.customImageView.image = nil
+        cell.activityView.startAnimating()
+        cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
+        cell.customImageView.layer.borderWidth = 1
+        cell.customImageView.alpha = 1
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category
@@ -237,7 +255,6 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                     if cell == tableView.cellForRow(at: indexPath) {
                         DispatchQueue.main.async {
                             cell.activityView.stopAnimating()
-                            cell.customImageView.alpha = 1
                             cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
@@ -249,24 +266,25 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
             cell.activityView.stopAnimating()
             if space.category == "Art Studio" {
                 
-                let image = iconThumbnail(for: space.category)
+                // Scale Art studio image down to match SFSymbol icons and add another view to get matching image border
                 let view = UIView()
                 view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
                 view.layer.borderColor = Settings.flipsideBlackColour.cgColor
                 view.layer.borderWidth = 1
                 cell.addSubview(view)
                 
-                cell.customImageView.image = image
+                cell.customImageView.image = iconThumbnail(for: space.category)
                 cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 0
 
             } else {
+                cell.activityView.stopAnimating()
+                cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 cell.customImageView.image = iconThumbnail(for: space.category)
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 1
             }
-//            cell.customImageView.contentMode = .scaleAspectFit
             cell.customImageView.tintColor = Settings.flipsideBlackColour
             cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
             cell.customImageView.alpha = 0.7
@@ -281,37 +299,6 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         show(vc, sender: self)
     }
     
-    func iconThumbnail(for category: String) -> UIImage {
-        var categoryImage = UIImage()
-        
-        switch category {
-        case "Art Studio":
-            if let image = UIImage(named: "Art Studio") {
-                let tintableImage = image.withRenderingMode(.alwaysTemplate)
-                categoryImage = tintableImage
-            }
-        case "Photography Studio":
-            if let image = UIImage(systemName: "camera") {
-                let tintableImage = image.withRenderingMode(.alwaysTemplate)
-                categoryImage = tintableImage
-            }
-        case "Music Studio":
-            if let image = UIImage(systemName: "music.mic") {
-                let tintableImage = image.withRenderingMode(.alwaysTemplate)
-                categoryImage = tintableImage
-            }
-        case "Desk Space":
-            if let image = UIImage(systemName: "desktopcomputer") {
-                let tintableImage = image.withRenderingMode(.alwaysTemplate)
-                categoryImage = tintableImage
-            }
-        default:
-            if let image = UIImage(named: "Rentspace") {
-                categoryImage = image
-            }
-        }
-        return categoryImage
-    }
 }
 
 extension RentSpaceViewController: UpdateSearchLocationDelegate {
