@@ -165,14 +165,12 @@ class MessageViewController: UIViewController {
         if !messageTextField.text!.isEmpty || messageRead == "true" {
             sendMessageButton.isEnabled = false
             
-            // If this is a new chat, set advertOwner details from advert object
-            var advertOwnerUID = space.postedByUser
-            var advertOwnerDisplayName = space.userDisplayName
-            
-            // If chat already exists, set customer, advert owner data and thumbnail URL from chat data downloaded from Firebase
+            var advertOwnerUID = ""
+            var advertOwnerDisplayName = ""
             var customerDisplayName = ""
             var thumbURL = ""
             
+            // If chat already exists, set customer, advert owner data and thumbnail URL from chat data downloaded from Firebase
             if viewingExistingChat {
                 advertOwnerUID = chat.advertOwnerUID
                 customerUID = chat.customerUID
@@ -180,15 +178,36 @@ class MessageViewController: UIViewController {
                 advertOwnerDisplayName = chat.advertOwnerDisplayName
                 thumbURL = chat.thumbnailURL
             } else {
+                // If this is a new chat, set advertOwner details from advert object
+                advertOwnerUID = space.postedByUser
+                advertOwnerDisplayName = space.userDisplayName
                 if let imageURLsDict = space.photos {
-                    thumbURL = imageURLsDict["image 1"] ?? ""
+                    thumbURL = imageURLsDict["image 1"] ?? space.category
                 }
             }
+            
+
                         
             let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
             let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
             
-            let firstChatData = ["title": advertTitleLabel.text!,
+            let firstChatData = Chat(latestSender: Auth.auth().currentUser?.displayName ?? "",
+                                     lastMessage: messageTextField.text!,
+                                     title: advertTitleLabel.text!,
+                                     chatID: chatID,
+                                     location: locationLabel.text!,
+                                     price: priceLabel.text!,
+                                     advertOwnerUID: advertOwnerUID,
+                                     customerUID: Auth.auth().currentUser?.uid ?? "",
+                                     advertOwnerDisplayName: advertOwnerDisplayName,
+                                     customerDisplayName: Auth.auth().currentUser?.displayName ?? "",
+                                     thumbnailURL: thumbURL,
+                                     messageDate: fullDateFormatter.string(from: Date()),
+                                     read: "false",
+                                     timestamp: (Date().timeIntervalSince1970 as Double))
+            
+            
+            let firstChatData1 = ["title": advertTitleLabel.text!,
                                  "location": locationLabel.text!,
                                  "price": priceLabel.text!,
                                  "lastMessage": messageTextField.text!,
@@ -202,26 +221,42 @@ class MessageViewController: UIViewController {
                                  "messageDate": fullDateFormatter.string(from: Date()),
                                  "read": "false"]
             
-            let existingChatData = ["title": advertTitleLabel.text!,
-                                    "location": locationLabel.text!,
-                                    "price": priceLabel.text!,
-                                    "lastMessage": messageTextField.text!,
-                                    "latestSender": Auth.auth().currentUser?.displayName,
-                                    "customerUID": customerUID,
-                                    "customerDisplayName": customerDisplayName,
-                                    "chatID": chatID,
-                                    "advertOwnerUID": advertOwnerUID,
-                                    "advertOwnerDisplayName": advertOwnerDisplayName,
-                                    "thumbnailURL": thumbURL,
-                                    "messageDate": fullDateFormatter.string(from: Date()),
-                                    "read": "false"]
+            let existingChatData = Chat(latestSender: Auth.auth().currentUser?.displayName ?? "",
+                                        lastMessage: messageTextField.text!,
+                                        title: advertTitleLabel.text!,
+                                        chatID: chatID,
+                                        location: locationLabel.text!,
+                                        price: priceLabel.text!,
+                                        advertOwnerUID: advertOwnerUID,
+                                        customerUID: customerUID,
+                                        advertOwnerDisplayName: advertOwnerDisplayName,
+                                        customerDisplayName: customerDisplayName,
+                                        thumbnailURL: thumbURL,
+                                        messageDate: fullDateFormatter.string(from: Date()),
+                                        read: "false",
+                                        timestamp: (Date().timeIntervalSince1970 as Double))
             
-            var chatData: [String:String] = [:]
+//            let existingChatData1 = ["title": advertTitleLabel.text!,
+//                                    "location": locationLabel.text!,
+//                                    "price": priceLabel.text!,
+//                                    "lastMessage": messageTextField.text!,
+//                                    "latestSender": Auth.auth().currentUser?.displayName,
+//                                    "customerUID": customerUID,
+//                                    "customerDisplayName": customerDisplayName,
+//                                    "chatID": chatID,
+//                                    "advertOwnerUID": advertOwnerUID,
+//                                    "advertOwnerDisplayName": advertOwnerDisplayName,
+//                                    "thumbnailURL": thumbURL,
+//                                    "messageDate": fullDateFormatter.string(from: Date()),
+//                                    "read": "false",
+//                                    "timestamp": Date().timeIntervalSince1970] as! [String : Double]
             
+            var chatData: Any!
+        
             if viewingExistingChat {
-                chatData = existingChatData as! [String : String]
+                chatData = existingChatData.toAnyObject()
             } else {
-                chatData = firstChatData as! [String : String]
+                chatData = firstChatData.toAnyObject()
             }
             
             let messagesDB = Database.database().reference().child("messages/\(chatID)")

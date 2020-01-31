@@ -66,34 +66,21 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
         let UID = Settings.currentUser!.uid
         
-        refHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
+        refHandle = ref.child("users/\(UID)/chats").queryOrdered(byChild: "timestamp").observe(.value, with: { (dataSnapshot) in
             self.chats.removeAll()
+            var newChats: [Chat] = []
+            
             for child in dataSnapshot.children {
                 if let snapshot = child as? DataSnapshot,
                     let chat = Chat(snapshot: snapshot) {
-                    if self.chats.isEmpty {
-                        // append first chat to array
-                        self.chats.append(chat)
-                    } else {
-                        // for subsequent chats, iterate through array and check if date is earlier than array chats.
-                        for (index, tempChat) in self.chats.enumerated() {
-                            let tempChatDate = self.formatter.date(from: tempChat.messageDate)
-                            let nextChatDate = self.formatter.date(from: chat.messageDate)
-                            
-                            if nextChatDate! > tempChatDate! {
-                                self.chats.insert(chat, at: index)
-                                break
-                            } else {
-                                self.chats.append(chat)
-                                break
-                            }
-                        }
-                    }
+                    newChats.append(chat)
+ 
                 }
             }
+            
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+            self.chats = newChats.reversed()
             self.tableView.reloadData()
-            print("Called")
             
             if self.chats.isEmpty {
                 self.infoLabel.text = "Your conversations will appear here once chatting begins."
@@ -105,7 +92,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     
     func delete(chat: Chat) {
-        
         // Get chat to delete, setup swipe to delete and also delete from chats array
         let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
@@ -127,6 +113,24 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
         present(ac, animated: true)
     }
     
+    func renderCirlularImage(for image: UIImage?) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 100))
+        let img = renderer.image { (ctx) in
+            
+            image?.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
+            
+            let rectangle = CGRect(x: -25, y: -25, width: 150, height: 150)
+            ctx.cgContext.setStrokeColor(Settings.flipsideBlackColour.cgColor)
+            ctx.cgContext.setLineWidth(50)
+            ctx.cgContext.strokeEllipse(in: rectangle)
+            ctx.cgContext.drawPath(using: .stroke)
+        }
+        return img
+    }
+    
+    
+    // MARK: - Action Methods
+
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") {
@@ -163,6 +167,8 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesTableViewCell
         let chat = chats[indexPath.section]
+        cell.activityView.startAnimating()
+        cell.customImageView.image = nil
         
         var recipient = ""
         // if logged in user is advert owner, chat recipient is customer
@@ -196,29 +202,22 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                     print("Error downloading image: \(error?.localizedDescription as Any)")
                 } else {
                     if let data = data {
-                        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 100))
-                        let img = renderer.image { (ctx) in
-                            
-                            let image = UIImage(data: data)
-                            image?.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
-                            
-                            let rectangle = CGRect(x: -25, y: -25, width: 150, height: 150)
-                            ctx.cgContext.setStrokeColor(Settings.flipsideBlackColour.cgColor)
-                            ctx.cgContext.setLineWidth(50)
-                            ctx.cgContext.strokeEllipse(in: rectangle)
-                            ctx.cgContext.drawPath(using: .stroke)
-                        }
+                        let image = UIImage(data: data)
+                        cell.activityView.stopAnimating()
                         cell.customImageView.alpha = 1
-                        cell.customImageView.image = img
+                        cell.customImageView.image = self.renderCirlularImage(for: image)
                     }
                 }
             }
         } else {
-            // TODO: - load chat placeholder icon of RentSpace logo
+            let image = UIImage(named: "003-desk")
+            cell.activityView.stopAnimating()
+            cell.customImageView.alpha = 1
+            cell.customImageView.image = renderCirlularImage(for: image)
         }
-        
         return cell
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
@@ -268,3 +267,43 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
 }
+
+
+
+//
+//refHandle = ref.child("users/\(UID)/chats").queryOrdered(byChild: "timestamp").observe(.value, with: { (dataSnapshot) in
+//    self.chats.removeAll()
+//    for child in dataSnapshot.children {
+//        if let snapshot = child as? DataSnapshot,
+//            let chat = Chat(snapshot: snapshot) {
+//            print(chat.title)
+//            print(chat.timestamp)
+//            if self.chats.isEmpty {
+//                // append first chat to array
+//                self.chats.append(chat)
+//            } else {
+//                // for subsequent chats, iterate through array and check if date is earlier than array chats.
+//                for (index, tempChat) in self.chats.enumerated() {
+//                    let tempChatDate = self.formatter.date(from: tempChat.messageDate)
+//                    let nextChatDate = self.formatter.date(from: chat.messageDate)
+//
+//                    if nextChatDate! > tempChatDate! {
+//                        self.chats.insert(chat, at: index)
+//                        break
+//                    } else {
+//                        self.chats.append(chat)
+//                        break
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+//    self.tableView.reloadData()
+//
+//    if self.chats.isEmpty {
+//        self.infoLabel.text = "Your conversations will appear here once chatting begins."
+//    } else {
+//        self.infoLabel.text = ""
+//    }
+//})
