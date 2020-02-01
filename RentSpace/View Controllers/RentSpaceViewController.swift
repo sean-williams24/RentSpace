@@ -19,16 +19,19 @@ protocol UpdateSearchLocationDelegate {
 class RentSpaceViewController: UIViewController {
 
     
+    // MARK: - Outlets
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
     
+    // MARK: - Properties
+
     var ref: DatabaseReference!
     var storageRef: StorageReference!
     fileprivate var _refHandle: DatabaseHandle!
     
     var spaces: [Space] = []
-//    var array: [DataSnapshot]!
     var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
     var location = ""
@@ -235,6 +238,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
         cell.customImageView.layer.borderWidth = 1
         cell.customImageView.alpha = 1
+        
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category
