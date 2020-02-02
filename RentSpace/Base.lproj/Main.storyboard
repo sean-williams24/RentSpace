@@ -2028,8 +2028,8 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="studentdesk" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FjR-df-oca">
-                                <rect key="frame" x="87" y="113" width="240" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RS Logo FS BG" translatesAutoresizingMaskIntoConstraints="NO" id="FjR-df-oca">
+                                <rect key="frame" x="87" y="108" width="240" height="127.5"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="NA8-Sk-Tob"/>
@@ -2037,7 +2037,7 @@ Only the best gear here.</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RentSpace" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leZ-kE-qoK">
-                                <rect key="frame" x="0.0" y="257" width="414" height="38"/>
+                                <rect key="frame" x="0.0" y="235.5" width="414" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="4rC-MV-Tys"/>
                                 </constraints>
@@ -2046,7 +2046,7 @@ Only the best gear here.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGM-Is-w7D">
-                                <rect key="frame" x="0.0" y="675" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="669" width="414" height="50"/>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="h9s-2q-OXe"/>
@@ -2059,7 +2059,7 @@ Only the best gear here.</string>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NqI-X0-Ncs">
-                                <rect key="frame" x="0.0" y="345" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="288.5" width="414" height="150"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYp-0G-YAW" userLabel="Edit Display Name View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -2232,17 +2232,17 @@ Only the best gear here.</string>
                         <constraints>
                             <constraint firstItem="RLO-0r-VnR" firstAttribute="leading" secondItem="Wnf-UA-tS4" secondAttribute="leading" id="0nE-8J-46h"/>
                             <constraint firstItem="leZ-kE-qoK" firstAttribute="leading" secondItem="Wnf-UA-tS4" secondAttribute="leading" id="5uP-Ez-8Eq"/>
-                            <constraint firstItem="FGM-Is-w7D" firstAttribute="top" secondItem="leZ-kE-qoK" secondAttribute="bottom" constant="380" id="9V6-IO-eGd"/>
                             <constraint firstItem="NqI-X0-Ncs" firstAttribute="leading" secondItem="9Sf-XP-VCE" secondAttribute="leading" id="A2U-g1-Aek"/>
                             <constraint firstAttribute="trailing" secondItem="NqI-X0-Ncs" secondAttribute="trailing" id="EGL-bo-M7G"/>
                             <constraint firstItem="Wnf-UA-tS4" firstAttribute="trailing" secondItem="FGM-Is-w7D" secondAttribute="trailing" id="RVs-QB-lLP"/>
                             <constraint firstItem="Wnf-UA-tS4" firstAttribute="trailing" secondItem="RLO-0r-VnR" secondAttribute="trailing" id="Wi7-8b-gdJ"/>
-                            <constraint firstItem="NqI-X0-Ncs" firstAttribute="top" secondItem="leZ-kE-qoK" secondAttribute="bottom" constant="50" id="Y1i-ho-95q"/>
+                            <constraint firstItem="NqI-X0-Ncs" firstAttribute="top" secondItem="leZ-kE-qoK" secondAttribute="bottom" constant="15" id="Y1i-ho-95q"/>
                             <constraint firstItem="FjR-df-oca" firstAttribute="centerX" secondItem="Wnf-UA-tS4" secondAttribute="centerX" id="aff-6d-OkM"/>
-                            <constraint firstItem="FjR-df-oca" firstAttribute="top" secondItem="Wnf-UA-tS4" secondAttribute="top" constant="25.5" id="enb-9R-fZx"/>
+                            <constraint firstItem="FjR-df-oca" firstAttribute="top" secondItem="Wnf-UA-tS4" secondAttribute="top" constant="20" id="enb-9R-fZx"/>
                             <constraint firstItem="Wnf-UA-tS4" firstAttribute="bottom" secondItem="RLO-0r-VnR" secondAttribute="bottom" constant="9" id="gDg-oG-Il6"/>
                             <constraint firstItem="FGM-Is-w7D" firstAttribute="leading" secondItem="Wnf-UA-tS4" secondAttribute="leading" id="gYq-Ba-Svc"/>
-                            <constraint firstItem="leZ-kE-qoK" firstAttribute="top" secondItem="FjR-df-oca" secondAttribute="bottom" constant="16" id="wYc-9T-lTM"/>
+                            <constraint firstItem="itv-1n-Pwo" firstAttribute="top" secondItem="FGM-Is-w7D" secondAttribute="bottom" constant="35" id="of6-lm-FsZ"/>
+                            <constraint firstItem="leZ-kE-qoK" firstAttribute="top" secondItem="FjR-df-oca" secondAttribute="bottom" id="wYc-9T-lTM"/>
                             <constraint firstItem="leZ-kE-qoK" firstAttribute="trailing" secondItem="Wnf-UA-tS4" secondAttribute="trailing" id="wp5-5y-fGK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wnf-UA-tS4"/>
@@ -2272,7 +2272,7 @@ Only the best gear here.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="VL8-Jm-XEt">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="VL8-Jm-XEt">
                                 <rect key="frame" x="0.0" y="208" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2298,7 +2298,7 @@ Only the best gear here.</string>
                                     <action selector="updateButtonTapped:" destination="3zS-R9-c99" eventType="touchUpInside" id="nwI-4m-7j1"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="l37-Qq-Xyh">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="l37-Qq-Xyh">
                                 <rect key="frame" x="0.0" y="266" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2945,6 +2945,7 @@ Only the best gear here.</string>
         <image name="Desk Space" width="1200" height="800"/>
         <image name="Music Studio" width="1200" height="800"/>
         <image name="Photography Studio" width="1200" height="674"/>
+        <image name="RS Logo FS BG" width="500" height="500"/>
         <image name="addPhotos1" width="80" height="80"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="arrow.up.circle.fill" catalog="system" width="64" height="60"/>

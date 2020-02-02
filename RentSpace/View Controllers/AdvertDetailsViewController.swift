@@ -98,7 +98,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         if space.photos == nil {
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "003-desk")
+            imageView.image = UIImage(named: "RS Logo FS BG")
 
             imageView.contentMode = .scaleAspectFit
             imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
