@@ -750,7 +750,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdX-wC-fyU">
-                                <rect key="frame" x="198.5" y="385" width="17" height="14.5"/>
+                                <rect key="frame" x="198.5" y="385" width="17.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -763,13 +763,17 @@ Long press and drag to reorder.</string>
                                     <constraint firstAttribute="height" constant="26" id="b4g-Ku-qKU"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfk-nD-k8Y">
-                                <rect key="frame" x="40" y="351" width="334" height="30"/>
-                                <state key="normal" title="REGISTER">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pause" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sFC-Iu-AGT">
+                                <rect key="frame" x="201.5" y="351" width="11" height="16"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOf-dR-Tuc">
+                                <rect key="frame" x="220.5" y="344" width="174.5" height="30"/>
+                                <state key="normal" title="FORGOT">
                                     <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <segue destination="XN8-Fk-fre" kind="presentation" modalTransitionStyle="flipHorizontal" id="E0h-qH-FRP"/>
+                                    <action selector="forgotButtonTapped:" destination="8FH-2D-ozG" eventType="touchUpInside" id="XPP-fO-vT5"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pg7-Si-lqp" customClass="GIDSignInButton">
@@ -785,32 +789,46 @@ Long press and drag to reorder.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfk-nD-k8Y">
+                                <rect key="frame" x="20" y="344" width="173.5" height="30"/>
+                                <state key="normal" title="REGISTER">
+                                    <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <segue destination="XN8-Fk-fre" kind="presentation" modalTransitionStyle="flipHorizontal" id="E0h-qH-FRP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="sFC-Iu-AGT" firstAttribute="leading" secondItem="mfk-nD-k8Y" secondAttribute="trailing" constant="8" id="00Z-Kk-y9Q"/>
                             <constraint firstItem="iZX-Xd-Fqd" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="4jl-22-eBk"/>
                             <constraint firstItem="iZX-Xd-Fqd" firstAttribute="bottom" secondItem="TV2-Un-BpR" secondAttribute="bottom" constant="-20" id="7lM-v3-Xnz"/>
+                            <constraint firstItem="sFC-Iu-AGT" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="7lm-gD-ubv"/>
                             <constraint firstItem="dNX-df-tru" firstAttribute="top" secondItem="TV2-Un-BpR" secondAttribute="top" constant="80" id="GAz-Xc-Yzn"/>
                             <constraint firstItem="bSN-xd-ry2" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="Hu5-RR-wNA"/>
+                            <constraint firstItem="mfk-nD-k8Y" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="8" id="IfZ-6T-5Du"/>
+                            <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="LOf-dR-Tuc" secondAttribute="trailing" constant="19" id="JYJ-gG-Ixt"/>
                             <constraint firstItem="bSN-xd-ry2" firstAttribute="top" secondItem="NdX-wC-fyU" secondAttribute="bottom" constant="10" id="Jpw-CH-cPE"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="iZX-Xd-Fqd" secondAttribute="trailing" constant="20" id="LAr-53-kWr"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="LFJ-GS-ZMg"/>
                             <constraint firstItem="NdX-wC-fyU" firstAttribute="centerX" secondItem="uke-cJ-Y74" secondAttribute="centerX" id="MSP-6a-WUO"/>
+                            <constraint firstItem="LOf-dR-Tuc" firstAttribute="leading" secondItem="sFC-Iu-AGT" secondAttribute="trailing" constant="8" id="OEV-4A-mZ2"/>
+                            <constraint firstItem="sFC-Iu-AGT" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="13" id="PrS-lx-nQy"/>
                             <constraint firstItem="dNX-df-tru" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="R1C-pp-xha"/>
                             <constraint firstItem="ofe-bV-dtz" firstAttribute="top" secondItem="dNX-df-tru" secondAttribute="bottom" constant="3" id="RwZ-lO-SPz"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gM7-8O-tc3" secondAttribute="trailing" id="W6v-Rt-zMK"/>
-                            <constraint firstItem="NdX-wC-fyU" firstAttribute="top" secondItem="mfk-nD-k8Y" secondAttribute="bottom" constant="4" id="XbU-dj-LSI"/>
-                            <constraint firstItem="mfk-nD-k8Y" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="40" id="kZH-OB-Nfe"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="khZ-nT-3Pm"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="Pg7-Si-lqp" secondAttribute="trailing" constant="20" id="l1Z-lN-gMp"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="ofe-bV-dtz" secondAttribute="trailing" constant="20" id="psr-bB-gjK"/>
-                            <constraint firstItem="mfk-nD-k8Y" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="15" id="rDK-z3-anh"/>
+                            <constraint firstItem="mfk-nD-k8Y" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="rJ3-TJ-CMm"/>
                             <constraint firstItem="ofe-bV-dtz" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="rZZ-CF-Li2"/>
+                            <constraint firstItem="LOf-dR-Tuc" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="8" id="tYY-cm-ois"/>
                             <constraint firstItem="Pg7-Si-lqp" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="tgA-sE-8cZ"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="top" secondItem="ofe-bV-dtz" secondAttribute="bottom" constant="15" id="uOJ-L4-EaZ"/>
-                            <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="mfk-nD-k8Y" secondAttribute="trailing" constant="40" id="vEZ-5u-QMb"/>
                             <constraint firstItem="Pg7-Si-lqp" firstAttribute="top" secondItem="bSN-xd-ry2" secondAttribute="bottom" constant="15" id="w64-Zk-KKr"/>
+                            <constraint firstItem="NdX-wC-fyU" firstAttribute="top" secondItem="sFC-Iu-AGT" secondAttribute="bottom" constant="16" id="xNQ-V2-atw"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="dNX-df-tru" secondAttribute="trailing" constant="20" id="y3J-Br-JlD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TV2-Un-BpR"/>
@@ -2688,6 +2706,7 @@ Only the best gear here.</string>
         <image name="message.circle.fill" catalog="system" width="64" height="60"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>
         <image name="music.mic" catalog="system" width="64" height="58"/>
+        <image name="pause" catalog="system" width="44" height="64"/>
         <image name="person" catalog="system" width="64" height="58"/>
         <image name="person.fill" catalog="system" width="64" height="60"/>
         <image name="phone" catalog="system" width="64" height="56"/>

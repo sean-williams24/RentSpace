@@ -149,5 +149,28 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         }
     }
     
+    @IBAction func forgotButtonTapped(_ sender: Any) {
+        let ac = UIAlertController(title: "Password Problems?", message: "No worries, we'll send you a reset link...", preferredStyle: .alert)
+        ac.addTextField { (textfield) in
+            textfield.placeholder = "Enter your email address..."
+            if self.emailTextField.text != nil {
+                textfield.text = self.emailTextField.text
+            }
+        }
+        ac.addAction(UIAlertAction(title: "SEND", style: .default, handler: { _ in
+            guard let email = ac.textFields?[0].text else { return }
+            Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+                if error != nil {
+                    self.showAlert(title: "Oops!", message: "There was a problem sending the reset link, please check you've got the correct email adress and try again.")
+                } else {
+                    self.showAlert(title: "All Good", message: "Check your inbox...")
+                }
+            }
+            
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
+        present(ac, animated: true)
+        
+    }
     
 }
