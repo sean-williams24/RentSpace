@@ -265,10 +265,11 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     fileprivate func configureUI() {
         // Title textfield
-        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
-        titleTextField.leftView = leftPadView
-        titleTextField.leftViewMode = .always
-        titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+//        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
+//        titleTextField.leftView = leftPadView
+//        titleTextField.leftViewMode = .always
+//        titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        addLeftPadding(for: titleTextField, placeholderText: "Title", placeholderColour: .lightGray)
         
         // Description textView
         descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 4, right: 4)

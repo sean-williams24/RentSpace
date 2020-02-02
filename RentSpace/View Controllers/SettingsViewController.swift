@@ -15,6 +15,12 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     @IBOutlet var signInOrOutButton: UIButton!
+    @IBOutlet var displayNameLabel: UILabel!
+    @IBOutlet var displayNameButton: UIButton!
+    @IBOutlet var emailLabel: UILabel!
+    @IBOutlet var emailButton: UIButton!
+    @IBOutlet var changePasswordButton: UIButton!
+    @IBOutlet var updateCredentialsView: UIStackView!
     
     fileprivate var handle: AuthStateDidChangeListenerHandle!
 
@@ -30,8 +36,15 @@ class SettingsViewController: UIViewController {
                     self.signInOrOutButton.setTitle("SIGN OUT (\(currentUser))", for: .normal)
                     Settings.currentUser = user
                 }
+                
+                self.displayNameLabel.text = user?.displayName
+                self.emailLabel.text = user?.email
+                self.updateCredentialsView.isHidden = false
+
+                
             } else {
                 self.signInOrOutButton.setTitle("SIGN IN", for: .normal)
+                self.updateCredentialsView.isHidden = true
             }
         })
         
@@ -41,7 +54,11 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        signInOrOutButton.layer.cornerRadius = Settings.cornerRadius
+        addDisclosureAccessoryView(for: displayNameButton)
+        addDisclosureAccessoryView(for: emailButton)
+        addDisclosureAccessoryView(for: changePasswordButton)
+
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,6 +67,17 @@ class SettingsViewController: UIViewController {
 
     }
     
+    
+    // MARK: - Private Methods
+
+    
+    fileprivate func addDisclosureAccessoryView(for button: UIButton) {
+        let disclosure = UITableViewCell()
+        disclosure.frame = button.bounds
+        disclosure.accessoryType = .disclosureIndicator
+        disclosure.isUserInteractionEnabled = false
+        button.addSubview(disclosure)
+    }
 
 // MARK: - Action Methods
 
@@ -76,9 +104,40 @@ class SettingsViewController: UIViewController {
             
             present(vc, animated: true)
         }
+
+    }
+    
+    
+    @IBAction func displayNameButtonTapped(_ sender: Any) {
+    }
+    
+    
+    @IBAction func emailButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func changePasswordButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func deleteAccountButtonTapped(_ sender: Any) {
+    }
+    
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! UpdateDetailsViewController
+        let button = sender as! UIButton
+        switch button.tag {
+        case 0:
+            vc.userDetailToUpdate = "Display Name"
+        case 1:
+            vc.userDetailToUpdate = "Email"
+        case 2:
+            vc.userDetailToUpdate = "Password"
+        default:
+            vc.userDetailToUpdate = ""
+        }
         
-
-
     }
 }
 

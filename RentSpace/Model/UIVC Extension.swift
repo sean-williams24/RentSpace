@@ -206,6 +206,35 @@ extension UIViewController {
         return categoryImage
     }
     
+    // MARK: - REGEX Validation Methods
+    
+    // Use regEx and NSPredicate to validate email address and password
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z.]{2,64}"
+        
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+    
+    func isValidPassword(_ password: String) -> Bool {
+        let passwordRegEx = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{6,}$"
+        
+        let passwordPred = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
+        return passwordPred.evaluate(with: password)
+    }
+    
+    func isValidDisplayName(_ displayName: String) -> Bool {
+        return displayName.count > 2
+    }
+    
+    
+    func addLeftPadding(for textfield: UITextField, placeholderText: String, placeholderColour: UIColor) {
+        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textfield.frame.height))
+        textfield.leftView = leftPadView
+        textfield.leftViewMode = .always
+        textfield.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: placeholderColour])
+    }
  
 }
 
