@@ -77,7 +77,7 @@ class UpdateDetailsViewController: UIViewController {
                     self.handleUpdateCompletion(error)
                 }
             } else {
-                // Not a valid display name
+                showAlert(title: "Whoops!", message: "Display name needs to be at least 3 characters...")
             }
         } else if userDetailToUpdate == "Email" {
             if isValidEmail(newCredential) {
@@ -85,7 +85,7 @@ class UpdateDetailsViewController: UIViewController {
                     self.handleUpdateCompletion(error)
                    }
             } else {
-                // Not a valid email address
+                showAlert(title: "Oh No!", message: "That doesn't appear to be a valid email address...")
             }
         } else {
             if isValidPassword(newCredential) && newCredential == confirmPasswordTextfield.text {
@@ -93,7 +93,7 @@ class UpdateDetailsViewController: UIViewController {
                   self.handleUpdateCompletion(error)
                 }
             } else {
-                // PW invalid or they don't match
+                showAlert(title: "Hmmm", message: "Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number.")
             }
         }
         
