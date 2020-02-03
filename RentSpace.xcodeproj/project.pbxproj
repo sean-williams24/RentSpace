@@ -10,6 +10,7 @@
 		28F98941BC87A29428B1FA01 /* Pods_RentSpace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */; };
 		CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */; };
 		CE02CECB23E85433003B96A9 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */; };
+		CE02CECD23E88873003B96A9 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECC23E88873003B96A9 /* FirebaseClient.swift */; };
 		CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084079238D40B200DA57C8 /* AppDelegate.swift */; };
 		CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407B238D40B200DA57C8 /* SceneDelegate.swift */; };
 		CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */; };
@@ -59,6 +60,7 @@
 		CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.debug.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.debug.xcconfig"; sourceTree = "<group>"; };
 		CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsTableViewController.swift; sourceTree = "<group>"; };
 		CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
+		CE02CECC23E88873003B96A9 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		CE084076238D40B200DA57C8 /* RentSpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RentSpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE084079238D40B200DA57C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE08407B238D40B200DA57C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				CEC0B93423D1C286004DC4E6 /* Chat.swift */,
 				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
 				CE79981823E1BF840017E39A /* Favourites.swift */,
+				CE02CECC23E88873003B96A9 /* FirebaseClient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				CEF5CBE123C200FC0011243D /* MessagesTableViewCell.swift in Sources */,
 				CE79981923E1BF840017E39A /* Favourites.swift in Sources */,
 				CEC0B93523D1C286004DC4E6 /* Chat.swift in Sources */,
+				CE02CECD23E88873003B96A9 /* FirebaseClient.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
 				CE6583A52397E26C001FFA8A /* Space.swift in Sources */,
 				CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */,

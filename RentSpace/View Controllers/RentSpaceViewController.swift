@@ -260,6 +260,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                         DispatchQueue.main.async {
                             cell.activityView.stopAnimating()
                             cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            cell.customImageView.contentMode = .scaleAspectFill
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
                         }

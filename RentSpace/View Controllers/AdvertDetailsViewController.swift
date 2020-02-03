@@ -27,6 +27,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var directionsButton: UIButton!
     @IBOutlet var favouritesButton: UIButton!
+    @IBOutlet var imageScrollViewHeight: NSLayoutConstraint!
     
     var images = [UIImage]()
     //    var advertSnapshot: DataSnapshot!
@@ -97,12 +98,15 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         postcode = space.postcode
         
         if space.photos == nil {
+            imageScrollViewHeight.constant = 200
+            activityView.stopAnimating()
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "RS Logo FS BG")
+            imageView.image = UIImage(named: "Logo Grey")
 
             imageView.contentMode = .scaleAspectFit
-            imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
+            imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
             scrollView.addSubview(imageView)
+            
             pageController.isHidden = true
         }
         
@@ -133,8 +137,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         downloadFirebaseImages {
             // Add images to scrollView
+            self.activityView.stopAnimating()
             var i = 0
-            
+
             for key in self.imagesDictionary.keys.sorted() {
                 guard let image = self.imagesDictionary[key] else { break }
                 

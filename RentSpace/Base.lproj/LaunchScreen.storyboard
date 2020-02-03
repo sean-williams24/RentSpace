@@ -15,11 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Square Black BG" translatesAutoresizingMaskIntoConstraints="NO" id="GPM-bq-Uf6">
-                                <rect key="frame" x="0.0" y="104" width="414" height="566.5"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RentSpace" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NHD-GQ-ixE">
-                                <rect key="frame" x="0.0" y="600.5" width="414" height="38"/>
+                                <rect key="frame" x="0.0" y="789" width="414" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="LEV-7u-ZJg"/>
                                 </constraints>
@@ -27,15 +24,18 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Square Black BG" translatesAutoresizingMaskIntoConstraints="NO" id="GPM-bq-Uf6">
+                                <rect key="frame" x="40" y="170" width="334" height="566.5"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NHD-GQ-ixE" secondAttribute="trailing" id="Akw-41-O5r"/>
-                            <constraint firstItem="GPM-bq-Uf6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DIk-hx-qlw"/>
                             <constraint firstItem="NHD-GQ-ixE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LVa-KB-bYa"/>
-                            <constraint firstItem="GPM-bq-Uf6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="NM5-cY-ffy"/>
-                            <constraint firstItem="GPM-bq-Uf6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="YYX-3w-TJQ"/>
-                            <constraint firstItem="NHD-GQ-ixE" firstAttribute="top" secondItem="GPM-bq-Uf6" secondAttribute="bottom" constant="-70" id="epA-a9-DZe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NHD-GQ-ixE" secondAttribute="bottom" constant="35" id="Oh9-bI-4Wf"/>
+                            <constraint firstItem="GPM-bq-Uf6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="aFu-ZX-ZU8"/>
+                            <constraint firstItem="GPM-bq-Uf6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-40" id="aj5-vE-rcM"/>
+                            <constraint firstItem="GPM-bq-Uf6" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="e44-7Z-6Fb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

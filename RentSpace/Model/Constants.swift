@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
 
+import Firebase
 import Foundation
 import MapKit
 import Contacts
@@ -23,3 +24,6 @@ class Constants {
     static var savedLocationExists = false
 
 }
+
+
+

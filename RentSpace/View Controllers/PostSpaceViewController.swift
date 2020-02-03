@@ -48,12 +48,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     let defaults = UserDefaults.standard
     let UD = UserDefaults.standard
-    var advertSnapshot: DataSnapshot?
+//    var advertSnapshot: DataSnapshot?
     var userAdvertsPath = ""
     var advertsPath = ""
     var UID = ""
     var uniqueAdvertID = ""
-    var key = ""
+//    var key = ""
     var firebaseImageURLsDict: [String:String] = [:]
     //    var imageURLsDict: [String: String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
@@ -372,12 +372,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         // Write to Adverts firebase pathes
         
         if updatingAdvert {
-            var childUpdates = ["\(advertsPath)-\(key)": data.toAnyObject(),
-                                "\(userAdvertsPath)/\(key)": data.toAnyObject()] 
+            var childUpdates = ["\(advertsPath)-\(space.key)": data.toAnyObject(),
+                                "\(userAdvertsPath)/\(space.key)": data.toAnyObject()]
             
             // If user has changed categories - add another path to dictionary to delete old advert
             if category != previousCategory {
-                childUpdates["adverts/\(Constants.userLocationCountry)/\(previousCategory)/\(UID)-\(key)"] = NSNull()
+                childUpdates["adverts/\(Constants.userLocationCountry)/\(previousCategory)/\(UID)-\(space.key)"] = NSNull()
             }
             
             self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
@@ -436,7 +436,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     }
     
     func postAdvert() {
-        key = advertSnapshot?.key ?? ""
         uniqueAdvertID = UUID().uuidString
         UID = Settings.currentUser!.uid
         advertsPath = "adverts/\(self.location)/\(self.category)/\(UID)"
@@ -518,10 +517,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
             let UIImageVersion = UIImage(contentsOfFile: imageURLInDocuments.path)
             
-            if let imageData = UIImageVersion?.jpegData(compressionQuality: 0.2) {
+            if let imageData = UIImageVersion?.jpegData(compressionQuality: 0.4) {
                 var imagePath = ""
                 if updatingAdvert {
-                    imagePath = "\(userAdvertsPath)/\(key)"
+                    imagePath = "\(userAdvertsPath)/\(space.key)"
                 } else {
                     imagePath = "\(userAdvertsPath)/\(uniqueAdvertID)"
                 }

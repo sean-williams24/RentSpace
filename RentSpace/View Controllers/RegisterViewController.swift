@@ -151,6 +151,7 @@ class RegisterViewController: UIViewController {
                     if error != nil {
                         print(error?.localizedDescription as Any)
                         self.showAlert(title: "Problem Saving Display Name", message: "Please update your display name in settings before posting a space")
+                        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true)
                     } else {
                         self.signIntoFirbase()
                     }

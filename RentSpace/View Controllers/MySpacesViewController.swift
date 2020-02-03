@@ -67,6 +67,7 @@ class MySpacesViewController: UIViewController {
                 self.signedOutView.isHidden = false
                 self.mySpaces.removeAll()
                 self.tableView.reloadData()
+                self.infoLabel.text = ""
                 self.title = nil
                 self.tabBarController?.tabBar.items?[2].title = "My Spaces"
             }
@@ -239,6 +240,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                         DispatchQueue.main.async {
                             cell.activityView.stopAnimating()
                             cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            cell.customImageView.contentMode = .scaleAspectFill
                             cell.customImageView?.image = cellImage
                             cell.setNeedsLayout()
                         }

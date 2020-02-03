@@ -108,9 +108,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         configure(deskButton, text: "Desk Space")
         
         let savedLocation = UserDefaults.standard.string(forKey: "Location")
-        print(savedLocation as Any)
         let savedLocationPostcode = UserDefaults.standard.string(forKey: "LocationPostcode") ?? ""
-        print(savedLocationPostcode)
+        
         if let savedLocation = savedLocation {
             Constants.savedLocationExists = true
             CLGeocoder().geocodeAddressString(savedLocation + " " + savedLocationPostcode) { (placemark, error) in
