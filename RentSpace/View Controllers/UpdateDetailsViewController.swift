@@ -14,6 +14,7 @@ class UpdateDetailsViewController: UIViewController {
     //MARK: - Outlets
     @IBOutlet var updateTextfield: UITextField!
     @IBOutlet var confirmPasswordTextfield: UITextField!
+    @IBOutlet var buttonGapConstraint: NSLayoutConstraint!
     
     
     
@@ -28,16 +29,18 @@ class UpdateDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         title = userDetailToUpdate
         addLeftPadding(for: updateTextfield, placeholderText: userDetailToUpdate, placeholderColour: .darkGray)
         addLeftPadding(for: confirmPasswordTextfield, placeholderText: "Confirm Password", placeholderColour: .darkGray)
         confirmPasswordTextfield.isHidden = true
-        
+
         if userDetailToUpdate == "Display Name" {
             updateTextfield.text = Auth.auth().currentUser?.displayName
+            buttonGapConstraint.constant = 22
         } else if userDetailToUpdate == "Email" {
             updateTextfield.text = Auth.auth().currentUser?.email
+            buttonGapConstraint.constant = 22
         } else {
             updateTextfield.isSecureTextEntry = true
             confirmPasswordTextfield.isSecureTextEntry = true

@@ -19,8 +19,11 @@ class SettingsViewController: UIViewController {
     @IBOutlet var displayNameButton: UIButton!
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var emailButton: UIButton!
-    @IBOutlet var changePasswordButton: UIButton!
+    @IBOutlet var updateDetailsButton: UIButton!
     @IBOutlet var updateCredentialsView: UIStackView!
+    @IBOutlet var deleteAccountView: UIView!
+    @IBOutlet var displayNameView: UIView!
+    @IBOutlet var tableView: UITableView!
     
     fileprivate var handle: AuthStateDidChangeListenerHandle!
 
@@ -36,15 +39,11 @@ class SettingsViewController: UIViewController {
                     self.signInOrOutButton.setTitle("SIGN OUT (\(currentUser))", for: .normal)
                     Settings.currentUser = user
                 }
-                
-                self.displayNameLabel.text = user?.displayName
-                self.emailLabel.text = user?.email
-                self.updateCredentialsView.isHidden = false
+                self.updateDetailsButton.isHidden = false
 
-                
             } else {
                 self.signInOrOutButton.setTitle("SIGN IN", for: .normal)
-                self.updateCredentialsView.isHidden = true
+                self.updateDetailsButton.isHidden = true
             }
         })
         
@@ -53,10 +52,10 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addDisclosureAccessoryView(for: displayNameButton)
-        addDisclosureAccessoryView(for: emailButton)
-        addDisclosureAccessoryView(for: changePasswordButton)
+//
+//        addDisclosureAccessoryView(for: displayNameButton)
+//        addDisclosureAccessoryView(for: emailButton)
+//        addDisclosureAccessoryView(for: updateDetailsButton)
 
 
     }
@@ -67,16 +66,21 @@ class SettingsViewController: UIViewController {
 
     }
     
+  
+    
     
     // MARK: - Private Methods
 
     
     fileprivate func addDisclosureAccessoryView(for button: UIButton) {
         let disclosure = UITableViewCell()
-        disclosure.frame = button.bounds
+        disclosure.frame = CGRect(x: 0, y: 0, width: updateCredentialsView.frame.width, height: button.frame.height)
         disclosure.accessoryType = .disclosureIndicator
         disclosure.isUserInteractionEnabled = false
+
         button.addSubview(disclosure)
+  
+   
     }
 
 // MARK: - Action Methods
@@ -104,11 +108,12 @@ class SettingsViewController: UIViewController {
             
             present(vc, animated: true)
         }
-
+        
     }
     
     
     @IBAction func displayNameButtonTapped(_ sender: Any) {
+        
     }
     
     
@@ -122,23 +127,28 @@ class SettingsViewController: UIViewController {
     }
     
     
-    // MARK: - Navigation
+
+}
+
+// MARK: - Tableview Delegates
+
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! UpdateDetailsViewController
-        let button = sender as! UIButton
-        switch button.tag {
-        case 0:
-            vc.userDetailToUpdate = "Display Name"
-        case 1:
-            vc.userDetailToUpdate = "Email"
-        case 2:
-            vc.userDetailToUpdate = "Password"
-        default:
-            vc.userDetailToUpdate = ""
-        }
-        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialsCell", for: indexPath)
+        
+        cell.textLabel?.text = "Display Name"
+        cell.detailTextLabel?.text = "Sean"
+        
+        return cell
+    }
+    
+    
+    
 }
 
 
@@ -152,3 +162,5 @@ extension SettingsViewController: UpdateSignInDelegate {
     
     
 }
+
+

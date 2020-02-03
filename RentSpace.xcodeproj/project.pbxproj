@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		28F98941BC87A29428B1FA01 /* Pods_RentSpace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */; };
+		CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */; };
+		CE02CECB23E85433003B96A9 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */; };
 		CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084079238D40B200DA57C8 /* AppDelegate.swift */; };
 		CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407B238D40B200DA57C8 /* SceneDelegate.swift */; };
 		CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */; };
@@ -55,6 +57,8 @@
 		47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.release.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.release.xcconfig"; sourceTree = "<group>"; };
 		6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RentSpace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.debug.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.debug.xcconfig"; sourceTree = "<group>"; };
+		CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsTableViewController.swift; sourceTree = "<group>"; };
+		CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		CE084076238D40B200DA57C8 /* RentSpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RentSpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE084079238D40B200DA57C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE08407B238D40B200DA57C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,7 +183,9 @@
 				CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */,
 				CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */,
 				CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */,
+				CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */,
 				CE79981E23E6D82D0017E39A /* UpdateDetailsViewController.swift */,
+				CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */,
 				CEF5CBE423C23AFF0011243D /* SignInViewController.swift */,
 				CEF5CBE623C243A80011243D /* RegisterViewController.swift */,
 				CEF5CBDE23C1FF250011243D /* ChatsViewController.swift */,
@@ -371,6 +377,7 @@
 				CEC0B93D23D72013004DC4E6 /* SenderTableViewCell.swift in Sources */,
 				CEF5CBDB23C1F5E10011243D /* SettingsViewController.swift in Sources */,
 				CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */,
+				CE02CECB23E85433003B96A9 /* DeleteAccountViewController.swift in Sources */,
 				CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */,
 				CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */,
 				CEF5CBDF23C1FF250011243D /* ChatsViewController.swift in Sources */,
@@ -387,6 +394,7 @@
 				CEC0B93923D62007004DC4E6 /* MessageTableViewCell.swift in Sources */,
 				CEF5CBE923C7258C0011243D /* Settings.swift in Sources */,
 				CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */,
+				CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */,
 				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,
 				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,
 				CEF5CBD923C1DD650011243D /* MySpacesTableViewCell.swift in Sources */,
