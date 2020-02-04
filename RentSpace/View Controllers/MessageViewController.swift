@@ -107,11 +107,13 @@ class MessageViewController: UIViewController {
     
     fileprivate func configureUI() {
       
-        messageTextField.layer.cornerRadius = 15
+        messageTextField.layer.cornerRadius = 20
         messageTextField.layer.borderWidth = 1
-        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: messageTextField.frame.height))
-        messageTextField.leftView = leftPadView
-        messageTextField.leftViewMode = .always
+        messageTextField.layer.borderColor = UIColor.darkGray.cgColor
+        addLeftPadding(for: messageTextField, placeholderText: "Message...", placeholderColour: .gray)
+//        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: messageTextField.frame.height))
+//        messageTextField.leftView = leftPadView
+//        messageTextField.leftViewMode = .always
         
         if viewingExistingChat {
             advertTitleLabel.text = chat.title

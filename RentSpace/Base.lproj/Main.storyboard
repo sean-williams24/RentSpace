@@ -2304,17 +2304,44 @@ Only the best gear here.</string>
                                     <outlet property="delegate" destination="3zS-R9-c99" id="PkW-e0-BuN"/>
                                 </connections>
                             </textField>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mst-vx-gn2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fI-r7-oZp" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="87" y="345" width="240" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="SU3-S5-f5u"/>
+                                            <constraint firstAttribute="width" constant="240" id="T2L-Nx-Acj"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballClipRotateMultiple"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="7fI-r7-oZp" firstAttribute="centerY" secondItem="Mst-vx-gn2" secondAttribute="centerY" id="WNj-px-cPn"/>
+                                    <constraint firstItem="7fI-r7-oZp" firstAttribute="centerX" secondItem="Mst-vx-gn2" secondAttribute="centerX" id="jFd-nP-cW7"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="jJ8-Tu-nRn" firstAttribute="trailing" secondItem="EQV-cU-QjI" secondAttribute="trailing" id="4Ar-Np-Sg0"/>
                             <constraint firstItem="jJ8-Tu-nRn" firstAttribute="trailing" secondItem="l37-Qq-Xyh" secondAttribute="trailing" id="Dwn-Gt-qHH"/>
+                            <constraint firstItem="Mst-vx-gn2" firstAttribute="bottom" secondItem="jJ8-Tu-nRn" secondAttribute="bottom" id="JeU-YZ-Jw6"/>
+                            <constraint firstItem="Mst-vx-gn2" firstAttribute="leading" secondItem="jJ8-Tu-nRn" secondAttribute="leading" id="Qnt-se-HjA"/>
+                            <constraint firstItem="Mst-vx-gn2" firstAttribute="top" secondItem="jJ8-Tu-nRn" secondAttribute="top" id="SC4-ZQ-exr"/>
                             <constraint firstItem="VL8-Jm-XEt" firstAttribute="leading" secondItem="jJ8-Tu-nRn" secondAttribute="leading" id="SlT-rU-m59"/>
                             <constraint firstItem="EQV-cU-QjI" firstAttribute="leading" secondItem="jJ8-Tu-nRn" secondAttribute="leading" id="Vxc-tI-dds"/>
                             <constraint firstItem="VL8-Jm-XEt" firstAttribute="trailing" secondItem="jJ8-Tu-nRn" secondAttribute="trailing" id="Ydv-de-h7t"/>
                             <constraint firstItem="l37-Qq-Xyh" firstAttribute="top" secondItem="VL8-Jm-XEt" secondAttribute="bottom" constant="8" id="Znq-dA-5Ns"/>
                             <constraint firstItem="VL8-Jm-XEt" firstAttribute="trailing" secondItem="jJ8-Tu-nRn" secondAttribute="trailing" id="ebH-Fs-9ee"/>
                             <constraint firstItem="l37-Qq-Xyh" firstAttribute="leading" secondItem="jJ8-Tu-nRn" secondAttribute="leading" id="gXH-hp-bxX"/>
+                            <constraint firstItem="Mst-vx-gn2" firstAttribute="trailing" secondItem="jJ8-Tu-nRn" secondAttribute="trailing" id="mWQ-Ui-frh"/>
                             <constraint firstItem="EQV-cU-QjI" firstAttribute="top" secondItem="VL8-Jm-XEt" secondAttribute="bottom" constant="80" id="r4e-JI-Z3d"/>
                             <constraint firstItem="VL8-Jm-XEt" firstAttribute="top" secondItem="jJ8-Tu-nRn" secondAttribute="top" constant="120" id="s1I-f8-0ys"/>
                         </constraints>
@@ -2322,14 +2349,17 @@ Only the best gear here.</string>
                     </view>
                     <navigationItem key="navigationItem" id="wVn-Uq-ZcH"/>
                     <connections>
+                        <outlet property="activityView" destination="7fI-r7-oZp" id="vuD-xB-VcI"/>
                         <outlet property="buttonGapConstraint" destination="r4e-JI-Z3d" id="7Ly-IM-fNA"/>
                         <outlet property="confirmPasswordTextfield" destination="l37-Qq-Xyh" id="Nm0-Iv-oyn"/>
+                        <outlet property="loadingView" destination="Mst-vx-gn2" id="kBW-OH-2r5"/>
+                        <outlet property="updateButton" destination="EQV-cU-QjI" id="jwf-fd-Ocv"/>
                         <outlet property="updateTextfield" destination="VL8-Jm-XEt" id="8kJ-Uk-GD8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dJE-bT-CkZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6271" y="1294"/>
+            <point key="canvasLocation" x="6269.5652173913049" y="1293.75"/>
         </scene>
         <!--Delete Account-->
         <scene sceneID="lq0-Pm-0CX">
@@ -2722,7 +2752,7 @@ Only the best gear here.</string>
                                     <constraint firstItem="Yiq-1n-X0n" firstAttribute="top" secondItem="uuj-ph-ino" secondAttribute="top" constant="27" id="zdb-fb-bFk"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-gQ-hTu">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-gQ-hTu">
                                 <rect key="frame" x="0.0" y="211" width="414" height="602"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -2839,48 +2869,6 @@ Only the best gear here.</string>
                                     <outlet property="delegate" destination="C9D-wR-qoe" id="Azd-sA-9pU"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YyV-RV-B2b" userLabel="Send Message View">
-                                <rect key="frame" x="0.0" y="816" width="414" height="46"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-ij-Ly6">
-                                        <rect key="frame" x="10" y="8" width="348" height="30"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="JDD-Jt-d7Z"/>
-                                        </constraints>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="C9D-wR-qoe" id="Fby-AU-Tyf"/>
-                                        </connections>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-O0-aTM">
-                                        <rect key="frame" x="368" y="5.5" width="36" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="2r8-jb-5OG"/>
-                                            <constraint firstAttribute="width" constant="36" id="t5L-WU-sRj"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                        <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" backgroundImage="arrow.up.circle.fill" catalog="system"/>
-                                        <connections>
-                                            <action selector="sendMessageButtonTapped:" destination="C9D-wR-qoe" eventType="touchUpInside" id="BMB-MK-HkD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="gDd-ij-Ly6" firstAttribute="top" secondItem="YyV-RV-B2b" secondAttribute="top" constant="8" id="1me-rl-z8o"/>
-                                    <constraint firstItem="gDd-ij-Ly6" firstAttribute="leading" secondItem="YyV-RV-B2b" secondAttribute="leading" constant="10" id="BOo-nM-qSK"/>
-                                    <constraint firstItem="RJ7-O0-aTM" firstAttribute="top" secondItem="YyV-RV-B2b" secondAttribute="top" constant="5" id="Xfp-7v-OQU"/>
-                                    <constraint firstAttribute="bottom" secondItem="gDd-ij-Ly6" secondAttribute="bottom" constant="8" id="YGG-mf-cgO"/>
-                                    <constraint firstAttribute="bottom" secondItem="RJ7-O0-aTM" secondAttribute="bottom" constant="5" id="jO7-tx-u4B"/>
-                                    <constraint firstAttribute="trailing" secondItem="RJ7-O0-aTM" secondAttribute="trailing" constant="10" id="xfg-dE-f5b"/>
-                                    <constraint firstItem="RJ7-O0-aTM" firstAttribute="leading" secondItem="gDd-ij-Ly6" secondAttribute="trailing" constant="10" id="yPo-kn-Bn6"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wQJ-9b-64r" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="87" y="411" width="240" height="128"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2895,28 +2883,61 @@ Only the best gear here.</string>
                                     <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballClipRotateMultiple"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Message..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-ij-Ly6">
+                                <rect key="frame" x="15" y="819" width="329" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="JDD-Jt-d7Z"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
+                                <connections>
+                                    <outlet property="delegate" destination="C9D-wR-qoe" id="Fby-AU-Tyf"/>
+                                </connections>
+                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Messages..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yks-Ja-vBW">
                                 <rect key="frame" x="10" y="780.5" width="394" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-O0-aTM">
+                                <rect key="frame" x="354" y="821" width="50" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="2r8-jb-5OG"/>
+                                    <constraint firstAttribute="width" constant="50" id="t5L-WU-sRj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendMessageButtonTapped:" destination="C9D-wR-qoe" eventType="touchUpInside" id="BMB-MK-HkD"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wQJ-9b-64r" firstAttribute="centerX" secondItem="agF-yV-ga4" secondAttribute="centerX" id="1jZ-jv-bfr"/>
                             <constraint firstItem="aRT-gQ-hTu" firstAttribute="top" secondItem="uuj-ph-ino" secondAttribute="bottom" constant="3" id="89K-Iz-fKG"/>
+                            <constraint firstItem="RJ7-O0-aTM" firstAttribute="leading" secondItem="gDd-ij-Ly6" secondAttribute="trailing" constant="10" id="9gO-Ua-L7B"/>
                             <constraint firstItem="aRT-gQ-hTu" firstAttribute="trailing" secondItem="agF-yV-ga4" secondAttribute="trailing" id="AJY-72-Vgo"/>
-                            <constraint firstItem="YyV-RV-B2b" firstAttribute="bottom" secondItem="agF-yV-ga4" secondAttribute="bottom" id="Cfy-Pe-STR"/>
-                            <constraint firstItem="YyV-RV-B2b" firstAttribute="top" secondItem="Yks-Ja-vBW" secondAttribute="bottom" constant="15" id="Dkp-BC-ps9"/>
+                            <constraint firstItem="agF-yV-ga4" firstAttribute="trailing" secondItem="RJ7-O0-aTM" secondAttribute="trailing" constant="10" id="O87-9k-LRO"/>
+                            <constraint firstItem="agF-yV-ga4" firstAttribute="trailing" secondItem="Yks-Ja-vBW" secondAttribute="trailing" constant="10" id="QHo-xY-1PX"/>
                             <constraint firstItem="uuj-ph-ino" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" id="Sem-xb-Knn"/>
                             <constraint firstItem="uuj-ph-ino" firstAttribute="trailing" secondItem="agF-yV-ga4" secondAttribute="trailing" id="SsP-Ob-0JN"/>
+                            <constraint firstItem="RJ7-O0-aTM" firstAttribute="centerY" secondItem="gDd-ij-Ly6" secondAttribute="centerY" id="WEF-4k-q6Q"/>
                             <constraint firstItem="Yks-Ja-vBW" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" constant="10" id="Y01-US-EkE"/>
-                            <constraint firstItem="YyV-RV-B2b" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" id="ccL-ci-ysm"/>
-                            <constraint firstItem="YyV-RV-B2b" firstAttribute="trailing" secondItem="agF-yV-ga4" secondAttribute="trailing" id="fqD-VC-m0x"/>
+                            <constraint firstItem="Yks-Ja-vBW" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" constant="10" id="cYe-c3-NJj"/>
+                            <constraint firstItem="gDd-ij-Ly6" firstAttribute="top" secondItem="aRT-gQ-hTu" secondAttribute="bottom" constant="6" id="cgE-Wu-lq0"/>
+                            <constraint firstItem="gDd-ij-Ly6" firstAttribute="top" secondItem="Yks-Ja-vBW" secondAttribute="bottom" constant="18" id="kOk-Hw-jPd"/>
+                            <constraint firstItem="gDd-ij-Ly6" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" constant="15" id="kkd-88-h7S"/>
                             <constraint firstItem="agF-yV-ga4" firstAttribute="trailing" secondItem="Yks-Ja-vBW" secondAttribute="trailing" constant="10" id="o3h-sS-tnl"/>
                             <constraint firstItem="aRT-gQ-hTu" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" id="p4k-hr-zdD"/>
-                            <constraint firstItem="YyV-RV-B2b" firstAttribute="top" secondItem="aRT-gQ-hTu" secondAttribute="bottom" constant="3" id="usm-jU-qWH"/>
+                            <constraint firstItem="agF-yV-ga4" firstAttribute="bottom" secondItem="RJ7-O0-aTM" secondAttribute="bottom" constant="5" id="sSB-bP-9UQ"/>
                             <constraint firstItem="uuj-ph-ino" firstAttribute="top" secondItem="agF-yV-ga4" secondAttribute="top" id="xGt-uZ-yMx"/>
                             <constraint firstItem="wQJ-9b-64r" firstAttribute="centerY" secondItem="agF-yV-ga4" secondAttribute="centerY" id="zvP-YH-2Tx"/>
                         </constraints>
@@ -2998,7 +3019,6 @@ Only the best gear here.</string>
         <image name="Square FS BG" width="566.5" height="566.5"/>
         <image name="addPhotos1" width="80" height="80"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
-        <image name="arrow.up.circle.fill" catalog="system" width="64" height="60"/>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="checkmark.circle.fill" catalog="system" width="64" height="60"/>
         <image name="desktopcomputer" catalog="system" width="64" height="50"/>

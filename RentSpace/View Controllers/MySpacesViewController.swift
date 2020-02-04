@@ -56,7 +56,7 @@ class MySpacesViewController: UIViewController {
 //                    self.title = displayName
 //                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                    if self.mySpaces.isEmpty {
+                    if self.mySpaces.isEmpty && !self.viewingFavourites {
                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                         self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
                     } else {
@@ -93,11 +93,11 @@ class MySpacesViewController: UIViewController {
             tableView.reloadData()
         }
         
-        if Favourites.spaces.isEmpty {
-            favouritesButton.isEnabled = false
-        } else {
-            favouritesButton.isEnabled = true
-        }
+//        if Favourites.spaces.isEmpty {
+//            favouritesButton.isEnabled = false
+//        } else {
+//            favouritesButton.isEnabled = true
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -164,6 +164,10 @@ class MySpacesViewController: UIViewController {
         } else {
             loadFavourites()
             favouritesButton.title = "View Spaces"
+            if self.mySpaces.isEmpty {
+                self.tableView.reloadData()
+                self.infoLabel.text = "Your favourites are empty \n\nSave your favourite spaces by tapping their heart icon."
+            }
         }
         
         viewingFavourites = !viewingFavourites
@@ -314,6 +318,11 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 }
                 tableView.reloadData()
+                
+                if self.viewingFavourites && self.mySpaces.isEmpty {
+                    self.infoLabel.text = "Your favourites are empty. Save your favourite spaces by tapping a it's heart icon."
+                }
+                
             }))
             
             ac.addAction(UIAlertAction(title: "Cancel", style: .default))

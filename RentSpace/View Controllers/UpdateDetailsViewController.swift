@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import NVActivityIndicatorView
 import UIKit
 
 class UpdateDetailsViewController: UIViewController {
@@ -15,6 +16,9 @@ class UpdateDetailsViewController: UIViewController {
     @IBOutlet var updateTextfield: UITextField!
     @IBOutlet var confirmPasswordTextfield: UITextField!
     @IBOutlet var buttonGapConstraint: NSLayoutConstraint!
+    @IBOutlet var loadingView: UIView!
+    @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var updateButton: UIButton!
     
     
     
@@ -54,6 +58,8 @@ class UpdateDetailsViewController: UIViewController {
 
     
     fileprivate func handleUpdateCompletion(_ error: Error?) {
+        viewIsLoading(false)
+
         if error != nil {
             showAlert(title: "Oops!", message: error?.localizedDescription)
         } else {
@@ -65,12 +71,31 @@ class UpdateDetailsViewController: UIViewController {
         }
     }
     
+    fileprivate func viewIsLoading(_ loading: Bool) {
+        UIView.animate(withDuration: 0.2) {
+            if loading {
+                self.loadingView.alpha = 0.7
+                self.activityView.startAnimating()
+                self.updateTextfield.isEnabled = false
+                self.updateButton.isEnabled = false
+            } else {
+                UIView.animate(withDuration: 0.2) {
+                    self.loadingView.alpha = 0
+                    self.activityView.stopAnimating()
+                    self.updateTextfield.isEnabled = true
+                    self.updateButton.isEnabled = true
+                }
+            }
+        }
+    }
+    
     
     //MARK: - Action Methods
 
     
     @IBAction func updateButtonTapped(_ sender: Any) {
         guard let newCredential = updateTextfield.text else { return }
+        viewIsLoading(true)
         
         if userDetailToUpdate == "Display Name" {
             if isValidDisplayName(newCredential) {
@@ -80,6 +105,7 @@ class UpdateDetailsViewController: UIViewController {
                     self.handleUpdateCompletion(error)
                 }
             } else {
+                viewIsLoading(false)
                 showAlert(title: "Whoops!", message: "Display name needs to be at least 3 characters...")
             }
         } else if userDetailToUpdate == "Email" {
@@ -88,6 +114,7 @@ class UpdateDetailsViewController: UIViewController {
                     self.handleUpdateCompletion(error)
                    }
             } else {
+                viewIsLoading(false)
                 showAlert(title: "Oh No!", message: "That doesn't appear to be a valid email address...")
             }
         } else {
@@ -96,6 +123,7 @@ class UpdateDetailsViewController: UIViewController {
                   self.handleUpdateCompletion(error)
                 }
             } else {
+                viewIsLoading(false)
                 showAlert(title: "Hmmm", message: "Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number.")
             }
         }
