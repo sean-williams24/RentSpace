@@ -36,10 +36,11 @@ class RegisterViewController: UIViewController {
         registerButton.backgroundColor = .darkGray
         registerButton.layer.cornerRadius = Settings.cornerRadius
         passwordDetailsLabel.alpha = 0
-        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
-        configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")
-        configureTextFieldPlaceholders(for: confirmPasswordTextField, withText: "Confirm Password")
-        configureTextFieldPlaceholders(for: displayNameTextField, withText: "Display Name")
+        
+        addLeftPadding(for: displayNameTextField, placeholderText: "Display Name", placeholderColour: .gray)
+        addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
+        addLeftPadding(for: passwordTextField, placeholderText: "Password", placeholderColour: .gray)
+        addLeftPadding(for: confirmPasswordTextField, placeholderText: "Confirm Password", placeholderColour: .gray)
         
         passwordTextField.isSecureTextEntry = true
         confirmPasswordTextField.isSecureTextEntry = true

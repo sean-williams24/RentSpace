@@ -44,6 +44,7 @@ class SettingsViewController: UIViewController {
             } else {
                 self.signInOrOutButton.setTitle("SIGN IN", for: .normal)
                 self.updateDetailsButton.isHidden = true
+                self.popToRootController(ofTab: 0)
             }
         })
         

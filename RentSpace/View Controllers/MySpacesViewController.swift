@@ -42,6 +42,7 @@ class MySpacesViewController: UIViewController {
             if user != nil {
                 self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
                 self.signedOutView.isHidden = true
+                self.favouritesButton.isEnabled = true
                 self.signedIn = true
                 Settings.currentUser = user
                 
@@ -54,8 +55,9 @@ class MySpacesViewController: UIViewController {
 //                if let displayName = Auth.auth().currentUser?.displayName {
 //                    self.title = displayName
 //                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                     if self.mySpaces.isEmpty {
+                        self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                         self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
                     } else {
                         self.infoLabel.text = ""
@@ -65,6 +67,7 @@ class MySpacesViewController: UIViewController {
                 
             } else {
                 self.signedOutView.isHidden = false
+                self.favouritesButton.isEnabled = false
                 self.mySpaces.removeAll()
                 self.tableView.reloadData()
                 self.infoLabel.text = ""

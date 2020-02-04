@@ -48,8 +48,9 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
-        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
-        configureTextFieldPlaceholders(for: passwordTextField, withText: "Password")
+        addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
+        addLeftPadding(for: passwordTextField, placeholderText: "Password", placeholderColour: .gray)
+        
         passwordTextField.isSecureTextEntry = true
 //        dismissKeyboardOnViewTap()
         

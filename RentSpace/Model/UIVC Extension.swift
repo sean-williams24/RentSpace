@@ -235,6 +235,23 @@ extension UIViewController {
         textfield.leftViewMode = .always
         textfield.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: placeholderColour])
     }
+    
+    
+    func popToRootController(ofTab index: Int) {
+        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
+            let tabIndex = index
+            let window = UIApplication.shared.windows[0]
+            let tabBar = window.rootViewController as? UITabBarController
+            
+            // Change the selected tab item to destination View Controller
+            tabBar?.selectedIndex = tabIndex
+            
+            // Pop to the root controller of that tab
+            if let vc = tabBar?.viewControllers?[tabIndex] as? UINavigationController {
+                vc.popToRootViewController(animated: true)
+            }
+        })
+    }
  
 }
 

@@ -34,21 +34,9 @@ class PostConfirmationViewController: UIViewController {
 
     }
     
-
-
+    
     @IBAction func viewAdvertsTapped(_ sender: Any) {
-        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
-            let tabIndex = 2
-            let window = UIApplication.shared.windows[0]
-            let tabBar = window.rootViewController as? UITabBarController
-            // Change the selected tab item to MySpacesVC
-            tabBar?.selectedIndex = tabIndex
-            
-            // Pop to the root controller of that tab
-            if let vc = tabBar?.viewControllers?[tabIndex] as? UINavigationController {
-                vc.popToRootViewController(animated: true)
-            }
-        })
+        popToRootController(ofTab: 2)
     }
     
     @IBAction func postAnotherSpaceTapped(_ sender: Any) {

@@ -110,7 +110,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        self.resignFirstResponder()
         
     }
     

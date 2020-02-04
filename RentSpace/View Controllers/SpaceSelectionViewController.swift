@@ -17,6 +17,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     @IBOutlet var photographyButton: UIButton!
     @IBOutlet var musicButton: UIButton!
     @IBOutlet var deskButton: UIButton!
+    @IBOutlet var signInButton: UIBarButtonItem!
     
     var locationManager: CLLocationManager!
     var handle: AuthStateDidChangeListenerHandle!
@@ -41,8 +42,20 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             if user != nil {
                 Settings.currentUser = user
                 self.tabBarController?.tabBar.isHidden = false
+                self.signInButton.isEnabled = false
+                self.signInButton.tintColor = .clear
+                
+                let frame = self.tabBarController?.tabBar.frame
+                let height = frame?.size.height
+                let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
+                let safeAreaHeightInsets = safeArea.height - self.view.frame.height
+                let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 3
+                self.view.frame.origin.y = -tabBarHeight
+
             } else {
                 self.tabBarController?.tabBar.isHidden = true
+                self.signInButton.isEnabled = true
+                self.signInButton.tintColor = Settings.orangeTint
             }
         })
         
@@ -207,6 +220,12 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     // MARK: - Action Methods
 
+    
+    @IBAction func signInButtonTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+        present(vc, animated: true)
+    }
+    
     
     
     @IBAction func buttonTapped(_ sender: UIButton) {
