@@ -57,15 +57,26 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         
-        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
-        configureTextFieldPlaceholders(for: phoneNumberTextField, withText: "Phone")
-        configureTextFieldPlaceholders(for: streetLabel, withText: "Street")
-        configureTextFieldPlaceholders(for: townLabel, withText: "Town")
-        configureTextFieldPlaceholders(for: cityLabel, withText: "City")
-        configureTextFieldPlaceholders(for: countyLabel, withText: "County")
-        configureTextFieldPlaceholders(for: countryLabel, withText: "Country")
-        configureTextFieldPlaceholders(for: postcodeLabel, withText: "Postcode")
-        configureTextFieldPlaceholders(for: stateLabel, withText: "State")
+//        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
+//        configureTextFieldPlaceholders(for: phoneNumberTextField, withText: "Phone")
+//        configureTextFieldPlaceholders(for: streetLabel, withText: "Street")
+//        configureTextFieldPlaceholders(for: townLabel, withText: "Town")
+//        configureTextFieldPlaceholders(for: cityLabel, withText: "City")
+//        configureTextFieldPlaceholders(for: countyLabel, withText: "County")
+//        configureTextFieldPlaceholders(for: countryLabel, withText: "Country")
+//        configureTextFieldPlaceholders(for: postcodeLabel, withText: "Postcode")
+//        configureTextFieldPlaceholders(for: stateLabel, withText: "State")
+        
+        addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
+        addLeftPadding(for: phoneNumberTextField, placeholderText: "Phone", placeholderColour: .gray)
+        addLeftPadding(for: streetLabel, placeholderText: "Street", placeholderColour: .gray)
+        addLeftPadding(for: townLabel, placeholderText: "Town", placeholderColour: .gray)
+        addLeftPadding(for: cityLabel, placeholderText: "City", placeholderColour: .gray)
+        addLeftPadding(for: countyLabel, placeholderText: "County", placeholderColour: .gray)
+        addLeftPadding(for: countryLabel, placeholderText: "Country", placeholderColour: .gray)
+        addLeftPadding(for: postcodeLabel, placeholderText: "Postcode", placeholderColour: .gray)
+        addLeftPadding(for: stateLabel, placeholderText: "State", placeholderColour: .gray)
+
         
         if Constants.userLocationCountry == "United States" {
             configureTextFieldPlaceholders(for: postcodeLabel, withText: "Zip Code")

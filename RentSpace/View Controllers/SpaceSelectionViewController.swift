@@ -40,6 +40,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 Settings.currentUser = user
+                self.tabBarController?.tabBar.isHidden = false
+            } else {
+                self.tabBarController?.tabBar.isHidden = true
             }
         })
         
@@ -106,7 +109,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         configure(photographyButton, text: "Photography")
         configure(musicButton, text: "Music")
         configure(deskButton, text: "Desk Space")
-        
+                
         let savedLocation = UserDefaults.standard.string(forKey: "Location")
         let savedLocationPostcode = UserDefaults.standard.string(forKey: "LocationPostcode") ?? ""
         
@@ -198,8 +201,12 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             vc.chosenCategory = "Art Studio"
         }
         
+//        self.hidesBottomBarWhenPushed = true
     }
     
+    
+    // MARK: - Action Methods
+
     
     
     @IBAction func buttonTapped(_ sender: UIButton) {

@@ -43,7 +43,7 @@ class DeleteAccountViewController: UIViewController {
                 // Delete each space from adverts path and user path, and also delete images for each space from Storage
                 for space in self.spacesToDelete {
                     self.ref.child("adverts/United Kingdom/\(space.category)/\(self.UID)-\(space.key)").removeValue()
-                    space.ref?.removeValue()
+//                    space.ref?.removeValue()
                     
                     if let imageURLs = space.photos {
                         FirebaseClient.deleteImagesFromFirebaseCloudStorage(imageURLsDict: imageURLs) {
@@ -51,6 +51,9 @@ class DeleteAccountViewController: UIViewController {
                         }
                     }
                 }
+                
+                self.ref.child("users/\(self.UID)").removeValue()
+
                 
                 let user = Auth.auth().currentUser
                   

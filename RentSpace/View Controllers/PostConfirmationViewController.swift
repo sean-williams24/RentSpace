@@ -22,6 +22,8 @@ class PostConfirmationViewController: UIViewController {
         super.viewDidLoad()
         
         viewAdvertsButton.layer.cornerRadius = Settings.cornerRadius
+        viewAdvertsButton.layer.borderWidth = 1
+        viewAdvertsButton.layer.borderColor = Settings.orangeTint.cgColor
         postAnotherSpaceButton.layer.cornerRadius = Settings.cornerRadius
         
         if updatingAdvert {
