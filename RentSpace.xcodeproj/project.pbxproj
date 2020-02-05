@@ -135,6 +135,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE02CECE23EB2DED003B96A9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				CE6583A42397E26C001FFA8A /* Space.swift */,
+				CEC0B93423D1C286004DC4E6 /* Chat.swift */,
+				CE5D27CE238EC8AA0098B0FA /* Photo.swift */,
+				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
+				CE79981823E1BF840017E39A /* Favourites.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		CE08406D238D40B200DA57C8 = {
 			isa = PBXGroup;
 			children = (
@@ -199,17 +211,13 @@
 		CE084098238EA95800DA57C8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CE02CECE23EB2DED003B96A9 /* Data */,
 				CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */,
 				CE084093238EA79700DA57C8 /* DataController.swift */,
 				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
-				CE5D27CE238EC8AA0098B0FA /* Photo.swift */,
 				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
-				CE6583A42397E26C001FFA8A /* Space.swift */,
 				CE6583AB239A8A13001FFA8A /* Constants.swift */,
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
-				CEC0B93423D1C286004DC4E6 /* Chat.swift */,
-				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
-				CE79981823E1BF840017E39A /* Favourites.swift */,
 				CE02CECC23E88873003B96A9 /* FirebaseClient.swift */,
 			);
 			path = Model;

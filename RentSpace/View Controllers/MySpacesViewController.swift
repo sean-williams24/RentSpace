@@ -111,12 +111,14 @@ class MySpacesViewController: UIViewController {
     // MARK: - Private Methods
     
     fileprivate func loadUserSpaces() {
-        self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
+        mySpaces.removeAll()
+        tableView.reloadData()
+        self.refHandle = self.ref.child("users/\(self.UID)/adverts").queryOrdered(byChild: "timestamp").observe(.value, with: { (snapShot) in
             
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
                     let space = Space(snapshot: snapshot) {
-                    self.mySpaces.append(space)
+                    self.mySpaces.insert(space, at: 0)
                 }
             }
             

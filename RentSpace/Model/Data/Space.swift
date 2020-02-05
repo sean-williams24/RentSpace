@@ -32,9 +32,10 @@ struct Space {
     let viewOnMap: Bool
     let postedByUser: String
     let userDisplayName: String
-    let timestamp: Timestamp?
+    let timestamp: Double
+//    let distance: Double
     
-    init(key: String = "", title: String, description: String, category: String, price: String, priceRate: String, email: String, phone: String, photos: Dictionary<String,String>?, town: String, city: String, subAdminArea: String, postcode: String, state: String, country: String, viewOnMap: Bool, postedByUser: String, userDisplayName: String, timestamp: Timestamp) {
+    init(key: String = "", title: String, description: String, category: String, price: String, priceRate: String, email: String, phone: String, photos: Dictionary<String,String>?, town: String, city: String, subAdminArea: String, postcode: String, state: String, country: String, viewOnMap: Bool, postedByUser: String, userDisplayName: String, timestamp: Double) {
         self.ref = nil
         self.key = key
         self.title = title
@@ -81,7 +82,7 @@ struct Space {
             let viewOnMap = value["viewOnMap"] as? Bool,
             let postedByUser = value["postedByUser"] as? String,
             let userDisplayName = value["userDisplayName"] as? String,
-            let timestamp = value["timestamp"] as? Timestamp? else { return nil}
+            let timestamp = value["timestamp"] as? Double? else { return nil}
         
         self.ref = snapshot.ref
         self.key = snapshot.key
@@ -104,7 +105,7 @@ struct Space {
         self.viewOnMap = viewOnMap
         self.postedByUser = postedByUser
         self.userDisplayName = userDisplayName
-        self.timestamp = timestamp
+        self.timestamp = timestamp ?? 0
         
         
     }
@@ -127,7 +128,8 @@ struct Space {
             "country": country,
             "viewOnMap": viewOnMap,
             "postedByUser": postedByUser,
-            "userDisplayName": userDisplayName
+            "userDisplayName": userDisplayName,
+            "timestamp": timestamp
         ]
     }
     

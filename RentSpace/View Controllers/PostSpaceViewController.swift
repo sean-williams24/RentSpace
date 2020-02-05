@@ -366,7 +366,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                               viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
                               postedByUser: Settings.currentUser?.uid ?? "",
                               userDisplayName: Settings.currentUser?.displayName ?? "",
-                              timestamp: Timestamp())
+                              timestamp: Date().timeIntervalSince1970 as Double)
 
         
         // Write to Adverts firebase pathes
@@ -427,6 +427,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     self.imagesSavedToDisk = []
                     self.imagesToUpload = []
                     self.collectionView.reloadData()
+                    self.postButton.isEnabled = true
+
                     
                     let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
                     self.present(vc, animated: true)
@@ -441,6 +443,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         advertsPath = "adverts/\(self.location)/\(self.category)/\(UID)"
         userAdvertsPath = "users/\(UID)/adverts"
         uploadView.isHidden = false
+        postButton.isEnabled = false
         
         let imagesUpdated = defaults.bool(forKey: "ImagesUpdated")
         
