@@ -36,7 +36,8 @@ class MySpacesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
-        
+        self.ref = Database.database().reference()
+
         authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
 
             if user != nil {
@@ -46,19 +47,18 @@ class MySpacesViewController: UIViewController {
                 self.signedIn = true
                 Settings.currentUser = user
                 
-                self.ref = Database.database().reference()
                 self.UID = user!.uid
-
                 self.loadUserSpaces()
 
-//                self.title = Settings.currentUser?.email
-//                if let displayName = Auth.auth().currentUser?.displayName {
-//                    self.title = displayName
-//                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                    if self.mySpaces.isEmpty && !self.viewingFavourites {
+                    if self.mySpaces.isEmpty {
                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                        self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
+                        
+                        if self.viewingFavourites {
+                            self.showEmptySpacesInfo(for: "favourites")
+                        } else {
+                            self.showEmptySpacesInfo()
+                        }
                     } else {
                         self.infoLabel.text = ""
                     }
@@ -82,22 +82,15 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        viewingFavourites ? loadFavourites() : loadUserSpaces()
         
-//        if let displayName = Auth.auth().currentUser?.displayName {
-//            self.title = displayName
-//        }
-        
-        if !mySpaces.isEmpty {
-            viewingFavourites ? loadFavourites() : loadUserSpaces()
+        if Favourites.spaces.isEmpty {
+            self.showEmptySpacesInfo(for: "favourites")
         } else {
-            tableView.reloadData()
+            self.infoLabel.text = ""
+
         }
-        
-//        if Favourites.spaces.isEmpty {
-//            favouritesButton.isEnabled = false
-//        } else {
-//            favouritesButton.isEnabled = true
-//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -134,7 +127,7 @@ class MySpacesViewController: UIViewController {
 //            cell.activityView.startAnimating()
             
             if self.mySpaces.isEmpty {
-                self.infoLabel.text = "Your adverts will appear here once posted to RentSpace."
+                self.showEmptySpacesInfo()
             } else {
                 self.infoLabel.text = ""
             }
@@ -144,13 +137,38 @@ class MySpacesViewController: UIViewController {
     
     fileprivate func loadFavourites() {
         mySpaces.removeAll()
+        tableView.reloadData()
+        self.showEmptySpacesInfo(for: "favourites")
+
         for favourite in Favourites.spaces {
             self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
+                
                 if let space = Space(snapshot: favSnapshot) {
                     self.mySpaces.append(space)
                 }
                 self.tableView.reloadData()
+                
+                if self.mySpaces.isEmpty {
+                    self.showEmptySpacesInfo(for: "favourites")
+                } else {
+                    self.infoLabel.text = ""
+                }
             })
+        }
+    }
+    
+    
+    fileprivate func showEmptySpacesInfo(for label: String = "mySpaces") {
+        let attributes: [NSAttributedString.Key : Any] = [.font: UIFont.boldSystemFont(ofSize: 20)]
+
+        if label == "favourites" {
+            let attributedString = NSMutableAttributedString(string: "No Favourites Yet \n\nSave your favourite spaces by tapping their heart icon.")
+            attributedString.addAttributes(attributes, range: NSRange(location: 0, length: 18))
+            self.infoLabel.attributedText = attributedString
+        } else {
+            let attributedString = NSMutableAttributedString(string: "No Spaces Yet \n\nYour adverts will appear here once posted to RentSpace.")
+            attributedString.addAttributes(attributes, range: NSRange(location: 0, length: 13))
+            self.infoLabel.attributedText = attributedString
         }
     }
     
@@ -164,14 +182,9 @@ class MySpacesViewController: UIViewController {
         } else {
             loadFavourites()
             favouritesButton.title = "View Spaces"
-            if self.mySpaces.isEmpty {
-                self.tableView.reloadData()
-                self.infoLabel.text = "Your favourites are empty \n\nSave your favourite spaces by tapping their heart icon."
-            }
         }
         
         viewingFavourites = !viewingFavourites
-        
     }
     
     
@@ -320,7 +333,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.reloadData()
                 
                 if self.viewingFavourites && self.mySpaces.isEmpty {
-                    self.infoLabel.text = "Your favourites are empty. Save your favourite spaces by tapping a it's heart icon."
+                    self.showEmptySpacesInfo(for: "favourites")
                 }
                 
             }))
