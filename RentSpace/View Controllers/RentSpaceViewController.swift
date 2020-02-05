@@ -153,7 +153,7 @@ class RentSpaceViewController: UIViewController {
 
                 for child in snapshot.children {
                     if let spaceSnapshot = child as? DataSnapshot,
-                        let space = Space(snapshot: spaceSnapshot) {
+                        var space = Space(snapshot: spaceSnapshot) {
                         let address = space.postcode + " " + space.city
                         
                         
@@ -168,11 +168,14 @@ class RentSpaceViewController: UIViewController {
                                         print("Set Miles: \(setMiles)")
                                         print("Distance: \(distanceInMiles)")
                                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                                        space.distance = distanceInMiles
                                         newSpaces.append(space)
                                     }
                                     index += 1
                                     if index == spaceCount {
-                                        self.spaces = newSpaces
+                                        self.spaces = newSpaces.sorted {
+                                            $0.distance < $1.distance
+                                        }
                                         print(self.spaces.count)
                                         self.tableView.reloadData()
                                     }

@@ -33,9 +33,9 @@ struct Space {
     let postedByUser: String
     let userDisplayName: String
     let timestamp: Double
-//    let distance: Double
+    var distance: Double
     
-    init(key: String = "", title: String, description: String, category: String, price: String, priceRate: String, email: String, phone: String, photos: Dictionary<String,String>?, town: String, city: String, subAdminArea: String, postcode: String, state: String, country: String, viewOnMap: Bool, postedByUser: String, userDisplayName: String, timestamp: Double) {
+    init(key: String = "", title: String, description: String, category: String, price: String, priceRate: String, email: String, phone: String, photos: Dictionary<String,String>?, town: String, city: String, subAdminArea: String, postcode: String, state: String, country: String, viewOnMap: Bool, postedByUser: String, userDisplayName: String, timestamp: Double, distance: Double = 1) {
         self.ref = nil
         self.key = key
         self.title = title
@@ -56,6 +56,7 @@ struct Space {
         self.postedByUser = postedByUser
         self.userDisplayName = userDisplayName
         self.timestamp = timestamp
+        self.distance = distance
     }
     
     
@@ -106,7 +107,7 @@ struct Space {
         self.postedByUser = postedByUser
         self.userDisplayName = userDisplayName
         self.timestamp = timestamp ?? 0
-        
+        self.distance = 1
         
     }
     

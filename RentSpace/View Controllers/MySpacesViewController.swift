@@ -125,10 +125,6 @@ class MySpacesViewController: UIViewController {
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
             self.tableView.reloadData()
             
-//            let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
-//            guard let cell = self.tableView.cellForRow(at: indexPath) as? MySpacesTableViewCell else { return }
-//            cell.activityView.startAnimating()
-            
             if self.mySpaces.isEmpty {
                 self.showEmptySpacesInfo()
             } else {
