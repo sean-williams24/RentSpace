@@ -42,6 +42,7 @@ class MessageViewController: UIViewController {
     }()
     var thumbnail = UIImage()
     var messageRead = "false"
+    var previousMessageDate = ""
     
     
     
@@ -63,7 +64,7 @@ class MessageViewController: UIViewController {
         ref = Database.database().reference()
         subscribeToKeyboardNotifications()
         configureUI()
-        retrieveMessages()
+        listenForNewMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
     }
@@ -130,28 +131,41 @@ class MessageViewController: UIViewController {
         imageView.image = thumbnail
     }
     
-    fileprivate func retrieveMessages() {
-        refHandle = ref.child("messages/\(chatID)").observe(.childAdded, with: { (dataSnapshot) in
-            let message = Message()
-            if let messageSnapshot = dataSnapshot.value as? [String: String] {
-                message.messageBody = messageSnapshot["message"]!
-                message.sender = messageSnapshot["sender"]!
-                message.messageDate = messageSnapshot["messageDate"] ?? ""
-                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-
-                self.messages.append(message)
-                self.tableView.reloadData()
-                self.scrollToBottomMessage()
-                
-                // If sender of message is not signed in user
-                if message.sender != Auth.auth().currentUser?.displayName {
-                    //Update message as read
-                    let customerDB = self.ref.child("users/\(self.chat.customerUID)/chats")
-                    let advertOwnerDB = self.ref.child("users/\(self.chat.advertOwnerUID)/chats")
-                    customerDB.child(self.chatID).updateChildValues(["read": "true"])
-                    advertOwnerDB.child(self.chatID).updateChildValues(["read": "true"])
+    fileprivate func listenForNewMessages() {
+        refHandle = ref.child("messages/\(chatID)").observe(.value, with: { (dataSnapshot) in
+            var newMessages: [Message] = []
+            
+            for child in dataSnapshot.children {
+                if let messageSnapshot = child as? DataSnapshot {
+                    if let message = Message(snapshot: messageSnapshot) {
+                        newMessages.append(message)
+                        
+                        // If sender of message is not signed in user
+                        if message.sender != Auth.auth().currentUser?.displayName {
+                            //Update message as read
+                            let customerDB = self.ref.child("users/\(self.chat.customerUID)/chats")
+                            let advertOwnerDB = self.ref.child("users/\(self.chat.advertOwnerUID)/chats")
+                            customerDB.child(self.chatID).updateChildValues(["read": "true"])
+                            advertOwnerDB.child(self.chatID).updateChildValues(["read": "true"])
+                        }
+                    }
                 }
             }
+            self.messages = newMessages
+            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+            self.tableView.reloadData()
+            self.scrollToBottomMessage()
+
+//            if let messageSnapshot = dataSnapshot.value as? [String: String] {
+//                message.messageBody = messageSnapshot["message"]!
+//                message.sender = messageSnapshot["sender"]!
+//                message.messageDate = messageSnapshot["messageDate"] ?? ""
+//                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+//
+//                self.messages.append(message)
+//                self.tableView.reloadData()
+//                print("Reload data")
+//            }
         })
     }
     
@@ -325,10 +339,10 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
         let dayFormatter = DateFormatter()
         let weekFormatter = DateFormatter()
         let now = Date()
-        let fiveMinutesAgo = calendar.date(byAdding: .minute, value: -5, to: now)
+        let oneHourAgo = calendar.date(byAdding: .hour, value: -1, to: now)
         let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: now)
         let lastSevenDays = sevenDaysAgo!...now
-        let lastFiveMinutes = fiveMinutesAgo!...now
+        let lastHour = oneHourAgo!...now
 
         timeFormatter.dateFormat = "HH:mm"
         dayFormatter.dateFormat = "E, d MMM"
@@ -339,7 +353,7 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
             cell.messageLabel.text = message.messageBody
             
             if let messageDate = fullDateFormatter.date(from: message.messageDate) {
-                // set date to day and month
+                // set date to date, day and month
                 cell.dateLabel.text = dayFormatter.string(from: messageDate)
                 
                 // if message was within the last week, just show day
@@ -350,9 +364,9 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
                 // if message was today, just show time
                 if calendar.isDateInToday(messageDate) {
                     cell.dateLabel.text = timeFormatter.string(from: messageDate)
-
-                    // if message was within the last 5 minutes, don't show time
-                    if lastFiveMinutes.contains(messageDate) {
+   
+                    // if message was within the last hour, don't show time
+                    if lastHour.contains(messageDate) {
                         cell.dateLabel.text = ""
                     }
                 }
@@ -368,18 +382,18 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
             if let messageDate = fullDateFormatter.date(from: message.messageDate) {
                 // set date to day and month
                 cell.dateLabel.text = dayFormatter.string(from: messageDate)
-                
+ 
                 // if message was within the last week, just show day
                 if lastSevenDays.contains(messageDate) {
                     cell.dateLabel.text = weekFormatter.string(from: messageDate)
                 }
-                
+ 
                 // if message was today, just show time
                 if calendar.isDateInToday(messageDate) {
                     cell.dateLabel.text = timeFormatter.string(from: messageDate)
-
-                    // if message was within the last 5 minutes, don't show time
-                    if lastFiveMinutes.contains(messageDate) {
+                    
+                    // if message was within the last hour, don't show time
+                    if lastHour.contains(messageDate) {
                         cell.dateLabel.text = ""
                     }
                 }
@@ -387,6 +401,7 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.messageContainerView.layer.cornerRadius = 14
             cell.messageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+            
             return cell
         }
     }
