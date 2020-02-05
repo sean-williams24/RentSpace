@@ -7,6 +7,7 @@
 //
 
 import FirebaseAuth
+import NVActivityIndicatorView
 import UIKit
 
 class RegisterViewController: UIViewController {
@@ -21,6 +22,12 @@ class RegisterViewController: UIViewController {
     @IBOutlet var checkmark3: UIImageView!
     @IBOutlet var checkmark4: UIImageView!
     @IBOutlet var passwordDetailsLabel: UILabel!
+    @IBOutlet var loadingView: UIView!
+    @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var successView: UIView!
+    @IBOutlet var excellentButton: UIButton!
+    @IBOutlet var blurredView: UIVisualEffectView!
+    @IBOutlet var successViewCenterYConstraint: NSLayoutConstraint!
     
     var emailValidated = false
     var password1Validated = false
@@ -36,7 +43,9 @@ class RegisterViewController: UIViewController {
         registerButton.backgroundColor = .darkGray
         registerButton.layer.cornerRadius = Settings.cornerRadius
         passwordDetailsLabel.alpha = 0
-        
+        successView.layer.cornerRadius = 10
+        successView.layer.masksToBounds = true
+
         addLeftPadding(for: displayNameTextField, placeholderText: "Display Name", placeholderColour: .gray)
         addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
         addLeftPadding(for: passwordTextField, placeholderText: "Password", placeholderColour: .gray)
@@ -53,6 +62,7 @@ class RegisterViewController: UIViewController {
         
         dismissKeyboardOnViewTap()
         
+
     }
     
     
@@ -115,13 +125,11 @@ class RegisterViewController: UIViewController {
     }
     
     
-    fileprivate func signIntoFirbase() {
+    fileprivate func signIntoFirebase() {
         Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.confirmPasswordTextField.text!) { (user, signInError) in
             // If there is no error, sign-in successful, dismiss all view controllers
             if signInError == nil {
-                UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
-                    
-                })
+                UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true)
             } else {
                 if let error = signInError, user == nil {
                     self.showAlert(title: "Problem Signing In", message: error.localizedDescription)
@@ -136,36 +144,50 @@ class RegisterViewController: UIViewController {
     
     
     @IBAction func registerButtonTapped(_ sender: Any) {
-        if let email = emailTextField.text {
-            if isValidEmail(email) {
-                
-            }
+        self.activityView.startAnimating()
+        UIView.animate(withDuration: 0.2) {
+            self.blurredView.alpha = 1
         }
-        
+
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, regError) in
-            // If user account creation is successful, update displayName, sign user in and pop controller
+            // If user account creation is successful, save displayName
             if regError == nil {
-                
+
                 let changeRequest = authResult?.user.createProfileChangeRequest()
                 changeRequest?.displayName = self.displayNameTextField.text!
                 changeRequest?.commitChanges(completion: { (error) in
                     if error != nil {
+                        // Error saving display name
                         print(error?.localizedDescription as Any)
-                        self.showAlert(title: "Problem Saving Display Name", message: "Please update your display name in settings before posting a space")
-                        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true)
+                        self.activityView.stopAnimating()
+                        let ac = UIAlertController(title: "Problem Saving Display Name", message: "Please update your display name in settings before posting a space", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                            self.popToRootController(ofTab: 2)
+                        }))
+                        self.present(ac, animated: true)
+                        
                     } else {
-                        self.signIntoFirbase()
+                        // successfully saved display name - show successview so user can sign in
+                        self.activityView.stopAnimating()
+                        UIView.animate(withDuration: 1) {
+                            self.successView.alpha = 1
+                        }
                     }
                 })
             } else {
                 if let error = regError {
+                    self.activityView.stopAnimating()
                     self.showAlert(title: "Registration Error", message: error.localizedDescription)
+                    self.blurredView.alpha = 0
                 }
             }
         }
     }
     
     
+    @IBAction func excellentButtonTapped(_ sender: Any) {
+        self.signIntoFirebase()
+    }
     
     
     

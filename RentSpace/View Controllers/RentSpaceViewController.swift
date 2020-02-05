@@ -64,8 +64,9 @@ class RentSpaceViewController: UIViewController {
                 searchAreaButtonTitle = postcode.uppercased()
             }
         }
-        
+    
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
+        rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = rightBarButton
         
         storageRef = Storage.storage().reference()

@@ -36,11 +36,14 @@ class MySpacesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
+        favouritesButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         self.ref = Database.database().reference()
 
         authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
 
             if user != nil {
+                self.mySpaces.removeAll()
+                self.tableView.reloadData()
                 self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
                 self.signedOutView.isHidden = true
                 self.favouritesButton.isEnabled = true
@@ -109,8 +112,6 @@ class MySpacesViewController: UIViewController {
     
     fileprivate func loadUserSpaces() {
         self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapShot) in
-            self.mySpaces.removeAll()
-            self.tableView.reloadData()
             
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
@@ -159,15 +160,14 @@ class MySpacesViewController: UIViewController {
     
     
     fileprivate func showEmptySpacesInfo(for label: String = "mySpaces") {
-        let attributes: [NSAttributedString.Key : Any] = [.font: UIFont.boldSystemFont(ofSize: 20)]
 
         if label == "favourites" {
             let attributedString = NSMutableAttributedString(string: "No Favourites Yet \n\nSave your favourite spaces by tapping their heart icon.")
-            attributedString.addAttributes(attributes, range: NSRange(location: 0, length: 18))
+            attributedString.addAttributes(Settings.infoLabelAttributes, range: NSRange(location: 0, length: 18))
             self.infoLabel.attributedText = attributedString
         } else {
             let attributedString = NSMutableAttributedString(string: "No Spaces Yet \n\nYour adverts will appear here once posted to RentSpace.")
-            attributedString.addAttributes(attributes, range: NSRange(location: 0, length: 13))
+            attributedString.addAttributes(Settings.infoLabelAttributes, range: NSRange(location: 0, length: 13))
             self.infoLabel.attributedText = attributedString
         }
     }

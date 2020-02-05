@@ -35,6 +35,9 @@ class UpdateDetailsViewController: UIViewController {
         super.viewDidLoad()
                 
         title = userDetailToUpdate
+//        UINavigationBar.appearance().titleTextAttributes = Settings.barButtonAttributes
+        self.navigationController?.navigationBar.titleTextAttributes = Settings.navBarTitleAttributes
+        
         addLeftPadding(for: updateTextfield, placeholderText: userDetailToUpdate, placeholderColour: .darkGray)
         addLeftPadding(for: confirmPasswordTextfield, placeholderText: "Confirm Password", placeholderColour: .darkGray)
         confirmPasswordTextfield.isHidden = true
@@ -50,6 +53,7 @@ class UpdateDetailsViewController: UIViewController {
             confirmPasswordTextfield.isSecureTextEntry = true
             confirmPasswordTextfield.isHidden = false
         }
+        
 
         
     }
