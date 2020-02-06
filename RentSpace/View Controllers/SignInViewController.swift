@@ -13,9 +13,11 @@ import GoogleSignIn
 import NVActivityIndicatorView
 import UIKit
 
-protocol UpdateSignInDelegate {
+@objc protocol UpdateSignInDelegate {
     func updateSignInButton()
+    @objc optional func adjustViewForTabBar()
 }
+
 
 class SignInViewController: UIViewController, LoginButtonDelegate {
 
@@ -108,7 +110,6 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
             print(error?.localizedDescription as Any)
             return
         }
-        
         guard let accessTokenString = AccessToken.current?.tokenString else { return }
         let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
         
@@ -118,8 +119,10 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
                 return
             }
             print("Successfully logged into FireBase with Facebook user:", FBuser as Any)
-                
+            self.delegate?.adjustViewForTabBar?()
+
             self.dismiss(animated: true) {
+                print("dismissing")
                 self.delegate?.updateSignInButton()
             }
         }
@@ -141,6 +144,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
             if error == nil {
                 self.dismiss(animated: true)
                 self.delegate?.updateSignInButton()
+                self.delegate?.adjustViewForTabBar?()
                 
             } else {
                 if let error = error, authUser == nil {

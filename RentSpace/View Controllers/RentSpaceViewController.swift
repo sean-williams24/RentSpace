@@ -85,7 +85,12 @@ class RentSpaceViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        
+        if Auth.auth().currentUser != nil {
+            self.tabBarController?.tabBar.isHidden = false
+        } else {
+            self.tabBarController?.tabBar.isHidden = true
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

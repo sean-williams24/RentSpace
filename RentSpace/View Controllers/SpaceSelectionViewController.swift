@@ -38,26 +38,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             locationManager.startUpdatingLocation()
         }
         
-        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
-            if user != nil {
-                Settings.currentUser = user
-                self.tabBarController?.tabBar.isHidden = false
-                self.signInButton.isEnabled = false
-                self.signInButton.tintColor = .clear
-                
-                let frame = self.tabBarController?.tabBar.frame
-                let height = frame?.size.height
-                let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
-                let safeAreaHeightInsets = safeArea.height - self.view.frame.height
-                let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
-                self.view.frame.origin.y = -tabBarHeight
 
-            } else {
-                self.tabBarController?.tabBar.isHidden = true
-                self.signInButton.isEnabled = true
-                self.signInButton.tintColor = Settings.orangeTint
-            }
-        })
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
             if error != nil {
@@ -112,6 +93,20 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             })
         }
         
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                Settings.currentUser = user
+                self.tabBarController?.tabBar.isHidden = false
+                self.signInButton.isEnabled = false
+                self.signInButton.tintColor = .clear
+
+            } else {
+                self.tabBarController?.tabBar.isHidden = true
+                self.signInButton.isEnabled = true
+                self.signInButton.tintColor = Settings.orangeTint
+            }
+        })
+
     }
     
     override func viewDidLoad() {
@@ -139,6 +134,11 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 }
             }
         }
+        
+
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.delegate = self
         
     }
     
@@ -222,6 +222,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+        vc.delegate = self
         present(vc, animated: true)
     }
     
@@ -244,4 +245,33 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return newImage!
     }
+}
+
+
+extension SpaceSelectionViewController: UpdateSignInDelegate {
+    func updateSignInButton() {
+        print("")
+    }
+    func adjustViewForTabBar() {
+        print("Adjust view for tab bar called")
+
+        let frame = self.tabBarController?.tabBar.frame
+        let height = frame?.size.height
+        let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
+        let safeAreaHeightInsets = safeArea.height - self.view.frame.height
+        let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
+        self.view.frame.origin.y = -tabBarHeight
+    
+
+    }
+    
+//    func adjustViewForTabBar() {
+////        if Auth.auth().currentUser == nil {
+//        self.tabBarController?.tabBar.isHidden = true
+//
+//
+//
+//    }
+
+    
 }

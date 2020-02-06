@@ -102,6 +102,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
           // ...
             UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: nil)
             self.delegate?.updateSignInButton()
+            self.delegate?.adjustViewForTabBar?()
+
             
             
             

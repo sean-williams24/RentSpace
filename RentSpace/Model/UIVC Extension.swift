@@ -251,6 +251,7 @@ extension UIViewController {
             // Pop to the root controller of that tab
             if let vc = tabBar?.viewControllers?[tabIndex] as? UINavigationController {
                 vc.popToRootViewController(animated: true)
+//                vc.tabBarController?.tabBar.isHidden = true
             }
         })
     }

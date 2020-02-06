@@ -73,6 +73,11 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+//        UINavigationBar.appearance().tintColor = .darkGray
+    }
+    
     
     //MARK: - Private methods
     
@@ -87,11 +92,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
     }
-    
-//    func getDocumentsDirectory() -> URL {
-//        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        return path[0]
-//    }
     
     //Encode photos array to json data and save to user defaults
     func save() {
@@ -158,12 +158,12 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     func addPhotos() {
         var config = YPImagePickerConfiguration()
-        let attributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .light) ]
+        let attributes = [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Light", size: 16) as Any ]
         UINavigationBar.appearance().titleTextAttributes = attributes // Title fonts
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal) // Bar Button fonts
     
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Settings.orangeTint ] // Title color
-        UINavigationBar.appearance().tintColor = .darkGray // Left. bar buttons
+        UINavigationBar.appearance().tintColor = Settings.orangeTint // Left. bar buttons
         
         config.colors.tintColor = Settings.orangeTint // Right bar buttons (actions)
         config.icons.multipleSelectionOnIcon.withTintColor(Settings.orangeTint)

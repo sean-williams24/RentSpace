@@ -11,7 +11,6 @@ import FacebookLogin
 import UIKit
 
 
-
 class SettingsViewController: UIViewController {
     
     @IBOutlet var signInOrOutButton: UIButton!
@@ -26,7 +25,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     fileprivate var handle: AuthStateDidChangeListenerHandle!
-
     
     // MARK: - Life Cycle
 
@@ -157,6 +155,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - Update SignIn Delegate
 
 extension SettingsViewController: UpdateSignInDelegate {
+
     func updateSignInButton() {
         let userEmail = Settings.currentUser?.email
         self.signInOrOutButton.setTitle("SIGN OUT (\(userEmail ?? ""))", for: .normal)
