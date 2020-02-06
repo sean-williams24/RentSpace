@@ -146,6 +146,14 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="3wY-QJ-CsH"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPg-WJ-wvP">
+                                <rect key="frame" x="0.0" y="640" width="414" height="173"/>
+                                <state key="normal" image="addPhotos1"/>
+                                <state key="selected" image="addPhotos1"/>
+                                <connections>
+                                    <segue destination="Ru3-vt-OBJ" kind="show" identifier="AddPhotos" id="cUM-WG-uWI"/>
+                                </connections>
+                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1w7-kO-6Ag">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
@@ -169,14 +177,6 @@
                                     <constraint firstItem="BJ0-iN-OGz" firstAttribute="top" secondItem="RC6-v0-Ow8" secondAttribute="bottom" constant="133" id="rjr-X0-nwQ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPg-WJ-wvP">
-                                <rect key="frame" x="0.0" y="640" width="414" height="173"/>
-                                <state key="normal" image="addPhotos1"/>
-                                <state key="selected" image="addPhotos1"/>
-                                <connections>
-                                    <segue destination="Ru3-vt-OBJ" kind="show" identifier="AddPhotos" id="cUM-WG-uWI"/>
-                                </connections>
-                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIk-Do-vXS" userLabel="Signed Out View">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
@@ -432,9 +432,6 @@
                                     <constraint firstAttribute="width" secondItem="wZH-7p-heE" secondAttribute="height" multiplier="49:31" id="Zqo-8u-d3T"/>
                                 </constraints>
                                 <color key="onTintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <connections>
-                                    <action selector="mapSelectionSwitchTapped:" destination="q4m-nT-3we" eventType="valueChanged" id="L5H-Da-edD"/>
-                                </connections>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>

@@ -34,8 +34,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var imagesToUpload: [Image] = []
     let itemsPerRow: CGFloat = 5
     let collectionViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    var ref: DatabaseReference!
-    var storageRef: StorageReference!
+//    var ref: DatabaseReference!
+//    var storageRef: StorageReference!
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     var category = "Art Studio"
     var previousCategory = ""
@@ -71,8 +71,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         dismissKeyboardOnViewTap()
         
-        ref = Database.database().reference()
-        storageRef = Storage.storage().reference()
+//        ref = Database.database().reference()
+//        storageRef = Storage.storage().reference()
     }
     
 
@@ -367,7 +367,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 childUpdates["adverts/\(Constants.userLocationCountry)/\(previousCategory)/\(UID)-\(space.key)"] = NSNull()
             }
             
-            self.ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in
+            Settings.ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
@@ -381,20 +381,19 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 self?.present(vc, animated: true)
             }
         } else {
-            self.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
+            Settings.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                     // TODO: - HANDLE ERROR
                     return
                 }
                 
-                self?.ref.child("\(self?.userAdvertsPath ?? "")/\(self?.uniqueAdvertID ?? "")").setValue(data.toAnyObject()) { (userError, ref) in
+                Settings.ref.child("\(self?.userAdvertsPath ?? "")/\(self?.uniqueAdvertID ?? "")").setValue(data.toAnyObject()) { (userError, ref) in
                     if userError != nil {
                         print(userError as Any)
                     }
                     
                     print("Upload Complete")
-                    
                     self?.resetUIandUserDefaults()
 
                     let vc = self?.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
@@ -459,12 +458,13 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         var deletedImagesCount = 0
         for (_, imageURL) in firebaseImageURLsDict {
             let storRef = storage.reference(forURL: imageURL)
+            
             storRef.delete { (error) in
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
                     deletedImagesCount += 1
-                    print("Image Deleted: \(deletedImagesCount)")
+                    
                     if deletedImagesCount == self.firebaseImageURLsDict.count {
                         // Call completion and uploadImagestofirebasestorage
                         print("Uploading to Firebase Storage and Realtime Database")
@@ -481,8 +481,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
         var imageIndex = 1
-        
-        print("images to upload \(imagesToUpload.count)")
+        let storageRef = Settings.storageRef
         
         for image in imagesToUpload {
             let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
@@ -495,31 +494,31 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 } else {
                     imagePath = "\(userAdvertsPath)/\(uniqueAdvertID)"
                 }
-                
+                                
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/jpeg"
                 let advertRef = storageRef.child(imagePath)
                 
-                advertRef.child("\(imageIndex).jpg").putData(imageData, metadata: metaData) { (metadata, error) in
+                advertRef.child("\(imageIndex).jpg").putData(imageData, metadata: metaData) { [weak self] (metadata, error) in
                     if let error = error {
                         print("Error uploading: \(error)")
                         return
                     }
                     
                     // Get URL for photo and add to dictionary
-                    let url = self.storageRef!.child((metadata?.path)!).description
-                    let imageStoragePath = self.storageRef!.child((metadata?.name)!).description
-                    let imageNumber = imageStoragePath.deletingPrefix(self.storageRef.description)
+                    let url = storageRef.child((metadata?.path)!).description
+                    let imageStoragePath = storageRef.child((metadata?.name)!).description
+                    let imageNumber = imageStoragePath.deletingPrefix(storageRef.description)
                     
                     imageURLs["image \(imageNumber.first!)"] = url
                     uploadedImagesCount += 1
                     print("uploadoaded images count: \(uploadedImagesCount)")
                     
-                    self.deleteFileFromDisk(at: imageURLInDocuments)
+                    self?.deleteFileFromDisk(at: imageURLInDocuments)
                     
                     
                     // Call completion handler once all images are uploaded, passing in imageURLs
-                    if uploadedImagesCount == self.imagesToUpload.count {
+                    if uploadedImagesCount == self?.imagesToUpload.count {
                         completion(imageURLs)
                     }
                 }

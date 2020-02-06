@@ -11,7 +11,6 @@ import Foundation
 
 struct Settings {
     static var appID = "572159233515806"
-    static var currentUser: User?
     
     // UIView Formatting
     static var cornerRadius: CGFloat = 25
@@ -27,6 +26,9 @@ struct Settings {
         .font: UIFont(name: "HelveticaNeue-Light", size: 20)!,
         .foregroundColor: UIColor.white]
 
-    
+    // Firebase
+    static var currentUser: User?
+    static let storageRef = Storage.storage().reference()
+    static let ref = Database.database().reference()
 
 }

@@ -22,7 +22,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     var selectedImagesIndexPathes: [IndexPath] = []
     var trashButton = UIBarButtonItem()
     var cameraButton = UIBarButtonItem()
-    
     var deleting: Bool = false {
         didSet {
             if deleting {
@@ -37,7 +36,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     
     // MARK: - Life Cycle
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +60,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         // If there are no saved images, load in 9 placeholders
         if images.isEmpty {
             for _ in 0...8 {
-                writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: 0)
+                writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: 0, in: &images)
             }
         }
         
@@ -71,11 +69,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         } else {
             cameraButton.isEnabled = false
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        UINavigationBar.appearance().tintColor = .darkGray
     }
     
     
@@ -109,16 +102,18 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     // refactor into extension
-    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int) {
+    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int, in imagesArray: inout [Image]) {
         let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        
+        print(filePath)
         if let imageData = image.jpegData(compressionQuality: 1.0) {
             try? imageData.write(to: filePath)
         }
         
         let savingImage = Image(imageName: imageName)
-        images.insert(savingImage, at: position)
+        imagesArray.insert(savingImage, at: position)
     }
+    
+    
     
     fileprivate func photoAlbumIsFull() -> Bool {
         var imageNames: [String] = []
@@ -136,7 +131,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         if deleting {
             for indexPath in selectedImagesIndexPathes.reversed() {
                 images.remove(at: indexPath.item)
-                writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count)
+                writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count, in: &images)
                 
                 //TODO - delete photo from disk
                 
@@ -185,8 +180,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
         config.wordings.warningMaxItemsLimit = "No more remaining spaces"
-        
-//        config.wordings.warningMaxItemsLimit = NSAttributedString(string: "NO MORE", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
         config.library.maxNumberOfItems = maxImages
         
         let picker = YPImagePicker(configuration: config)
@@ -195,7 +188,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                 switch item {
                 case .photo(let photo):
                     let imageName = UUID().uuidString
-                    self.writeImageFileToDisk(image: photo.image, name: imageName, at: 0)
+                    self.writeImageFileToDisk(image: photo.image, name: imageName, at: 0, in: &self.images)
                     self.images.removeLast()
                     self.save()
                     

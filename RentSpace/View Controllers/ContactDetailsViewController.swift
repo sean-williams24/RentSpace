@@ -33,9 +33,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     var resultsSearchController: UISearchController?
     var selectedAddress = ""
     var inUpdateMode = false
-//    var advert: [String : Any] = [:]
-    
-    //    var viewOnMap = true
     
     
     // MARK: - Life Cycle
@@ -57,16 +54,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         
-//        configureTextFieldPlaceholders(for: emailTextField, withText: "Email")
-//        configureTextFieldPlaceholders(for: phoneNumberTextField, withText: "Phone")
-//        configureTextFieldPlaceholders(for: streetLabel, withText: "Street")
-//        configureTextFieldPlaceholders(for: townLabel, withText: "Town")
-//        configureTextFieldPlaceholders(for: cityLabel, withText: "City")
-//        configureTextFieldPlaceholders(for: countyLabel, withText: "County")
-//        configureTextFieldPlaceholders(for: countryLabel, withText: "Country")
-//        configureTextFieldPlaceholders(for: postcodeLabel, withText: "Postcode")
-//        configureTextFieldPlaceholders(for: stateLabel, withText: "State")
-        
         addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
         addLeftPadding(for: phoneNumberTextField, placeholderText: "Phone", placeholderColour: .gray)
         addLeftPadding(for: streetLabel, placeholderText: "Street", placeholderColour: .gray)
@@ -77,7 +64,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         addLeftPadding(for: postcodeLabel, placeholderText: "Postcode", placeholderColour: .gray)
         addLeftPadding(for: stateLabel, placeholderText: "State", placeholderColour: .gray)
 
-        
         if Constants.userLocationCountry == "United States" {
             configureTextFieldPlaceholders(for: postcodeLabel, withText: "Zip Code")
             
@@ -150,13 +136,8 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     
     // MARK: - Private Methods
     
-    
-    
-    
     func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
-        
-        //        streetLabel.text = street
-        
+
         if town == "" {
             townLabel.isHidden = true
         } else {
@@ -168,19 +149,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         stateLabel.text = state
         countryLabel.text = country
         postcodeLabel.text = postCode
-
-        
     }
-    
-    //MARK: - Action Methods
-    
-    @IBAction func mapSelectionSwitchTapped(_ sender: UISwitch) {
-        //
-        //        viewOnMap = sender.isOn
-        //        print(viewOnMap)
-    }
-    
-    
     
 }
 
@@ -194,12 +163,4 @@ extension ContactDetailsViewController: UITextFieldDelegate {
         }
         return true
     }
-    
-    // - Move screen up
-    //    @objc func keyboardWillShow(_ notifictation: Notification) {
-    //        if postcodeLabel.isEditing || countryLabel.isEditing || stateLabel.isEditing {
-    //            view.frame.origin.y = CGFloat(integerLiteral: -100)
-    //        }
-    //    }
-    
 }
