@@ -128,19 +128,40 @@ class RentSpaceViewController: UIViewController {
             // Nationwide results, i.e. all adverts
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
                 self.spaces = []
+                let spaceCount = snapshot.children.allObjects.count
+                var index = 0
                 var newSpaces: [Space] = []
                 
                 for child in snapshot.children {
                     if let spaceSnapshot = child as? DataSnapshot {
-                        if let space = Space(snapshot: spaceSnapshot) {
-                        newSpaces.append(space)
+                        if var space = Space(snapshot: spaceSnapshot) {
+                            let address = space.postcode + " " + space.city
+                            
+                            // Get distance of advert location from users chosen location and add aray
+                            CLGeocoder().geocodeAddressString(address) { (placemark, error) in
+                                if let placemark = placemark?.first {
+                                    let advertLocation = placemark.location
+                                    if let distance = advertLocation?.distance(from: userLocation) {
+                                        let distanceInMiles = distance / 1609.344
+
+                                        space.distance = distanceInMiles
+                                        newSpaces.append(space)
+                                    
+                                        index += 1
+                                        if index == spaceCount {
+                                            self.spaces = newSpaces.sorted {
+                                                $0.distance < $1.distance
+                                            }
+                                            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                                            print(self.spaces.count)
+                                            self.tableView.reloadData()
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                     }
                 }
-                self.spaces = newSpaces
-                self.tableView.reloadData()
-
             })
         } else {
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
@@ -156,7 +177,6 @@ class RentSpaceViewController: UIViewController {
                         var space = Space(snapshot: spaceSnapshot) {
                         let address = space.postcode + " " + space.city
                         
-                        
                         // Get distance of advert location from users chosen location and add to table if within search radius
                         CLGeocoder().geocodeAddressString(address) { (placemark, error) in
                             if let placemark = placemark?.first {
@@ -167,15 +187,16 @@ class RentSpaceViewController: UIViewController {
                                     if distanceInMiles < setMiles {
                                         print("Set Miles: \(setMiles)")
                                         print("Distance: \(distanceInMiles)")
-                                        self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                                         space.distance = distanceInMiles
                                         newSpaces.append(space)
                                     }
+                                    
                                     index += 1
                                     if index == spaceCount {
                                         self.spaces = newSpaces.sorted {
                                             $0.distance < $1.distance
                                         }
+                                        self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                                         print(self.spaces.count)
                                         self.tableView.reloadData()
                                     }
@@ -184,11 +205,11 @@ class RentSpaceViewController: UIViewController {
                         }
                     }
                 }
-
-
             })
         }
     }
+    
+    
     
     deinit {
         ref.child("adverts/\(location)/\(chosenCategory)").removeObserver(withHandle: _refHandle)
