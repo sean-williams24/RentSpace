@@ -80,8 +80,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
             }
         }
         
-        navigationController?.children[1].navigationItem.backBarButtonItem = UIBarButtonItem(title: "-", style: .plain, target: nil, action: nil)
-
         
     }
     
@@ -96,6 +94,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
             delegate?.didUpdate(distance: searchDistance)
             UserDefaults.standard.set(searchDistance, forKey: "Distance")
         }
+        
+        navigationController?.children[1].navigationItem.backBarButtonItem = UIBarButtonItem(title: "-", style: .plain, target: nil, action: nil)
         
     }
     

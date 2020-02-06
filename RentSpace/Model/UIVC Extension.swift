@@ -233,7 +233,9 @@ extension UIViewController {
         let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textfield.frame.height))
         textfield.leftView = leftPadView
         textfield.leftViewMode = .always
-        textfield.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: placeholderColour])
+        textfield.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [
+            NSAttributedString.Key.foregroundColor: placeholderColour,
+            NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 15) as Any])
     }
     
     

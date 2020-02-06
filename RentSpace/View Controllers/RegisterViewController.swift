@@ -144,6 +144,7 @@ class RegisterViewController: UIViewController {
     
     
     @IBAction func registerButtonTapped(_ sender: Any) {
+        self.view.endEditing(true)
         self.activityView.startAnimating()
         UIView.animate(withDuration: 0.2) {
             self.blurredView.alpha = 1

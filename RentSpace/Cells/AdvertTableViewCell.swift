@@ -18,6 +18,7 @@ class AdvertTableViewCell: UITableViewCell {
     @IBOutlet var categoryLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var activityView: NVActivityIndicatorView!
+    @IBOutlet var distanceLabel: UILabel!
     
     
 

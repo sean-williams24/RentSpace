@@ -32,7 +32,8 @@ class SettingsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.tabBarController?.tabBar.isHidden = true
+
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 if let currentUser = Settings.currentUser?.email {

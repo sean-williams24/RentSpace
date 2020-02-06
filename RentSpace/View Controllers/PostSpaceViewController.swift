@@ -444,7 +444,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         userAdvertsPath = "users/\(UID)/adverts"
         uploadView.isHidden = false
         postButton.isEnabled = false
-        
+        self.view.endEditing(true)
+
         let imagesUpdated = defaults.bool(forKey: "ImagesUpdated")
         
         // If there are no images to upload - upload directly to Realtime database
@@ -592,16 +593,16 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     @IBAction func postButtonTapped(_ sender: Any) {
         if titleTextField.text == "" {
-            titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemPink])
+            titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: Settings.orangeTint])
             if priceTextField.text == "" {
-                priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemPink])
+                priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor: Settings.orangeTint])
             }
             return
         }
         
         guard priceTextField.text != "" else {
             showAlert(title: "Please enter a price...", message: nil)
-            priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemPink])
+            priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor: Settings.orangeTint])
             return
         }
         
@@ -744,7 +745,7 @@ extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         label.textAlignment = .center
         label.textColor = .black
         label.layer.borderWidth = .zero

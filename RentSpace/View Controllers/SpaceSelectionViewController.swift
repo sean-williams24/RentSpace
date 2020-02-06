@@ -49,7 +49,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 let height = frame?.size.height
                 let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
                 let safeAreaHeightInsets = safeArea.height - self.view.frame.height
-                let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 3
+                let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
                 self.view.frame.origin.y = -tabBarHeight
 
             } else {
@@ -214,7 +214,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             vc.chosenCategory = "Art Studio"
         }
         
-//        self.hidesBottomBarWhenPushed = true
     }
     
     

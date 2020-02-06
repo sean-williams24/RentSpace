@@ -30,7 +30,6 @@ class RentSpaceViewController: UIViewController {
     var ref: DatabaseReference!
     var storageRef: StorageReference!
     fileprivate var _refHandle: DatabaseHandle!
-    
     var spaces: [Space] = []
     var chosenCategory = ""
     var location = ""
@@ -44,7 +43,6 @@ class RentSpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         
         // Set title of location button to saved user location. If none then users current location.
         
@@ -81,15 +79,18 @@ class RentSpaceViewController: UIViewController {
         }
         
         self.tableView.rowHeight = 150
-        
-        let category = spaces.first?.category
-        title = category
 
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if self.spaces.isEmpty {
                 UIView.animate(withDuration: 1) {
@@ -140,10 +141,12 @@ class RentSpaceViewController: UIViewController {
                                 if distanceInMiles < setMiles {
                                     space.distance = distanceInMiles
                                     newSpaces.append(space)
+                                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                                 }
                             } else {
                                 space.distance = distanceInMiles
                                 newSpaces.append(space)
+                                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                             }
 
                             index += 1
@@ -151,7 +154,6 @@ class RentSpaceViewController: UIViewController {
                                 self.spaces = newSpaces.sorted {
                                     $0.distance < $1.distance
                                 }
-                                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                                 self.tableView.reloadData()
                             }
                         }
@@ -198,6 +200,7 @@ class RentSpaceViewController: UIViewController {
     }
     
 
+
 }
 
 // MARK: - TableView Delegates & Datasource
@@ -239,6 +242,11 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         cell.categoryLabel.text = space.category
         cell.locationLabel.text = formatAddress(for: space)
         cell.priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
+        
+        cell.distanceLabel.text = "\(Int(space.distance)) miles"
+        if space.distance < 1 {
+            cell.distanceLabel.text = "Less than a mile"
+        }
         
         if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {

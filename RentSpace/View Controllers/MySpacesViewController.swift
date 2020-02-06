@@ -85,6 +85,7 @@ class MySpacesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
 
         viewingFavourites ? loadFavourites() : loadUserSpaces()
         
@@ -193,7 +194,9 @@ class MySpacesViewController: UIViewController {
     }
     
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.hidesBottomBarWhenPushed = true
+    }
 }
 
 
