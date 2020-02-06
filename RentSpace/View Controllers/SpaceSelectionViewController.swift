@@ -140,6 +140,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.delegate = self
         
+        let registerVC = storyboard?.instantiateViewController(identifier: "RegisterVC") as! RegisterViewController
+        registerVC.delegate = self
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -248,7 +250,18 @@ extension UIImage {
 }
 
 
-extension SpaceSelectionViewController: UpdateSignInDelegate {
+extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
+    func adjustViewAfterRegistration() {
+        print("Adjust view for tab bar called")
+
+        let frame = self.tabBarController?.tabBar.frame
+        let height = frame?.size.height
+        let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
+        let safeAreaHeightInsets = safeArea.height - self.view.frame.height
+        let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
+        self.view.frame.origin.y = -tabBarHeight
+    }
+    
     func updateSignInButton() {
         print("")
     }
@@ -261,9 +274,9 @@ extension SpaceSelectionViewController: UpdateSignInDelegate {
         let safeAreaHeightInsets = safeArea.height - self.view.frame.height
         let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
         self.view.frame.origin.y = -tabBarHeight
+    }
     
 
-    }
     
 //    func adjustViewForTabBar() {
 ////        if Auth.auth().currentUser == nil {

@@ -10,6 +10,10 @@ import FirebaseAuth
 import NVActivityIndicatorView
 import UIKit
 
+protocol RegisterDelegate {
+    func adjustViewAfterRegistration()
+}
+
 class RegisterViewController: UIViewController {
     
     @IBOutlet var emailTextField: UITextField!
@@ -33,6 +37,7 @@ class RegisterViewController: UIViewController {
     var password1Validated = false
     var password2Validated = false
     var displayNameValidated = false
+    var delegate: RegisterDelegate?
     
     
     // MARK: - Life Cycle
@@ -129,6 +134,7 @@ class RegisterViewController: UIViewController {
         Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.confirmPasswordTextField.text!) { (user, signInError) in
             // If there is no error, sign-in successful, dismiss all view controllers
             if signInError == nil {
+                self.delegate?.adjustViewAfterRegistration()
                 UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true)
             } else {
                 if let error = signInError, user == nil {
@@ -153,7 +159,8 @@ class RegisterViewController: UIViewController {
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authResult, regError) in
             // If user account creation is successful, save displayName
             if regError == nil {
-
+                self.delegate?.adjustViewAfterRegistration()
+                
                 let changeRequest = authResult?.user.createProfileChangeRequest()
                 changeRequest?.displayName = self.displayNameTextField.text!
                 changeRequest?.commitChanges(completion: { (error) in

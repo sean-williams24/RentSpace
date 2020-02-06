@@ -133,6 +133,12 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         print("Facebook did logout")
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let registerVC = segue.destination as! RegisterViewController
+        registerVC.delegate = self
+        
+    }
+    
 
     
     // MARK: - Action Methods
@@ -177,5 +183,13 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         present(ac, animated: true)
         
     }
+    
+}
+
+extension SignInViewController: RegisterDelegate {
+    func adjustViewAfterRegistration() {
+        self.delegate?.adjustViewForTabBar?()
+    }
+    
     
 }

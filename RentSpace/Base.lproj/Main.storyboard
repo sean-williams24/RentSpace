@@ -826,7 +826,7 @@ Long press and drag to reorder.</string>
                                     <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <segue destination="XN8-Fk-fre" kind="presentation" modalTransitionStyle="flipHorizontal" id="E0h-qH-FRP"/>
+                                    <segue destination="XN8-Fk-fre" kind="presentation" identifier="Register" modalTransitionStyle="flipHorizontal" id="E0h-qH-FRP"/>
                                 </connections>
                             </button>
                         </subviews>
