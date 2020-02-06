@@ -20,7 +20,7 @@ struct Settings {
     static var orangeTint = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
     static var flipsideBlackColour = UIColor(red:0.12, green:0.13, blue:0.14, alpha:1.0)
     
-    // Fonts
+    // Fonts / Attributes
     static let barButtonAttributes: [NSAttributedString.Key : Any] = [.font: UIFont(name: "HelveticaNeue-Light", size: 15) as Any]
     static let infoLabelAttributes: [NSAttributedString.Key : Any] = [.font: UIFont(name: "HelveticaNeue-Bold", size: 17) as Any]
     static let navBarTitleAttributes: [NSAttributedString.Key : Any] = [

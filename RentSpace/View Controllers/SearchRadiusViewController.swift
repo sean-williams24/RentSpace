@@ -30,6 +30,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     var locationUpdated = false
     var distanceUpdated = false
     var pickerDistances = [String]()
+    var searchButton: UIBarButtonItem!
     
 
     // MARK: - Life Cycle
@@ -44,9 +45,13 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
          
         let titleButton = UIButton()
         titleButton.tintColor = Settings.orangeTint
-        titleButton.setTitle("Set Location", for: .normal)
+        let attributedTitle = NSAttributedString(string: "Set Location", attributes: Settings.navBarTitleAttributes)
+        titleButton.setAttributedTitle(attributedTitle, for: .normal)
         titleButton.addTarget(self, action: #selector(addressSearch), for: .touchUpInside)
         navigationItem.titleView = titleButton
+        
+        searchButton = UIBarButtonItem(title: "Search", style: .plain, target: nil, action: nil)
+        searchButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         
         // LOCATION
         let currentLocation = UserDefaults.standard.string(forKey: "Location")
@@ -121,7 +126,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         
         Constants.customCLLocation = location
         locationUpdated = true
-        navigationController?.children[1].navigationItem.backBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: nil, action: nil)
+        navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
 
     }
     
@@ -145,20 +150,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     @IBAction func locationButtonTapped(_ sender: Any) {
         addressSearch()
     }
-    
-//    @IBAction func distanceSliderChanged(_ sender: UISlider) {
-//        searchDistance = Double(sender.value)
-//
-//        if searchDistance == 1 {
-//            distanceLabel.text = "\(Int(searchDistance)) Mile"
-//        } else {
-//            distanceLabel.text = "\(Int(searchDistance)) Miles"
-//
-//        }
-//
-//        distanceUpdated = true
-//
-//    }
 }
 
 
@@ -179,7 +170,7 @@ extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSour
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         label.textAlignment = .center
         label.textColor = Settings.orangeTint
         label.layer.borderWidth = .zero
@@ -199,7 +190,7 @@ extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSour
         searchDistance = Double(pickerDistances[row])!
         distanceUpdated = true
         
-        navigationController?.children[1].navigationItem.backBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: nil, action: nil)
+        navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
     }
     
     
