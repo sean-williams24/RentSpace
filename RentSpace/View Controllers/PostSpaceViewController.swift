@@ -45,17 +45,13 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var space: Space!
     var updatingAdvert = false
     let placeHolderImage = UIImage(named: "imagePlaceholder")
-    
     let defaults = UserDefaults.standard
     let UD = UserDefaults.standard
-//    var advertSnapshot: DataSnapshot?
     var userAdvertsPath = ""
     var advertsPath = ""
     var UID = ""
     var uniqueAdvertID = ""
-//    var key = ""
     var firebaseImageURLsDict: [String:String] = [:]
-    //    var imageURLsDict: [String: String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
     
     
@@ -226,7 +222,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             for key in imageURLsDict.keys.sorted()  {
                 guard let value = imageURLsDict[key] else { break }
                 
-                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
+                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { [weak self] (data, error) in
                     guard error == nil else {
                         print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
                         return
@@ -234,8 +230,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     
                     if let data = data {
                         if let image = UIImage(data: data) {
-                            self.imagesDictionary[key] = image
-                            if self.imagesDictionary.count == imageURLsDict.count {
+                            self?.imagesDictionary[key] = image
+                            if self?.imagesDictionary.count == imageURLsDict.count {
                                 completion()
                             }
                         }
@@ -255,20 +251,11 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         let savingImage = Image(imageName: imageName)
         imagesSavedToDisk.insert(savingImage, at: position)
         
-        // Add to global array so items can be deleted from disk after VC has closed
-//        if imageName != "placeholder" {
-//            Global.imagesSavedToDisk.insert(savingImage, at: position)
-//        }
-        
     }
     
     
     fileprivate func configureUI() {
         // Title textfield
-//        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: titleTextField.frame.height))
-//        titleTextField.leftView = leftPadView
-//        titleTextField.leftViewMode = .always
-//        titleTextField.attributedPlaceholder = NSAttributedString(string: "Title", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         addLeftPadding(for: titleTextField, placeholderText: "Title", placeholderColour: .lightGray)
         
         // Description textView
@@ -293,7 +280,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         priceRatePicker.delegate = self
         spaceTypePickerContent = ["Art Studio", "Photography Studio", "Music Studio", "Desk Space"]
         priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly", "Annually"]
-        
         priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         
         signInButton.layer.cornerRadius = Settings.cornerRadius
@@ -315,6 +301,28 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     }
     
     
+    fileprivate func resetUIandUserDefaults() {
+        self.UD.removeObject(forKey: "Phone")
+        self.UD.removeObject(forKey: "Email")
+        self.UD.removeObject(forKey: "Address")
+        self.UD.removeObject(forKey: "PostCode")
+        self.UD.removeObject(forKey: "City")
+        self.UD.removeObject(forKey: "SubAdminArea")
+        self.UD.removeObject(forKey: "State")
+        self.UD.removeObject(forKey: "Country")
+        self.UD.removeObject(forKey: "Town")
+        self.UD.removeObject(forKey: "Images")
+        self.UD.set(self.descriptionViewPlaceholder, forKey: "Description")
+        self.UD.set(true, forKey: "ViewOnMap")
+        self.titleTextField.text = ""
+        self.priceTextField.text = ""
+        self.locationButton.setTitle("Contact & Address", for: .normal)
+        self.configureUI()
+        self.imagesSavedToDisk = []
+        self.imagesToUpload = []
+        self.collectionView.reloadData()
+        self.postButton.isEnabled = true
+    }
     
     fileprivate func uploadAdvertToFirebase(_ imageURLs: [String : String]? = nil) {
         var descriptionText = descriptionTextView.text
@@ -329,26 +337,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         }
         
         // Package advert into data dictionary
-//        let data: [String : Any] = [Advert.title: self.titleTextField.text!,
-//                                    Advert.description: descriptionText as Any,
-//                                    Advert.category: self.category,
-//                                    Advert.price: priceTextField.text as Any,
-//                                    Advert.priceRate: priceRate,
-//                                    Advert.phone: UD.string(forKey: "\(update)Phone") as Any,
-//                                    Advert.email: UD.string(forKey: "\(update)Email") as Any,
-//                                    Advert.address: UD.string(forKey: "\(update)Address") as Any,
-//                                    Advert.postCode: UD.string(forKey: "\(update)PostCode") as Any,
-//                                    Advert.city: UD.string(forKey: "\(update)City") as Any,
-//                                    Advert.subAdminArea: UD.string(forKey: "\(update)SubAdminArea") as Any,
-//                                    Advert.state: UD.string(forKey: "\(update)State") as Any,
-//                                    Advert.country: UD.string(forKey: "\(update)Country") as Any,
-//                                    Advert.town: UD.string(forKey: "\(update)Town") as Any,
-//                                    Advert.photos: imageURLs as Any,
-//                                    Advert.viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
-//                                    Advert.postedByUser: Settings.currentUser?.uid as Any,
-//                                    Advert.userDisplayName: Settings.currentUser?.displayName as Any]
-
-        
         let data = Space(title: self.titleTextField.text ?? "",
                               description: descriptionText ?? "",
                               category: self.category,
@@ -370,7 +358,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
 
         
         // Write to Adverts firebase pathes
-        
         if updatingAdvert {
             var childUpdates = ["\(advertsPath)-\(space.key)": data.toAnyObject(),
                                 "\(userAdvertsPath)/\(space.key)": data.toAnyObject()]
@@ -380,58 +367,38 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 childUpdates["adverts/\(Constants.userLocationCountry)/\(previousCategory)/\(UID)-\(space.key)"] = NSNull()
             }
             
-            self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
+            self.ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
                 print("update completion")
-                self.imagesSavedToDisk = []
-                self.imagesToUpload = []
-                let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                self?.imagesSavedToDisk = []
+                self?.imagesToUpload = []
+                
+                let vc = self?.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
                 vc.modalPresentationStyle = .fullScreen
                 vc.updatingAdvert = true
-                self.present(vc, animated: true)
+                self?.present(vc, animated: true)
             }
         } else {
-            self.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { (error, reference) in
+            self.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                     // TODO: - HANDLE ERROR
                     return
                 }
                 
-                self.ref.child("\(self.userAdvertsPath)/\(self.uniqueAdvertID)").setValue(data.toAnyObject()) { (userError, ref) in
+                self?.ref.child("\(self?.userAdvertsPath ?? "")/\(self?.uniqueAdvertID ?? "")").setValue(data.toAnyObject()) { (userError, ref) in
                     if userError != nil {
                         print(userError as Any)
                     }
                     
                     print("Upload Complete")
                     
-                    self.UD.removeObject(forKey: "Phone")
-                    self.UD.removeObject(forKey: "Email")
-                    self.UD.removeObject(forKey: "Address")
-                    self.UD.removeObject(forKey: "PostCode")
-                    self.UD.removeObject(forKey: "City")
-                    self.UD.removeObject(forKey: "SubAdminArea")
-                    self.UD.removeObject(forKey: "State")
-                    self.UD.removeObject(forKey: "Country")
-                    self.UD.removeObject(forKey: "Town")
-                    self.UD.removeObject(forKey: "Images")
-                    self.UD.set(self.descriptionViewPlaceholder, forKey: "Description")
-                    self.UD.set(true, forKey: "ViewOnMap")
-                    
-                    self.titleTextField.text = ""
-                    self.priceTextField.text = ""
-                    self.locationButton.setTitle("Contact & Address", for: .normal)
-                    self.configureUI()
-                    self.imagesSavedToDisk = []
-                    self.imagesToUpload = []
-                    self.collectionView.reloadData()
-                    self.postButton.isEnabled = true
+                    self?.resetUIandUserDefaults()
 
-                    
-                    let vc = self.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
-                    self.present(vc, animated: true)
+                    let vc = self?.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                    self?.present(vc, animated: true)
                 }
             }
         }
@@ -560,24 +527,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
     }
-    
-    
-    deinit {
-        
-        print("deinit called")
-    }
-    
+
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "ContactDetails" {
             if updatingAdvert {
                 let contactVC = segue.destination as! ContactDetailsViewController
                 contactVC.inUpdateMode = true
-//                contactVC.advert = advert
             }
         } else if segue.identifier == "AddPhotos" {
             if updatingAdvert {
@@ -585,7 +543,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 addPhotosVC.inUpdatingMode = true
             }
         }
-        
     }
     
     
@@ -735,13 +692,6 @@ extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
-    //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    //        if pickerView.tag == 1 {
-    //            return spaceTypePickerContent[row]
-    //        } else {
-    //            return priceRatePickerContent[row]
-    //        }
-    //    }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()

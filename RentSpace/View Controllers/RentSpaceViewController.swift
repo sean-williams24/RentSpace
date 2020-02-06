@@ -194,14 +194,9 @@ class RentSpaceViewController: UIViewController {
 
     
     @objc func setSearchRadius() {
-        
         let vc = storyboard?.instantiateViewController(identifier: "SearchRadiusVC") as! SearchRadiusViewController
-//        let postCode = Constants.userLocationAddress?.postalCode
-//        vc.currentLocation = "\(rightBarButton.title ?? "Select Location"))"
         vc.delegate = self
-//        vc.searchDistance = searchDistance
         show(vc, sender: self)
-        
     }
     
 

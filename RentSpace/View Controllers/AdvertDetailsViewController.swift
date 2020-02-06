@@ -220,7 +220,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 guard let value = imageURLsDict[key] else { break }
                 
                 DispatchQueue.global(qos: .background).async {
-                    Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
+                    Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { [weak self] data, error  in
                         guard error == nil else {
                             print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
                             return
@@ -228,8 +228,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                         
                         if let data = data {
                             if let image = UIImage(data: data) {
-                                self.imagesDictionary[key] = image
-                                if self.imagesDictionary.count == imageURLsDict.count {
+                                self?.imagesDictionary[key] = image
+                                if self?.imagesDictionary.count == imageURLsDict.count {
                                     completion()
                                 }
                             }
@@ -264,14 +264,14 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             let childUpdates = ["adverts/\(Constants.userLocationCountry)/\(category)/\(UID!)-\(key)": NSNull(),
                                 "users/\(UID!)/adverts/\(key)": NSNull()]
             
-            self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
+            self.ref.updateChildValues(childUpdates) { [weak self] error, databaseRef in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
                 print("Deletion completion")
-                self.navigationController?.popToRootViewController(animated: true)
-                if self.imageURLsDict.count != 0 {
-                    self.deleteImagesFromFirebaseCloudStorage {
+                self?.navigationController?.popToRootViewController(animated: true)
+                if self?.imageURLsDict.count != 0 {
+                    self?.deleteImagesFromFirebaseCloudStorage {
                         print("Images deleted from Cloud Firestore")
                     }
                 }

@@ -72,7 +72,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         if UserDefaults.standard.double(forKey: "Distance") != 0.0 {
             searchDistance = UserDefaults.standard.double(forKey: "Distance")
         }
-        print("Search Distance: \(searchDistance)")
         
         for (index, miles) in pickerDistances.enumerated() {
             if Double(miles) == searchDistance {
