@@ -32,13 +32,11 @@ class RentSpaceViewController: UIViewController {
     fileprivate var _refHandle: DatabaseHandle!
     
     var spaces: [Space] = []
-    var chosenAdvert: DataSnapshot!
     var chosenCategory = ""
     var location = ""
     var searchAreaButtonTitle = ""
     var rightBarButton = UIBarButtonItem()
     var searchDistance = 20.00
-    var distances: [Double] = []
     
     
     // MARK: - Life Cycle
@@ -70,6 +68,7 @@ class RentSpaceViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightBarButton
         
         storageRef = Storage.storage().reference()
+        ref = Database.database().reference()
 
         if UserDefaults.standard.double(forKey: "Distance") != 0.0 {
             Constants.searchDistance = UserDefaults.standard.double(forKey: "Distance")
@@ -82,6 +81,9 @@ class RentSpaceViewController: UIViewController {
         }
         
         self.tableView.rowHeight = 150
+        
+        let category = spaces.first?.category
+        title = category
 
 
     }
@@ -117,94 +119,62 @@ class RentSpaceViewController: UIViewController {
         cell.activityView.startAnimating()
     }
     
+    fileprivate func getDistancesOfAdverts(for snapshot: DataSnapshot, from userLocation: CLLocation, within setMiles: Double, filtering: Bool) {
+        let spaceCount = snapshot.children.allObjects.count
+        var index = 0
+        var newSpaces: [Space] = []
+        
+        for child in snapshot.children {
+            if let spaceSnapshot = child as? DataSnapshot,
+                var space = Space(snapshot: spaceSnapshot) {
+                let address = space.postcode + " " + space.city
+                
+                // Get distance of advert location from users chosen location and add to table if within search radius
+                CLGeocoder().geocodeAddressString(address) { (placemark, error) in
+                    if let placemark = placemark?.first {
+                        let advertLocation = placemark.location
+                        if let distance = advertLocation?.distance(from: userLocation) {
+                            let distanceInMiles = distance / 1609.344
+                            
+                            if filtering {
+                                if distanceInMiles < setMiles {
+                                    space.distance = distanceInMiles
+                                    newSpaces.append(space)
+                                }
+                            } else {
+                                space.distance = distanceInMiles
+                                newSpaces.append(space)
+                            }
+
+                            index += 1
+                            if index == spaceCount {
+                                self.spaces = newSpaces.sorted {
+                                    $0.distance < $1.distance
+                                }
+                                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
         
         spaces.removeAll()
-        distances.removeAll()
-        ref = Database.database().reference()
+        tableView.reloadData()
                 
         if setMiles == 310.0 {
             // Nationwide results, i.e. all adverts
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
-                self.spaces = []
-                let spaceCount = snapshot.children.allObjects.count
-                var index = 0
-                var newSpaces: [Space] = []
-                
-                for child in snapshot.children {
-                    if let spaceSnapshot = child as? DataSnapshot {
-                        if var space = Space(snapshot: spaceSnapshot) {
-                            let address = space.postcode + " " + space.city
-                            
-                            // Get distance of advert location from users chosen location and add aray
-                            CLGeocoder().geocodeAddressString(address) { (placemark, error) in
-                                if let placemark = placemark?.first {
-                                    let advertLocation = placemark.location
-                                    if let distance = advertLocation?.distance(from: userLocation) {
-                                        let distanceInMiles = distance / 1609.344
-
-                                        space.distance = distanceInMiles
-                                        newSpaces.append(space)
-                                    
-                                        index += 1
-                                        if index == spaceCount {
-                                            self.spaces = newSpaces.sorted {
-                                                $0.distance < $1.distance
-                                            }
-                                            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                                            print(self.spaces.count)
-                                            self.tableView.reloadData()
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                self.getDistancesOfAdverts(for: snapshot, from: userLocation, within: setMiles, filtering: false)
             })
         } else {
             _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
-                self.spaces = []
-                self.tableView.reloadData()
-                let spaceCount = snapshot.children.allObjects.count
-                var index = 0
-                print(spaceCount)
-                var newSpaces: [Space] = []
-
-                for child in snapshot.children {
-                    if let spaceSnapshot = child as? DataSnapshot,
-                        var space = Space(snapshot: spaceSnapshot) {
-                        let address = space.postcode + " " + space.city
-                        
-                        // Get distance of advert location from users chosen location and add to table if within search radius
-                        CLGeocoder().geocodeAddressString(address) { (placemark, error) in
-                            if let placemark = placemark?.first {
-                                let advertLocation = placemark.location
-                                if let distance = advertLocation?.distance(from: userLocation) {
-                                    let distanceInMiles = distance / 1609.344
-
-                                    if distanceInMiles < setMiles {
-                                        print("Set Miles: \(setMiles)")
-                                        print("Distance: \(distanceInMiles)")
-                                        space.distance = distanceInMiles
-                                        newSpaces.append(space)
-                                    }
-                                    
-                                    index += 1
-                                    if index == spaceCount {
-                                        self.spaces = newSpaces.sorted {
-                                            $0.distance < $1.distance
-                                        }
-                                        self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-                                        print(self.spaces.count)
-                                        self.tableView.reloadData()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                self.getDistancesOfAdverts(for: snapshot, from: userLocation, within: setMiles, filtering: true)
             })
         }
     }
