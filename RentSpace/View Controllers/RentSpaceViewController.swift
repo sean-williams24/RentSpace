@@ -251,24 +251,27 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {
             
-                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
-                    guard error == nil else {
-                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-                        return
-                    }
-                    let cellImage = UIImage.init(data: data!, scale: 0.1)
-                    
-                    // Check to see if cell is still on screen, if so update cell
-                    if cell == tableView.cellForRow(at: indexPath) {
-                        DispatchQueue.main.async {
-                            cell.activityView.stopAnimating()
-                            cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                            cell.customImageView.contentMode = .scaleAspectFill
-                            cell.customImageView?.image = cellImage
-                            cell.setNeedsLayout()
+                DispatchQueue.global(qos: .background).async {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
+                        guard error == nil else {
+                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                            return
+                        }
+                        let cellImage = UIImage.init(data: data!, scale: 0.1)
+                        
+                        // Check to see if cell is still on screen, if so update cell
+                        if cell == tableView.cellForRow(at: indexPath) {
+                            DispatchQueue.main.async {
+                                cell.activityView.stopAnimating()
+                                cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                cell.customImageView.contentMode = .scaleAspectFill
+                                cell.customImageView?.image = cellImage
+                                cell.setNeedsLayout()
+                            }
                         }
                     }
                 }
+
             }
         } else {
             cell.activityView.stopAnimating()

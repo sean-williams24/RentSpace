@@ -152,12 +152,13 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 
                 let imageView = UIImageView()
                 imageView.image = image
-                imageView.contentMode = .scaleAspectFit
+                imageView.contentMode = .scaleAspectFill
                 let xPosition = self.view.frame.width * CGFloat(i)
                 imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
                 
                 self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
                 self.scrollView.addSubview(imageView)
+                self.scrollView.backgroundColor = .white
                 i += 1
             }
             self.pageController.numberOfPages = self.imagesDictionary.count
@@ -218,21 +219,24 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             for key in imageURLsDict.keys.sorted()  {
                 guard let value = imageURLsDict[key] else { break }
                 
-                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
-                    guard error == nil else {
-                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-                        return
-                    }
-                    
-                    if let data = data {
-                        if let image = UIImage(data: data) {
-                            self.imagesDictionary[key] = image
-                            if self.imagesDictionary.count == imageURLsDict.count {
-                                completion()
+                DispatchQueue.global(qos: .background).async {
+                    Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
+                        guard error == nil else {
+                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
+                            return
+                        }
+                        
+                        if let data = data {
+                            if let image = UIImage(data: data) {
+                                self.imagesDictionary[key] = image
+                                if self.imagesDictionary.count == imageURLsDict.count {
+                                    completion()
+                                }
                             }
                         }
                     }
                 }
+
             }
         } else {
             activityView.stopAnimating()

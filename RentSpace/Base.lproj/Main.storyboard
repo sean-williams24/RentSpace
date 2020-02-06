@@ -2268,15 +2268,16 @@ Only the best gear here.</string>
         <scene sceneID="cmi-X6-o9c">
             <objects>
                 <tableViewController id="X6k-KQ-cfD" customClass="UpdateCredentialsTableViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="70r-hf-wKo">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="70r-hf-wKo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <color key="separatorColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
                             <tableViewSection id="6o5-Xv-x7k">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CredentialsCell" textLabel="0Eh-VZ-BkW" detailTextLabel="zrY-fJ-veh" rowHeight="50" style="IBUITableViewCellStyleValue1" id="PL0-Vu-iiD">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="18" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PL0-Vu-iiD" id="7rD-G2-Dpc">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="50"/>
@@ -2302,7 +2303,7 @@ Only the best gear here.</string>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CredentialsCell" textLabel="bYs-gJ-NSn" detailTextLabel="5f8-8U-FIZ" rowHeight="50" style="IBUITableViewCellStyleValue1" id="9KW-oV-Aq5">
-                                        <rect key="frame" x="0.0" y="78" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="68" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9KW-oV-Aq5" id="6SP-mE-wDk">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="50"/>
@@ -2327,7 +2328,7 @@ Only the best gear here.</string>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="uH4-4Z-PYl" rowHeight="50" style="IBUITableViewCellStyleDefault" id="g0b-5N-JSz">
-                                        <rect key="frame" x="0.0" y="128" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="118" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g0b-5N-JSz" id="u1I-bB-J4c">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="50"/>
@@ -2345,7 +2346,7 @@ Only the best gear here.</string>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="N7P-mS-IGe" rowHeight="50" style="IBUITableViewCellStyleDefault" id="2Eb-op-7q8">
-                                        <rect key="frame" x="0.0" y="178" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="168" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Eb-op-7q8" id="p5v-B5-dly">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="50"/>
