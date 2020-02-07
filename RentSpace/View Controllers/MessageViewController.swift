@@ -202,11 +202,10 @@ class MessageViewController: UIViewController {
                 }
             }
             
-
-                        
             let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
             let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
-            
+            let messagesDB = Database.database().reference().child("messages/\(chatID)")
+
             let firstChatData = Chat(latestSender: Auth.auth().currentUser?.displayName ?? "",
                                      lastMessage: messageTextField.text!,
                                      title: advertTitleLabel.text!,
@@ -221,21 +220,6 @@ class MessageViewController: UIViewController {
                                      messageDate: fullDateFormatter.string(from: Date()),
                                      read: "false",
                                      timestamp: (Date().timeIntervalSince1970 as Double))
-            
-            
-            let firstChatData1 = ["title": advertTitleLabel.text!,
-                                 "location": locationLabel.text!,
-                                 "price": priceLabel.text!,
-                                 "lastMessage": messageTextField.text!,
-                                 "latestSender": Auth.auth().currentUser?.displayName,
-                                 "customerUID": Auth.auth().currentUser?.uid,
-                                 "customerDisplayName": Auth.auth().currentUser?.displayName,
-                                 "chatID": chatID,
-                                 "advertOwnerUID": advertOwnerUID,
-                                 "advertOwnerDisplayName": advertOwnerDisplayName,
-                                 "thumbnailURL": thumbURL,
-                                 "messageDate": fullDateFormatter.string(from: Date()),
-                                 "read": "false"]
             
             let existingChatData = Chat(latestSender: Auth.auth().currentUser?.displayName ?? "",
                                         lastMessage: messageTextField.text!,
@@ -252,30 +236,7 @@ class MessageViewController: UIViewController {
                                         read: "false",
                                         timestamp: (Date().timeIntervalSince1970 as Double))
             
-//            let existingChatData1 = ["title": advertTitleLabel.text!,
-//                                    "location": locationLabel.text!,
-//                                    "price": priceLabel.text!,
-//                                    "lastMessage": messageTextField.text!,
-//                                    "latestSender": Auth.auth().currentUser?.displayName,
-//                                    "customerUID": customerUID,
-//                                    "customerDisplayName": customerDisplayName,
-//                                    "chatID": chatID,
-//                                    "advertOwnerUID": advertOwnerUID,
-//                                    "advertOwnerDisplayName": advertOwnerDisplayName,
-//                                    "thumbnailURL": thumbURL,
-//                                    "messageDate": fullDateFormatter.string(from: Date()),
-//                                    "read": "false",
-//                                    "timestamp": Date().timeIntervalSince1970] as! [String : Double]
-            
-            var chatData: Any!
-        
-            if viewingExistingChat {
-                chatData = existingChatData.toAnyObject()
-            } else {
-                chatData = firstChatData.toAnyObject()
-            }
-            
-            let messagesDB = Database.database().reference().child("messages/\(chatID)")
+            let chatData = viewingExistingChat ? existingChatData.toAnyObject() : firstChatData.toAnyObject()
             let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": fullDateFormatter.string(from: Date())]
             
             // Upload messages to advert owners and customers chats pathes, as well as messages path.
@@ -407,15 +368,3 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-
-// MARK: - TextField Delegates
-
-
-extension MessageViewController: UITextFieldDelegate {
-    
-    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    //
-    //        return true
-    //
-    //    }
-}

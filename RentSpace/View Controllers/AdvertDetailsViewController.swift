@@ -242,7 +242,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             let postSpaceVC = vc.children[0] as! PostSpaceViewController
             postSpaceVC.space = self.space
             postSpaceVC.updatingAdvert = true
-            //            postSpaceVC.advertSnapshot = advertSnapshot
             present(vc, animated: true)
         }
     }
@@ -385,36 +384,4 @@ extension AdvertDetailsViewController: MKMapViewDelegate {
             }
         }
     }
-    
-    
-    //    func downloadFirebaseImages(completion: @escaping () -> ()) {
-    //        if let imageURLsDict = advert[Advert.photos] as? [String : String] {
-    //            self.imageURLsDict = imageURLsDict
-    //
-    //            for key in imageURLsDict.keys.sorted()  {
-    //                guard let value = imageURLsDict[key] else { break }
-    //                print("\(key), \(value)")
-    //
-    //                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { (data, error) in
-    //                    guard error == nil else {
-    //                        print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-    //                        return
-    //                    }
-    //
-    //                    if let data = data {
-    //                        if let image = UIImage(data: data) {
-    //                            self.images.append(image)
-    //                            print("KEY: \(key)")
-    //                            print("VALUE: \(value)")
-    //                            self.imagesDictionary[key] = image
-    //
-    //                            if self.images.count == imageURLsDict.count {
-    //                                completion()
-    //                            }
-    //                        }
-    //                    }
-    //                }
-    //        }
-    //    }
-    //    }
 }

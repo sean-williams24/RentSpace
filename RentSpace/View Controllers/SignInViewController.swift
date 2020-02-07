@@ -54,7 +54,6 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         addLeftPadding(for: passwordTextField, placeholderText: "Password", placeholderColour: .gray)
         
         passwordTextField.isSecureTextEntry = true
-//        dismissKeyboardOnViewTap()
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
         googleSignInButton.style = .wide
@@ -67,7 +66,6 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
                 loginButton.removeConstraint(const)
             }
         }
-//        loginButton.frame = CGRect(x: 24, y: 425, width: view.frame.width - 48, height: 40)
         
         loginButton.delegate = self
         view.addSubview(loginButton)
@@ -80,20 +78,6 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         
         
 
-        
-    }
-    
-    
-    // MARK: - Config
-    
-    func configureAuth() {
-        
-        // listen for changes in the authorization state
-//        handle = Auth.auth().addStateDidChangeListener({ (auth: Auth, user: User?) in
-//            if user != nil {
-//                self.dismiss(animated: true)
-//            }
-//        })
         
     }
     
@@ -122,7 +106,6 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
             self.delegate?.adjustViewForTabBar?()
 
             self.dismiss(animated: true) {
-                print("dismissing")
                 self.delegate?.updateSignInButton()
             }
         }

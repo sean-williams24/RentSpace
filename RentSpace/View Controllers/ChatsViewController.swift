@@ -53,13 +53,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
-    
-    
     // MARK: - Private Methods
     
     fileprivate func downloadChats() {
@@ -81,12 +74,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
             self.chats = newChats.reversed()
             self.tableView.reloadData()
-            
-            if self.chats.isEmpty {
-                self.infoLabel.text = "Your conversations will appear here once chatting begins."
-            } else {
-                self.infoLabel.text = ""
-            }
+            self.infoLabel.text = self.chats.isEmpty ? "Your conversations will appear here once chatting begins." : ""
         })
     }
     
@@ -103,9 +91,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
             self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
-                }
-                print("Deletion completion")
-                
+                }                
             }
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))

@@ -38,8 +38,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             locationManager.startUpdatingLocation()
         }
         
-
-        
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
             if error != nil {
                 DispatchQueue.main.async {
@@ -99,19 +97,16 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 self.tabBarController?.tabBar.isHidden = false
                 self.signInButton.isEnabled = false
                 self.signInButton.tintColor = .clear
-
             } else {
                 self.tabBarController?.tabBar.isHidden = true
                 self.signInButton.isEnabled = true
                 self.signInButton.tintColor = Settings.orangeTint
             }
         })
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         configure(artButton, text: "Art")
         configure(photographyButton, text: "Photography")
@@ -128,14 +123,10 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                     print("Error geocoding users location: \(error?.localizedDescription ?? "")")
                 }
                 if let location = placemark?[0].location {
-                    print(placemark?[0] as Any)
                     Constants.customCLLocation = location
-                    
                 }
             }
         }
-        
-
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.delegate = self
@@ -275,16 +266,5 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
         let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
         self.view.frame.origin.y = -tabBarHeight
     }
-    
-
-    
-//    func adjustViewForTabBar() {
-////        if Auth.auth().currentUser == nil {
-//        self.tabBarController?.tabBar.isHidden = true
-//
-//
-//
-//    }
-
     
 }

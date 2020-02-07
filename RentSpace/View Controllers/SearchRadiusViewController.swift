@@ -154,10 +154,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
 
 extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        // Hide borders of picker view
-//        pickerView.subviews.forEach({
-//            $0.isHidden = $0.frame.height < 1.0
-//        })
         return 1
     }
     

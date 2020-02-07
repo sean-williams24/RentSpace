@@ -11,7 +11,6 @@
 		CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */; };
 		CE02CECB23E85433003B96A9 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */; };
 		CE02CECD23E88873003B96A9 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECC23E88873003B96A9 /* FirebaseClient.swift */; };
-		CE02CED023EBF42B003B96A9 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECF23EBF42B003B96A9 /* LaunchViewController.swift */; };
 		CE08407A238D40B200DA57C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084079238D40B200DA57C8 /* AppDelegate.swift */; };
 		CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407B238D40B200DA57C8 /* SceneDelegate.swift */; };
 		CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08407D238D40B200DA57C8 /* PostSpaceViewController.swift */; };
@@ -62,7 +61,6 @@
 		CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsTableViewController.swift; sourceTree = "<group>"; };
 		CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		CE02CECC23E88873003B96A9 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
-		CE02CECF23EBF42B003B96A9 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		CE084076238D40B200DA57C8 /* RentSpace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RentSpace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE084079238D40B200DA57C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE08407B238D40B200DA57C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -206,7 +204,6 @@
 				CEF5CBE623C243A80011243D /* RegisterViewController.swift */,
 				CEF5CBDE23C1FF250011243D /* ChatsViewController.swift */,
 				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
-				CE02CECF23EBF42B003B96A9 /* LaunchViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -407,7 +404,6 @@
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
 				CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */,
 				CEC0B93923D62007004DC4E6 /* MessageTableViewCell.swift in Sources */,
-				CE02CED023EBF42B003B96A9 /* LaunchViewController.swift in Sources */,
 				CEF5CBE923C7258C0011243D /* Settings.swift in Sources */,
 				CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */,
 				CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */,
