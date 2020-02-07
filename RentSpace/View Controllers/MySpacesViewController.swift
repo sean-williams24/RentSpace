@@ -22,7 +22,7 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var favouritesButton: UIBarButtonItem!
     
     var mySpaces: [Space] = []
-    var ref: DatabaseReference!
+    var ref = FirebaseClient.ref
     fileprivate var authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var refHandle: DatabaseHandle!
     var UID = ""
@@ -37,7 +37,6 @@ class MySpacesViewController: UIViewController {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
         favouritesButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
-        self.ref = Database.database().reference()
 
         authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
 
@@ -114,7 +113,7 @@ class MySpacesViewController: UIViewController {
     fileprivate func loadUserSpaces() {
         mySpaces.removeAll()
         tableView.reloadData()
-        self.refHandle = self.ref.child("users/\(self.UID)/adverts").queryOrdered(byChild: "timestamp").observe(.value, with: { (snapShot) in
+        refHandle = ref.child("users/\(self.UID)/adverts").queryOrdered(byChild: "timestamp").observe(.value, with: { (snapShot) in
             
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
@@ -194,9 +193,7 @@ class MySpacesViewController: UIViewController {
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.hidesBottomBarWhenPushed = true
-    }
+
 }
 
 

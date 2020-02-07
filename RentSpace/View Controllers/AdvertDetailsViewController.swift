@@ -84,9 +84,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             favouritesButton.isEnabled = true
             favouritesButton.tintColor = Settings.orangeTint
             
-            if arrivedFromFavourites {
-                favouritesButton.isHidden = true
-            }
+            if arrivedFromFavourites { favouritesButton.isHidden = true }
         }
         
         titleLabel.text = space.title.uppercased()

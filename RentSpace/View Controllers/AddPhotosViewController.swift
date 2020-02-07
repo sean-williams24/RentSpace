@@ -49,13 +49,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         trashButton.tintColor = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
         cameraButton.tintColor = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
         navigationItem.setRightBarButton(cameraButton, animated: true)
-        
-        if inUpdatingMode {
-            loadImagesFromUserDefaults(forKey: "UpdateImages")
-        } else {
-            loadImagesFromUserDefaults(forKey: "Images")
-        }
-        
+    
+        inUpdatingMode ? loadImagesFromUserDefaults(forKey: "UpdateImages") : loadImagesFromUserDefaults(forKey: "Images")
         
         // If there are no saved images, load in 9 placeholders
         if images.isEmpty {
@@ -64,11 +59,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
         
-        if !photoAlbumIsFull() {
-            cameraButton.isEnabled = true
-        } else {
-            cameraButton.isEnabled = false
-        }
+        cameraButton.isEnabled = photoAlbumIsFull() ? false : true
+        
     }
     
     
@@ -109,28 +101,26 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             imageNames.append(image.imageName)
         }
         
-        if !imageNames.contains("placeholder") {
-            return true
-        }
+        if !imageNames.contains("placeholder") { return true }
         return false
     }
     
     @objc func addOrDeletePhotosTapped(_ sender: Any) {
         if deleting {
             for indexPath in selectedImagesIndexPathes.reversed() {
+                let image = images[indexPath.item]
+                let imageURL = getDocumentsDirectory().appendingPathComponent(image.imageName)
+                deleteFileFromDisk(at: imageURL)
+
                 images.remove(at: indexPath.item)
                 writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count, in: &images)
-                
-                //TODO - delete photo from disk
                 
             }
             collectionView.reloadData()
             save()
             deleting = false
             selectedImagesIndexPathes.removeAll()
-            if !photoAlbumIsFull() {
-                navigationItem.rightBarButtonItem?.isEnabled = true
-            }
+            if !photoAlbumIsFull() { navigationItem.rightBarButtonItem?.isEnabled = true }
         } else {
             addPhotos()
         }
@@ -144,22 +134,19 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         let attributes = [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Light", size: 16) as Any ]
         UINavigationBar.appearance().titleTextAttributes = attributes // Title fonts
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal) // Bar Button fonts
-    
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Settings.orangeTint ] // Title color
         UINavigationBar.appearance().tintColor = Settings.orangeTint // Left. bar buttons
         
         config.colors.tintColor = Settings.orangeTint // Right bar buttons (actions)
         config.icons.multipleSelectionOnIcon.withTintColor(Settings.orangeTint)
         config.colors.multipleItemsSelectedCircleColor = Settings.orangeTint
-       // config.showsCrop = .rectangle(ratio: 1.0)
         config.icons.capturePhotoImage = UIImage(named: "Shutter-Black")!
         config.hidesStatusBar = false
         config.preferredStatusBarStyle = .lightContent
         config.startOnScreen = .library
         config.shouldSaveNewPicturesToAlbum = false
-        if UIImagePickerController.isSourceTypeAvailable(.camera) == false {
-            config.screens = [.library]
-        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) == false { config.screens = [.library] }
         
         var maxImages = 0
         for image in images {
@@ -182,17 +169,12 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                     
                 case .video:
                     print("Video")
-                    
                 }
             }
             self.collectionView.reloadData()
             picker.dismiss(animated: true, completion: nil)
-            if self.photoAlbumIsFull() {
-                self.navigationItem.rightBarButtonItem?.isEnabled = false
-            }
+            if self.photoAlbumIsFull() { self.navigationItem.rightBarButtonItem?.isEnabled = false }
         }
-
-        
         present(picker, animated: true)
     }
     

@@ -35,7 +35,6 @@ class UpdateDetailsViewController: UIViewController {
         super.viewDidLoad()
                 
         title = userDetailToUpdate
-//        UINavigationBar.appearance().titleTextAttributes = Settings.barButtonAttributes
         self.navigationController?.navigationBar.titleTextAttributes = Settings.navBarTitleAttributes
         
         addLeftPadding(for: updateTextfield, placeholderText: userDetailToUpdate, placeholderColour: .darkGray)
@@ -62,7 +61,7 @@ class UpdateDetailsViewController: UIViewController {
 
     
     fileprivate func handleUpdateCompletion(_ error: Error?) {
-        viewIsLoading(false)
+        updateLoadingUI(false)
 
         if error != nil {
             showAlert(title: "Oops!", message: error?.localizedDescription)
@@ -75,7 +74,7 @@ class UpdateDetailsViewController: UIViewController {
         }
     }
     
-    fileprivate func viewIsLoading(_ loading: Bool) {
+    fileprivate func updateLoadingUI(_ loading: Bool) {
         UIView.animate(withDuration: 0.2) {
             if loading {
                 self.loadingView.alpha = 0.7
@@ -99,7 +98,7 @@ class UpdateDetailsViewController: UIViewController {
     
     @IBAction func updateButtonTapped(_ sender: Any) {
         guard let newCredential = updateTextfield.text else { return }
-        viewIsLoading(true)
+        updateLoadingUI(true)
         
         if userDetailToUpdate == "Display Name" {
             if isValidDisplayName(newCredential) {
@@ -109,7 +108,7 @@ class UpdateDetailsViewController: UIViewController {
                     self.handleUpdateCompletion(error)
                 }
             } else {
-                viewIsLoading(false)
+                updateLoadingUI(false)
                 showAlert(title: "Whoops!", message: "Display name needs to be at least 3 characters...")
             }
         } else if userDetailToUpdate == "Email" {
@@ -118,7 +117,7 @@ class UpdateDetailsViewController: UIViewController {
                     self.handleUpdateCompletion(error)
                    }
             } else {
-                viewIsLoading(false)
+                updateLoadingUI(false)
                 showAlert(title: "Oh No!", message: "That doesn't appear to be a valid email address...")
             }
         } else {
@@ -127,7 +126,7 @@ class UpdateDetailsViewController: UIViewController {
                   self.handleUpdateCompletion(error)
                 }
             } else {
-                viewIsLoading(false)
+                updateLoadingUI(false)
                 showAlert(title: "Hmmm", message: "Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number.")
             }
         }

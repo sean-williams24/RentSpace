@@ -120,7 +120,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
         if self.navigationController!.isBeingDismissed { deleteImagesInDocumentsDirectory() }
     }
     
@@ -556,6 +555,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 addPhotosVC.inUpdatingMode = true
             }
         }
+        
+        self.view.endEditing(true)
     }
     
     

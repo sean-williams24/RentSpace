@@ -49,16 +49,7 @@ class SettingsViewController: UIViewController {
         
 
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//
-//        addDisclosureAccessoryView(for: displayNameButton)
-//        addDisclosureAccessoryView(for: emailButton)
-//        addDisclosureAccessoryView(for: updateDetailsButton)
 
-
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -140,7 +131,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialsCell", for: indexPath)
-        
         cell.textLabel?.text = "Display Name"
         cell.detailTextLabel?.text = "Sean"
         

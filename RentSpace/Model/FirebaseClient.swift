@@ -12,6 +12,10 @@ import Foundation
 
 class FirebaseClient {
     
+    static var currentUser: User?
+    static let storageRef = Storage.storage().reference()
+    static let ref = Database.database().reference()
+    
     struct Path {
         static let userAdverts = "users/\(Auth.auth().currentUser?.uid ?? "")/adverts"
     }
