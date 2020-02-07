@@ -248,6 +248,16 @@ extension UIViewController {
         })
     }
  
+    
+    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int, in imagesArray: inout [Image]) {
+        let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+            try? imageData.write(to: filePath)
+        }
+        
+        let savingImage = Image(imageName: imageName)
+        imagesArray.insert(savingImage, at: position)
+    }
 }
 
 extension UIView {

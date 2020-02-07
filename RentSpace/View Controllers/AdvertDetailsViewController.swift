@@ -179,12 +179,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
-
-        if spaceIsFavourite {
-            favouritesButton.tintColor = Settings.orangeTint
-        } else {
-            favouritesButton.tintColor = .white
-        }
+        
+        favouritesButton.tintColor = spaceIsFavourite ? Settings.orangeTint : .white
     }
     
     override func viewDidAppear(_ animated: Bool) {

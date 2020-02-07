@@ -100,19 +100,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
     }
-    
-    // refactor into extension
-    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int, in imagesArray: inout [Image]) {
-        let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        print(filePath)
-        if let imageData = image.jpegData(compressionQuality: 1.0) {
-            try? imageData.write(to: filePath)
-        }
-        
-        let savingImage = Image(imageName: imageName)
-        imagesArray.insert(savingImage, at: position)
-    }
-    
+       
     
     
     fileprivate func photoAlbumIsFull() -> Bool {
@@ -240,15 +228,11 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         deleting = true
-        selectedImagesIndexPathes.append(indexPath)
-        print(selectedImagesIndexPathes)
-        print("Deleting: \(deleting)")
-        
+        selectedImagesIndexPathes.append(indexPath)        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedImagesIndexPathes.removeAll(where: {$0 == indexPath})
-        print(selectedImagesIndexPathes)
         if selectedImagesIndexPathes.isEmpty {
             deleting = false
         }

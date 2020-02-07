@@ -32,6 +32,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var priceRatePickerContent = [String]()
     var imagesSavedToDisk = [Image]()
     var imagesToUpload: [Image] = []
+    var tempDiskImagesArrayToDelete: [Image] = []
     let itemsPerRow: CGFloat = 5
     let collectionViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 //    var ref: DatabaseReference!
@@ -119,19 +120,38 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if self.navigationController!.isBeingDismissed {
-            for image in imagesToUpload {
-                if image.imageName != "placeholder" {
-                    let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
-                    deleteFileFromDisk(at: imageURLInDocuments)
-                }
-            }
-        }
+        
+        if self.navigationController!.isBeingDismissed { deleteImagesInDocumentsDirectory() }
     }
     
     
     
     //MARK: - Private Methods
+    
+    
+    fileprivate func deleteImagesInDocumentsDirectory() {
+        
+        for image in imagesToUpload {
+              if image.imageName != "placeholder" {
+                  let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
+                  deleteFileFromDisk(at: imageURLInDocuments)
+              }
+          }
+        
+        for image in imagesSavedToDisk {
+            if image.imageName != "placeholder" {
+                let imageURLinDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
+                deleteFileFromDisk(at: imageURLinDocuments)
+            }
+        }
+        
+        for image in tempDiskImagesArrayToDelete {
+            if image.imageName != "placeholder" {
+                let imageURLinDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
+                deleteFileFromDisk(at: imageURLinDocuments)
+            }
+        }
+    }
     
     
     fileprivate func loadUserDataFromUserDefaults() {
@@ -194,16 +214,19 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         // Download images from Firebase Storage
         downloadFirebaseImages {
             for _ in 0...8 {
-                self.writeImageFileToDisk(image: self.placeHolderImage!, name: "placeholder", at: 0)
+                self.writeImageFileToDisk(image: self.placeHolderImage!, name: "placeholder", at: 0, in: &self.imagesSavedToDisk)
             }
             // Save images to disk to create array of filepaths, save to UD so it can be used to load in AddPhotosVC as well as here.
 
             for key in self.imagesDictionary.keys.sorted().reversed() {
                 guard let image = self.imagesDictionary[key] else { break }
                 let imageName = UUID().uuidString
-                self.writeImageFileToDisk(image: image, name: imageName, at: 0)
+                self.writeImageFileToDisk(image: image, name: imageName, at: 0, in: &self.imagesSavedToDisk)
                 self.imagesSavedToDisk.removeLast()
             }
+            
+            self.tempDiskImagesArrayToDelete = self.imagesSavedToDisk
+            print(self.tempDiskImagesArrayToDelete.count)
             
             // Save image file paths to UserDefaults
             let jsonEncoder = JSONEncoder()
@@ -241,17 +264,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         }
     }
     
-    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int) {
-        let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        
-        if let imageData = image.jpegData(compressionQuality: 1.0) {
-            try? imageData.write(to: filePath)
-        }
-        
-        let savingImage = Image(imageName: imageName)
-        imagesSavedToDisk.insert(savingImage, at: position)
-        
-    }
     
     
     fileprivate func configureUI() {
@@ -324,17 +336,14 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         self.postButton.isEnabled = true
     }
     
+
+    
     fileprivate func uploadAdvertToFirebase(_ imageURLs: [String : String]? = nil) {
         var descriptionText = descriptionTextView.text
         var update = ""
         
-        if descriptionText == descriptionViewPlaceholder {
-            descriptionText = ""
-        }
-        
-        if updatingAdvert {
-            update = "Update"
-        }
+        if descriptionText == descriptionViewPlaceholder { descriptionText = "" }
+        if updatingAdvert { update = "Update" }
         
         // Package advert into data dictionary
         let data = Space(title: self.titleTextField.text ?? "",
@@ -372,6 +381,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     print(error?.localizedDescription as Any)
                 }
                 print("update completion")
+                
+                self?.deleteImagesInDocumentsDirectory()
+                
                 self?.imagesSavedToDisk = []
                 self?.imagesToUpload = []
                 
@@ -380,6 +392,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 vc.updatingAdvert = true
                 self?.present(vc, animated: true)
             }
+            
+            
+            
         } else {
             Settings.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
                 if error != nil {
@@ -515,7 +530,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     print("uploadoaded images count: \(uploadedImagesCount)")
                     
                     self?.deleteFileFromDisk(at: imageURLInDocuments)
-                    
                     
                     // Call completion handler once all images are uploaded, passing in imageURLs
                     if uploadedImagesCount == self?.imagesToUpload.count {
