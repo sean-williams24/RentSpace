@@ -11,7 +11,7 @@ import Firebase
 import NVActivityIndicatorView
 import UIKit
 
-class MessageViewController: UIViewController {
+class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var advertTitleLabel: UILabel!
@@ -67,6 +67,7 @@ class MessageViewController: UIViewController {
         listenForNewMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,8 +85,7 @@ class MessageViewController: UIViewController {
         super.viewDidDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
-    
-    
+
     
     // MARK: - Private Methods
     
@@ -174,7 +174,6 @@ class MessageViewController: UIViewController {
         let bottomMessageIndex = IndexPath(row: tableView.numberOfRows(inSection: 0) - 1, section: 0)
         tableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
     }
-    
     
     
     func sendMessage() {
@@ -278,6 +277,13 @@ class MessageViewController: UIViewController {
     
     @IBAction func sendMessageButtonTapped(_ sender: Any) {
         sendMessage()
+    }
+    
+    
+    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
+//        guard let recognizer = recognizer else { return }
+        
+
     }
 }
 

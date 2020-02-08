@@ -24,6 +24,7 @@ class RentSpaceViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
+    @IBOutlet var arrow: UIImageView!
     
     // MARK: - Properties
 
@@ -96,15 +97,19 @@ class RentSpaceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             if self.spaces.isEmpty {
                 UIView.animate(withDuration: 1) {
                     self.loadingLabel.alpha = 0
-                    self.loadingLabel.text = "No spaces were found, try expanding your search radius"
+                    self.loadingLabel.text = "No spaces were found, try expanding your search radius and check your connection"
                     UIView.animate(withDuration: 3) {
                         self.loadingLabel.alpha = 1
+                        self.arrow.alpha = 1
                     }
                 }
+                self.activityView.stopAnimating()
+                self.arrow.blink(duration: 0.7, delay: 0, alpha: 0.05)
+                
             }
         }
     }

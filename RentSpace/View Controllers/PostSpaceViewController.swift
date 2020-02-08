@@ -264,7 +264,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     }
     
     
-    
     fileprivate func configureUI() {
         // Title textfield
         addLeftPadding(for: titleTextField, placeholderText: "Title", placeholderColour: .lightGray)
@@ -432,9 +431,13 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         if imagesToUpload.isEmpty {
             // If there are existing images - delete them first
             if firebaseImageURLsDict.count != 0 {
-                deleteImagesFromFirebaseCloudStorage {
+                FirebaseClient.deleteImagesFromFirebaseCloudStorage(imageURLsDict: firebaseImageURLsDict) {
                     self.uploadAdvertToFirebase()
                 }
+//
+//                deleteImagesFromFirebaseCloudStorage {
+//                self.uploadAdvertToFirebase()
+//                }
             } else {
                 uploadAdvertToFirebase()
             }
@@ -444,11 +447,17 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             if updatingAdvert && firebaseImageURLsDict.count != 0 && imagesUpdated == true {
                 print("Images have been updated")
                 
-                deleteImagesFromFirebaseCloudStorage {
-                    self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
+                FirebaseClient.deleteImagesFromFirebaseCloudStorage(imageURLsDict: firebaseImageURLsDict) {
+                        self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
                         self.uploadAdvertToFirebase(imageURLs)
                     }
                 }
+                
+//                deleteImagesFromFirebaseCloudStorage {
+//                    self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
+//                        self.uploadAdvertToFirebase(imageURLs)
+//                    }
+//                }
                 // If there are images to upload, if we are updating the advert, there are existing images but images have not been updated -
                 // overwrite photos to same path in cloud storage.
             } else if updatingAdvert && firebaseImageURLsDict.count != 0 && imagesUpdated == false {
@@ -467,28 +476,27 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         }
     }
     
-    func deleteImagesFromFirebaseCloudStorage(completion: @escaping() -> ()) {
-        let storage = Storage.storage()
-        var deletedImagesCount = 0
-        for (_, imageURL) in firebaseImageURLsDict {
-            let storRef = storage.reference(forURL: imageURL)
-            
-            storRef.delete { (error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    deletedImagesCount += 1
-                    
-                    if deletedImagesCount == self.firebaseImageURLsDict.count {
-                        // Call completion and uploadImagestofirebasestorage
-                        print("Uploading to Firebase Storage and Realtime Database")
-                        completion()
-                    }
-                }
-            }
-        }
-    }
-    
+//    func deleteImagesFromFirebaseCloudStorage(completion: @escaping() -> ()) {
+//        let storage = Storage.storage()
+//        var deletedImagesCount = 0
+//        for (_, imageURL) in firebaseImageURLsDict {
+//            let storRef = storage.reference(forURL: imageURL)
+//
+//            storRef.delete { (error) in
+//                if let error = error {
+//                    print(error.localizedDescription)
+//                } else {
+//                    deletedImagesCount += 1
+//
+//                    if deletedImagesCount == self.firebaseImageURLsDict.count {
+//                        // Call completion and uploadImagestofirebasestorage
+//                        print("Uploading to Firebase Storage and Realtime Database")
+//                        completion()
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     
     func uploadImagesToFirebaseCloudStorage(completion: @escaping ([String : String]) -> ()) {
