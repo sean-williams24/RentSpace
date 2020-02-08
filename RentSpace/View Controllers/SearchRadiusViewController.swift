@@ -14,10 +14,14 @@ protocol handleSetSearchLocation {
 
 class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
 
+    // MARK: - Outlets
+
     @IBOutlet var locationButton: UIButton!
-    @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var pickerView: UIPickerView!
     
+    
+    // MARK: - Properties
+
     var searchDistance: Double = 20.00
     var resultsSearchController: UISearchController?
     var delegate: UpdateSearchLocationDelegate?
@@ -44,8 +48,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         addressSearchTable.handleSetSearchLocationDelegate = self
          
         let titleButton = UIButton()
-        titleButton.tintColor = Settings.orangeTint
         let attributedTitle = NSAttributedString(string: "Set Location", attributes: Settings.navBarTitleAttributes)
+        titleButton.tintColor = Settings.orangeTint
         titleButton.setAttributedTitle(attributedTitle, for: .normal)
         titleButton.addTarget(self, action: #selector(addressSearch), for: .touchUpInside)
         navigationItem.titleView = titleButton
@@ -56,7 +60,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         // LOCATION
         let currentLocation = UserDefaults.standard.string(forKey: "Location")
         locationButton.setTitle(currentLocation, for: .normal)
-        
         locationButton.layer.borderColor = Settings.orangeTint.cgColor
         locationButton.layer.borderWidth = 1
         locationButton.layer.cornerRadius = Settings.cornerRadius
@@ -65,6 +68,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         for i in 1...30 {
             pickerDistances.append(String(i))
         }
+        
         for i in stride(from: 40, to: 320, by: 10) {
             pickerDistances.append(String(i))
         }
@@ -78,8 +82,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
                 pickerView.selectRow(index, inComponent: 0, animated: true)
             }
         }
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -95,8 +97,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         }
         
         navigationController?.children[1].navigationItem.backBarButtonItem = UIBarButtonItem(title: "-", style: .plain, target: nil, action: nil)
-        
     }
+    
     
     // MARK: - Private Methods
     
@@ -126,11 +128,9 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         Location.customCLLocation = location
         locationUpdated = true
         navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
-
     }
     
     
-
     @objc func addressSearch() {
         navigationController?.setNavigationBarHidden(true, animated: true)
         let searchBar = resultsSearchController!.searchBar
@@ -144,6 +144,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         definesPresentationContext = true
     }
 
+    
     // MARK: - Action Methods
 
     @IBAction func locationButtonTapped(_ sender: Any) {
@@ -151,6 +152,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     }
 }
 
+
+// MARK: - Extensions
 
 extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -181,13 +184,8 @@ extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        view.endEditing(true)
         searchDistance = Double(pickerDistances[row])!
         distanceUpdated = true
-        
         navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
     }
-    
-    
-    
 }

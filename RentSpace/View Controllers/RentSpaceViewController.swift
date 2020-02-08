@@ -18,7 +18,6 @@ protocol UpdateSearchLocationDelegate {
 
 class RentSpaceViewController: UIViewController {
 
-    
     // MARK: - Outlets
 
     @IBOutlet var tableView: UITableView!

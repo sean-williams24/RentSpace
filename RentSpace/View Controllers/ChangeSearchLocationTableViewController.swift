@@ -12,18 +12,14 @@ import UIKit
 
 class ChangeSearchLocationTableViewController: UITableViewController, UISearchResultsUpdating {
 
+    // MARK: - Properties
 
     var matchingItems: [MKMapItem] = []
     var handleSetSearchLocationDelegate: handleSetSearchLocation?
     
     
-    // MARK: - Life Cycle
+    // MARK: - Search Results
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearch.Request()
@@ -45,11 +41,10 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
                 }
             }
             self.tableView.reloadData()
-
         }
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view Delegates
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
@@ -92,5 +87,4 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
         
         dismiss(animated: true)
     }
-
 }

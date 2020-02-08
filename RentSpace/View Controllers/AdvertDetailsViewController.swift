@@ -13,6 +13,8 @@ import UIKit
 
 class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
+    // MARK: - Outlets
+
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
@@ -29,8 +31,10 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var favouritesButton: UIButton!
     @IBOutlet var imageScrollViewHeight: NSLayoutConstraint!
     
+    
+    // MARK: - Properties
+
     var images = [UIImage]()
-    //    var advertSnapshot: DataSnapshot!
     var space: Space!
     var emailAddress: String?
     var phoneNumber: String?
@@ -39,8 +43,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var arrivedFromFavourites = false
     var trashButton: UIBarButtonItem!
     var editButton: UIBarButtonItem!
-    var ref: DatabaseReference!
-    var authHandle: AuthStateDidChangeListenerHandle!
+    var ref = FirebaseClient.databaseRef
     var imageURLsDict: [String: String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
     var thumbnail = UIImage()
@@ -60,11 +63,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
 
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
         navigationItem.rightBarButtonItems = [trashButton, editButton]
+        scrollView.delegate = self
 
         if editingMode {
             trashButton.isEnabled = true
@@ -89,18 +92,16 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         titleLabel.text = space.title.uppercased()
         priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
-        
         locationLabel.text = formatAddress(for: space)
-        scrollView.delegate = self
         pageController.hidesForSinglePage = true
         postcode = space.postcode
         
         if space.photos == nil {
             imageScrollViewHeight.constant = 200
             activityView.stopAnimating()
+            
             let imageView = UIImageView()
             imageView.image = UIImage(named: "Logo Grey")
-
             imageView.contentMode = .scaleAspectFit
             imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
             scrollView.addSubview(imageView)
@@ -141,11 +142,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             for key in self.imagesDictionary.keys.sorted() {
                 guard let image = self.imagesDictionary[key] else { break }
                 
+                // Store thumbnail for chat if inititiated
                 if key == "image 1" {
                     if let thumb = image.sd_resizedImage(with: CGSize(width: 300, height: 300), scaleMode: .aspectFit){
                         self.thumbnail = thumb
                     }
-                    
                 }
                 
                 let imageView = UIImageView()
@@ -164,7 +165,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         if space.postedByUser == Auth.auth().currentUser?.uid {
             messagesButton.isEnabled = false
-            messagesButton.tintColor = .clear
+            messagesButton.tintColor = .gray
         }
         
         directionsButton.layer.cornerRadius = 15
@@ -184,12 +185,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UserDefaults.standard.removeObject(forKey: "ImagesUpdated")
-
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //        Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
     
@@ -202,9 +197,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         pageController.currentPage = Int(pageIndex)
     }
     
-    // refactor this and cloud delete to Firebase client class
     func downloadFirebaseImages(completion: @escaping () -> ()) {
-        
         activityView.startAnimating()
         
         if let imageURLsDict = space.photos {
@@ -237,6 +230,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    
     @objc func editAdvert() {
         if let vc = storyboard?.instantiateViewController(identifier: "PostSpaceNavVC") {
             let postSpaceVC = vc.children[0] as! PostSpaceViewController
@@ -260,8 +254,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             self.ref.updateChildValues(childUpdates) { [weak self] error, databaseRef in
                 if error != nil {
                     print(error?.localizedDescription as Any)
+                    self?.showAlert(title: "Deletion Error", message: "We had an issue trying to delete your advert, please try again.")
                 }
-                print("Deletion completion")
+                
                 self?.navigationController?.popToRootViewController(animated: true)
                 if self?.imageURLsDict.count != 0 {
                     self?.deleteImagesFromFirebaseCloudStorage {
@@ -271,7 +266,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             }
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
-        
         present(ac, animated: true)
     }
     
@@ -312,7 +306,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 ref.child("users/\(UID)/favourites/\(key)").setValue(newFavourite.toDictionaryObject())
                 favouritesButton.tintColor = Settings.orangeTint
             }
-
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)
@@ -324,10 +317,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         if Auth.auth().currentUser != nil {
             let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
             vc.space = space
-            //            vc.advertSnapshot = advertSnapshot
             vc.thumbnail = thumbnail
             navigationController?.pushViewController(vc, animated: true)
-            
         } else {
             let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)
@@ -356,7 +347,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         let mapItem = MKMapItem(placemark: MKPlacemark(placemark: mkPlacemark))
         mapItem.name = titleLabel.text!
         mapItem.openInMaps()
-        
     }
 }
 
@@ -366,7 +356,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 extension AdvertDetailsViewController: MKMapViewDelegate {
     
     func setLocationOnMap() {
-        CLGeocoder().geocodeAddressString(postcode) { (placemark, error) in
+        CLGeocoder().geocodeAddressString(space.city + ", " + postcode) { (placemark, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }
