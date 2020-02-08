@@ -254,7 +254,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         let ac = UIAlertController(title: "Delete Space", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             
-            let childUpdates = ["adverts/\(Constants.userLocationCountry)/\(category)/\(UID!)-\(key)": NSNull(),
+            let childUpdates = ["adverts/\(Location.userLocationCountry)/\(category)/\(UID!)-\(key)": NSNull(),
                                 "users/\(UID!)/adverts/\(key)": NSNull()]
             
             self.ref.updateChildValues(childUpdates) { [weak self] error, databaseRef in

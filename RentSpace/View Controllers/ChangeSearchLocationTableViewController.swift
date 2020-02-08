@@ -27,7 +27,7 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearch.Request()
-        let region = MKCoordinateRegion(center: Constants.userCLLocation.coordinate, latitudinalMeters: 13000, longitudinalMeters: 13000)
+        let region = MKCoordinateRegion(center: Location.userCLLocation.coordinate, latitudinalMeters: 13000, longitudinalMeters: 13000)
         request.naturalLanguageQuery = searchBarText
         request.region = region
         
@@ -40,7 +40,7 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
             
             self.matchingItems.removeAll()
             for item in response.mapItems {
-                if item.placemark.country == Constants.userLocationCountry {
+                if item.placemark.country == Location.userLocationCountry {
                     self.matchingItems.append(item)
                 }
             }
@@ -84,7 +84,7 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let address = matchingItems[indexPath.row].placemark
-        let location = address.location ?? Constants.userCLLocation
+        let location = address.location ?? Location.userCLLocation
         
         if let postalAddress = address.postalAddress {
             handleSetSearchLocationDelegate?.setNewLocation(town: postalAddress.subLocality, city: postalAddress.city, county: postalAddress.subAdministrativeArea, postcode: postalAddress.postalCode, country: postalAddress.state, location: location)

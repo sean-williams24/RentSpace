@@ -11,7 +11,7 @@ import Foundation
 import MapKit
 import Contacts
 
-class Constants {
+class Location {
     
     static var userLocationTown = ""
     static var userLocationCity = ""

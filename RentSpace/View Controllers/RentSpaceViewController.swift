@@ -50,14 +50,14 @@ class RentSpaceViewController: UIViewController {
         if let UDTitle = UserDefaults.standard.string(forKey: "Location") {
             searchAreaButtonTitle = UDTitle.uppercased()
         } else {
-            if let town = Constants.userLocationAddress?.subLocality {
+            if let town = Location.userLocationAddress?.subLocality {
                 searchAreaButtonTitle = town.uppercased()
                 if town == "" {
-                    searchAreaButtonTitle = Constants.userLocationAddress?.city ?? "Search Area"
+                    searchAreaButtonTitle = Location.userLocationAddress?.city ?? "Search Area"
                 }
-            } else if let city = Constants.userLocationAddress?.city {
+            } else if let city = Location.userLocationAddress?.city {
                 searchAreaButtonTitle = city.uppercased()
-            } else if let postcode = Constants.userLocationAddress?.postalCode {
+            } else if let postcode = Location.userLocationAddress?.postalCode {
                 searchAreaButtonTitle = postcode.uppercased()
             }
         }
@@ -70,13 +70,13 @@ class RentSpaceViewController: UIViewController {
         ref = Database.database().reference()
 
         if UserDefaults.standard.double(forKey: "Distance") != 0.0 {
-            Constants.searchDistance = UserDefaults.standard.double(forKey: "Distance")
+            Location.searchDistance = UserDefaults.standard.double(forKey: "Distance")
         } 
         
-        if Constants.savedLocationExists == true {
-            getAdverts(for: Constants.customCLLocation, within: Constants.searchDistance)
+        if Location.savedLocationExists == true {
+            getAdverts(for: Location.customCLLocation, within: Location.searchDistance)
         } else {
-            getAdverts(for: Constants.userCLLocation, within: Constants.searchDistance)
+            getAdverts(for: Location.userCLLocation, within: Location.searchDistance)
         }
         
         self.tableView.rowHeight = 150
@@ -97,7 +97,7 @@ class RentSpaceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if self.spaces.isEmpty {
                 UIView.animate(withDuration: 1) {
                     self.loadingLabel.alpha = 0
@@ -320,10 +320,10 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
 extension RentSpaceViewController: UpdateSearchLocationDelegate {
     
     func didUpdate(distance: Double) {
-        if Constants.savedLocationExists == true {
-            getAdverts(for: Constants.customCLLocation, within: distance)
+        if Location.savedLocationExists == true {
+            getAdverts(for: Location.customCLLocation, within: distance)
         } else {
-            getAdverts(for: Constants.userCLLocation, within: distance)
+            getAdverts(for: Location.userCLLocation, within: distance)
         }
         
         loadingLabel.isHidden = false

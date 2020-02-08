@@ -1796,7 +1796,7 @@ Only the best gear here.</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Xs-tv-yvg">
                                         <rect key="frame" x="0.0" y="180.5" width="414" height="177.5"/>
                                         <subviews>
-                                            <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8o-th-jq3">
+                                            <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8o-th-jq3">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="177.5"/>
                                                 <state key="normal" title="Button" image="Photography Studio"/>
                                                 <connections>
@@ -1852,11 +1852,10 @@ Only the best gear here.</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXQ-Ec-8Vy">
                                         <rect key="frame" x="0.0" y="541.5" width="414" height="177.5"/>
                                         <subviews>
-                                            <button opaque="NO" alpha="0.20000000000000001" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jb-m5-bdF">
+                                            <button opaque="NO" alpha="0.20000000000000001" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jb-m5-bdF">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="177.5"/>
                                                 <state key="normal" title="Button" image="Desk Space"/>
                                                 <connections>
-                                                    <action selector="buttonTapped:" destination="jC6-Ux-X3c" eventType="touchUpInside" id="2De-db-sWj"/>
                                                     <segue destination="T2e-aY-bb6" kind="show" id="ieF-Sa-3Ff"/>
                                                 </connections>
                                             </button>

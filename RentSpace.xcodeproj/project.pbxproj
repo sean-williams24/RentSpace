@@ -32,7 +32,7 @@
 		CE6583A52397E26C001FFA8A /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A42397E26C001FFA8A /* Space.swift */; };
 		CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */; };
 		CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */; };
-		CE6583AC239A8A13001FFA8A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AB239A8A13001FFA8A /* Constants.swift */; };
+		CE6583AC239A8A13001FFA8A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AB239A8A13001FFA8A /* Location.swift */; };
 		CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */; };
 		CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */; };
 		CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */; };
@@ -84,7 +84,7 @@
 		CE6583A42397E26C001FFA8A /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
 		CE6583A723981473001FFA8A /* AdvertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertTableViewCell.swift; sourceTree = "<group>"; };
 		CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSelectionViewController.swift; sourceTree = "<group>"; };
-		CE6583AB239A8A13001FFA8A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CE6583AB239A8A13001FFA8A /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertDetailsViewController.swift; sourceTree = "<group>"; };
 		CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostConfirmationViewController.swift; sourceTree = "<group>"; };
 		CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRadiusViewController.swift; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 				CE084093238EA79700DA57C8 /* DataController.swift */,
 				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
 				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
-				CE6583AB239A8A13001FFA8A /* Constants.swift */,
+				CE6583AB239A8A13001FFA8A /* Location.swift */,
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
 				CE02CECC23E88873003B96A9 /* FirebaseClient.swift */,
 			);
@@ -410,7 +410,7 @@
 				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,
 				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,
 				CEF5CBD923C1DD650011243D /* MySpacesTableViewCell.swift in Sources */,
-				CE6583AC239A8A13001FFA8A /* Constants.swift in Sources */,
+				CE6583AC239A8A13001FFA8A /* Location.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

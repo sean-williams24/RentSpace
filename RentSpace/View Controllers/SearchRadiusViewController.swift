@@ -123,7 +123,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         self.country = country
         self.location = location
         
-        Constants.customCLLocation = location
+        Location.customCLLocation = location
         locationUpdated = true
         navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
 

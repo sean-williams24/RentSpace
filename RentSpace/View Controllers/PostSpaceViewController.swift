@@ -371,7 +371,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             
             // If user has changed categories - add another path to dictionary to delete old advert
             if category != previousCategory {
-                childUpdates["adverts/\(Constants.userLocationCountry)/\(previousCategory)/\(UID)-\(space.key)"] = NSNull()
+                childUpdates["adverts/\(Location.userLocationCountry)/\(previousCategory)/\(UID)-\(space.key)"] = NSNull()
             }
             
             Settings.ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in

@@ -13,17 +13,61 @@ import MapKit
 
 class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate {
     
+    // MARK: - Outlets
+
     @IBOutlet var artButton: UIButton!
     @IBOutlet var photographyButton: UIButton!
     @IBOutlet var musicButton: UIButton!
     @IBOutlet var deskButton: UIButton!
     @IBOutlet var signInButton: UIBarButtonItem!
     
+    
+    // MARK: - Properties
+
     var locationManager: CLLocationManager!
-    var handle: AuthStateDidChangeListenerHandle!
-    var chatsHandle: DatabaseHandle!
+    
     
     // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configure(artButton, text: "Art")
+        configure(photographyButton, text: "Photography")
+        configure(musicButton, text: "Music")
+        configure(deskButton, text: "Desk Space")
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Notifications", message: "Without notifications on you may miss messages from customers. Notifications can be turned on in the Settings App.")
+                }
+            }
+        }
+                
+        
+        // If a custom user location exists - store to Location class
+        
+        let savedLocation = UserDefaults.standard.string(forKey: "Location")
+        let savedLocationPostcode = UserDefaults.standard.string(forKey: "LocationPostcode") ?? ""
+        
+        if let savedLocation = savedLocation {
+            Location.savedLocationExists = true
+            CLGeocoder().geocodeAddressString(savedLocation + " " + savedLocationPostcode) { (placemark, error) in
+                if error != nil {
+                    print("Error geocoding users location: \(error?.localizedDescription ?? "")")
+                }
+                if let location = placemark?[0].location {
+                    Location.customCLLocation = location
+                }
+            }
+        }
+        
+        let registerVC = storyboard?.instantiateViewController(identifier: "RegisterVC") as! RegisterViewController
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        registerVC.delegate = self
+        appDelegate.delegate = self
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,16 +82,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             locationManager.startUpdatingLocation()
         }
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self.showAlert(title: "Notifications", message: "Without notifications on you may miss messages from customers. Notifications can be turned on in the Settings App.")
-                }
-            }
-        }
-        
         if let UID = Auth.auth().currentUser?.uid {
-            let ref = Database.database().reference()
+            let ref = FirebaseClient.ref
             
             // Load and listen for changes to Favourites
             ref.child("users/\(UID)/favourites").observe(.value) { (snapshot) in
@@ -64,7 +100,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             
             
             // Check for unread messages
-            chatsHandle = ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
+            ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
                 var unread = 0
                 var read = 0
                 let messageTab = self.tabBarController?.tabBar.items?[3]
@@ -91,13 +127,14 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             })
         }
         
-        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+        Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 Settings.currentUser = user
                 self.tabBarController?.tabBar.isHidden = false
                 self.signInButton.isEnabled = false
                 self.signInButton.tintColor = .clear
             } else {
+                Settings.currentUser = nil
                 self.tabBarController?.tabBar.isHidden = true
                 self.signInButton.isEnabled = true
                 self.signInButton.tintColor = Settings.orangeTint
@@ -105,36 +142,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         })
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configure(artButton, text: "Art")
-        configure(photographyButton, text: "Photography")
-        configure(musicButton, text: "Music")
-        configure(deskButton, text: "Desk Space")
-                
-        let savedLocation = UserDefaults.standard.string(forKey: "Location")
-        let savedLocationPostcode = UserDefaults.standard.string(forKey: "LocationPostcode") ?? ""
-        
-        if let savedLocation = savedLocation {
-            Constants.savedLocationExists = true
-            CLGeocoder().geocodeAddressString(savedLocation + " " + savedLocationPostcode) { (placemark, error) in
-                if error != nil {
-                    print("Error geocoding users location: \(error?.localizedDescription ?? "")")
-                }
-                if let location = placemark?[0].location {
-                    Constants.customCLLocation = location
-                }
-            }
-        }
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.delegate = self
-        
-        let registerVC = storyboard?.instantiateViewController(identifier: "RegisterVC") as! RegisterViewController
-        registerVC.delegate = self
-    }
     
+    // MARK: - Location Methods
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let userLocation = locations.first else { return }
         
@@ -144,11 +154,11 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
             
             if let address = placemark?[0].postalAddress {
-                Constants.userLocationTown = address.subLocality
-                Constants.userLocationCity = address.city
-                Constants.userLocationCountry = address.country
-                Constants.userLocationAddress = address
-                Constants.userCLLocation = userLocation
+                Location.userLocationTown = address.subLocality
+                Location.userLocationCity = address.city
+                Location.userLocationCountry = address.country
+                Location.userLocationAddress = address
+                Location.userCLLocation = userLocation
             }
         }
         locationManager.stopUpdatingLocation()
@@ -159,30 +169,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill
-        //        button.imageView?.layer.cornerRadius = 8
-        //        button.layer.borderWidth = 0.2
-        //        button.layer.borderColor = UIColor.white.cgColor
-        //        button.backgroundColor = .clear
-        //        button.layer.shadowColor = UIColor.darkGray.cgColor
-        //        button.layer.shadowOpacity = 1
-        //        button.layer.shadowRadius = 4
-        //        button.layer.shadowOffset = CGSize(width: 1, height: 2)
-        
-        //        let label = UILabel()
-        //        label.translatesAutoresizingMaskIntoConstraints = false
-        //      label.font = UIFont.systemFont(ofSize: 28, weight: .light)
-        //    label.textColor = .white
-        //  label.text = text
-        //label.textAlignment = .center
-        //button.addSubview(label)
-        
-        NSLayoutConstraint.activate([
-            //            label.bottomAnchor.constraint(equalTo: button.bottomAnchor),
-            //            label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 28),
-            //            label.topAnchor.constraint(equalToSystemSpacingBelow: button.topAnchor, multiplier: 0),
-            //            label.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-            //            label.centerYAnchor.constraint(equalTo: button.centerYAnchor)
-        ])
     }
     
     
@@ -192,7 +178,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! RentSpaceViewController
         let button = sender as! UIButton
-        vc.location = Constants.userLocationCountry
+        vc.location = Location.userLocationCountry
         
         switch button.tag {
         case 0:
@@ -217,33 +203,12 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
         vc.delegate = self
         present(vc, animated: true)
-    }
-    
-    
-    
-    @IBAction func buttonTapped(_ sender: UIButton) {
-        //        let vc = storyboard?.instantiateViewController(identifier: "RentSpaceVC") as! RentSpaceViewController
-        
-    }
-    
-}
-
-
-extension UIImage {
-    
-    func alpha(_ value:CGFloat) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
+    }    
 }
 
 
 extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     func adjustViewAfterRegistration() {
-        print("Adjust view for tab bar called")
 
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
@@ -257,7 +222,6 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
         print("")
     }
     func adjustViewForTabBar() {
-        print("Adjust view for tab bar called")
 
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
@@ -266,5 +230,4 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
         let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
         self.view.frame.origin.y = -tabBarHeight
     }
-    
 }

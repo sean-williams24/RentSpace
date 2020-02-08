@@ -64,7 +64,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         addLeftPadding(for: postcodeLabel, placeholderText: "Postcode", placeholderColour: .gray)
         addLeftPadding(for: stateLabel, placeholderText: "State", placeholderColour: .gray)
 
-        if Constants.userLocationCountry == "United States" {
+        if Location.userLocationCountry == "United States" {
             configureTextFieldPlaceholders(for: postcodeLabel, withText: "Zip Code")
             
         }
