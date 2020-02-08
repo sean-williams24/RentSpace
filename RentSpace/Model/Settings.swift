@@ -28,7 +28,5 @@ struct Settings {
 
     // Firebase
     static var currentUser: User?
-    static let storageRef = Storage.storage().reference()
-    static let ref = Database.database().reference()
 
 }

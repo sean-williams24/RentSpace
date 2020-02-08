@@ -337,6 +337,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
 
     
     fileprivate func uploadAdvertToFirebase(_ imageURLs: [String : String]? = nil) {
+        let ref = FirebaseClient.databaseRef
         var descriptionText = descriptionTextView.text
         var update = ""
         
@@ -374,7 +375,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 childUpdates["adverts/\(Location.userLocationCountry)/\(previousCategory)/\(UID)-\(space.key)"] = NSNull()
             }
             
-            Settings.ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in
+            ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                 }
@@ -394,14 +395,14 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             
             
         } else {
-            Settings.ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
+            ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
                     // TODO: - HANDLE ERROR
                     return
                 }
                 
-                Settings.ref.child("\(self?.userAdvertsPath ?? "")/\(self?.uniqueAdvertID ?? "")").setValue(data.toAnyObject()) { (userError, ref) in
+                ref.child("\(self?.userAdvertsPath ?? "")/\(self?.uniqueAdvertID ?? "")").setValue(data.toAnyObject()) { (userError, ref) in
                     if userError != nil {
                         print(userError as Any)
                     }
@@ -503,7 +504,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
         var imageIndex = 1
-        let storageRef = Settings.storageRef
+        let storageRef = FirebaseClient.storageRef
         
         for image in imagesToUpload {
             let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)

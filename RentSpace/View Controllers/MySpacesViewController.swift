@@ -22,7 +22,7 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var favouritesButton: UIBarButtonItem!
     
     var mySpaces: [Space] = []
-    var ref = FirebaseClient.ref
+    var ref = FirebaseClient.databaseRef
     fileprivate var authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var refHandle: DatabaseHandle!
     var UID = ""
@@ -33,24 +33,39 @@ class MySpacesViewController: UIViewController {
     // MARK: - Life Cycle
 
     
+    fileprivate func downloadFavouritesSpace() {
+        // Load and listen for changes to Favourites
+            self.ref.child("users/\(self.UID)/favourites").observe(.value) { (snapshot) in
+                var newItems: [FavouriteSpace] = []
+                for child in snapshot.children {
+                    if let favSnap = child as? DataSnapshot {
+                        if let favourite = FavouriteSpace(snapshot: favSnap) {
+                            newItems.append(favourite)
+                        }
+                    }
+                }
+                Favourites.spaces = newItems
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
         favouritesButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
+        self.infoLabel.text = ""
 
         authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
 
             if user != nil {
+                Settings.currentUser = user
                 self.mySpaces.removeAll()
                 self.tableView.reloadData()
-                self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
                 self.signedOutView.isHidden = true
                 self.favouritesButton.isEnabled = true
                 self.signedIn = true
-                Settings.currentUser = user
-                
                 self.UID = user!.uid
                 self.loadUserSpaces()
+                self.downloadFavouritesSpace()
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                     if self.mySpaces.isEmpty {
@@ -65,8 +80,6 @@ class MySpacesViewController: UIViewController {
                         self.infoLabel.text = ""
                     }
                 }
-
-                
             } else {
                 self.signedOutView.isHidden = false
                 self.favouritesButton.isEnabled = false
@@ -88,12 +101,12 @@ class MySpacesViewController: UIViewController {
 
         viewingFavourites ? loadFavourites() : loadUserSpaces()
         
-        if Favourites.spaces.isEmpty {
-            self.showEmptySpacesInfo(for: "favourites")
-        } else {
-            self.infoLabel.text = ""
-
-        }
+//        if Favourites.spaces.isEmpty {
+//            self.showEmptySpacesInfo(for: "favourites")
+//        } else {
+//            self.infoLabel.text = ""
+//
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,8 +126,11 @@ class MySpacesViewController: UIViewController {
     fileprivate func loadUserSpaces() {
         mySpaces.removeAll()
         tableView.reloadData()
+        self.infoLabel.text = ""
+
         refHandle = ref.child("users/\(self.UID)/adverts").queryOrdered(byChild: "timestamp").observe(.value, with: { (snapShot) in
-            
+            self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
+
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
                     let space = Space(snapshot: snapshot) {
@@ -125,10 +141,12 @@ class MySpacesViewController: UIViewController {
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
             self.tableView.reloadData()
             
-            if self.mySpaces.isEmpty {
-                self.showEmptySpacesInfo()
-            } else {
-                self.infoLabel.text = ""
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                if self.mySpaces.isEmpty {
+                    self.showEmptySpacesInfo()
+                } else {
+                    self.infoLabel.text = ""
+                }
             }
         })
     }
@@ -137,7 +155,10 @@ class MySpacesViewController: UIViewController {
     fileprivate func loadFavourites() {
         mySpaces.removeAll()
         tableView.reloadData()
-        self.showEmptySpacesInfo(for: "favourites")
+        self.infoLabel.text = ""
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.showEmptySpacesInfo(for: "favourites")
+        }
 
         for favourite in Favourites.spaces {
             self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
@@ -147,10 +168,12 @@ class MySpacesViewController: UIViewController {
                 }
                 self.tableView.reloadData()
                 
-                if self.mySpaces.isEmpty {
-                    self.showEmptySpacesInfo(for: "favourites")
-                } else {
-                    self.infoLabel.text = ""
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    if self.mySpaces.isEmpty {
+                        self.showEmptySpacesInfo(for: "favourites")
+                    } else {
+                        self.infoLabel.text = ""
+                    }
                 }
             })
         }

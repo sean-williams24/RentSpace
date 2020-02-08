@@ -30,7 +30,6 @@ class RentSpaceViewController: UIViewController {
 
     var ref: DatabaseReference!
     var storageRef: StorageReference!
-    fileprivate var _refHandle: DatabaseHandle!
     var spaces: [Space] = []
     var chosenCategory = ""
     var location = ""
@@ -66,8 +65,8 @@ class RentSpaceViewController: UIViewController {
         rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = rightBarButton
         
-        storageRef = Storage.storage().reference()
-        ref = Database.database().reference()
+        storageRef = FirebaseClient.storageRef
+        ref = FirebaseClient.databaseRef
 
         if UserDefaults.standard.double(forKey: "Distance") != 0.0 {
             Location.searchDistance = UserDefaults.standard.double(forKey: "Distance")
@@ -80,8 +79,6 @@ class RentSpaceViewController: UIViewController {
         }
         
         self.tableView.rowHeight = 150
-
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +106,6 @@ class RentSpaceViewController: UIViewController {
                 }
                 self.activityView.stopAnimating()
                 self.arrow.blink(duration: 0.7, delay: 0, alpha: 0.05)
-                
             }
         }
     }
@@ -117,8 +113,7 @@ class RentSpaceViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        let location = rightBarButton.title
-        UserDefaults.standard.set(location, forKey: "Location")
+        UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
     }
     
     
@@ -175,26 +170,20 @@ class RentSpaceViewController: UIViewController {
     
     func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
-        
+
         spaces.removeAll()
         tableView.reloadData()
-                
+
         if setMiles == 310.0 {
             // Nationwide results, i.e. all adverts
-            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
+            ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
                 self.getDistancesOfAdverts(for: snapshot, from: userLocation, within: setMiles, filtering: false)
             })
         } else {
-            _refHandle = ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
+            ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
                 self.getDistancesOfAdverts(for: snapshot, from: userLocation, within: setMiles, filtering: true)
             })
         }
-    }
-    
-    
-    
-    deinit {
-        ref.child("adverts/\(location)/\(chosenCategory)").removeObserver(withHandle: _refHandle)
     }
 
     
@@ -203,9 +192,6 @@ class RentSpaceViewController: UIViewController {
         vc.delegate = self
         show(vc, sender: self)
     }
-    
-
-
 }
 
 // MARK: - TableView Delegates & Datasource
@@ -233,21 +219,19 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Advert Cell", for: indexPath) as! AdvertTableViewCell
-        cell.layer.borderWidth = 1
         let space = spaces[indexPath.section]
         
+        cell.layer.borderWidth = 1
         cell.customImageView.image = nil
         cell.activityView.startAnimating()
         cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
         cell.customImageView.layer.borderWidth = 1
         cell.customImageView.alpha = 1
-        
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category
         cell.locationLabel.text = formatAddress(for: space)
         cell.priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
-        
         cell.distanceLabel.text = "\(Int(space.distance)) miles"
         if space.distance < 1 {
             cell.distanceLabel.text = "Less than a mile"
@@ -276,7 +260,6 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                 }
-
             }
         } else {
             cell.activityView.stopAnimating()
