@@ -147,24 +147,24 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     
     fileprivate func loadUserDataFromUserDefaults() {
         var email = ""
-        var postcode = ""
+        var city = ""
         let description = defaults.string(forKey: "UpdateDescription")
         if updatingAdvert {
             loadUDImages(for: "UpdateImages")
             descriptionTextView.text = description == "" ? descriptionViewPlaceholder : description
             email = defaults.string(forKey: "UpdateEmail") ?? ""
-            postcode = defaults.string(forKey: "UpdatePostCode") ?? ""
+            city = defaults.string(forKey: "UpdateCity") ?? ""
             location = defaults.string(forKey: "UpdateCountry") ?? ""
         } else {
             loadUDImages(for: "Images")
             descriptionTextView.text = defaults.string(forKey: "Description") ?? descriptionViewPlaceholder
             email = defaults.string(forKey: "Email") ?? ""
-            postcode = defaults.string(forKey: "PostCode") ?? ""
+            city = defaults.string(forKey: "City") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
         }
         
-        locationButton.setTitle(" \(postcode) / \(email)", for: .normal)
-        if email == "" || postcode == "" {
+        locationButton.setTitle(" \(city) / \(email)", for: .normal)
+        if email == "" || city == "" {
             locationButton.setTitle("  Contact & Address", for: .normal)
         }
     }
@@ -266,13 +266,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         descriptionTextView.delegate = self
         
         // Location Button
-        let disclosure = UITableViewCell()
-        disclosure.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: locationButton.frame.height)
-        disclosure.accessoryType = .disclosureIndicator
-        disclosure.isUserInteractionEnabled = false
-        locationButton.addSubview(disclosure)
-        locationButton.titleLabel?.textAlignment = .center
-        NSLayoutConstraint.activate([(locationButton.titleLabel?.widthAnchor.constraint(equalToConstant: locationButton.frame.width))!])
+        addDisclosureAccessoryView(for: locationButton)
         
         // Space type & Price rate pickers
         spaceTypePicker.dataSource = self
@@ -286,7 +280,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         signInButton.layer.cornerRadius = Settings.cornerRadius
         uploadView.isHidden = true
         
-        let insets = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        let insets = UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0)
         addPhotosButton.imageEdgeInsets = insets
         addPhotosButton.imageView?.contentMode = .scaleAspectFit
     }

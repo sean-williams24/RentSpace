@@ -13,20 +13,23 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    // MARK: - Outlets
+
     @IBOutlet var signInOrOutButton: UIButton!
-    @IBOutlet var displayNameLabel: UILabel!
-    @IBOutlet var displayNameButton: UIButton!
-    @IBOutlet var emailLabel: UILabel!
-    @IBOutlet var emailButton: UIButton!
     @IBOutlet var updateDetailsButton: UIButton!
-    @IBOutlet var updateCredentialsView: UIStackView!
-    @IBOutlet var deleteAccountView: UIView!
-    @IBOutlet var displayNameView: UIView!
-    @IBOutlet var tableView: UITableView!
+
     
+    // MARK: - Properties
+
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     
+    
     // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addDisclosureAccessoryView(for: updateDetailsButton)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,15 +49,12 @@ class SettingsViewController: UIViewController {
                 self.popToRootController(ofTab: 0)
             }
         })
-        
-
     }
 
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handle)
-
     }
     
   
@@ -63,16 +63,7 @@ class SettingsViewController: UIViewController {
     // MARK: - Private Methods
 
     
-    fileprivate func addDisclosureAccessoryView(for button: UIButton) {
-        let disclosure = UITableViewCell()
-        disclosure.frame = CGRect(x: 0, y: 0, width: updateCredentialsView.frame.width, height: button.frame.height)
-        disclosure.accessoryType = .disclosureIndicator
-        disclosure.isUserInteractionEnabled = false
 
-        button.addSubview(disclosure)
-  
-   
-    }
 
 // MARK: - Action Methods
 
@@ -101,24 +92,6 @@ class SettingsViewController: UIViewController {
         }
         
     }
-    
-    
-    @IBAction func displayNameButtonTapped(_ sender: Any) {
-        
-    }
-    
-    
-    @IBAction func emailButtonTapped(_ sender: Any) {
-    }
-    
-    @IBAction func changePasswordButtonTapped(_ sender: Any) {
-    }
-    
-    @IBAction func deleteAccountButtonTapped(_ sender: Any) {
-    }
-    
-    
-
 }
 
 // MARK: - Tableview Delegates

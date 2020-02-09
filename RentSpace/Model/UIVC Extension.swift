@@ -260,6 +260,21 @@ extension UIViewController {
         let savingImage = Image(imageName: imageName)
         imagesArray.insert(savingImage, at: position)
     }
+    
+    
+    func addDisclosureAccessoryView(for button: UIButton) {
+        let disclosure = UITableViewCell()
+        disclosure.frame = CGRect(x: 0, y: 0, width: view.frame.width - 10, height: button.frame.height)
+        disclosure.accessoryType = .disclosureIndicator
+        disclosure.isUserInteractionEnabled = false
+
+        button.addSubview(disclosure)
+
+        button.titleLabel?.textAlignment = .center
+        NSLayoutConstraint.activate([(button.titleLabel?.widthAnchor.constraint(equalToConstant: button.frame.width))!])
+    }
+    
+    
 }
 
 extension UIView {
