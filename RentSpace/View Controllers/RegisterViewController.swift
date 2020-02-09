@@ -16,6 +16,8 @@ protocol RegisterDelegate {
 
 class RegisterViewController: UIViewController {
     
+    //MARK: - Outlets
+
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var confirmPasswordTextField: UITextField!
@@ -33,6 +35,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet var blurredView: UIVisualEffectView!
     @IBOutlet var successViewCenterYConstraint: NSLayoutConstraint!
     
+    
+    //MARK: - Properties
+
     var emailValidated = false
     var password1Validated = false
     var password2Validated = false
@@ -66,14 +71,10 @@ class RegisterViewController: UIViewController {
         displayNameTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         
         dismissKeyboardOnViewTap()
-        
-
     }
     
     
-    
     // MARK: - Private Methods
-    
     
     @objc func textFieldTyping(textField: UITextField) {
         switch textField.tag {
@@ -96,9 +97,11 @@ class RegisterViewController: UIViewController {
                 registerButton.backgroundColor = .darkGray
                 password1Validated = false
             }
+            
             UIView.animate(withDuration: 4) {
                 self.passwordDetailsLabel.alpha = 1
             }
+            
         case 2:
             if confirmPasswordTextField.text! == passwordTextField.text! {
                 checkmark3.tintColor = Settings.orangeTint
@@ -116,6 +119,7 @@ class RegisterViewController: UIViewController {
                 checkmark4.tintColor = .darkGray
                 displayNameValidated = false
             }
+            
         default:
             print("")
         }
@@ -147,8 +151,6 @@ class RegisterViewController: UIViewController {
     
     // MARK: - Action Methods
     
-    
-    
     @IBAction func registerButtonTapped(_ sender: Any) {
         self.view.endEditing(true)
         self.activityView.startAnimating()
@@ -168,6 +170,7 @@ class RegisterViewController: UIViewController {
                         // Error saving display name
                         print(error?.localizedDescription as Any)
                         self.activityView.stopAnimating()
+                        
                         let ac = UIAlertController(title: "Problem Saving Display Name", message: "Please update your display name in settings before posting a space", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                             self.popToRootController(ofTab: 2)
@@ -196,10 +199,8 @@ class RegisterViewController: UIViewController {
     @IBAction func excellentButtonTapped(_ sender: Any) {
         self.signIntoFirebase()
     }
-    
-    
-    
 }
+
 
 // MARK: - Text Field Delegates
 
@@ -208,8 +209,4 @@ extension RegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
-    
-    
-    
-    
 }

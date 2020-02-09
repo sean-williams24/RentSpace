@@ -13,6 +13,7 @@ import UIKit
 class UpdateDetailsViewController: UIViewController {
     
     //MARK: - Outlets
+    
     @IBOutlet var updateTextfield: UITextField!
     @IBOutlet var confirmPasswordTextfield: UITextField!
     @IBOutlet var buttonGapConstraint: NSLayoutConstraint!
@@ -21,16 +22,18 @@ class UpdateDetailsViewController: UIViewController {
     @IBOutlet var updateButton: UIButton!
     
     
-    
     //MARK: - Properties
+    
     var displayName: String!
     var emailAddress: String!
     var userDetailToUpdate: String!
+    var refHandle: DatabaseHandle!
+    var ref = FirebaseClient.databaseRef
+    var UID = ""
     
     
     //MARK: - Lifecycle
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -40,6 +43,8 @@ class UpdateDetailsViewController: UIViewController {
         addLeftPadding(for: updateTextfield, placeholderText: userDetailToUpdate, placeholderColour: .darkGray)
         addLeftPadding(for: confirmPasswordTextfield, placeholderText: "Confirm Password", placeholderColour: .darkGray)
         confirmPasswordTextfield.isHidden = true
+        UID = Auth.auth().currentUser?.uid ?? ""
+
 
         if userDetailToUpdate == "Display Name" {
             updateTextfield.text = Auth.auth().currentUser?.displayName
@@ -52,14 +57,17 @@ class UpdateDetailsViewController: UIViewController {
             confirmPasswordTextfield.isSecureTextEntry = true
             confirmPasswordTextfield.isHidden = false
         }
-        
-
-        
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
+
+    }
+    
     
     //MARK: - Private Methods
 
-    
     fileprivate func handleUpdateCompletion(_ error: Error?) {
         updateLoadingUI(false)
 
@@ -73,6 +81,7 @@ class UpdateDetailsViewController: UIViewController {
             self.present(ac, animated: true)
         }
     }
+    
     
     fileprivate func updateLoadingUI(_ loading: Bool) {
         UIView.animate(withDuration: 0.2) {
@@ -95,7 +104,6 @@ class UpdateDetailsViewController: UIViewController {
     
     //MARK: - Action Methods
 
-    
     @IBAction func updateButtonTapped(_ sender: Any) {
         guard let newCredential = updateTextfield.text else { return }
         updateLoadingUI(true)
@@ -106,6 +114,37 @@ class UpdateDetailsViewController: UIViewController {
                 changeRequest?.displayName = self.updateTextfield.text
                 changeRequest?.commitChanges { (error) in
                     self.handleUpdateCompletion(error)
+                                        
+                    if error == nil {
+                        // Update user display name on all of users adverts
+                        self.refHandle = self.ref.child("users/\(self.UID)/adverts").observe(.value, with: { (snapshot) in
+                            for child in snapshot.children {
+                                if let snapshot = child as? DataSnapshot,
+                                    let space = Space(snapshot: snapshot) {
+                                    
+                                    self.ref.child("users/\(self.UID)/adverts").child(space.key).updateChildValues(["userDisplayName": newCredential])
+
+                                }
+                            }
+                        })
+                        
+                        // Update chats with new display name
+                        self.ref.child("users/\(self.UID)/chats").observe(.value) { (snapshot) in
+                            for child in snapshot.children {
+                                if let snapshot = child as? DataSnapshot,
+                                    let chat = Chat(snapshot: snapshot) {
+                                    
+                                    if chat.advertOwnerUID == self.UID {
+                                        self.ref.child("users/\(self.UID)/chats").child(chat.chatID).updateChildValues(["advertOwnerDisplayName": newCredential])
+                                        self.ref.child("users/\(chat.customerUID)/chats").child(chat.chatID).updateChildValues(["advertOwnerDisplayName": newCredential])
+                                    } else {
+                                        self.ref.child("users/\(self.UID)/chats").child(chat.chatID).updateChildValues(["customerDisplayName": newCredential])
+                                        self.ref.child("users/\(chat.advertOwnerUID)/chats").child(chat.chatID).updateChildValues(["customerDisplayName": newCredential])
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             } else {
                 updateLoadingUI(false)
@@ -130,16 +169,6 @@ class UpdateDetailsViewController: UIViewController {
                 showAlert(title: "Hmmm", message: "Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number.")
             }
         }
-        
-    }
-    
-
-
-}
-
-extension UpdateDetailsViewController: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //
     }
 }
+

@@ -14,13 +14,13 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     // MARK: - Outlets
-
+    
     @IBOutlet var signInOrOutButton: UIButton!
     @IBOutlet var updateDetailsButton: UIButton!
-
+    
     
     // MARK: - Properties
-
+    
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     
     
@@ -30,11 +30,12 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         addDisclosureAccessoryView(for: updateDetailsButton)
     }
-
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
-
+        
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 if let currentUser = Settings.currentUser?.email {
@@ -42,7 +43,7 @@ class SettingsViewController: UIViewController {
                     Settings.currentUser = user
                 }
                 self.updateDetailsButton.isHidden = false
-
+                
             } else {
                 self.signInOrOutButton.setTitle("SIGN IN", for: .normal)
                 self.updateDetailsButton.isHidden = true
@@ -50,33 +51,28 @@ class SettingsViewController: UIViewController {
             }
         })
     }
-
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handle)
     }
     
-  
     
+    // MARK: - Action Methods
     
-    // MARK: - Private Methods
-
-    
-
-
-// MARK: - Action Methods
-
     @IBAction func signInOrOutButtonTapped(_ sender: Any) {
         // If there is a user signed in, log them out and set current user to nil
         if Settings.currentUser != nil {
             let firebaseAuth = Auth.auth()
+            
             do {
-              try firebaseAuth.signOut()
+                try firebaseAuth.signOut()
             } catch let signOutError as NSError {
-              print ("Error signing out: %@", signOutError)
+                print ("Error signing out: %@", signOutError)
+                showAlert(title: "Yikes", message: "We may have had problems signing you out, please try again.")
             }
-              
+            
             // Log out of FaceBook
             LoginManager().logOut()
             Settings.currentUser = nil
@@ -90,41 +86,18 @@ class SettingsViewController: UIViewController {
             
             present(vc, animated: true)
         }
-        
     }
-}
-
-// MARK: - Tableview Delegates
-
-extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialsCell", for: indexPath)
-        cell.textLabel?.text = "Display Name"
-        cell.detailTextLabel?.text = "Sean"
-        
-        return cell
-    }
-    
-    
-    
 }
 
 
 // MARK: - Update SignIn Delegate
 
 extension SettingsViewController: UpdateSignInDelegate {
-
+    
     func updateSignInButton() {
         let userEmail = Settings.currentUser?.email
         self.signInOrOutButton.setTitle("SIGN OUT (\(userEmail ?? ""))", for: .normal)
     }
-    
-    
 }
 
 

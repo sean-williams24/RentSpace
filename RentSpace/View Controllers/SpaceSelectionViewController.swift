@@ -90,7 +90,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 var unread = 0
                 var read = 0
                 let messageTab = self.tabBarController?.tabBar.items?[3]
-                
                 for child in dataSnapshot.children {
                     if let snapshot = child as? DataSnapshot {
                         if let chat = Chat(snapshot: snapshot) {
@@ -99,7 +98,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                                 messageTab?.badgeColor = Settings.orangeTint
                                 messageTab?.badgeValue = "\(unread)"
                                 UIApplication.shared.applicationIconBadgeNumber = unread
-                                
                             } else if chat.read == "true"{
                                 read += 1
                                 if read == dataSnapshot.childrenCount {

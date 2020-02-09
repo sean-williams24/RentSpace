@@ -12,6 +12,8 @@ import UIKit
 
 class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
+    //MARK: - Outlets
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
@@ -19,10 +21,12 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet var loadingLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
     
+    
+    //MARK: - Properties
+
     var chats: [Chat] = []
-    var unorderedChats: [Chat] = []
     var refHandle: DatabaseHandle!
-    var ref: DatabaseReference!
+    var ref = FirebaseClient.databaseRef
     var authHandle: AuthStateDidChangeListenerHandle!
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -37,7 +41,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
         signInButton.layer.cornerRadius = Settings.cornerRadius
         
         authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
@@ -51,6 +54,10 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
         })
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        Auth.auth().removeStateDidChangeListener(authHandle)
+    }
     
     
     // MARK: - Private Methods
@@ -169,7 +176,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         var you = ""
-        if chat.latestSender == Auth.auth().currentUser?.displayName {
+        if chat.latestSender == Auth.auth().currentUser?.uid {
             you = "You: "
         }
         
@@ -178,7 +185,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.latestMessageLabel.text = "\(you)\(chat.messageBody)"
         
         // If chat is unread and the latest sender of the message is not signed in user - display unread UI
-        if chat.read == "false" && chat.latestSender != Auth.auth().currentUser?.displayName {
+        if chat.read == "false" && chat.latestSender != Auth.auth().currentUser?.uid {
             cell.newMessageImageView.isHidden = false
         } else {
             cell.newMessageImageView.isHidden = true

@@ -11,25 +11,41 @@ import UIKit
 
 class DeleteAccountViewController: UIViewController {
     
-    let ref = Database.database().reference()
-    let storageRef = Storage.storage().reference()
-    
+    //MARK: - Properties
+
+    let ref = FirebaseClient.databaseRef
+    fileprivate var refHandle: DatabaseHandle!
     var spacesToDelete: [Space] = []
     var UID = ""
+    var advertPath = ""
+    
+    
+    //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UID = Auth.auth().currentUser?.uid ?? ""
-        
+        advertPath = "users/\(UID)/adverts"
     }
     
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        ref.child(advertPath).removeObserver(withHandle: refHandle)
+    }
+    
+    
+    //MARK: - Private Methods
+
     func deleteUserData(completion: @escaping () -> Void) {
         // Get all of users spaces and add to array
         var deletionCount = 0
         
-        self.ref.child("users/\(Auth.auth().currentUser?.uid ?? "")/adverts").observe(.value) { [weak self] (snapshot) in
+        refHandle = self.ref.child(advertPath).observe(.value) { [weak self] (snapshot) in
             guard let self = self else { return }
+            
             for child in snapshot.children {
                 if let snapshot = child as? DataSnapshot {
                     if let space = Space(snapshot: snapshot) {
@@ -68,6 +84,9 @@ class DeleteAccountViewController: UIViewController {
         }
     }
     
+    
+    //MARK: - Action Methods
+    
     @IBAction func deleteButtonTapped(_ sender: Any) {
         
         let ac = UIAlertController(title: "There's No Turning Back...", message: "Are you positive you wish to permanently erase your RentSpace account?", preferredStyle: .alert)
@@ -88,7 +107,6 @@ class DeleteAccountViewController: UIViewController {
                         let ac = UIAlertController(title: "So Long...", message: "We're sorry to see you go. Your RentSpace account has been deleted, feel free to join us again in the future.", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "Thanks", style: .default, handler: { _ in
                             self.popToRootController(ofTab: 0)
-                            //                        self.navigationController?.popToRootViewController(animated: true)
                         }))
                         self.present(ac, animated: true)
                     }
@@ -98,7 +116,4 @@ class DeleteAccountViewController: UIViewController {
         ac.addAction(UIAlertAction(title: "CANCEL", style: .default))
         self.present(ac, animated: true)
     }
-    
-    
-    
 }

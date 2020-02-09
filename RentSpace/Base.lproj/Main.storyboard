@@ -2408,7 +2408,7 @@ Only the best gear here.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="VL8-Jm-XEt">
-                                <rect key="frame" x="0.0" y="164" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="79" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1Y9-tA-UAR"/>
@@ -2421,7 +2421,7 @@ Only the best gear here.</string>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQV-cU-QjI">
-                                <rect key="frame" x="0.0" y="294" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="209" width="414" height="50"/>
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="0td-BL-EfR"/>
@@ -2435,7 +2435,7 @@ Only the best gear here.</string>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="l37-Qq-Xyh">
-                                <rect key="frame" x="0.0" y="222" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="137" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Ok2-5p-rMi"/>
@@ -2486,7 +2486,7 @@ Only the best gear here.</string>
                             <constraint firstItem="l37-Qq-Xyh" firstAttribute="leading" secondItem="jJ8-Tu-nRn" secondAttribute="leading" id="gXH-hp-bxX"/>
                             <constraint firstItem="Mst-vx-gn2" firstAttribute="trailing" secondItem="jJ8-Tu-nRn" secondAttribute="trailing" id="mWQ-Ui-frh"/>
                             <constraint firstItem="EQV-cU-QjI" firstAttribute="top" secondItem="VL8-Jm-XEt" secondAttribute="bottom" constant="80" id="r4e-JI-Z3d"/>
-                            <constraint firstItem="VL8-Jm-XEt" firstAttribute="top" secondItem="jJ8-Tu-nRn" secondAttribute="top" constant="120" id="s1I-f8-0ys"/>
+                            <constraint firstItem="VL8-Jm-XEt" firstAttribute="top" secondItem="jJ8-Tu-nRn" secondAttribute="top" constant="35" id="s1I-f8-0ys"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jJ8-Tu-nRn"/>
                     </view>

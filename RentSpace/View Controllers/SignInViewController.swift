@@ -21,7 +21,7 @@ import UIKit
 
 class SignInViewController: UIViewController, LoginButtonDelegate {
 
-    
+    //MARK: - Outlets
     
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
@@ -29,6 +29,8 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet var googleSignInButton: GIDSignInButton!
     
     
+    //MARK: - Properties
+
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     var delegate: UpdateSignInDelegate?
     
@@ -47,6 +49,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         })
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
@@ -62,7 +65,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         loginButton.permissions = ["email"]
         
         for const in loginButton.constraints{
-            if const.firstAttribute == NSLayoutConstraint.Attribute.height && const.constant == 28{
+            if const.firstAttribute == NSLayoutConstraint.Attribute.height && const.constant == 28 {
                 loginButton.removeConstraint(const)
             }
         }
@@ -74,20 +77,16 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         loginButton.leadingAnchor.constraint(equalTo: googleSignInButton.leadingAnchor, constant: 4).isActive = true
         loginButton.trailingAnchor.constraint(equalTo: googleSignInButton.trailingAnchor, constant: -4).isActive = true
         loginButton.topAnchor.constraint(equalTo: googleSignInButton.bottomAnchor, constant: 10).isActive = true
-        
-        
-        
-
-        
     }
     
     
-    deinit {
-//        Auth.auth().removeStateDidChangeListener(handle)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(handle)
     }
     
     
-    // MARK: - FaceBook Delegates
+    // MARK: - Facebook Delegates
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         if error != nil {
@@ -100,6 +99,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         Auth.auth().signIn(with: credentials) { (FBuser, error) in
             if error != nil {
                 print("Problem signing into FireBase with Facebook:", error?.localizedDescription as Any)
+                self.showAlert(title: "Sign-In Error", message: "We encountered a problem signing you in through Facebook; Please try again or use a different sign-in method.")
                 return
             }
             print("Successfully logged into FireBase with Facebook user:", FBuser as Any)
@@ -109,8 +109,8 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
                 self.delegate?.updateSignInButton()
             }
         }
-
     }
+    
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         print("Facebook did logout")
@@ -119,15 +119,12 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let registerVC = segue.destination as! RegisterViewController
         registerVC.delegate = self
-        
     }
     
 
-    
     // MARK: - Action Methods
 
     @IBAction func signInButtonTapped(_ sender: Any) {
-        
         
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authUser, error) in
             if error == nil {
@@ -143,6 +140,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         }
     }
     
+    
     @IBAction func forgotButtonTapped(_ sender: Any) {
         let ac = UIAlertController(title: "Password Problems?", message: "No worries, we'll send you a reset link...", preferredStyle: .alert)
         ac.addTextField { (textfield) in
@@ -151,6 +149,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
                 textfield.text = self.emailTextField.text
             }
         }
+        
         ac.addAction(UIAlertAction(title: "SEND", style: .default, handler: { _ in
             guard let email = ac.textFields?[0].text else { return }
             Auth.auth().sendPasswordReset(withEmail: email) { (error) in
@@ -160,19 +159,15 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
                     self.showAlert(title: "All Good", message: "Check your inbox...")
                 }
             }
-            
         }))
+        
         ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         present(ac, animated: true)
-        
     }
-    
 }
 
 extension SignInViewController: RegisterDelegate {
     func adjustViewAfterRegistration() {
         self.delegate?.adjustViewForTabBar?()
     }
-    
-    
 }

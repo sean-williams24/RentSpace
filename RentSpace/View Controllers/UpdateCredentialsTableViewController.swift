@@ -11,10 +11,13 @@ import UIKit
 
 class UpdateCredentialsTableViewController: UITableViewController {
 
+    // MARK: - Outlets
+
     @IBOutlet var displayNameLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
     
     
+    // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -25,7 +28,6 @@ class UpdateCredentialsTableViewController: UITableViewController {
 
     // MARK: - Table view delegates
 
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var destination = UIViewController()
         let updateVC = storyboard?.instantiateViewController(identifier: "UpdateDetailsVC") as! UpdateDetailsViewController
@@ -47,7 +49,4 @@ class UpdateCredentialsTableViewController: UITableViewController {
         
         show(destination, sender: self)
     }
-
-
-
 }

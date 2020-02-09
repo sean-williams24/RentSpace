@@ -144,12 +144,11 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                         newMessages.append(message)
                         
                         // If sender of message is not signed in user
-                        if message.sender != Auth.auth().currentUser?.displayName {
-                            //Update message as read
-                            let customerDB = self.ref.child("users/\(self.chat.customerUID)/chats")
-                            let advertOwnerDB = self.ref.child("users/\(self.chat.advertOwnerUID)/chats")
-                            customerDB.child(self.chatID).updateChildValues(["read": "true"])
-                            advertOwnerDB.child(self.chatID).updateChildValues(["read": "true"])
+                        if message.sender != Auth.auth().currentUser?.uid {
+                            // Update message as read
+                            let UID = Auth.auth().currentUser?.uid
+                            let userChatsDB = self.ref.child("users/\(UID!)/chats")
+                            userChatsDB.child(self.chatID).updateChildValues(["read": "true"])
                         }
                     }
                 }
@@ -158,17 +157,6 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
             self.tableView.reloadData()
             self.scrollToBottomMessage()
-
-//            if let messageSnapshot = dataSnapshot.value as? [String: String] {
-//                message.messageBody = messageSnapshot["message"]!
-//                message.sender = messageSnapshot["sender"]!
-//                message.messageDate = messageSnapshot["messageDate"] ?? ""
-//                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-//
-//                self.messages.append(message)
-//                self.tableView.reloadData()
-//                print("Reload data")
-//            }
         })
     }
     
@@ -208,7 +196,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
             let messagesDB = Database.database().reference().child("messages/\(chatID)")
 
-            let firstChatData = Chat(latestSender: Auth.auth().currentUser?.displayName ?? "",
+            let firstChatData = Chat(latestSender: Auth.auth().currentUser?.uid ?? "",
                                      lastMessage: messageTextField.text!,
                                      title: advertTitleLabel.text!,
                                      chatID: chatID,
@@ -223,7 +211,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                                      read: "false",
                                      timestamp: (Date().timeIntervalSince1970 as Double))
             
-            let existingChatData = Chat(latestSender: Auth.auth().currentUser?.displayName ?? "",
+            let existingChatData = Chat(latestSender: Auth.auth().currentUser?.uid ?? "",
                                         lastMessage: messageTextField.text!,
                                         title: advertTitleLabel.text!,
                                         chatID: chatID,
@@ -239,7 +227,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                                         timestamp: (Date().timeIntervalSince1970 as Double))
             
             let chatData = viewingExistingChat ? existingChatData.toAnyObject() : firstChatData.toAnyObject()
-            let messageData = ["sender": Auth.auth().currentUser?.displayName, "message": messageTextField.text!, "messageDate": fullDateFormatter.string(from: Date())]
+            let messageData = ["sender": Auth.auth().currentUser?.uid, "message": messageTextField.text!, "messageDate": fullDateFormatter.string(from: Date())]
             
             // Upload messages to advert owners and customers chats pathes, as well as messages path.
             advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
