@@ -13,7 +13,7 @@ import UIKit
 class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     //MARK: - Outlets
-
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
@@ -23,7 +23,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     
     //MARK: - Properties
-
+    
     var chats: [Chat] = []
     var refHandle: DatabaseHandle!
     var ref = FirebaseClient.databaseRef
@@ -35,9 +35,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     }()
     
     
-    
     // MARK: - Life Cycle
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +54,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        Auth.auth().removeStateDidChangeListener(authHandle)
+        Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
     
@@ -74,7 +72,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 if let snapshot = child as? DataSnapshot,
                     let chat = Chat(snapshot: snapshot) {
                     newChats.append(chat)
- 
+                    
                 }
             }
             
@@ -85,26 +83,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
         })
     }
     
-    
-    func delete(chat: Chat) {
-        // Get chat to delete, setup swipe to delete and also delete from chats array
-        let ac = UIAlertController(title: "Delete Advert", message: "Are you sure you wish to permanently delete your advert?", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            
-            let childUpdates = ["users/\(chat.customerUID)/chats/\(chat.chatID)": NSNull(),
-                                "users/\(chat.advertOwnerUID)/chats/\(chat.chatID)": NSNull(),
-                                "messages/\(chat.chatID)": NSNull()]
-            
-            self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                }                
-            }
-        }))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
-        
-        present(ac, animated: true)
-    }
     
     func renderCirlularImage(for image: UIImage?) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 100))
@@ -123,19 +101,13 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     
     // MARK: - Action Methods
-
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") {
             present(vc, animated: true)
         }
     }
-    
-    
-
 }
-
-
 
 
 // MARK: - TableView Delegates & Datasource
@@ -160,25 +132,16 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         return headerView
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesTableViewCell
         let chat = chats[indexPath.section]
         cell.activityView.startAnimating()
         cell.customImageView.image = nil
         
-        var recipient = ""
-        // if logged in user is advert owner, chat recipient is customer
-        if Auth.auth().currentUser?.uid == chat.advertOwnerUID {
-            recipient = chat.customerDisplayName
-        } else {
-            // if logged in user is customer, chat recipient would be advert owner
-            recipient = chat.advertOwnerDisplayName
-        }
-        
-        var you = ""
-        if chat.latestSender == Auth.auth().currentUser?.uid {
-            you = "You: "
-        }
+        // If logged in user is advert owner, chat recipient is customer, if logged in user is customer, chat recipient would be advert owner
+        let recipient = Auth.auth().currentUser?.uid == chat.advertOwnerUID ? chat.customerDisplayName : chat.advertOwnerDisplayName
+        let you = chat.latestSender == Auth.auth().currentUser?.uid ? "You: " : ""
         
         cell.recipientLabel.text = recipient
         cell.advertTitleLabel.text = chat.title
@@ -234,9 +197,11 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let chat = chats[indexPath.section]
@@ -252,6 +217,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.ref.updateChildValues(childUpdates) { (error, databaseRef) in
                     if error != nil {
                         print(error?.localizedDescription as Any)
+                        self.showAlert(title: "Woah", message: "There was a problem deleting your conversation, please try again.")
                     }
                     print("Deletion completion")
                 }
@@ -260,46 +226,5 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
             
             present(ac, animated: true)
         }
-        
     }
 }
-
-
-
-//
-//refHandle = ref.child("users/\(UID)/chats").queryOrdered(byChild: "timestamp").observe(.value, with: { (dataSnapshot) in
-//    self.chats.removeAll()
-//    for child in dataSnapshot.children {
-//        if let snapshot = child as? DataSnapshot,
-//            let chat = Chat(snapshot: snapshot) {
-//            print(chat.title)
-//            print(chat.timestamp)
-//            if self.chats.isEmpty {
-//                // append first chat to array
-//                self.chats.append(chat)
-//            } else {
-//                // for subsequent chats, iterate through array and check if date is earlier than array chats.
-//                for (index, tempChat) in self.chats.enumerated() {
-//                    let tempChatDate = self.formatter.date(from: tempChat.messageDate)
-//                    let nextChatDate = self.formatter.date(from: chat.messageDate)
-//
-//                    if nextChatDate! > tempChatDate! {
-//                        self.chats.insert(chat, at: index)
-//                        break
-//                    } else {
-//                        self.chats.append(chat)
-//                        break
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-//    self.tableView.reloadData()
-//
-//    if self.chats.isEmpty {
-//        self.infoLabel.text = "Your conversations will appear here once chatting begins."
-//    } else {
-//        self.infoLabel.text = ""
-//    }
-//})

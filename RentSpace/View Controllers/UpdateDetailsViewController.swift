@@ -61,8 +61,7 @@ class UpdateDetailsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
-        
+        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
     }
     
     
@@ -85,13 +84,10 @@ class UpdateDetailsViewController: UIViewController {
                                 let space = Space(snapshot: snapshot) {
                                 
                                 self?.ref.child("users/\(self!.UID)/adverts").child(space.key).updateChildValues(["userDisplayName": newCredential])
-                                
                             }
                         }
                     })
                     
-                    // Update chats with new display name
-                    var index = 0
                     self.ref.child("users/\(self.UID)/chats").observe(.value) { [weak self] (snapshot) in
                         for child in snapshot.children {
                             if let snapshot = child as? DataSnapshot,
@@ -103,10 +99,6 @@ class UpdateDetailsViewController: UIViewController {
                                 } else {
                                     self?.ref.child("users/\(self!.UID)/chats").child(chat.chatID).updateChildValues(["customerDisplayName": newCredential])
                                     self?.ref.child("users/\(chat.advertOwnerUID)/chats").child(chat.chatID).updateChildValues(["customerDisplayName": newCredential])
-                                }
-                                index += 1
-                                if index == snapshot.childrenCount {
-                                    return
                                 }
                             }
                         }
