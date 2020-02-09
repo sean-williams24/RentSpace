@@ -2610,25 +2610,25 @@ Only the best gear here.</string>
                                                         <constraint firstAttribute="width" constant="60" id="XWN-c1-Ltg"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="UfG-K6-0Hg">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="UfG-K6-0Hg">
                                                     <rect key="frame" x="90" y="10" width="314" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGP-aY-vpW">
-                                                            <rect key="frame" x="0.0" y="0.0" width="45.5" height="16.5"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="42.5" height="17.5"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advert Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ajg-zv-VhZ">
-                                                            <rect key="frame" x="0.0" y="21.5" width="77.5" height="17"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                            <rect key="frame" x="0.0" y="21.5" width="73" height="17"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                             <color key="textColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vm-fT-FSG">
-                                                            <rect key="frame" x="0.0" y="43.5" width="109.5" height="16.5"/>
+                                                            <rect key="frame" x="0.0" y="42.5" width="102.5" height="17.5"/>
                                                             <color key="tintColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                             <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -2898,7 +2898,7 @@ Only the best gear here.</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-gQ-hTu">
-                                <rect key="frame" x="0.0" y="211" width="414" height="602"/>
+                                <rect key="frame" x="0.0" y="211" width="414" height="597"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipientMessageCell" id="dhE-VG-hwn" userLabel="RecipientMessageCell" customClass="MessageTableViewCell" customModule="RentSpace" customModuleProvider="target">
@@ -2915,14 +2915,14 @@ Only the best gear here.</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxf-2X-lMz">
-                                                    <rect key="frame" x="20" y="24" width="56" height="34"/>
+                                                    <rect key="frame" x="20" y="24" width="53.5" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-l1-qoQ">
-                                                            <rect key="frame" x="8" y="4" width="40" height="26"/>
+                                                            <rect key="frame" x="8" y="4" width="37.5" height="26"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="3" id="ic4-L4-eAO"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -2963,14 +2963,14 @@ Only the best gear here.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fai-R4-nKk" customClass="SenderTableViewCell" customModule="RentSpace" customModuleProvider="target">
-                                                    <rect key="frame" x="338" y="24" width="56" height="34"/>
+                                                    <rect key="frame" x="340.5" y="24" width="53.5" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUY-3c-1Gu">
-                                                            <rect key="frame" x="8" y="4" width="40" height="26"/>
+                                                            <rect key="frame" x="8" y="4" width="37.5" height="26"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="3" id="2SX-HT-qde"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -3029,7 +3029,7 @@ Only the best gear here.</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Message..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-ij-Ly6">
-                                <rect key="frame" x="15" y="819" width="329" height="40"/>
+                                <rect key="frame" x="15" y="814" width="329" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -3044,13 +3044,13 @@ Only the best gear here.</string>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Messages..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yks-Ja-vBW">
-                                <rect key="frame" x="10" y="780.5" width="394" height="20.5"/>
+                                <rect key="frame" x="10" y="775.5" width="394" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-O0-aTM">
-                                <rect key="frame" x="354" y="821" width="50" height="36"/>
+                                <rect key="frame" x="354" y="816" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="2r8-jb-5OG"/>
                                     <constraint firstAttribute="width" constant="50" id="t5L-WU-sRj"/>
@@ -3083,7 +3083,7 @@ Only the best gear here.</string>
                             <constraint firstItem="gDd-ij-Ly6" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" constant="15" id="kkd-88-h7S"/>
                             <constraint firstItem="agF-yV-ga4" firstAttribute="trailing" secondItem="Yks-Ja-vBW" secondAttribute="trailing" constant="10" id="o3h-sS-tnl"/>
                             <constraint firstItem="aRT-gQ-hTu" firstAttribute="leading" secondItem="agF-yV-ga4" secondAttribute="leading" id="p4k-hr-zdD"/>
-                            <constraint firstItem="agF-yV-ga4" firstAttribute="bottom" secondItem="RJ7-O0-aTM" secondAttribute="bottom" constant="5" id="sSB-bP-9UQ"/>
+                            <constraint firstItem="agF-yV-ga4" firstAttribute="bottom" secondItem="RJ7-O0-aTM" secondAttribute="bottom" constant="10" id="sSB-bP-9UQ"/>
                             <constraint firstItem="uuj-ph-ino" firstAttribute="top" secondItem="agF-yV-ga4" secondAttribute="top" id="xGt-uZ-yMx"/>
                             <constraint firstItem="wQJ-9b-64r" firstAttribute="centerY" secondItem="agF-yV-ga4" secondAttribute="centerY" id="zvP-YH-2Tx"/>
                         </constraints>
@@ -3097,10 +3097,9 @@ Only the best gear here.</string>
                         <outlet property="loadingLabel" destination="Yks-Ja-vBW" id="nbw-jF-JFS"/>
                         <outlet property="locationLabel" destination="LaT-aO-IYE" id="O01-6i-eWe"/>
                         <outlet property="messageTextField" destination="gDd-ij-Ly6" id="vf4-x2-oD4"/>
-                        <outlet property="messagesTableView" destination="aRT-gQ-hTu" id="rZT-5k-bwy"/>
+                        <outlet property="messagesTableView" destination="aRT-gQ-hTu" id="fCU-At-7cj"/>
                         <outlet property="priceLabel" destination="XXO-jV-MCr" id="eTl-1I-Rjg"/>
                         <outlet property="sendMessageButton" destination="RJ7-O0-aTM" id="Igv-wN-W0Z"/>
-                        <outlet property="tableView" destination="aRT-gQ-hTu" id="fCU-At-7cj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5OV-A5-FBg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

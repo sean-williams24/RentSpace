@@ -13,111 +13,97 @@ import UIKit
 
 class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    // MARK: - Outlets
+    
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var advertTitleLabel: UILabel!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var messagesTableView: UITableView!
-    @IBOutlet var pictureButton: UIButton!
     @IBOutlet var messageTextField: UITextField!
     @IBOutlet var sendMessageButton: UIButton!
-    @IBOutlet var tableView: UITableView!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
     
+    
+    // MARK: - Properties
+    
     var messages: [Message] = []
     var space: Space!
-//    var advertSnapshot: DataSnapshot?
-    var ref: DatabaseReference!
-    var handle: AuthStateDidChangeListenerHandle!
+    var ref = FirebaseClient.databaseRef
     var refHandle: DatabaseHandle!
     var chatID = ""
     var customerUID = ""
     var chat: Chat!
     var viewingExistingChat = false
+    var thumbnail = UIImage()
+    var messageRead = "false"
+    var previousMessageDate = ""
+    var bottomConstraint: NSLayoutConstraint?
     let fullDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss E, d MMM, yyyy"
         return formatter
     }()
-    var thumbnail = UIImage()
-    var messageRead = "false"
-    var previousMessageDate = ""
-    var bottomConstraint: NSLayoutConstraint?
     
     
     // MARK: - Life Cycle
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let UID = Settings.currentUser?.uid {
-            customerUID = UID
-        }
+        if let UID = Auth.auth().currentUser?.uid { customerUID = UID }
         
         // If arriving from AdvertDetailsVC, this is a new chat - create new unique chat ID using current users UID + advert key
         if !viewingExistingChat {
             chatID = customerUID + "-" + space.key
         }
         
-        ref = Database.database().reference()
         subscribeToKeyboardNotifications()
         configureUI()
         listenForNewMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
-
-        
     }
- 
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateTableContentInset()
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         ref.child("messages/\(chatID)").removeObserver(withHandle: refHandle)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
-
+    
     
     // MARK: - Private Methods
     
-    
     // Pin new messages(rows) to bottom of tableView
     func updateTableContentInset() {
-        let numRows = tableView(self.tableView, numberOfRowsInSection: 0)
+        let numRows = tableView(self.messagesTableView, numberOfRowsInSection: 0)
         // Set contentInsetTop to height of tableview
-        var contentInsetTop = self.tableView.bounds.size.height
+        var contentInsetTop = self.messagesTableView.bounds.size.height
         for i in 0..<numRows {
             // Iterate through all rows getting CGRect for each
-            let rowRect = self.tableView.rectForRow(at: IndexPath(item: i, section: 0))
+            let rowRect = self.messagesTableView.rectForRow(at: IndexPath(item: i, section: 0))
             // Subtract each rows height from contentInsetTop
             contentInsetTop -= rowRect.size.height
             if contentInsetTop <= 0 {
                 contentInsetTop = 0
             }
         }
-        self.tableView.contentInset = UIEdgeInsets(top: contentInsetTop,left: 0,bottom: 0,right: 0)
+        self.messagesTableView.contentInset = UIEdgeInsets(top: contentInsetTop,left: 0,bottom: 0,right: 0)
     }
     
+    
     fileprivate func configureUI() {
-      
         messageTextField.layer.cornerRadius = 20
         messageTextField.layer.borderWidth = 1
         messageTextField.layer.borderColor = UIColor.darkGray.cgColor
         addLeftPadding(for: messageTextField, placeholderText: "Message...", placeholderColour: .gray)
-//        let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: messageTextField.frame.height))
-//        messageTextField.leftView = leftPadView
-//        messageTextField.leftViewMode = .always
         
         if viewingExistingChat {
             advertTitleLabel.text = chat.title
@@ -134,6 +120,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         imageView.image = thumbnail
     }
     
+    
     fileprivate func listenForNewMessages() {
         refHandle = ref.child("messages/\(chatID)").observe(.value, with: { (dataSnapshot) in
             var newMessages: [Message] = []
@@ -144,10 +131,10 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                         newMessages.append(message)
                         
                         // If sender of message is not signed in user
-                        if message.sender != Auth.auth().currentUser?.uid {
+                        let currentUserUID = Auth.auth().currentUser?.uid ?? ""
+                        if message.sender != currentUserUID {
                             // Update message as read
-                            let UID = Auth.auth().currentUser?.uid
-                            let userChatsDB = self.ref.child("users/\(UID!)/chats")
+                            let userChatsDB = self.ref.child("users/\(currentUserUID)/chats")
                             userChatsDB.child(self.chatID).updateChildValues(["read": "true"])
                         }
                     }
@@ -155,15 +142,16 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             }
             self.messages = newMessages
             self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
-            self.tableView.reloadData()
+            self.messagesTableView.reloadData()
             self.scrollToBottomMessage()
         })
     }
     
+    
     func scrollToBottomMessage() {
         if messages.count == 0 { return }
-        let bottomMessageIndex = IndexPath(row: tableView.numberOfRows(inSection: 0) - 1, section: 0)
-        tableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
+        let bottomMessageIndex = IndexPath(row: messagesTableView.numberOfRows(inSection: 0) - 1, section: 0)
+        messagesTableView.scrollToRow(at: bottomMessageIndex, at: .bottom, animated: true)
     }
     
     
@@ -194,8 +182,8 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             
             let customerDB = ref.child("users/\(customerUID)/chats/\(chatID)")
             let advertOwnerDB = ref.child("users/\(advertOwnerUID)/chats/\(chatID)")
-            let messagesDB = Database.database().reference().child("messages/\(chatID)")
-
+            let messagesDB = ref.child("messages/\(chatID)")
+            
             let firstChatData = Chat(latestSender: Auth.auth().currentUser?.uid ?? "",
                                      lastMessage: messageTextField.text!,
                                      title: advertTitleLabel.text!,
@@ -233,11 +221,13 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
                 if recipientError != nil {
                     print("Error uploading to recipient DB: \(recipientError?.localizedDescription as Any)")
+                    self.showAlert(title: "Oh Dear", message: "Something went wrong, please try sending the message again.")
                     return
                 } else {
                     customerDB.setValue(chatData) { (error, chatRef) in
                         if error != nil {
                             print("Error sending message: \(error?.localizedDescription as Any)")
+                            self.showAlert(title: "Oh Dear", message: "Something went wrong, please try sending the message again.")
                             return
                         } else {
                             messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
@@ -245,7 +235,6 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                                     print("Error sending message: \(error?.localizedDescription as Any)")
                                     return
                                 } else {
-                                    
                                     let senderUID = Auth.auth().currentUser?.uid
                                     self.ref.child("users/\(senderUID!)/chats").child(self.chatID).updateChildValues(["read": "true"])
                                     
@@ -258,10 +247,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
             }
         }
-        
     }
-    
-    
     
     
     // MARK: - Action Methods    
@@ -269,15 +255,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func sendMessageButtonTapped(_ sender: Any) {
         sendMessage()
     }
-    
-    
-    @IBAction func handlePan(_ recognizer: UIPanGestureRecognizer) {
-//        guard let recognizer = recognizer else { return }
-        
-
-    }
 }
-
 
 
 // MARK: - TableView Delegates & Datasource
@@ -301,12 +279,12 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
         let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: now)
         let lastSevenDays = sevenDaysAgo!...now
         let lastHour = oneHourAgo!...now
-
+        
         timeFormatter.dateFormat = "HH:mm"
         dayFormatter.dateFormat = "E, d MMM"
         weekFormatter.dateFormat = "EEEE"
         
-        if message.sender == Auth.auth().currentUser?.displayName {
+        if message.sender == Auth.auth().currentUser?.uid {
             let cell = senderCell
             cell.messageLabel.text = message.messageBody
             
@@ -322,7 +300,7 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
                 // if message was today, just show time
                 if calendar.isDateInToday(messageDate) {
                     cell.dateLabel.text = timeFormatter.string(from: messageDate)
-   
+                    
                     // if message was within the last hour, don't show time
                     if lastHour.contains(messageDate) {
                         cell.dateLabel.text = ""
@@ -333,6 +311,7 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
             cell.messageContainerView.layer.cornerRadius = 14
             cell.messageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner]
             return cell
+            
         } else {
             let cell = recipientCell
             cell.messageLabel.text = message.messageBody
@@ -340,12 +319,12 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
             if let messageDate = fullDateFormatter.date(from: message.messageDate) {
                 // set date to day and month
                 cell.dateLabel.text = dayFormatter.string(from: messageDate)
- 
+                
                 // if message was within the last week, just show day
                 if lastSevenDays.contains(messageDate) {
                     cell.dateLabel.text = weekFormatter.string(from: messageDate)
                 }
- 
+                
                 // if message was today, just show time
                 if calendar.isDateInToday(messageDate) {
                     cell.dateLabel.text = timeFormatter.string(from: messageDate)
@@ -359,7 +338,6 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.messageContainerView.layer.cornerRadius = 14
             cell.messageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-            
             return cell
         }
     }
