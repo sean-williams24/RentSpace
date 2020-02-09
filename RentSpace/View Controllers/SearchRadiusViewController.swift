@@ -13,15 +13,15 @@ protocol handleSetSearchLocation {
 }
 
 class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
-
+    
     // MARK: - Outlets
-
+    
     @IBOutlet var locationButton: UIButton!
     @IBOutlet var pickerView: UIPickerView!
     
     
     // MARK: - Properties
-
+    
     var searchDistance: Double = 20.00
     var resultsSearchController: UISearchController?
     var delegate: UpdateSearchLocationDelegate?
@@ -36,9 +36,9 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     var pickerDistances = [String]()
     var searchButton: UIBarButtonItem!
     
-
+    
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +46,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable
         addressSearchTable.handleSetSearchLocationDelegate = self
-         
+        
         let titleButton = UIButton()
         let attributedTitle = NSAttributedString(string: "Set Location", attributes: Settings.navBarTitleAttributes)
         titleButton.tintColor = Settings.orangeTint
@@ -86,7 +86,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         if locationUpdated {
             delegate?.didUpdateLocation(town: town, city: city, county: county, postcode: postcode, country: country, location: location!, distance: searchDistance)
         }
@@ -109,8 +109,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
                 locationButton.setTitle(postcode, for: .normal)
             }
             if postcode == "" {
-                 locationButton.setTitle("\(city), \(country)", for: .normal)
-             }
+                locationButton.setTitle("\(city), \(country)", for: .normal)
+            }
         } else {
             locationButton.setTitle("\(town), \(postcode)", for: .normal)
             if postcode == "" {
@@ -143,10 +143,10 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
     }
-
+    
     
     // MARK: - Action Methods
-
+    
     @IBAction func locationButtonTapped(_ sender: Any) {
         addressSearch()
     }

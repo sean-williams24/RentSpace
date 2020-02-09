@@ -14,7 +14,7 @@ import MapKit
 class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate {
     
     // MARK: - Outlets
-
+    
     @IBOutlet var artButton: UIButton!
     @IBOutlet var photographyButton: UIButton!
     @IBOutlet var musicButton: UIButton!
@@ -23,7 +23,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     
     // MARK: - Properties
-
+    
     var locationManager: CLLocationManager!
     
     
@@ -44,7 +44,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 }
             }
         }
-                
+        
         
         // If a custom user location exists - store to Location class
         
@@ -72,7 +72,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -90,7 +90,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 var unread = 0
                 var read = 0
                 let messageTab = self.tabBarController?.tabBar.items?[3]
-
+                
                 for child in dataSnapshot.children {
                     if let snapshot = child as? DataSnapshot {
                         if let chat = Chat(snapshot: snapshot) {
@@ -130,7 +130,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     
     // MARK: - Location Methods
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let userLocation = locations.first else { return }
         
@@ -183,7 +183,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     
     // MARK: - Action Methods
-
+    
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
@@ -195,7 +195,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 
 extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     func adjustViewAfterRegistration() {
-
+        
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
         let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
@@ -208,7 +208,7 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
         print("")
     }
     func adjustViewForTabBar() {
-
+        
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
         let safeArea = self.view.safeAreaLayoutGuide.layoutFrame

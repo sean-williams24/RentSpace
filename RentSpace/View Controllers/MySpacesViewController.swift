@@ -156,9 +156,6 @@ class MySpacesViewController: UIViewController {
         mySpaces.removeAll()
         tableView.reloadData()
         self.infoLabel.text = ""
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.showEmptySpacesInfo(for: "favourites")
-        }
 
         for favourite in Favourites.spaces {
             self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
@@ -250,6 +247,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         
         if viewingFavourites {
             cell.backgroundColor = .gray
+            cell.layer.borderWidth = 0
         } else {
             cell.backgroundColor = .darkGray
             cell.layer.borderColor = UIColor.black.cgColor
@@ -335,14 +333,14 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        
+        return viewingFavourites
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let space = mySpaces[indexPath.section]
         
         if editingStyle == .delete {
-            
             let ac = UIAlertController(title: "Remove Favourite", message: "Are you sure you wish to remove this space from your favourites?", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 self.ref.child("users/\(self.UID)/favourites/\(space.key)").removeValue()
@@ -362,11 +360,8 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
             
             ac.addAction(UIAlertAction(title: "Cancel", style: .default))
             present(ac, animated: true)
-            
-
         }
     }
-    
 }
 
 

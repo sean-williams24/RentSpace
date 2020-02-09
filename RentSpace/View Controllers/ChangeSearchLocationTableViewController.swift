@@ -11,15 +11,15 @@ import MapKit
 import UIKit
 
 class ChangeSearchLocationTableViewController: UITableViewController, UISearchResultsUpdating {
-
+    
     // MARK: - Properties
-
+    
     var matchingItems: [MKMapItem] = []
     var handleSetSearchLocationDelegate: handleSetSearchLocation?
     
     
     // MARK: - Search Results
-
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearch.Request()
@@ -43,17 +43,17 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
             self.tableView.reloadData()
         }
     }
-
+    
     // MARK: - Table view Delegates
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath)
         let address = matchingItems[indexPath.row].placemark
-
+        
         if let postalAddress = address.postalAddress {
             cell.textLabel?.text = postalAddress.subLocality
             cell.detailTextLabel?.text = "\(postalAddress.city), \(postalAddress.postalCode)"

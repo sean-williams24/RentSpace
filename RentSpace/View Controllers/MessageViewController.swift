@@ -43,7 +43,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     var thumbnail = UIImage()
     var messageRead = "false"
     var previousMessageDate = ""
-    
+    var bottomConstraint: NSLayoutConstraint?
     
     
     // MARK: - Life Cycle
@@ -68,7 +68,9 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
 
+        
     }
+ 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -88,6 +90,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
 
     
     // MARK: - Private Methods
+    
     
     // Pin new messages(rows) to bottom of tableView
     func updateTableContentInset() {

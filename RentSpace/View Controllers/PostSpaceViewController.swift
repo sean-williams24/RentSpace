@@ -5,13 +5,15 @@
 //  Created by Sean Williams on 26/11/2019.
 //  Copyright © 2019 Sean Williams. All rights reserved.
 //
+
 import FirebaseAuth
 import Firebase
 import UIKit
 import Contacts
 
-class PostSpaceViewController: UIViewController, UINavigationControllerDelegate {
+class PostSpaceViewController: UIViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
+    // MARK: - Outlets
     
     @IBOutlet var postButton: UIBarButtonItem!
     @IBOutlet var titleTextField: UITextField!
@@ -28,6 +30,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
     
+    
+    // MARK: - Properties
+    
     var spaceTypePickerContent = [String]()
     var priceRatePickerContent = [String]()
     var imagesSavedToDisk = [Image]()
@@ -35,11 +40,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var tempDiskImagesArrayToDelete: [Image] = []
     let itemsPerRow: CGFloat = 5
     let collectionViewInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//    var ref: DatabaseReference!
-//    var storageRef: StorageReference!
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     var category = "Art Studio"
-    var previousCategory = ""
+    var originalCategory = ""
     var priceRate = "Hourly"
     let descriptionViewPlaceholder = "Describe your studio space here..."
     var location = ""
@@ -47,7 +50,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     var updatingAdvert = false
     let placeHolderImage = UIImage(named: "imagePlaceholder")
     let defaults = UserDefaults.standard
-    let UD = UserDefaults.standard
     var userAdvertsPath = ""
     var advertsPath = ""
     var UID = ""
@@ -58,25 +60,17 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     //MARK: - Life Cycle
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if updatingAdvert {
-            loadAdvertToUpdate()
-        }
+        if updatingAdvert { loadAdvertToUpdate() }
         
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            collectionViewHeightConstraint.constant = 420
-        }
+        let cellHeight = view.bounds.width / 5
+        collectionViewHeightConstraint.constant = (cellHeight * 2) + 6
         
         dismissKeyboardOnViewTap()
-        
-//        ref = Database.database().reference()
-//        storageRef = Storage.storage().reference()
     }
     
-
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -108,14 +102,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.resignFirstResponder()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
         Auth.auth().removeStateDidChangeListener(handle)
-
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -126,16 +118,16 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     
     //MARK: - Private Methods
-    
+
     
     fileprivate func deleteImagesInDocumentsDirectory() {
         
         for image in imagesToUpload {
-              if image.imageName != "placeholder" {
-                  let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
-                  deleteFileFromDisk(at: imageURLInDocuments)
-              }
-          }
+            if image.imageName != "placeholder" {
+                let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
+                deleteFileFromDisk(at: imageURLInDocuments)
+            }
+        }
         
         for image in imagesSavedToDisk {
             if image.imageName != "placeholder" {
@@ -156,9 +148,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     fileprivate func loadUserDataFromUserDefaults() {
         var email = ""
         var postcode = ""
+        let description = defaults.string(forKey: "UpdateDescription")
         if updatingAdvert {
             loadUDImages(for: "UpdateImages")
-            descriptionTextView.text = defaults.string(forKey: "UpdateDescription")
+            descriptionTextView.text = description == "" ? descriptionViewPlaceholder : description
             email = defaults.string(forKey: "UpdateEmail") ?? ""
             postcode = defaults.string(forKey: "UpdatePostCode") ?? ""
             location = defaults.string(forKey: "UpdateCountry") ?? ""
@@ -169,7 +162,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             postcode = defaults.string(forKey: "PostCode") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
         }
- 
+        
         locationButton.setTitle(" \(postcode) / \(email)", for: .normal)
         if email == "" || postcode == "" {
             locationButton.setTitle("  Contact & Address", for: .normal)
@@ -178,12 +171,11 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     func loadAdvertToUpdate() {
         defaults.removeObject(forKey: "UpdateImages")
-        
         postButton.title = "Update"
         titleTextField.text = space.title
-        descriptionTextView.text = space.description
+        descriptionTextView.text = space.description == "" ? descriptionViewPlaceholder : space.description
         category = space.category
-        previousCategory = space.category
+        originalCategory = space.category
         
         for (i, spaceType) in spaceTypePickerContent.enumerated() {
             if spaceType == category {
@@ -216,7 +208,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 self.writeImageFileToDisk(image: self.placeHolderImage!, name: "placeholder", at: 0, in: &self.imagesSavedToDisk)
             }
             // Save images to disk to create array of filepaths, save to UD so it can be used to load in AddPhotosVC as well as here.
-
+            
             for key in self.imagesDictionary.keys.sorted().reversed() {
                 guard let image = self.imagesDictionary[key] else { break }
                 let imageName = UUID().uuidString
@@ -225,7 +217,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
             
             self.tempDiskImagesArrayToDelete = self.imagesSavedToDisk
-            print(self.tempDiskImagesArrayToDelete.count)
             
             // Save image file paths to UserDefaults
             let jsonEncoder = JSONEncoder()
@@ -236,7 +227,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         }
     }
     
-    // maybe refactor this as its used also in advert deails VC
+    
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         if let imageURLsDict = space.photos {
             self.firebaseImageURLsDict = imageURLsDict
@@ -276,7 +267,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         // Location Button
         let disclosure = UITableViewCell()
-        disclosure.frame = locationButton.bounds
+        disclosure.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: locationButton.frame.height)
         disclosure.accessoryType = .disclosureIndicator
         disclosure.isUserInteractionEnabled = false
         locationButton.addSubview(disclosure)
@@ -294,9 +285,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         
         signInButton.layer.cornerRadius = Settings.cornerRadius
         uploadView.isHidden = true
+        
+        let insets = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        addPhotosButton.imageEdgeInsets = insets
+        addPhotosButton.imageView?.contentMode = .scaleAspectFit
     }
     
-
     
     fileprivate func loadUDImages(for key: String) {
         if let imageData = UserDefaults.standard.data(forKey: key) {
@@ -312,18 +306,18 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
     
     
     fileprivate func resetUIandUserDefaults() {
-        self.UD.removeObject(forKey: "Phone")
-        self.UD.removeObject(forKey: "Email")
-        self.UD.removeObject(forKey: "Address")
-        self.UD.removeObject(forKey: "PostCode")
-        self.UD.removeObject(forKey: "City")
-        self.UD.removeObject(forKey: "SubAdminArea")
-        self.UD.removeObject(forKey: "State")
-        self.UD.removeObject(forKey: "Country")
-        self.UD.removeObject(forKey: "Town")
-        self.UD.removeObject(forKey: "Images")
-        self.UD.set(self.descriptionViewPlaceholder, forKey: "Description")
-        self.UD.set(true, forKey: "ViewOnMap")
+        self.defaults.removeObject(forKey: "Phone")
+        self.defaults.removeObject(forKey: "Email")
+        self.defaults.removeObject(forKey: "Address")
+        self.defaults.removeObject(forKey: "PostCode")
+        self.defaults.removeObject(forKey: "City")
+        self.defaults.removeObject(forKey: "SubAdminArea")
+        self.defaults.removeObject(forKey: "State")
+        self.defaults.removeObject(forKey: "Country")
+        self.defaults.removeObject(forKey: "Town")
+        self.defaults.removeObject(forKey: "Images")
+        self.defaults.set(self.descriptionViewPlaceholder, forKey: "Description")
+        self.defaults.set(true, forKey: "ViewOnMap")
         self.titleTextField.text = ""
         self.priceTextField.text = ""
         self.locationButton.setTitle("Contact & Address", for: .normal)
@@ -334,36 +328,33 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         self.postButton.isEnabled = true
     }
     
-
+    
     
     fileprivate func uploadAdvertToFirebase(_ imageURLs: [String : String]? = nil) {
         let ref = FirebaseClient.databaseRef
-        var descriptionText = descriptionTextView.text
-        var update = ""
-        
-        if descriptionText == descriptionViewPlaceholder { descriptionText = "" }
-        if updatingAdvert { update = "Update" }
+        let descriptionText = descriptionTextView.text == descriptionViewPlaceholder ? "" : descriptionTextView.text
+        let update = updatingAdvert ? "Update" : ""
         
         // Package advert into data dictionary
         let data = Space(title: self.titleTextField.text ?? "",
-                              description: descriptionText ?? "",
-                              category: self.category,
-                              price: priceTextField.text ?? "",
-                              priceRate: priceRate,
-                              email: UD.string(forKey: "\(update)Email") ?? "",
-                              phone: UD.string(forKey: "\(update)Phone") ?? "",
-                              photos: imageURLs,
-                              town: UD.string(forKey: "\(update)Town") ?? "",
-                              city: UD.string(forKey: "\(update)City") ?? "",
-                              subAdminArea: UD.string(forKey: "\(update)SubAdminArea") ?? "",
-                              postcode: UD.string(forKey: "\(update)PostCode") ?? "",
-                              state: UD.string(forKey: "\(update)State") ?? "",
-                              country: UD.string(forKey: "\(update)Country") ?? "",
-                              viewOnMap: UD.bool(forKey: "\(update)ViewOnMap"),
-                              postedByUser: Settings.currentUser?.uid ?? "",
-                              userDisplayName: Settings.currentUser?.displayName ?? "",
-                              timestamp: Date().timeIntervalSince1970 as Double)
-
+                         description: descriptionText ?? "",
+                         category: self.category,
+                         price: priceTextField.text ?? "",
+                         priceRate: priceRate,
+                         email: defaults.string(forKey: "\(update)Email") ?? "",
+                         phone: defaults.string(forKey: "\(update)Phone") ?? "",
+                         photos: imageURLs,
+                         town: defaults.string(forKey: "\(update)Town") ?? "",
+                         city: defaults.string(forKey: "\(update)City") ?? "",
+                         subAdminArea: defaults.string(forKey: "\(update)SubAdminArea") ?? "",
+                         postcode: defaults.string(forKey: "\(update)PostCode") ?? "",
+                         state: defaults.string(forKey: "\(update)State") ?? "",
+                         country: defaults.string(forKey: "\(update)Country") ?? "",
+                         viewOnMap: defaults.bool(forKey: "\(update)ViewOnMap"),
+                         postedByUser: Settings.currentUser?.uid ?? "",
+                         userDisplayName: Settings.currentUser?.displayName ?? "",
+                         timestamp: Date().timeIntervalSince1970 as Double)
+        
         
         // Write to Adverts firebase pathes
         if updatingAdvert {
@@ -371,8 +362,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                                 "\(userAdvertsPath)/\(space.key)": data.toAnyObject()]
             
             // If user has changed categories - add another path to dictionary to delete old advert
-            if category != previousCategory {
-                childUpdates["adverts/\(Location.userLocationCountry)/\(previousCategory)/\(UID)-\(space.key)"] = NSNull()
+            if category != originalCategory {
+                childUpdates["adverts/\(Location.userLocationCountry)/\(originalCategory)/\(UID)-\(space.key)"] = NSNull()
             }
             
             ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in
@@ -382,7 +373,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 print("update completion")
                 
                 self?.deleteImagesInDocumentsDirectory()
-                
                 self?.imagesSavedToDisk = []
                 self?.imagesToUpload = []
                 
@@ -391,25 +381,24 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 vc.updatingAdvert = true
                 self?.present(vc, animated: true)
             }
-            
-            
-            
         } else {
             ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
                 if error != nil {
                     print(error?.localizedDescription as Any)
-                    // TODO: - HANDLE ERROR
+                    self?.showAlert(title: "Oh No!", message: "There was a problem uploading your advert; we apologise for the inconvenience. Please try posting your space again.")
                     return
                 }
                 
                 ref.child("\(self?.userAdvertsPath ?? "")/\(self?.uniqueAdvertID ?? "")").setValue(data.toAnyObject()) { (userError, ref) in
                     if userError != nil {
                         print(userError as Any)
+                        self?.showAlert(title: "Oh No!", message: "There was a problem uploading your advert; we apologise for the inconvenience. Please try posting your space again.")
+                        return
                     }
                     
                     print("Upload Complete")
                     self?.resetUIandUserDefaults()
-
+                    
                     let vc = self?.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
                     self?.present(vc, animated: true)
                 }
@@ -425,7 +414,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         uploadView.isHidden = false
         postButton.isEnabled = false
         self.view.endEditing(true)
-
+        
         let imagesUpdated = defaults.bool(forKey: "ImagesUpdated")
         
         // If there are no images to upload - upload directly to Realtime database
@@ -435,10 +424,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 FirebaseClient.deleteImagesFromFirebaseCloudStorage(imageURLsDict: firebaseImageURLsDict) {
                     self.uploadAdvertToFirebase()
                 }
-//
-//                deleteImagesFromFirebaseCloudStorage {
-//                self.uploadAdvertToFirebase()
-//                }
             } else {
                 uploadAdvertToFirebase()
             }
@@ -446,28 +431,17 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             // If there are images to upload, if we are updating the advert, there are existing images and images have been updated -
             // delete old photos first then upload again to same path in cloud storage.
             if updatingAdvert && firebaseImageURLsDict.count != 0 && imagesUpdated == true {
-                print("Images have been updated")
-                
                 FirebaseClient.deleteImagesFromFirebaseCloudStorage(imageURLsDict: firebaseImageURLsDict) {
-                        self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
+                    self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
                         self.uploadAdvertToFirebase(imageURLs)
                     }
                 }
-                
-//                deleteImagesFromFirebaseCloudStorage {
-//                    self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
-//                        self.uploadAdvertToFirebase(imageURLs)
-//                    }
-//                }
                 // If there are images to upload, if we are updating the advert, there are existing images but images have not been updated -
                 // overwrite photos to same path in cloud storage.
             } else if updatingAdvert && firebaseImageURLsDict.count != 0 && imagesUpdated == false {
-                print("Images have not been updated")
-                
                 self.uploadImagesToFirebaseCloudStorage { (imageURLs) in
                     self.uploadAdvertToFirebase(imageURLs)
                 }
-                
             } else {
                 // If posting new advert and there are images to upload
                 uploadImagesToFirebaseCloudStorage { (imageURLs) in
@@ -476,28 +450,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
     }
-    
-//    func deleteImagesFromFirebaseCloudStorage(completion: @escaping() -> ()) {
-//        let storage = Storage.storage()
-//        var deletedImagesCount = 0
-//        for (_, imageURL) in firebaseImageURLsDict {
-//            let storRef = storage.reference(forURL: imageURL)
-//
-//            storRef.delete { (error) in
-//                if let error = error {
-//                    print(error.localizedDescription)
-//                } else {
-//                    deletedImagesCount += 1
-//
-//                    if deletedImagesCount == self.firebaseImageURLsDict.count {
-//                        // Call completion and uploadImagestofirebasestorage
-//                        print("Uploading to Firebase Storage and Realtime Database")
-//                        completion()
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     
     func uploadImagesToFirebaseCloudStorage(completion: @escaping ([String : String]) -> ()) {
@@ -517,7 +469,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 } else {
                     imagePath = "\(userAdvertsPath)/\(uniqueAdvertID)"
                 }
-                                
+                
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/jpeg"
                 let advertRef = storageRef.child(imagePath)
@@ -535,7 +487,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                     
                     imageURLs["image \(imageNumber.first!)"] = url
                     uploadedImagesCount += 1
-                    print("uploadoaded images count: \(uploadedImagesCount)")
                     
                     self?.deleteFileFromDisk(at: imageURLInDocuments)
                     
@@ -548,7 +499,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
             }
         }
     }
-
+    
     
     // MARK: - Navigation
     
@@ -564,7 +515,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
                 addPhotosVC.inUpdatingMode = true
             }
         }
-        
         self.view.endEditing(true)
     }
     
@@ -605,12 +555,11 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate 
         }
     }
     
+    
     @IBAction func signInButtonTapped(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
         self.present(vc, animated: true)
     }
-    
-    
 }
 
 
@@ -629,9 +578,9 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
         if descriptionTextView.text == "" {
             descriptionTextView.text = descriptionViewPlaceholder
             descriptionTextView.textColor = .lightGray
-            UD.set(descriptionTextView.text, forKey: "Description")
+            defaults.set(descriptionTextView.text, forKey: "Description")
         } else {
-            UD.set(descriptionTextView.text, forKey: "Description")
+            defaults.set(descriptionTextView.text, forKey: "Description")
         }
         descriptionTextView.resignFirstResponder()
     }
@@ -659,8 +608,8 @@ extension PostSpaceViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PreviewPhotoCollectionViewCell
-        
         let image = imagesSavedToDisk[indexPath.item]
+        
         if image.imageName != "placeholder" {
             imagesToUpload.append(image)
         }
@@ -670,9 +619,6 @@ extension PostSpaceViewController: UICollectionViewDelegate, UICollectionViewDat
         
         return cell
     }
-    
-    
-    
 }
 
 //MARK: - Collection View Flow Layout Delegates
@@ -694,14 +640,12 @@ extension PostSpaceViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return collectionViewInsets.left
     }
-    
 }
 
 
 //MARK: - Picker View Delegates and Data Sources
 
 extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

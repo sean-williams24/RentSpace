@@ -17,16 +17,16 @@ protocol UpdateSearchLocationDelegate {
 }
 
 class RentSpaceViewController: UIViewController {
-
+    
     // MARK: - Outlets
-
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
     @IBOutlet var arrow: UIImageView!
     
     // MARK: - Properties
-
+    
     var ref: DatabaseReference!
     var storageRef: StorageReference!
     var spaces: [Space] = []
@@ -38,7 +38,7 @@ class RentSpaceViewController: UIViewController {
     
     
     // MARK: - Life Cycle
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,14 +59,14 @@ class RentSpaceViewController: UIViewController {
                 searchAreaButtonTitle = postcode.uppercased()
             }
         }
-    
+        
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = rightBarButton
         
         storageRef = FirebaseClient.storageRef
         ref = FirebaseClient.databaseRef
-
+        
         if UserDefaults.standard.double(forKey: "Distance") != 0.0 {
             Location.searchDistance = UserDefaults.standard.double(forKey: "Distance")
         } 
@@ -92,7 +92,7 @@ class RentSpaceViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if self.spaces.isEmpty {
                 UIView.animate(withDuration: 1) {
@@ -109,7 +109,7 @@ class RentSpaceViewController: UIViewController {
         }
     }
     
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
@@ -152,7 +152,7 @@ class RentSpaceViewController: UIViewController {
                                 newSpaces.append(space)
                                 self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
                             }
-
+                            
                             index += 1
                             if index == spaceCount {
                                 self.spaces = newSpaces.sorted {
@@ -169,10 +169,10 @@ class RentSpaceViewController: UIViewController {
     
     func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
-
+        
         spaces.removeAll()
         tableView.reloadData()
-
+        
         if setMiles == 310.0 {
             // Nationwide results, i.e. all adverts
             ref.child("adverts/\(location)/\(chosenCategory)").observe(.value, with: { (snapshot) in
@@ -184,7 +184,7 @@ class RentSpaceViewController: UIViewController {
             })
         }
     }
-
+    
     
     @objc func setSearchRadius() {
         let vc = storyboard?.instantiateViewController(identifier: "SearchRadiusVC") as! SearchRadiusViewController
@@ -238,7 +238,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {
-            
+                
                 DispatchQueue.global(qos: .background).async {
                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
                         guard error == nil else {
@@ -275,7 +275,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 0
-
+                
             } else {
                 cell.activityView.stopAnimating()
                 cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -311,7 +311,7 @@ extension RentSpaceViewController: UpdateSearchLocationDelegate {
         loadingLabel.isHidden = false
         loadingLabel.text = "Finding Spaces..."
     }
-
+    
     
     func didUpdateLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation, distance: Double) {
         getAdverts(for: location, within: distance)

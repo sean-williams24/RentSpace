@@ -14,7 +14,7 @@ import UIKit
 class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Outlets
-
+    
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
@@ -33,7 +33,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     
     // MARK: - Properties
-
+    
     var images = [UIImage]()
     var space: Space!
     var emailAddress: String?
@@ -63,12 +63,12 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
         navigationItem.rightBarButtonItems = [trashButton, editButton]
         scrollView.delegate = self
-
+        
         if editingMode {
             trashButton.isEnabled = true
             trashButton.tintColor = Settings.orangeTint
@@ -138,7 +138,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             // Add images to scrollView
             self.activityView.stopAnimating()
             var i = 0
-
+            
             for key in self.imagesDictionary.keys.sorted() {
                 guard let image = self.imagesDictionary[key] else { break }
                 
@@ -223,7 +223,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                         }
                     }
                 }
-
+                
             }
         } else {
             activityView.stopAnimating()
