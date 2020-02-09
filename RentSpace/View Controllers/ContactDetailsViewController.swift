@@ -16,6 +16,7 @@ protocol HandleAddressSelection {
 
 class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     
+    // MARK: - Outlets
     
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var phoneNumberTextField: UITextField!
@@ -28,6 +29,8 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     @IBOutlet var postcodeLabel: UITextField!
     @IBOutlet var viewOnMapSwitch: UISwitch!
     
+    
+    // MARK: - Properties
     
     let searchRequest = MKLocalSearch.Request()
     var resultsSearchController: UISearchController?
@@ -63,10 +66,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         addLeftPadding(for: countryLabel, placeholderText: "Country", placeholderColour: .gray)
         addLeftPadding(for: postcodeLabel, placeholderText: "Postcode", placeholderColour: .gray)
         addLeftPadding(for: stateLabel, placeholderText: "State", placeholderColour: .gray)
-
+        
         if Location.userLocationCountry == "United States" {
             configureTextFieldPlaceholders(for: postcodeLabel, withText: "Zip Code")
-            
         }
         
         if inUpdateMode {
@@ -128,16 +130,12 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             UserDefaults.standard.set(postcodeLabel.text, forKey: "PostCode")
             UserDefaults.standard.set(viewOnMapSwitch.isOn, forKey: "ViewOnMap")
         }
-        
     }
-    
-    
     
     
     // MARK: - Private Methods
     
     func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
-
         if town == "" {
             townLabel.isHidden = true
         } else {
@@ -150,7 +148,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         countryLabel.text = country
         postcodeLabel.text = postCode
     }
-    
 }
 
 // MARK: - Search bar delegates

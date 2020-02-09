@@ -13,6 +13,8 @@ import UIKit
 
 class MySpacesViewController: UIViewController {
     
+    // MARK: - Outlets
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
@@ -20,6 +22,9 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var loadingLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var favouritesButton: UIBarButtonItem!
+    
+    
+    // MARK: - Properties
     
     var mySpaces: [Space] = []
     var ref = FirebaseClient.databaseRef
@@ -31,31 +36,15 @@ class MySpacesViewController: UIViewController {
     
     
     // MARK: - Life Cycle
-
-    
-    fileprivate func downloadFavouritesSpace() {
-        // Load and listen for changes to Favourites
-            self.ref.child("users/\(self.UID)/favourites").observe(.value) { (snapshot) in
-                var newItems: [FavouriteSpace] = []
-                for child in snapshot.children {
-                    if let favSnap = child as? DataSnapshot {
-                        if let favourite = FavouriteSpace(snapshot: favSnap) {
-                            newItems.append(favourite)
-                        }
-                    }
-                }
-                Favourites.spaces = newItems
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
         favouritesButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         self.infoLabel.text = ""
-
+        
         authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
-
+            
             if user != nil {
                 Settings.currentUser = user
                 self.mySpaces.removeAll()
@@ -66,7 +55,7 @@ class MySpacesViewController: UIViewController {
                 self.UID = user!.uid
                 self.loadUserSpaces()
                 self.downloadFavouritesSpace()
-
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                     if self.mySpaces.isEmpty {
                         self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
@@ -92,45 +81,49 @@ class MySpacesViewController: UIViewController {
         }
         
         self.tableView.rowHeight = 150
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-
-        viewingFavourites ? loadFavourites() : loadUserSpaces()
         
-//        if Favourites.spaces.isEmpty {
-//            self.showEmptySpacesInfo(for: "favourites")
-//        } else {
-//            self.infoLabel.text = ""
-//
-//        }
+        viewingFavourites ? loadFavourites() : loadUserSpaces()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        Auth.auth().removeStateDidChangeListener(authHandle)
-//        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
-
-    }
-    
-    deinit {
-//        Auth.auth().removeStateDidChangeListener(authHandle)
+        Auth.auth().removeStateDidChangeListener(authHandle)
+        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
+        
     }
     
     
     // MARK: - Private Methods
     
+    fileprivate func downloadFavouritesSpace() {
+        // Load and listen for changes to Favourites
+        self.ref.child("users/\(self.UID)/favourites").observe(.value) { (snapshot) in
+            var newItems: [FavouriteSpace] = []
+            for child in snapshot.children {
+                if let favSnap = child as? DataSnapshot {
+                    if let favourite = FavouriteSpace(snapshot: favSnap) {
+                        newItems.append(favourite)
+                    }
+                }
+            }
+            Favourites.spaces = newItems
+        }
+    }
+    
+    
     fileprivate func loadUserSpaces() {
         mySpaces.removeAll()
         tableView.reloadData()
         self.infoLabel.text = ""
-
+        
         refHandle = ref.child("users/\(self.UID)/adverts").queryOrdered(byChild: "timestamp").observe(.value, with: { (snapShot) in
             self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
-
+            
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
                     let space = Space(snapshot: snapshot) {
@@ -156,7 +149,7 @@ class MySpacesViewController: UIViewController {
         mySpaces.removeAll()
         tableView.reloadData()
         self.infoLabel.text = ""
-
+        
         for favourite in Favourites.spaces {
             self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
                 
@@ -178,7 +171,6 @@ class MySpacesViewController: UIViewController {
     
     
     fileprivate func showEmptySpacesInfo(for label: String = "mySpaces") {
-
         if label == "favourites" {
             let attributedString = NSMutableAttributedString(string: "No Favourites Yet \n\nSave your favourite spaces by tapping their heart icon.")
             attributedString.addAttributes(Settings.infoLabelAttributes, range: NSRange(location: 0, length: 18))
@@ -190,8 +182,8 @@ class MySpacesViewController: UIViewController {
         }
     }
     
-    //MARK: - Action Methods
     
+    //MARK: - Action Methods
     
     @IBAction func favouritesButtonTapped(_ sender: Any) {
         if viewingFavourites {
@@ -211,9 +203,6 @@ class MySpacesViewController: UIViewController {
             present(vc, animated: true)
         }
     }
-    
-    
-
 }
 
 
@@ -241,9 +230,8 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "My Spaces Cell", for: indexPath) as! MySpacesTableViewCell
-        cell.layer.borderWidth = 1
-        
         let space = mySpaces[indexPath.section]
+        cell.layer.borderWidth = 1
         
         if viewingFavourites {
             cell.backgroundColor = .gray
@@ -263,10 +251,10 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.categoryLabel.text = space.category
         cell.locationLabel.text = formatAddress(for: space)
         cell.priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
-                
+        
         if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {
-            
+                
                 DispatchQueue.global(qos: .background).async {
                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
                         guard error == nil else {
@@ -274,7 +262,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                             return
                         }
                         let cellImage = UIImage.init(data: data!, scale: 0.1)
-
+                        
                         // Check to see if cell is still on screen, if so update cell
                         if cell == tableView.cellForRow(at: indexPath) {
                             DispatchQueue.main.async {
@@ -303,7 +291,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 0
-
+                
             } else {
                 cell.customImageView.image = iconThumbnail(for: space.category)
                 cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -318,13 +306,14 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
         vc.space = mySpaces[indexPath.section]
         
         if viewingFavourites {
-             vc.editingMode = false
-             vc.arrivedFromFavourites = true
+            vc.editingMode = false
+            vc.arrivedFromFavourites = true
         } else {
             vc.editingMode = true
         }
@@ -332,10 +321,11 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         show(vc, sender: self)
     }
     
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        
         return viewingFavourites
     }
+    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let space = mySpaces[indexPath.section]
@@ -355,7 +345,6 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 if self.viewingFavourites && self.mySpaces.isEmpty {
                     self.showEmptySpacesInfo(for: "favourites")
                 }
-                
             }))
             
             ac.addAction(UIAlertAction(title: "Cancel", style: .default))

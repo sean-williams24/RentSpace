@@ -10,11 +10,17 @@ import UIKit
 
 class PostConfirmationViewController: UIViewController {
     
+    // MARK: - Outlets
+
     @IBOutlet var viewAdvertsButton: UIButton!
     @IBOutlet var postAnotherSpaceButton: UIButton!
     @IBOutlet var updateLabel: UILabel!
     
+    
+    // MARK: - Properties
+
     var updatingAdvert = false
+    
     
     // MARK: - Life Cycle
 
@@ -31,10 +37,11 @@ class PostConfirmationViewController: UIViewController {
             viewAdvertsButton.titleLabel?.text = "VIEW YOUR SPACES"
             updateLabel.text = "Your changes have been updated on RentSpace."
         }
-
     }
     
     
+    // MARK: - Action Methods
+
     @IBAction func viewAdvertsTapped(_ sender: Any) {
         popToRootController(ofTab: 2)
     }

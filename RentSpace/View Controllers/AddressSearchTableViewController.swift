@@ -12,16 +12,19 @@ import Contacts
 
 class AddressSearchTableViewController: UITableViewController, UISearchResultsUpdating, CLLocationManagerDelegate {
     
+    // MARK: - Properties
+    
     var matchingItems: [MKMapItem] = []
     var mapView: MKMapView? = nil
     let formatter = CNPostalAddressFormatter()
     var handleAddressSelectionDelegate: HandleAddressSelection? = nil
     
-
+    
     // MARK: - Life Cycle
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchBarText = searchController.searchBar.text else { return }
+        
         let request = MKLocalSearch.Request()
         let region = MKCoordinateRegion(center: Location.userCLLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         request.naturalLanguageQuery = searchBarText
@@ -38,13 +41,13 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         }
     }
     
-
+    
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath)
@@ -62,9 +65,9 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         let address = matchingItems[indexPath.row].placemark
         if let postalAddress = address.postalAddress {
             let formattedAddress = formatter.string(from: postalAddress)
-                  
+            
             handleAddressSelectionDelegate?.addAddress(name: address.name ?? "", address: formattedAddress, town: postalAddress.subLocality, city: postalAddress.city, subAdminArea: postalAddress.subAdministrativeArea, state: postalAddress.state, country: postalAddress.country, postCode: postalAddress.postalCode)
- 
+            
             UserDefaults.standard.set(postalAddress.subLocality, forKey: "Town")
             UserDefaults.standard.set(postalAddress.city, forKey: "City")
             UserDefaults.standard.set(postalAddress.subAdministrativeArea, forKey: "SubAdminArea")
@@ -75,6 +78,5 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         
         dismiss(animated: true)
     }
-
 }
 

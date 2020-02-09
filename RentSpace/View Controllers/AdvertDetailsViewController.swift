@@ -157,7 +157,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 
                 self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
                 self.scrollView.addSubview(imageView)
-                self.scrollView.backgroundColor = .white
+                self.scrollView.backgroundColor = .black
                 i += 1
             }
             self.pageController.numberOfPages = self.imagesDictionary.count

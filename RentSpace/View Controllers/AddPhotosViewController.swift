@@ -12,7 +12,12 @@ import YPImagePicker
 
 class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    // MARK: - Outlets
+    
     @IBOutlet var collectionView: UICollectionView!
+    
+    
+    // MARK: - Properties
     
     let placeHolderImage = UIImage(named: "imagePlaceholder")
     private let itemsPerRow: CGFloat = 3
@@ -22,6 +27,8 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     var selectedImagesIndexPathes: [IndexPath] = []
     var trashButton = UIBarButtonItem()
     var cameraButton = UIBarButtonItem()
+    var pickedImages = [UIImage]()
+    var inUpdatingMode = false
     var deleting: Bool = false {
         didSet {
             if deleting {
@@ -31,8 +38,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
             }
         }
     }
-    var inUpdatingMode = false
-    var pickedImages = [UIImage]()
     
     
     // MARK: - Life Cycle
@@ -46,10 +51,10 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(addOrDeletePhotosTapped(_:)))
         cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addOrDeletePhotosTapped(_:)))
-        trashButton.tintColor = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
-        cameraButton.tintColor = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
+        trashButton.tintColor = Settings.orangeTint
+        cameraButton.tintColor = Settings.orangeTint
         navigationItem.setRightBarButton(cameraButton, animated: true)
-    
+        
         inUpdatingMode ? loadImagesFromUserDefaults(forKey: "UpdateImages") : loadImagesFromUserDefaults(forKey: "Images")
         
         // If there are no saved images, load in 9 placeholders
@@ -60,7 +65,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
         
         cameraButton.isEnabled = photoAlbumIsFull() ? false : true
-        
     }
     
     
@@ -74,6 +78,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
                 images = try jsonDecoder.decode([Image].self, from: imageFilePaths)
             } catch {
                 print("Data could not be decoded: \(error)")
+                showAlert(title: "Oops", message: "There was a problem loading your saved images, please try reloading the page.")
             }
         }
     }
@@ -85,14 +90,12 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         if let savedData = try? jsonEncoder.encode(images) {
             if inUpdatingMode {
                 UserDefaults.standard.set(savedData, forKey: "UpdateImages")
-                print("Change made to images")
                 UserDefaults.standard.set(true, forKey: "ImagesUpdated")
             } else {
                 UserDefaults.standard.set(savedData, forKey: "Images")
             }
         }
     }
-       
     
     
     fileprivate func photoAlbumIsFull() -> Bool {
@@ -105,22 +108,24 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         return false
     }
     
+    
     @objc func addOrDeletePhotosTapped(_ sender: Any) {
         if deleting {
             for indexPath in selectedImagesIndexPathes.reversed() {
                 let image = images[indexPath.item]
                 let imageURL = getDocumentsDirectory().appendingPathComponent(image.imageName)
                 deleteFileFromDisk(at: imageURL)
-
+                
                 images.remove(at: indexPath.item)
                 writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count, in: &images)
-                
             }
             collectionView.reloadData()
             save()
             deleting = false
             selectedImagesIndexPathes.removeAll()
-            if !photoAlbumIsFull() { navigationItem.rightBarButtonItem?.isEnabled = true }
+            if !photoAlbumIsFull() {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            }
         } else {
             addPhotos()
         }
@@ -248,8 +253,7 @@ extension AddPhotosViewController : UICollectionViewDelegateFlowLayout {
 
 
 extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let image = images[indexPath.item]
         
@@ -257,7 +261,6 @@ extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionVie
             return []
         } else {
             let savedImageFile = getDocumentsDirectory().appendingPathComponent(image.imageName)
-            
             let item = NSItemProvider(object: UIImage(contentsOfFile: savedImageFile.path)!)
             let dragItem = UIDragItem(itemProvider: item)
             return[dragItem]
@@ -283,22 +286,12 @@ extension AddPhotosViewController: UICollectionViewDragDelegate, UICollectionVie
             }) { _ in
                 coordinator.drop(dropItem.dragItem, toItemAt: destinationIndexPath)
                 self.save()
-                
             }
         }
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-    }
-    
-}
-
-extension UIColor {
-    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
-        return UIGraphicsImageRenderer(size: size).image { rendererContext in
-            self.setFill()
-            rendererContext.fill(CGRect(origin: .zero, size: size))
-        }
     }
 }
