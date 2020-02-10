@@ -36,9 +36,5 @@ class FirebaseClient {
                 }
             }
         }
-    }
-    
-    
-    
-    
+    }  
 }

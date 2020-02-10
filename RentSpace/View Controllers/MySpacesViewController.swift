@@ -152,20 +152,21 @@ class MySpacesViewController: UIViewController {
         
         for favourite in Favourites.spaces {
             self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
-                
+                print("In closure")
                 if let space = Space(snapshot: favSnapshot) {
                     self.mySpaces.append(space)
                 }
                 self.tableView.reloadData()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    if self.mySpaces.isEmpty {
-                        self.showEmptySpacesInfo(for: "favourites")
-                    } else {
-                        self.infoLabel.text = ""
-                    }
-                }
             })
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if self.mySpaces.isEmpty {
+                self.showEmptySpacesInfo(for: "favourites")
+            } else {
+                self.infoLabel.text = ""
+            }
         }
     }
     
