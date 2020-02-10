@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import YPImagePicker
 
 class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {

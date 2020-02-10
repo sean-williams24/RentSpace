@@ -15,9 +15,6 @@ target 'RentSpace' do
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
   pod 'FacebookLogin'
-  pod 'MessageKit'
-  pod 'AMKeyboardFrameTracker'
-  pod 'ACProgressHUD-Swift', '~> 1.1'
   pod 'NVActivityIndicatorView'
 
 end

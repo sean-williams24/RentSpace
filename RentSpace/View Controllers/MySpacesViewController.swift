@@ -152,7 +152,7 @@ class MySpacesViewController: UIViewController {
         
         for favourite in Favourites.spaces {
             self.refHandle = self.ref.child("adverts/United Kingdom/\(favourite.url)").observe(.value, with: { (favSnapshot) in
-                print("In closure")
+                
                 if let space = Space(snapshot: favSnapshot) {
                     self.mySpaces.append(space)
                 }

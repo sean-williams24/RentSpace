@@ -39,7 +39,6 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     var thumbnail = UIImage()
     var messageRead = "false"
     var previousMessageDate = ""
-    var bottomConstraint: NSLayoutConstraint?
     let fullDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss E, d MMM, yyyy"
@@ -342,4 +341,3 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
-
