@@ -13,7 +13,6 @@ struct Space {
     
     let ref: DatabaseReference?
     let key: String
-//    let name: String
     let title: String
     let description: String
     let category: String
@@ -21,7 +20,6 @@ struct Space {
     let priceRate: String
     let email: String
     let phone: String
-//    let address: String
     let photos: Dictionary<String,String>?
     let town: String
     let city: String
@@ -64,7 +62,6 @@ struct Space {
     init?(snapshot: DataSnapshot) {
         guard
             let value = snapshot.value as? [String : AnyObject],
-//            let name = value["name"] as? String,
             let title = value["title"] as? String,
             let description = value["description"] as? String,
             let category = value["category"] as? String,
@@ -72,7 +69,6 @@ struct Space {
             let priceRate = value["priceRate"] as? String,
             let email = value["email"] as? String,
             let phone = value["phone"] as? String,
-//            let address = value["address"] as? String,
             let photos = value["photos"] as? [String : String]?,
             let town = value["town"] as? String,
             let city = value["city"] as? String,
@@ -87,7 +83,6 @@ struct Space {
         
         self.ref = snapshot.ref
         self.key = snapshot.key
-//        self.name = name
         self.title = title
         self.description = description
         self.category = category
@@ -95,7 +90,6 @@ struct Space {
         self.priceRate = priceRate
         self.email = email
         self.phone = phone
-//        self.address = address
         self.photos = photos
         self.town = town
         self.city = city
@@ -133,6 +127,4 @@ struct Space {
             "timestamp": timestamp
         ]
     }
-    
-    
 }

@@ -15,20 +15,4 @@ class SenderTableViewCell: UITableViewCell {
     @IBOutlet var messageWidthConsraint: NSLayoutConstraint!
     @IBOutlet var messageContainerView: UIView!
     
-    
-    
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-//        messageContainerView.layer.cornerRadius = 8
-//        messageWidthConsraint.constant = self.frame.width - 100
-        
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

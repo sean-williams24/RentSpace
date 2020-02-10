@@ -23,5 +23,4 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         cellImageView.layer.borderColor = UIColor.lightGray.cgColor
         isSelected = false
     }
-    
 }

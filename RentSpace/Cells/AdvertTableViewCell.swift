@@ -20,18 +20,10 @@ class AdvertTableViewCell: UITableViewCell {
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var distanceLabel: UILabel!
     
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
         
         customImageView.heightEqualsWidth()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
