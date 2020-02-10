@@ -1445,7 +1445,7 @@ Long press and drag to reorder.</string>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1283.5"/>
                                         <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpm-89-5YW" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
@@ -1461,10 +1461,12 @@ Long press and drag to reorder.</string>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="1oK-Yi-AvJ"/>
-                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="top" secondItem="eXZ-Tc-spn" secondAttribute="top" constant="111" id="Hku-Gz-h7M"/>
-                                                    <constraint firstItem="eXZ-Tc-spn" firstAttribute="trailing" secondItem="qpm-89-5YW" secondAttribute="trailing" constant="87" id="W5e-6y-fh9"/>
-                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="leading" secondItem="eXZ-Tc-spn" secondAttribute="leading" constant="87" id="jK9-rT-JW2"/>
-                                                    <constraint firstItem="eXZ-Tc-spn" firstAttribute="bottom" secondItem="qpm-89-5YW" secondAttribute="bottom" constant="111" id="llA-JT-BM7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qpm-89-5YW" secondAttribute="trailing" constant="87" id="3Fx-QK-msW"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="leading" secondItem="Cw3-H8-wUH" secondAttribute="leading" constant="87" id="Hcy-SD-zsw"/>
+                                                    <constraint firstAttribute="bottom" secondItem="qpm-89-5YW" secondAttribute="bottom" constant="111" id="bs6-Jw-7lN"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="centerX" secondItem="Cw3-H8-wUH" secondAttribute="centerX" id="byD-Dd-P0u"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="centerY" secondItem="Cw3-H8-wUH" secondAttribute="centerY" id="ebK-3m-umG"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="top" secondItem="Cw3-H8-wUH" secondAttribute="top" constant="111" id="rXQ-u1-s2p"/>
                                                 </constraints>
                                                 <viewLayoutGuide key="contentLayoutGuide" id="fua-bQ-k3o"/>
                                                 <viewLayoutGuide key="frameLayoutGuide" id="eXZ-Tc-spn"/>
@@ -1605,18 +1607,18 @@ Only the best gear here.</string>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdI-6D-t79">
                                                         <rect key="frame" x="45" y="6.5" width="217" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="217" id="nIm-tw-OH9"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X8L-yX-097">
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X8L-yX-097">
                                                         <rect key="frame" x="267" y="0.5" width="140" height="29"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="140" id="Ss7-cv-zYs"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                         <state key="normal" title="DIRECTIONS">
-                                                            <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="directionsButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="B2X-8i-EYH"/>
@@ -2141,7 +2143,6 @@ Only the best gear here.</string>
                                     <constraint firstItem="Ijf-WQ-kHG" firstAttribute="leading" secondItem="OLo-YL-EO3" secondAttribute="leading" constant="77" id="mHk-SJ-uRZ"/>
                                     <constraint firstItem="dp3-iE-oYe" firstAttribute="centerX" secondItem="OLo-YL-EO3" secondAttribute="centerX" id="mVO-cL-ha1"/>
                                     <constraint firstItem="dp3-iE-oYe" firstAttribute="top" secondItem="nPP-wW-tmd" secondAttribute="bottom" constant="47" id="syB-jD-VgN"/>
-                                    <constraint firstAttribute="trailing" secondItem="dp3-iE-oYe" secondAttribute="trailing" constant="20" id="tVn-uE-sOk"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjU-9r-ZxO">
@@ -2553,7 +2554,6 @@ Only the best gear here.</string>
                             <constraint firstItem="3nc-da-DbV" firstAttribute="centerX" secondItem="vVU-Fm-BP1" secondAttribute="centerX" id="XFK-bA-vzj"/>
                             <constraint firstItem="3nc-da-DbV" firstAttribute="top" secondItem="vVU-Fm-BP1" secondAttribute="top" constant="41" id="bHZ-bE-cOR"/>
                             <constraint firstItem="JJY-yW-Dft" firstAttribute="top" secondItem="3nc-da-DbV" secondAttribute="bottom" constant="38" id="gny-o7-ufl"/>
-                            <constraint firstItem="vVU-Fm-BP1" firstAttribute="trailing" secondItem="JJY-yW-Dft" secondAttribute="trailing" constant="20" id="hc5-Za-Xnb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vVU-Fm-BP1"/>
                     </view>
@@ -2784,7 +2784,7 @@ Only the best gear here.</string>
                                     <constraint firstItem="nir-7A-wbv" firstAttribute="top" secondItem="Mdt-XD-RlW" secondAttribute="bottom" constant="47" id="2Kl-hP-EV4"/>
                                     <constraint firstItem="nir-7A-wbv" firstAttribute="centerX" secondItem="kT1-Mf-nv4" secondAttribute="centerX" id="2wz-IX-vEd"/>
                                     <constraint firstItem="TTu-jn-v0K" firstAttribute="centerX" secondItem="kT1-Mf-nv4" secondAttribute="centerX" id="6f3-4u-028"/>
-                                    <constraint firstAttribute="trailing" secondItem="nir-7A-wbv" secondAttribute="trailing" constant="20" id="CiK-QK-Ny5"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nir-7A-wbv" secondAttribute="trailing" id="CiK-QK-Ny5"/>
                                     <constraint firstAttribute="trailing" secondItem="Mdt-XD-RlW" secondAttribute="trailing" constant="25" id="Djz-aW-Jh4"/>
                                     <constraint firstItem="HY4-BV-2Ve" firstAttribute="top" secondItem="TTu-jn-v0K" secondAttribute="bottom" constant="1" id="NVu-aI-gy7"/>
                                     <constraint firstItem="fJD-ff-po9" firstAttribute="centerY" secondItem="kT1-Mf-nv4" secondAttribute="centerY" id="P6e-mk-gDj"/>
@@ -2998,6 +2998,7 @@ Only the best gear here.</string>
                                                 <constraint firstItem="I0W-fm-p1Z" firstAttribute="trailing" secondItem="wqe-yR-Bzg" secondAttribute="trailingMargin" constant="-8" id="CGH-GX-PY2"/>
                                                 <constraint firstItem="I0W-fm-p1Z" firstAttribute="top" secondItem="wqe-yR-Bzg" secondAttribute="top" constant="5" id="SDF-7Y-cOb"/>
                                                 <constraint firstItem="fai-R4-nKk" firstAttribute="top" secondItem="I0W-fm-p1Z" secondAttribute="bottom" constant="2" id="YPU-W5-2tw"/>
+                                                <constraint firstItem="I0W-fm-p1Z" firstAttribute="leading" relation="lessThanOrEqual" secondItem="wqe-yR-Bzg" secondAttribute="leading" constant="357.5" id="q3s-V9-3L9"/>
                                                 <constraint firstItem="fai-R4-nKk" firstAttribute="trailing" secondItem="wqe-yR-Bzg" secondAttribute="trailingMargin" id="wJa-rF-Htd"/>
                                             </constraints>
                                         </tableViewCellContentView>
