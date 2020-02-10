@@ -47,14 +47,10 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 self.downloadChats()
                 
             } else {
+                self.chats.removeAll()
                 self.signedOutView.isHidden = false
             }
         })
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(authHandle)
     }
     
     

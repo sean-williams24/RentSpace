@@ -70,18 +70,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-        }
-        
+    fileprivate func checkForMessages() {
         if let UID = Auth.auth().currentUser?.uid {
             let ref = FirebaseClient.databaseRef
             
@@ -110,6 +99,20 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 }
             })
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+        
         
         Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
@@ -117,6 +120,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 self.tabBarController?.tabBar.isHidden = false
                 self.signInButton.isEnabled = false
                 self.signInButton.tintColor = .clear
+                self.checkForMessages()
+
             } else {
                 Settings.currentUser = nil
                 self.tabBarController?.tabBar.isHidden = true

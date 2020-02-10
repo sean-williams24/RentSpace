@@ -90,12 +90,6 @@ class MySpacesViewController: UIViewController {
         viewingFavourites ? loadFavourites() : loadUserSpaces()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(authHandle)
-        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
-        
-    }
     
     
     // MARK: - Private Methods
@@ -182,6 +176,15 @@ class MySpacesViewController: UIViewController {
             self.infoLabel.attributedText = attributedString
         }
     }
+    
+    
+    //MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! SettingsViewController
+        vc.delegate = self
+    }
+
     
     
     //MARK: - Action Methods
@@ -351,6 +354,15 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
             ac.addAction(UIAlertAction(title: "Cancel", style: .default))
             present(ac, animated: true)
         }
+    }
+}
+
+extension MySpacesViewController: userDidSignOutDelegate {
+    func removeUserData() {
+        mySpaces.removeAll()
+        tableView.reloadData()
+        let messageTab = self.tabBarController?.tabBar.items?[3]
+        messageTab?.badgeValue = nil
     }
 }
 

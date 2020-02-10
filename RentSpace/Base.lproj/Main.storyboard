@@ -148,6 +148,7 @@
                             </collectionView>
                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPg-WJ-wvP">
                                 <rect key="frame" x="0.0" y="640" width="414" height="173"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="camera"/>
                                 <state key="selected" image="addPhotos1"/>
                                 <connections>
@@ -1000,7 +1001,7 @@ Long press and drag to reorder.</string>
                                     <constraint firstAttribute="width" constant="65" id="vmV-7w-XRZ"/>
                                 </constraints>
                             </imageView>
-                            <visualEffectView opaque="NO" alpha="0.0" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UY-oy-gUY">
+                            <visualEffectView hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UY-oy-gUY">
                                 <rect key="frame" x="0.0" y="56" width="414" height="752"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Row-B2-lV6" userLabel="Loading View">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
@@ -2173,7 +2174,7 @@ Only the best gear here.</string>
                     </view>
                     <navigationItem key="navigationItem" id="llA-Tc-h7s">
                         <barButtonItem key="backBarButtonItem" title="-" id="gwe-8c-o8a"/>
-                        <barButtonItem key="leftBarButtonItem" title="View Favourites" style="plain" id="9vt-BK-xkz">
+                        <barButtonItem key="leftBarButtonItem" title="View Favourites" id="9vt-BK-xkz">
                             <connections>
                                 <action selector="favouritesButtonTapped:" destination="SMh-PC-nNU" id="dnw-Mi-Ay2"/>
                             </connections>
@@ -3049,11 +3050,11 @@ Only the best gear here.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-O0-aTM">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-O0-aTM">
                                 <rect key="frame" x="354" y="816" width="50" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="2r8-jb-5OG"/>
-                                    <constraint firstAttribute="width" constant="50" id="t5L-WU-sRj"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="t5L-WU-sRj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -3133,7 +3134,7 @@ Only the best gear here.</string>
         <!--Navigation Controller-->
         <scene sceneID="I2o-fJ-G3o">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bdj-GQ-kPq" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SignInNavVC" automaticallyAdjustsScrollViewInsets="NO" id="Bdj-GQ-kPq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="27c-kO-kpB">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

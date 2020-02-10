@@ -55,6 +55,7 @@ class RegisterViewController: UIViewController {
         passwordDetailsLabel.alpha = 0
         successView.layer.cornerRadius = 10
         successView.layer.masksToBounds = true
+        blurredView.alpha = 0
 
         addLeftPadding(for: displayNameTextField, placeholderText: "Display Name", placeholderColour: .gray)
         addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
@@ -154,7 +155,8 @@ class RegisterViewController: UIViewController {
     @IBAction func registerButtonTapped(_ sender: Any) {
         self.view.endEditing(true)
         self.activityView.startAnimating()
-        UIView.animate(withDuration: 0.2) {
+        blurredView.isHidden = false
+        UIView.animate(withDuration: 0.3) {
             self.blurredView.alpha = 1
         }
 
