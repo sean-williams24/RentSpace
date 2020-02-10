@@ -15,14 +15,10 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
-    let dataController = DataController(modelName: "RentSpace")
     var delegate: UpdateSignInDelegate?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        dataController.load()
-        Global.dataController = dataController
-        
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -47,22 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return GIDSignIn.sharedInstance().handle(url)
     }
-    
-
-    // MARK: UISceneSession Lifecycle
-
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        saveViewContext()
-    }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        saveViewContext()
-    }
-    
-    func saveViewContext () {
-          try? dataController.viewContext.save()
-      }
     
     
     // MARK: - Google Sign In

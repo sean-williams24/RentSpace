@@ -19,9 +19,6 @@
 		CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */; };
 		CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */; };
 		CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */; };
-		CE084094238EA79700DA57C8 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084093238EA79700DA57C8 /* DataController.swift */; };
-		CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */; };
-		CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */; };
 		CE5D27CF238EC8AA0098B0FA /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27CE238EC8AA0098B0FA /* Image.swift */; };
 		CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */; };
 		CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */; };
@@ -71,9 +68,6 @@
 		CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotosViewController.swift; sourceTree = "<group>"; };
 		CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentSpaceViewController.swift; sourceTree = "<group>"; };
 		CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		CE084093238EA79700DA57C8 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
-		CE08409A238EAA7500DA57C8 /* RentSpace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RentSpace.xcdatamodel; sourceTree = "<group>"; };
 		CE5D27CE238EC8AA0098B0FA /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -212,9 +206,6 @@
 			isa = PBXGroup;
 			children = (
 				CE02CECE23EB2DED003B96A9 /* Data */,
-				CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */,
-				CE084093238EA79700DA57C8 /* DataController.swift */,
-				CE084095238EA8EA00DA57C8 /* GlobalProperties.swift */,
 				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
 				CE6583AB239A8A13001FFA8A /* Location.swift */,
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
@@ -372,7 +363,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */,
-				CE084094238EA79700DA57C8 /* DataController.swift in Sources */,
 				CE79981F23E6D82D0017E39A /* UpdateDetailsViewController.swift in Sources */,
 				CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */,
 				CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */,
@@ -391,7 +381,6 @@
 				CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */,
 				CE02CECB23E85433003B96A9 /* DeleteAccountViewController.swift in Sources */,
 				CEF5CBE323C214CC0011243D /* MessageViewController.swift in Sources */,
-				CE08409B238EAA7500DA57C8 /* RentSpace.xcdatamodeld in Sources */,
 				CEF5CBDF23C1FF250011243D /* ChatsViewController.swift in Sources */,
 				CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */,
 				CE5D27CF238EC8AA0098B0FA /* Image.swift in Sources */,
@@ -408,7 +397,6 @@
 				CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */,
 				CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */,
 				CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */,
-				CE084096238EA8EA00DA57C8 /* GlobalProperties.swift in Sources */,
 				CEF5CBD923C1DD650011243D /* MySpacesTableViewCell.swift in Sources */,
 				CE6583AC239A8A13001FFA8A /* Location.swift in Sources */,
 			);
@@ -610,19 +598,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		CE084099238EAA7500DA57C8 /* RentSpace.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CE08409A238EAA7500DA57C8 /* RentSpace.xcdatamodel */,
-			);
-			currentVersion = CE08409A238EAA7500DA57C8 /* RentSpace.xcdatamodel */;
-			path = RentSpace.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = CE08406E238D40B200DA57C8 /* Project object */;
 }
