@@ -63,6 +63,15 @@ extension UIViewController {
     }
     
     
+    //MARK: - Dismiss keyboard when view is tapped
+
+    func dismissKeyboardOnViewTap() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
+    }
+    
+    
+    
     //MARK: - Format address for location labels from address data
     
     func formatAddress(for advert: Space) -> String {
@@ -81,23 +90,9 @@ extension UIViewController {
             location = "\(town), \(city), \(subAdminArea)"
             if town == "" {
                 location = "\(city), \(subAdminArea)"
-//                if city == "" {
-//                    location = "\(subAdminArea)"
-//                }
             }
         }
-        
-//        if location == ", " {
-//            location = advert.address
-//        }
         return location
-    }
-    
-    
-    //MARK: - Format custom textfield placeholders 
-
-    func configureTextFieldPlaceholders(for textField: UITextField, withText: String) {
-        textField.attributedPlaceholder = NSAttributedString(string: withText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     }
     
     
@@ -121,7 +116,18 @@ extension UIViewController {
     }
     
     
-    //MARK: - Delete file at URL on disk
+    //MARK: - Write / Delete files on disk
+    
+    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int, in imagesArray: inout [Image]) {
+        let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+            try? imageData.write(to: filePath)
+        }
+        
+        let savingImage = Image(imageName: imageName)
+        imagesArray.insert(savingImage, at: position)
+    }
+    
     
     func deleteFileFromDisk(at URL: URL) {
         let fileManager = FileManager.default
@@ -140,17 +146,8 @@ extension UIViewController {
         return path[0]
     }
     
-    //MARK: - Dismiss keyboard when view is tapped
-
-    func dismissKeyboardOnViewTap() {
-        // Keyboard dismissal
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        view.addGestureRecognizer(tap)
-    }
-    
     
     //MARK: - Show/Hide loading animations
-    
     
     func showLoadingUI(_ loading: Bool, for activityView: NVActivityIndicatorView, label: UILabel) {
         if loading {
@@ -167,7 +164,6 @@ extension UIViewController {
     
     //MARK: - Tintable category icon method
 
-    
     func iconThumbnail(for category: String) -> UIImage {
         var categoryImage = UIImage()
         
@@ -200,6 +196,7 @@ extension UIViewController {
         return categoryImage
     }
     
+    
     // MARK: - REGEX Validation Methods
     
     // Use regEx and NSPredicate to validate email address and password
@@ -223,6 +220,8 @@ extension UIViewController {
     }
     
     
+    //MARK: - UI Helper Methods
+
     func addLeftPadding(for textfield: UITextField, placeholderText: String, placeholderColour: UIColor) {
         let leftPadView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textfield.frame.height))
         textfield.leftView = leftPadView
@@ -230,35 +229,6 @@ extension UIViewController {
         textfield.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [
             NSAttributedString.Key.foregroundColor: placeholderColour,
             NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 15) as Any])
-    }
-    
-    
-    func popToRootController(ofTab index: Int) {
-        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
-            let tabIndex = index
-            let window = UIApplication.shared.windows[0]
-            let tabBar = window.rootViewController as? UITabBarController
-            
-            // Change the selected tab item to destination View Controller
-            tabBar?.selectedIndex = tabIndex
-            
-            // Pop to the root controller of that tab
-            if let vc = tabBar?.viewControllers?[tabIndex] as? UINavigationController {
-                vc.popToRootViewController(animated: true)
-//                vc.tabBarController?.tabBar.isHidden = true
-            }
-        })
-    }
- 
-    
-    func writeImageFileToDisk(image: UIImage, name imageName: String, at position: Int, in imagesArray: inout [Image]) {
-        let filePath = getDocumentsDirectory().appendingPathComponent(imageName)
-        if let imageData = image.jpegData(compressionQuality: 1.0) {
-            try? imageData.write(to: filePath)
-        }
-        
-        let savingImage = Image(imageName: imageName)
-        imagesArray.insert(savingImage, at: position)
     }
     
     
@@ -274,6 +244,29 @@ extension UIViewController {
         NSLayoutConstraint.activate([(button.titleLabel?.widthAnchor.constraint(equalToConstant: button.frame.width))!])
     }
     
+    
+    func configureTextFieldPlaceholders(for textField: UITextField, withText: String) {
+        textField.attributedPlaceholder = NSAttributedString(string: withText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+    }
+    
+    
+    //MARK: - Switch Tab
+
+    func popToRootController(ofTab index: Int) {
+        UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {
+            let tabIndex = index
+            let window = UIApplication.shared.windows[0]
+            let tabBar = window.rootViewController as? UITabBarController
+            
+            // Change the selected tab item to destination View Controller
+            tabBar?.selectedIndex = tabIndex
+            
+            // Pop to the root controller of that tab
+            if let vc = tabBar?.viewControllers?[tabIndex] as? UINavigationController {
+                vc.popToRootViewController(animated: true)
+            }
+        })
+    }
     
 }
 
