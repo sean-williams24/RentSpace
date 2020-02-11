@@ -3,4 +3,114 @@
    uuid = "72555A90-B09B-49E1-8AB5-39E29E853268"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RentSpace/View Controllers/PostSpaceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "PostSpaceViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - 8366a6c38d494ef2"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RentSpace.PostSpaceViewController.uploadView.getter : Swift.Optional&lt;__C.UIView&gt;"
+                  moduleName = "RentSpace"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - d2519dda5eef268e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RentSpace.PostSpaceViewController.uploadView.setter : Swift.Optional&lt;__C.UIView&gt;"
+                  moduleName = "RentSpace"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - 25a945a5eaa410ff"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RentSpace.PostSpaceViewController.uploadView.modify : Swift.Optional&lt;__C.UIView&gt;"
+                  moduleName = "RentSpace"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - cdb46a71080a1371"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RentSpace.PostSpaceViewController.uploadView.modify : Swift.Optional&lt;__C.UIView&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "RentSpace"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - 4f2a4280267eeffa"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RentSpace.PostSpaceViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; RentSpace.PostSpaceViewController"
+                  moduleName = "RentSpace"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "876">
+               </Location>
+               <Location
+                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - edef606bec08f538"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RentSpace.PostSpaceViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;RentSpace.PostSpaceViewController&gt;"
+                  moduleName = "RentSpace"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "820">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

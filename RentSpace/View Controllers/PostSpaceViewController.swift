@@ -8,6 +8,7 @@
 
 import FirebaseAuth
 import Firebase
+import NVActivityIndicatorView
 import UIKit
 import Contacts
 
@@ -25,10 +26,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var addPhotosButton: UIButton!
     @IBOutlet var collectionViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var activityView: UIActivityIndicatorView!
     @IBOutlet var uploadView: UIView!
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
+    @IBOutlet var imagesActivityView: NVActivityIndicatorView!
     
     
     // MARK: - Properties
@@ -62,11 +63,16 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureUI()
+
         if updatingAdvert { loadAdvertToUpdate() }
         
         let cellHeight = view.bounds.width / 5
         collectionViewHeightConstraint.constant = (cellHeight * 2) + 6
+        
+        UIView.animate(withDuration: 0.5) {
+            self.addPhotosButton.imageView?.alpha = 0.1
+        }
         
         dismissKeyboardOnViewTap()
     }
@@ -74,7 +80,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        configureUI()
         loadUserDataFromUserDefaults()
         subscribeToKeyboardNotificationsPostVC()
         imagesToUpload = []
@@ -90,12 +95,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
             }
         })
         
-        
-        // Add Photos Button
-        if imagesSavedToDisk.isEmpty == false {
-            UIView.animate(withDuration: 0.5) {
-                self.addPhotosButton.imageView?.alpha = 0.1
-            }
+        UIView.animate(withDuration: 0.5) {
+            self.addPhotosButton.imageView?.alpha = 0.1
         }
     }
     
@@ -148,6 +149,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     fileprivate func loadUserDataFromUserDefaults() {
         var email = ""
         var city = ""
+        
         let description = defaults.string(forKey: "UpdateDescription")
         if updatingAdvert {
             loadUDImages(for: "UpdateImages")
@@ -162,7 +164,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
             city = defaults.string(forKey: "City") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
         }
-        
+
         locationButton.setTitle(" \(city) / \(email)", for: .normal)
         if email == "" || city == "" {
             locationButton.setTitle("  Contact & Address", for: .normal)
@@ -178,7 +180,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         originalCategory = space.category
         
         for (i, spaceType) in spaceTypePickerContent.enumerated() {
-            if spaceType == category {
+            if spaceType == space.category {
                 spaceTypePicker.selectRow(i, inComponent: 0, animated: true)
             }
         }
@@ -223,7 +225,12 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
             if let savedData = try? jsonEncoder.encode(self.imagesSavedToDisk) {
                 self.defaults.set(savedData, forKey: "UpdateImages")
             }
+            
             self.collectionView.reloadData()
+            self.imagesActivityView.stopAnimating()
+            UIView.animate(withDuration: 0.5) {
+                self.addPhotosButton.imageView?.alpha = 0.1
+            }
         }
     }
     
@@ -231,6 +238,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         if let imageURLsDict = space.photos {
             self.firebaseImageURLsDict = imageURLsDict
+            imagesActivityView.startAnimating()
             
             for key in imageURLsDict.keys.sorted()  {
                 guard let value = imageURLsDict[key] else { break }
@@ -280,7 +288,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         signInButton.layer.cornerRadius = Settings.cornerRadius
         uploadView.isHidden = true
         
-        let insets = UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0)
+        let insets = UIEdgeInsets(top: 45, left: 0, bottom: 55, right: 0)
         addPhotosButton.imageEdgeInsets = insets
         addPhotosButton.imageView?.contentMode = .scaleAspectFit
     }

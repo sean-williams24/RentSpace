@@ -42,7 +42,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(inUpdateMode)
         let addressSearchTable = storyboard!.instantiateViewController(identifier: "AddressSearchTableVC") as! AddressSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable

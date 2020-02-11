@@ -267,7 +267,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                 // Scale Art studio image down to match SFSymbol icons and add another view to get matching image border
                 let view = UIView()
                 view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
-                view.layer.borderColor = Settings.flipsideBlackColour.cgColor
+                view.layer.borderColor = UIColor.darkGray.cgColor
                 view.layer.borderWidth = 1
                 cell.addSubview(view)
                 
@@ -283,8 +283,8 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 1
             }
-            cell.customImageView.tintColor = Settings.flipsideBlackColour
-            cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
+            cell.customImageView.tintColor = UIColor.darkGray
+            cell.customImageView.layer.borderColor = UIColor.darkGray.cgColor
             cell.customImageView.alpha = 0.7
         }
         
