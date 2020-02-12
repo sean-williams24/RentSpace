@@ -64,7 +64,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-
+        
         if updatingAdvert { loadAdvertToUpdate() }
         
         let cellHeight = view.bounds.width / 5
@@ -109,6 +109,10 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
         Auth.auth().removeStateDidChangeListener(handle)
+        
+        if updatingAdvert {
+            defaults.set(descriptionTextView.text, forKey: "UpdateDescription")
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -226,8 +230,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
                 self.defaults.set(savedData, forKey: "UpdateImages")
             }
             
-            self.collectionView.reloadData()
             self.imagesActivityView.stopAnimating()
+            self.collectionView.reloadData()
             UIView.animate(withDuration: 0.5) {
                 self.addPhotosButton.imageView?.alpha = 0.1
             }
