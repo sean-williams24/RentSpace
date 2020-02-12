@@ -67,6 +67,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     }
     
     
+    
     //MARK: - Private methods
     
     fileprivate func loadImagesFromUserDefaults(forKey UDimages: String) {

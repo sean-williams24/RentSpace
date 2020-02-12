@@ -185,6 +185,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UserDefaults.standard.removeObject(forKey: "ImagesUpdated")
+        print("Advertdetails view did apear")
     }
     
     

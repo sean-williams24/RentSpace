@@ -73,7 +73,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         UIView.animate(withDuration: 0.5) {
             self.addPhotosButton.imageView?.alpha = 0.1
         }
-        
+
         dismissKeyboardOnViewTap()
     }
     
@@ -176,6 +176,24 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     }
     
     func loadAdvertToUpdate() {
+        
+        // Remove any existing temp images from documents
+        if let imageFilePaths = UserDefaults.standard.data(forKey: "UpdateImages") {
+            do {
+                let jsonDecoder = JSONDecoder()
+                let oldImages = try jsonDecoder.decode([Image].self, from: imageFilePaths)
+                for image in oldImages {
+                  let imageURL = getDocumentsDirectory().appendingPathComponent(image.imageName)
+                    if image.imageName != "placeholder" {
+                        deleteFileFromDisk(at: imageURL)
+                    }
+                }
+            } catch {
+                print("Data could not be decoded: \(error)")
+                showAlert(title: "Oops", message: "There was a problem loading your saved images, please try reloading the page.")
+            }
+        }
+        
         defaults.removeObject(forKey: "UpdateImages")
         postButton.title = "Update"
         titleTextField.text = space.title
