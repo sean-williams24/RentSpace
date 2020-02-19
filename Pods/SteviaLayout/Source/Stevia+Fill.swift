@@ -6,6 +6,7 @@
 //  Copyright © 2016 Sacha Durand Saint Omer. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 public extension UIView {
@@ -58,8 +59,8 @@ public extension UIView {
     }
     
     fileprivate func fill(_ axis: NSLayoutConstraint.Axis, points: CGFloat = 0) -> Self {
-        let a: NSLayoutConstraint.Attribute = axis == .vertical ? .top : .left
-        let b: NSLayoutConstraint.Attribute = axis == .vertical ? .bottom : .right
+        let a: NSLayoutConstraint.Attribute = axis == .vertical ? .top : .leading
+        let b: NSLayoutConstraint.Attribute = axis == .vertical ? .bottom : .trailing
         if let spv = superview {
             let c1 = constraint(item: self, attribute: a, toItem: spv, constant: points)
             let c2 = constraint(item: self, attribute: b, toItem: spv, constant: -points)
@@ -68,3 +69,4 @@ public extension UIView {
         return self
     }
 }
+#endif

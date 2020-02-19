@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28F98941BC87A29428B1FA01 /* Pods_RentSpace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */; };
+		40D24365B265A8D2106C3E8E /* libPods-RentSpace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D67513F09EB76127BEBA05 /* libPods-RentSpace.a */; };
 		CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */; };
 		CE02CECB23E85433003B96A9 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */; };
 		CE02CECD23E88873003B96A9 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECC23E88873003B96A9 /* FirebaseClient.swift */; };
@@ -53,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.release.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.release.xcconfig"; sourceTree = "<group>"; };
-		6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RentSpace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.debug.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.debug.xcconfig"; sourceTree = "<group>"; };
 		CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsTableViewController.swift; sourceTree = "<group>"; };
 		CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		CEF5CBE423C23AFF0011243D /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE623C243A80011243D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE823C7258C0011243D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		F3D67513F09EB76127BEBA05 /* libPods-RentSpace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RentSpace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28F98941BC87A29428B1FA01 /* Pods_RentSpace.framework in Frameworks */,
+				40D24365B265A8D2106C3E8E /* libPods-RentSpace.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +124,7 @@
 		9999E9AF206C130EB94AB04D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6724886F77AD29AB4E1A2690 /* Pods_RentSpace.framework */,
+				F3D67513F09EB76127BEBA05 /* libPods-RentSpace.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -239,7 +239,6 @@
 				CE084072238D40B200DA57C8 /* Sources */,
 				CE084073238D40B200DA57C8 /* Frameworks */,
 				CE084074238D40B200DA57C8 /* Resources */,
-				C61997BB55C8603B20DE9081 /* [CP] Embed Pods Frameworks */,
 				771478BA3635C87FFBB7699F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -336,23 +335,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C61997BB55C8603B20DE9081 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -546,6 +528,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -565,6 +548,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

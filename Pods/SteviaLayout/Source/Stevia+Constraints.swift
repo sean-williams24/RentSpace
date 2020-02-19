@@ -6,6 +6,7 @@
 //  Copyright © 2015 Sacha Durand Saint Omer. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 // MARK: - Shortcut
@@ -119,9 +120,9 @@ public extension UIView {
         if let spv = superview {
             let cs = [
                 constraint(item: self, attribute: .top, toItem: otherView),
-                constraint(item: self, attribute: .right, toItem: otherView),
+                constraint(item: self, attribute: .trailing, toItem: otherView),
                 constraint(item: self, attribute: .bottom, toItem: otherView),
-                constraint(item: self, attribute: .left, toItem: otherView)
+                constraint(item: self, attribute: .leading, toItem: otherView)
             ]
             spv.addConstraints(cs)
         }
@@ -148,3 +149,4 @@ public extension UIView {
     }
     
 }
+#endif

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "031EC6716B0AE84A37919C3814AA103F"
-               BuildableName = "YPImagePicker.framework"
+               BuildableName = "libYPImagePicker.a"
                BlueprintName = "YPImagePicker"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

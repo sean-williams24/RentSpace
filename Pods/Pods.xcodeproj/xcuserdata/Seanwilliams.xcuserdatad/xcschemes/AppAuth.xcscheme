@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5C642AA10FB29936669CC269F42079C6"
-               BuildableName = "AppAuth.framework"
+               BuildableName = "libAppAuth.a"
                BlueprintName = "AppAuth"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

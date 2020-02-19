@@ -16,6 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "TargetConditionals.h"
+
+#if !TARGET_OS_TV
+
 #import <UIKit/UIKit.h>
 
 #ifdef FBSDKCOCOAPODS
@@ -32,7 +36,7 @@
 /**
  Success Block
  */
-typedef void (^FBSDKBrowserLoginSuccessBlock)(BOOL didOpen, NSString *authMethod, NSError *error)
+typedef void (^FBSDKBrowserLoginSuccessBlock)(BOOL didOpen, NSError *error)
 NS_SWIFT_NAME(BrowserLoginSuccessBlock);
 
 @interface FBSDKLoginManager () <FBSDKURLOpening>
@@ -61,3 +65,5 @@ NS_SWIFT_NAME(BrowserLoginSuccessBlock);
 - (void)performBrowserLogInWithParameters:(NSDictionary *)loginParams handler:(FBSDKBrowserLoginSuccessBlock)handler;
 
 @end
+
+#endif

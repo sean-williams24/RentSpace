@@ -6,6 +6,7 @@
 //  Copyright © 2016 Sacha Durand Saint Omer. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 public extension UIView {
@@ -156,6 +157,55 @@ public extension UIView {
         return position(.bottom, relatedBy: n.relation, points: n.points)
     }
     
+    /** Sets the leading margin for a view.
+     
+    Example Usage :
+     
+     label.leading(20)
+     label.leading(<=20)
+     label.leading(>=20)
+     label.leading(20%)
+     
+    - Returns: itself for chaining purposes
+    */
+    
+    @discardableResult
+    func leading(_ points: CGFloat) -> UIView {
+        return position(.leading, points: points)
+    }
+    
+    @discardableResult
+    func leading(_ fm: SteviaFlexibleMargin) -> UIView {
+        return position(.leading, relatedBy: fm.relation, points: fm.points)
+    }
+    
+    /** Sets the trailing margin for a view.
+     
+    Example Usage :
+     
+     label.trailing(20)
+     label.trailing(<=20)
+     label.trailing(>=20)
+     label.trailing(20%)
+     
+    - Returns: itself for chaining purposes
+    */
+    @discardableResult
+    func trailing(_ points: CGFloat) -> UIView {
+        return position(.trailing, points: -points)
+    }
+
+    @discardableResult
+    func trailing(_ fm: SteviaFlexibleMargin) -> UIView {
+        var invertedRelation = fm.relation
+        if invertedRelation == .lessThanOrEqual {
+            invertedRelation = .greaterThanOrEqual
+        } else if invertedRelation == .greaterThanOrEqual {
+            invertedRelation = .lessThanOrEqual
+        }
+        return position(.trailing, relatedBy: invertedRelation!, points: -fm.points)
+    }
+    
     fileprivate func position(_ position: NSLayoutConstraint.Attribute,
                               relatedBy: NSLayoutConstraint.Relation = .equal,
                               points: CGFloat) -> Self {
@@ -169,3 +219,4 @@ public extension UIView {
         return self
     }
 }
+#endif
