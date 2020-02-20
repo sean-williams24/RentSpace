@@ -57,12 +57,12 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         if !viewingExistingChat {
             chatID = customerUID + "-" + space.key
         }
-        
-        subscribeToKeyboardNotifications()
+                
         configureUI()
         listenForNewMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
+        subscribeToKeyboardNotifications()
     }
     
     
@@ -249,7 +249,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
-    
+
     
     // MARK: - Action Methods    
     
