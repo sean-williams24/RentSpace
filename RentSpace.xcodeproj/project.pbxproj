@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40D24365B265A8D2106C3E8E /* libPods-RentSpace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D67513F09EB76127BEBA05 /* libPods-RentSpace.a */; };
+		21E83E98F41224101F699D65 /* Pods_RentSpace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A35FBBAEC50E5B0DF0A8BF6 /* Pods_RentSpace.framework */; };
 		CE02CEC923E84705003B96A9 /* UpdateCredentialsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */; };
 		CE02CECB23E85433003B96A9 /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */; };
 		CE02CECD23E88873003B96A9 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02CECC23E88873003B96A9 /* FirebaseClient.swift */; };
@@ -19,6 +19,8 @@
 		CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */; };
 		CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */; };
 		CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */; };
+		CE3BFE5D23FD5A420023186C /* LegaInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BFE5C23FD5A420023186C /* LegaInformationViewController.swift */; };
+		CE3BFE5F23FD5DDF0023186C /* Legal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BFE5E23FD5DDF0023186C /* Legal.swift */; };
 		CE5D27CF238EC8AA0098B0FA /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27CE238EC8AA0098B0FA /* Image.swift */; };
 		CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */; };
 		CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */; };
@@ -53,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.release.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.release.xcconfig"; sourceTree = "<group>"; };
+		7A35FBBAEC50E5B0DF0A8BF6 /* Pods_RentSpace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RentSpace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.debug.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.debug.xcconfig"; sourceTree = "<group>"; };
 		CE02CEC823E84705003B96A9 /* UpdateCredentialsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCredentialsTableViewController.swift; sourceTree = "<group>"; };
 		CE02CECA23E85433003B96A9 /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +70,8 @@
 		CE08408D238E73B000DA57C8 /* AddPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotosViewController.swift; sourceTree = "<group>"; };
 		CE08408F238E78D300DA57C8 /* RentSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentSpaceViewController.swift; sourceTree = "<group>"; };
 		CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE3BFE5C23FD5A420023186C /* LegaInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegaInformationViewController.swift; sourceTree = "<group>"; };
+		CE3BFE5E23FD5DDF0023186C /* Legal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Legal.swift; sourceTree = "<group>"; };
 		CE5D27CE238EC8AA0098B0FA /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +102,6 @@
 		CEF5CBE423C23AFF0011243D /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE623C243A80011243D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		CEF5CBE823C7258C0011243D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		F3D67513F09EB76127BEBA05 /* libPods-RentSpace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RentSpace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40D24365B265A8D2106C3E8E /* libPods-RentSpace.a in Frameworks */,
+				21E83E98F41224101F699D65 /* Pods_RentSpace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +128,7 @@
 		9999E9AF206C130EB94AB04D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F3D67513F09EB76127BEBA05 /* libPods-RentSpace.a */,
+				7A35FBBAEC50E5B0DF0A8BF6 /* Pods_RentSpace.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,6 +141,7 @@
 				CE5D27CE238EC8AA0098B0FA /* Image.swift */,
 				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
 				CE79981823E1BF840017E39A /* Favourites.swift */,
+				CE3BFE5E23FD5DDF0023186C /* Legal.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 				CEF5CBE623C243A80011243D /* RegisterViewController.swift */,
 				CEF5CBDE23C1FF250011243D /* ChatsViewController.swift */,
 				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
+				CE3BFE5C23FD5A420023186C /* LegaInformationViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 				CE084073238D40B200DA57C8 /* Frameworks */,
 				CE084074238D40B200DA57C8 /* Resources */,
 				771478BA3635C87FFBB7699F /* [CP] Copy Pods Resources */,
+				812AEC1E5DF6007EB1F0329D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -337,6 +344,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		812AEC1E5DF6007EB1F0329D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RentSpace/Pods-RentSpace-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -356,6 +380,7 @@
 				CE02CECD23E88873003B96A9 /* FirebaseClient.swift in Sources */,
 				CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */,
 				CE6583A52397E26C001FFA8A /* Space.swift in Sources */,
+				CE3BFE5F23FD5DDF0023186C /* Legal.swift in Sources */,
 				CEF5CBE523C23AFF0011243D /* SignInViewController.swift in Sources */,
 				CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */,
 				CEC0B93D23D72013004DC4E6 /* SenderTableViewCell.swift in Sources */,
@@ -366,6 +391,7 @@
 				CEF5CBDF23C1FF250011243D /* ChatsViewController.swift in Sources */,
 				CE08407E238D40B200DA57C8 /* PostSpaceViewController.swift in Sources */,
 				CE5D27CF238EC8AA0098B0FA /* Image.swift in Sources */,
+				CE3BFE5D23FD5A420023186C /* LegaInformationViewController.swift in Sources */,
 				CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */,
 				CE08408E238E73B000DA57C8 /* AddPhotosViewController.swift in Sources */,
 				CE6583A123941302001FFA8A /* UIVC Extension.swift in Sources */,

@@ -1,4 +1,4 @@
-module YPImagePicker {
+framework module YPImagePicker {
   umbrella header "YPImagePicker-umbrella.h"
 
   export *

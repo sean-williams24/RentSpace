@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "492A3F539D36426FFCED62F4F58F688B"
-               BuildableName = "libPryntTrimmerView.a"
+               BuildableName = "PryntTrimmerView.framework"
                BlueprintName = "PryntTrimmerView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

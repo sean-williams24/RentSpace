@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "063386C78BA04CFC605AF41C9F9AAE03"
-               BuildableName = "libFacebookLogin.a"
+               BuildableName = "FacebookLogin.framework"
                BlueprintName = "FacebookLogin"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

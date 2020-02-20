@@ -1,4 +1,4 @@
-module PryntTrimmerView {
+framework module PryntTrimmerView {
   umbrella header "PryntTrimmerView-umbrella.h"
 
   export *

@@ -30,6 +30,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var directionsButton: UIButton!
     @IBOutlet var favouritesButton: UIButton!
     @IBOutlet var imageScrollViewHeight: NSLayoutConstraint!
+    @IBOutlet var scrollViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var mainScrollView: UIScrollView!
     
     
     // MARK: - Properties
@@ -56,6 +58,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
         return false
     }
+    var hideStatusBar = true
     
     
     
@@ -63,6 +66,18 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
+
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        let navBarHeight = navigationController?.navigationBar.frame.height ?? 0
+        let height = statusBarHeight + navBarHeight
+        scrollViewTopConstraint.constant = -height
+        print(statusBarHeight)
         
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
@@ -93,11 +108,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         titleLabel.text = space.title.uppercased()
         priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         locationLabel.text = formatAddress(for: space)
-        pageController.hidesForSinglePage = true
         postcode = space.postcode
         
         if space.photos == nil {
             imageScrollViewHeight.constant = 200
+            scrollViewTopConstraint.constant = 0
             activityView.stopAnimating()
             
             let imageView = UIImageView()
@@ -173,21 +188,19 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         directionsButton.layer.borderColor = Settings.orangeTint.cgColor
         
         setLocationOnMap()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
-        
         favouritesButton.tintColor = spaceIsFavourite ? Settings.orangeTint : .white
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UserDefaults.standard.removeObject(forKey: "ImagesUpdated")
-        print("Advertdetails view did apear")
-    }
     
+    }
     
     
     //MARK: - Private Methods

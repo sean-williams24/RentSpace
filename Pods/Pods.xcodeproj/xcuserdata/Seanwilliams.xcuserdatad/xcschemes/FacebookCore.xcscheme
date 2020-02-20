@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "290D7B2F80A1721A35508C1739C47F56"
-               BuildableName = "libFacebookCore.a"
+               BuildableName = "FacebookCore.framework"
                BlueprintName = "FacebookCore"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

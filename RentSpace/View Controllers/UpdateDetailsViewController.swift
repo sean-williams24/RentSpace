@@ -61,7 +61,9 @@ class UpdateDetailsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
+        if refHandle != nil {
+            ref.child("users/\(UID)/adverts").removeObserver(withHandle: refHandle)
+        }
     }
     
     

@@ -20,6 +20,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     @IBOutlet var musicButton: UIButton!
     @IBOutlet var deskButton: UIButton!
     @IBOutlet var signInButton: UIBarButtonItem!
+    @IBOutlet var stackView: UIStackView!
     
     
     // MARK: - Properties
@@ -113,6 +114,11 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             locationManager.startUpdatingLocation()
         }
         
+        for constraint in self.view.constraints {
+            if constraint.identifier == "stackViewBottom" {
+                constraint.constant = 3
+            }
+        }
         
         Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
@@ -130,7 +136,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         })
     }
-    
+
     
     // MARK: - Location Methods
     
@@ -198,7 +204,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 
 extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     func adjustViewAfterRegistration() {
-        
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
         let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
@@ -210,13 +215,19 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     func updateSignInButton() {
         print("")
     }
+    
     func adjustViewForTabBar() {
-        
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
         let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
         let safeAreaHeightInsets = safeArea.height - self.view.frame.height
-        let tabBarHeight = height! + (safeAreaHeightInsets / 2) + 2
-        self.view.frame.origin.y = -tabBarHeight
+        let tabBarHeight = height! + (safeAreaHeightInsets) + 2
+
+        for constraint in self.view.constraints {
+            if constraint.identifier == "stackViewBottom" {
+                constraint.constant = tabBarHeight
+            }
+        }
+        stackView.layoutIfNeeded()
     }
 }

@@ -1,4 +1,4 @@
-module Stevia {
+framework module Stevia {
   umbrella header "SteviaLayout-umbrella.h"
 
   export *

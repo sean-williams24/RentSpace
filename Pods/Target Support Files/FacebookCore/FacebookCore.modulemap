@@ -1,4 +1,4 @@
-module FacebookCore {
+framework module FacebookCore {
   umbrella header "FacebookCore-umbrella.h"
 
   export *

@@ -86,6 +86,8 @@ class MySpacesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        UINavigationBar.appearance().barTintColor = .black
+//        UINavigationBar.appearance().isTranslucent = false
         
         viewingFavourites ? loadFavourites() : loadUserSpaces()
     }
@@ -152,6 +154,9 @@ class MySpacesViewController: UIViewController {
                 }
                 self.tableView.reloadData()
                 
+                if !self.mySpaces.isEmpty {
+                    self.infoLabel.text = ""
+                }
             })
         }
         
@@ -223,7 +228,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
+        return 3
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -238,10 +243,10 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.layer.borderWidth = 1
         
         if viewingFavourites {
-            cell.backgroundColor = .gray
+            cell.backgroundColor = .darkGray
             cell.layer.borderWidth = 0
         } else {
-            cell.backgroundColor = .darkGray
+            cell.backgroundColor = Settings.flipsideBlackColour
             cell.layer.borderColor = UIColor.black.cgColor
         }
         
@@ -287,7 +292,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 // Scale Art studio image down to match SFSymbol icons and add another view to get matching image border
                 let view = UIView()
                 view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
-                view.layer.borderColor = Settings.flipsideBlackColour.cgColor
+                view.layer.borderColor = UIColor.darkGray.cgColor
                 view.layer.borderWidth = 1
                 cell.addSubview(view)
                 

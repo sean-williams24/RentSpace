@@ -73,7 +73,9 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        ref.child("messages/\(chatID)").removeObserver(withHandle: refHandle)
+        if refHandle != nil {
+            ref.child("messages/\(chatID)").removeObserver(withHandle: refHandle)
+        }
         unsubscribeFromKeyboardNotifications()
     }
     

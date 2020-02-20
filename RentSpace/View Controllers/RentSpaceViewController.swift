@@ -90,6 +90,10 @@ class RentSpaceViewController: UIViewController {
         }
     }
     
+
+    
+ 
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -107,6 +111,7 @@ class RentSpaceViewController: UIViewController {
                 self.arrow.blink(duration: 0.7, delay: 0, alpha: 0.05)
             }
         }
+        
     }
     
     
@@ -115,6 +120,7 @@ class RentSpaceViewController: UIViewController {
         UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
     }
     
+
     
     // MARK: - Private Methods
     

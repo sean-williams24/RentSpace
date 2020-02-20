@@ -20,6 +20,9 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet var signInOrOutButton: UIButton!
     @IBOutlet var updateDetailsButton: UIButton!
+    @IBOutlet var termsAndConditionsButton: UIButton!
+    @IBOutlet var privacyPolicyButton: UIButton!
+    @IBOutlet var legalInfoButton: UIButton!
     
     
     // MARK: - Properties
@@ -33,6 +36,10 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addDisclosureAccessoryView(for: updateDetailsButton)
+        addDisclosureAccessoryView(for: termsAndConditionsButton)
+        addDisclosureAccessoryView(for: privacyPolicyButton)
+        addDisclosureAccessoryView(for: legalInfoButton)
+
     }
     
     
@@ -65,6 +72,32 @@ class SettingsViewController: UIViewController {
         super.viewWillDisappear(animated)
         Auth.auth().removeStateDidChangeListener(handle)
     }
+    
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let button = sender as? UIButton
+        if button?.tag != 0 {
+           let vc = segue.destination as! LegaInformationViewController
+            
+            switch button?.tag {
+            case 1:
+                vc.displayingDataFor = "Terms & Conditions"
+
+            case 2:
+                vc.displayingDataFor = "Privacy Policy"
+
+            case 3:
+                vc.displayingDataFor = "Legal Info"
+
+            default:
+                vc.displayingDataFor = "Privacy Policy"
+            }
+        }
+
+    }
+
     
     
     // MARK: - Action Methods

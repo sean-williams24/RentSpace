@@ -32,8 +32,9 @@ class DeleteAccountViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        ref.child(advertPath).removeObserver(withHandle: refHandle)
+        if refHandle != nil {
+            ref.child(advertPath).removeObserver(withHandle: refHandle)
+        }
     }
     
     
