@@ -40,16 +40,9 @@ extension UIViewController {
     // - Calculate keyboard height
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return 0}
-
         let keyboardScreenEndFrame = keyboardValue.cgRectValue
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
-
         
-        
-        
-        let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-        print(keyboardSize.cgRectValue.height )
         return keyboardViewEndFrame.height
     }
 

@@ -18,10 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-//        UINavigationBar.appearance().barTintColor = .black
-//        UINavigationBar.appearance().isTranslucent = false
-                
+                        
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
