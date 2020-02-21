@@ -226,5 +226,25 @@ enum LegalContent: String {
     These terms and conditions are governed by and construed in accordance with the laws of UK and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
     """
     
-    case LegalInfo = "Legal"
+    case LegalInfo = """
+    
+    Attributions:
+    
+    Paintbrush icon used for the Art Studio category was made by Catkuro from www.flaticon.com
+    
+    Warning icon used for the account deletion was made by Vectors Market from www.flaticon.com
+    
+    Location pin icon used for space distance was made by Freepik from www.flaticon.com
+
+    Handshake icon used for successful advert post was made by Freepik from www.flaticon.com
+    
+    The camera icon used for adding images to an advert was made by Google and used under CC 3.0 BY license
+    
+    Condeser microphopne image for music studio category by Jonathan Velasquez at Unsplash.com
+    
+    Photography studio image by Alexander Dummer at Unsplash.com
+    
+    The image selection UI was built by YPImagePicker
+
+    """
 }
