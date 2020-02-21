@@ -16,7 +16,7 @@ struct Settings {
     static var cornerRadius: CGFloat = 25
 
     // Colours
-    static var orangeTint = UIColor(red:0.92, green:0.49, blue:0.24, alpha:1.0)
+    static var orangeTint = UIColor(red:0.89, green:0.39, blue:0.00, alpha:1.0)
     static var flipsideBlackColour = UIColor(red:0.12, green:0.13, blue:0.14, alpha:1.0)
     
     // Fonts / Attributes

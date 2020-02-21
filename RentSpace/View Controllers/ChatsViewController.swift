@@ -165,7 +165,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         } else {
-            let image = UIImage(named: "RS Logo No Square Black")
+            let image = UIImage(named: "RentSpace Icon Small Black BG")
             cell.activityView.stopAnimating()
             cell.customImageView.alpha = 1
             cell.customImageView.image = renderCirlularImage(for: image)
