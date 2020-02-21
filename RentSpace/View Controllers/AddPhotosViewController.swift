@@ -141,7 +141,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal) // Bar Button fonts
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Settings.orangeTint ] // Title color
         UINavigationBar.appearance().tintColor = Settings.orangeTint // Left. bar buttons
-        
+     
         config.colors.tintColor = Settings.orangeTint // Right bar buttons (actions)
         config.icons.multipleSelectionOnIcon.withTintColor(Settings.orangeTint)
         config.colors.multipleItemsSelectedCircleColor = Settings.orangeTint

@@ -77,7 +77,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         let navBarHeight = navigationController?.navigationBar.frame.height ?? 0
         let height = statusBarHeight + navBarHeight
         scrollViewTopConstraint.constant = -height
-        print(statusBarHeight)
         
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))

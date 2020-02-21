@@ -81,6 +81,7 @@ extension UIViewController {
         let city = advert.city
         let subAdminArea = advert.subAdminArea
         let town = advert.town
+        let state = advert.state
         
         if city == subAdminArea {
             location = "\(town), \(city)"
@@ -93,6 +94,15 @@ extension UIViewController {
                 location = "\(city), \(subAdminArea)"
             }
         }
+        
+        if city == "" && town == "" {
+            location = subAdminArea
+            
+            if subAdminArea == "" {
+                location = state
+            }
+        }
+        
         return location
     }
     

@@ -103,20 +103,32 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     // MARK: - Private Methods
     
     func setNewLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation) {
-        if town == "" {
-            locationButton.setTitle("\(city), \(postcode)", for: .normal)
-            if city == "" {
-                locationButton.setTitle(postcode, for: .normal)
-            }
-            if postcode == "" {
-                locationButton.setTitle("\(city), \(country)", for: .normal)
+
+        let subAdminArea = county
+        let state = country
+        var newLocation = ""
+        
+        if city == subAdminArea {
+            newLocation = "\(town), \(city)"
+            if town == "" {
+                newLocation = "\(city)"
             }
         } else {
-            locationButton.setTitle("\(town), \(postcode)", for: .normal)
-            if postcode == "" {
-                locationButton.setTitle("\(town), \(county)", for: .normal)
+            newLocation = "\(town), \(city), \(subAdminArea)"
+            if town == "" {
+                newLocation = "\(city), \(subAdminArea)"
             }
         }
+        
+        if city == "" && town == "" {
+            newLocation = subAdminArea
+            
+            if subAdminArea == "" {
+                newLocation = state
+            }
+        }
+        
+        locationButton.setTitle(newLocation, for: .normal)
         
         self.town = town
         self.city = city

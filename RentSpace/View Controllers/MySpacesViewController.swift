@@ -86,8 +86,7 @@ class MySpacesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-        UINavigationBar.appearance().barTintColor = .black
-//        UINavigationBar.appearance().isTranslucent = false
+//        UINavigationBar.appearance().barTintColor = .black
         
         viewingFavourites ? loadFavourites() : loadUserSpaces()
     }
