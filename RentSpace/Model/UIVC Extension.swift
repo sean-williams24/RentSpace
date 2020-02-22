@@ -208,7 +208,7 @@ extension UIViewController {
     }
     
     
-    // MARK: - REGEX Validation Methods
+    // MARK: - Validation Methods
     
     // Use regEx and NSPredicate to validate email address and password
     
@@ -228,6 +228,14 @@ extension UIViewController {
     
     func isValidDisplayName(_ displayName: String) -> Bool {
         return displayName.count > 2
+    }
+    
+    func isTextViewEmpty(for textview: UITextView) -> Bool {
+        guard let text = textview.text,
+        
+            !text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty else { return true }
+        
+        return false
     }
     
     
@@ -288,6 +296,7 @@ extension UIView {
         })
     }
 }
+
 
 
 

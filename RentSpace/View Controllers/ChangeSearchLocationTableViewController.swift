@@ -82,7 +82,6 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
         let location = address.location ?? Location.userCLLocation
         
         if let postalAddress = address.postalAddress {
-            print(postalAddress)
             handleSetSearchLocationDelegate?.setNewLocation(town: postalAddress.subLocality, city: postalAddress.city, county: postalAddress.subAdministrativeArea, postcode: postalAddress.postalCode, country: postalAddress.state, location: location)
         }
         

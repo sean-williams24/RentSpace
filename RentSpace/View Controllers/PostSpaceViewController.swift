@@ -168,7 +168,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
             city = defaults.string(forKey: "City") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
         }
-
+        
         locationButton.setTitle(" \(city) / \(email)", for: .normal)
         if email == "" || city == "" {
             locationButton.setTitle("  Contact & Address", for: .normal)
@@ -598,14 +598,22 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
     
+    
     func textViewDidEndEditing(_ textView: UITextView) {
-        if descriptionTextView.text == "" {
+        let update = updatingAdvert ? "Update" : ""
+
+        if isTextViewEmpty(for: descriptionTextView) {
+            // if text editing ends and there is no text, set to placeholder
+            
             descriptionTextView.text = descriptionViewPlaceholder
             descriptionTextView.textColor = .lightGray
-            defaults.set(descriptionTextView.text, forKey: "Description")
+            defaults.set(descriptionTextView.text, forKey: "\(update)Description")
         } else {
-            defaults.set(descriptionTextView.text, forKey: "Description")
+            defaults.set(descriptionTextView.text, forKey: "\(update)Description")
         }
+        
+        
+        
         descriptionTextView.resignFirstResponder()
     }
     

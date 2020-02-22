@@ -17,5 +17,6 @@ target 'RentSpace' do
   pod 'GoogleSignIn'
   pod 'FacebookLogin'
   pod 'NVActivityIndicatorView'
+  pod 'FSPagerView'
 
 end

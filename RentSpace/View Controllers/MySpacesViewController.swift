@@ -86,7 +86,6 @@ class MySpacesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
-//        UINavigationBar.appearance().barTintColor = .black
         
         viewingFavourites ? loadFavourites() : loadUserSpaces()
     }
@@ -286,6 +285,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             cell.activityView.stopAnimating()
+
             if space.category == "Art Studio" {
                 
                 // Scale Art studio image down to match SFSymbol icons and add another view to get matching image border
@@ -306,8 +306,8 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 1
             }
-            cell.customImageView.tintColor = Settings.flipsideBlackColour
-            cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
+            cell.customImageView.tintColor = UIColor.darkGray
+            cell.customImageView.layer.borderColor = UIColor.darkGray.cgColor
             cell.customImageView.alpha = 0.7
             
         }

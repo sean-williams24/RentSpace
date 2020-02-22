@@ -115,7 +115,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             activityView.stopAnimating()
             
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "Logo Grey")
+            imageView.image = UIImage(named: "RentSpace Logo Flip BG Small")
             imageView.contentMode = .scaleAspectFit
             imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
             scrollView.addSubview(imageView)
@@ -162,16 +162,24 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                         self.thumbnail = thumb
                     }
                 }
+
+                
                 
                 let imageView = UIImageView()
-                imageView.image = image
+                let xPosition = self.view.frame.size.width * CGFloat(i)
+                imageView.frame = CGRect(x: xPosition, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height)
                 imageView.contentMode = .scaleAspectFill
-                let xPosition = self.view.frame.width * CGFloat(i)
-                imageView.frame = CGRect(x: xPosition, y: 0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
-                
+
+                imageView.image = image
+
                 self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
                 self.scrollView.addSubview(imageView)
-                self.scrollView.backgroundColor = .black
+
+                self.scrollView.backgroundColor = Settings.flipsideBlackColour
+                
+                imageView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 1.0).isActive = true
+                imageView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 1.0).isActive = true
+
                 i += 1
             }
             self.pageController.numberOfPages = self.imagesDictionary.count
