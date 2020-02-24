@@ -1452,9 +1452,20 @@ Long press and drag to reorder.</string>
                                         <subviews>
                                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayR-Fd-bHX" customClass="FSPagerView" customModule="FSPagerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8LJ-7I-DAF" customClass="FSPageControl" customModule="FSPagerView">
+                                                        <rect key="frame" x="0.0" y="330" width="414" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="Cfb-wd-rJb"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="3MX-cd-JCm"/>
+                                                    <constraint firstItem="8LJ-7I-DAF" firstAttribute="leading" secondItem="ayR-Fd-bHX" secondAttribute="leading" id="LqE-FB-5aj"/>
+                                                    <constraint firstAttribute="bottom" secondItem="8LJ-7I-DAF" secondAttribute="bottom" id="U1U-5X-6XL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8LJ-7I-DAF" secondAttribute="trailing" id="uEL-Te-nAa"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="automaticSlidingInterval">
@@ -1706,6 +1717,7 @@ Only the best gear here.</string>
                         <outlet property="mainScrollView" destination="r8C-Bg-Nlw" id="Qzr-v4-bTK"/>
                         <outlet property="mapView" destination="HoM-Ul-2MJ" id="Byw-fF-wFH"/>
                         <outlet property="messagesButton" destination="9JS-xD-q20" id="Cn3-5A-WvM"/>
+                        <outlet property="pageControl" destination="8LJ-7I-DAF" id="nVu-eV-S8r"/>
                         <outlet property="pageController" destination="UKD-xj-gbZ" id="0sO-kz-trD"/>
                         <outlet property="pagerView" destination="ayR-Fd-bHX" id="Lve-0y-MpR"/>
                         <outlet property="phoneButton" destination="oH1-e6-cRV" id="pJH-ll-SMH"/>

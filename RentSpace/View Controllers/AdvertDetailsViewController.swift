@@ -38,7 +38,16 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
         }
     }
-    let pageControl = FSPageControl(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
+    @IBOutlet weak var pageControl: FSPageControl! {
+        didSet {
+            self.pageControl.numberOfPages = images.count
+            print(images.count)
+            self.pageControl.contentHorizontalAlignment = .right
+            self.pageControl.contentInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            self.pageControl.hidesForSinglePage = true
+        }
+    }
+    
 
     
     
@@ -156,14 +165,17 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             descriptionTextView.text = space.description
         }
         
-        pagerView.transformer = FSPagerViewTransformer(type: .zoomOut)
-        pagerView.addSubview(pageControl)
+        pagerView.transformer = FSPagerViewTransformer(type: .invertedFerrisWheel)
+//        pagerView.addSubview(pageControl)
+        self.pagerView.bringSubviewToFront(self.pageControl)
+
         
         downloadFirebaseImages {
             // Add images to scrollView
             self.activityView.stopAnimating()
             var i = 0
-            
+            self.pageControl.currentPage = 0
+
             for key in self.imagesDictionary.keys.sorted() {
                 guard let image = self.imagesDictionary[key] else { break }
                 
@@ -177,6 +189,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 self.images.append(image)
                 self.pagerView.reloadData()
                 self.pageControl.numberOfPages = self.images.count
+
                 
                 let imageView = UIImageView()
                 let xPosition = self.view.frame.size.width * CGFloat(i)
@@ -429,5 +442,10 @@ extension AdvertDetailsViewController: FSPagerViewDataSource, FSPagerViewDelegat
         false
     }
 
+    // MARK:- FSPagerViewDelegate
+    
+    func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
+        self.pageControl.currentPage = targetIndex
+    }
     
 }
