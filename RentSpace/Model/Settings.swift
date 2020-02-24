@@ -21,6 +21,7 @@ struct Settings {
     
     // Fonts / Attributes
     static let barButtonAttributes: [NSAttributedString.Key : Any] = [.font: UIFont(name: "HelveticaNeue-Light", size: 15) as Any]
+    static let tabBarAttributes: [NSAttributedString.Key : Any] = [.font: UIFont(name: "HelveticaNeue-Light", size: 11) as Any]
     static let infoLabelAttributes: [NSAttributedString.Key : Any] = [.font: UIFont(name: "HelveticaNeue-Bold", size: 17) as Any]
     static let navBarTitleAttributes: [NSAttributedString.Key : Any] = [
         .font: UIFont(name: "HelveticaNeue-Light", size: 20)!,

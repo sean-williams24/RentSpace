@@ -127,17 +127,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             pagerViewHeight.constant = 170
             scrollViewTopConstraint.constant = 0
             activityView.stopAnimating()
-            
-//            let imageView = UIImageView()
-//            imageView.image = UIImage(named: "RentSpace Logo Flip BG Small")
-//            imageView.contentMode = .scaleAspectFit
-//            imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
-//            scrollView.addSubview(imageView)
-//
-            let image = UIImage(named: "RentSpace Logo Flip BG Small")
             images.append(UIImage(named: "RentSpace Logo Flip BG Small")!)
             pagerView.reloadData()
-            
         }
         
         if space.viewOnMap == false {
@@ -170,9 +161,8 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 
         
         downloadFirebaseImages {
-            // Add images to scrollView
+            // Add images to pager view
             self.activityView.stopAnimating()
-            var i = 0
             self.pageControl.currentPage = 0
 
             for key in self.imagesDictionary.keys.sorted() {
@@ -188,24 +178,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 self.images.append(image)
                 self.pagerView.reloadData()
                 self.pageControl.numberOfPages = self.images.count
-
-                
-//                let imageView = UIImageView()
-//                let xPosition = self.view.frame.size.width * CGFloat(i)
-//                imageView.frame = CGRect(x: xPosition, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height)
-//                imageView.contentMode = .scaleAspectFill
-//
-//                imageView.image = image
-//
-//                self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
-//                self.scrollView.addSubview(imageView)
-//
-//                self.scrollView.backgroundColor = Settings.flipsideBlackColour
-//
-//                imageView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 1.0).isActive = true
-//                imageView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 1.0).isActive = true
-
-                i += 1
             }
         }
         
@@ -219,7 +191,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         directionsButton.layer.borderColor = Settings.orangeTint.cgColor
         
         setLocationOnMap()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -230,7 +201,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         UserDefaults.standard.removeObject(forKey: "ImagesUpdated")
-    
     }
     
     
