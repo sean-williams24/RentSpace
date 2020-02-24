@@ -16,21 +16,19 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Outlets
     
-    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var descriptionTextView: UITextView!
     @IBOutlet var locationLabel: UILabel!
     @IBOutlet var locationIcon: UIImageView!
     @IBOutlet var mapView: MKMapView!
-    @IBOutlet var pageController: UIPageControl!
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var phoneButton: UIButton!
     @IBOutlet var messagesButton: UIButton!
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var directionsButton: UIButton!
     @IBOutlet var favouritesButton: UIButton!
-    @IBOutlet var imageScrollViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var pagerViewHeight: NSLayoutConstraint!
     @IBOutlet var scrollViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var mainScrollView: UIScrollView!
     @IBOutlet weak var pagerView: FSPagerView! {
@@ -98,7 +96,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
         editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
         navigationItem.rightBarButtonItems = [trashButton, editButton]
-        scrollView.delegate = self
         
         if editingMode {
             trashButton.isEnabled = true
@@ -127,17 +124,20 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         postcode = space.postcode
         
         if space.photos == nil {
-            imageScrollViewHeight.constant = 200
+            pagerViewHeight.constant = 170
             scrollViewTopConstraint.constant = 0
             activityView.stopAnimating()
             
-            let imageView = UIImageView()
-            imageView.image = UIImage(named: "RentSpace Logo Flip BG Small")
-            imageView.contentMode = .scaleAspectFit
-            imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
-            scrollView.addSubview(imageView)
+//            let imageView = UIImageView()
+//            imageView.image = UIImage(named: "RentSpace Logo Flip BG Small")
+//            imageView.contentMode = .scaleAspectFit
+//            imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
+//            scrollView.addSubview(imageView)
+//
+            let image = UIImage(named: "RentSpace Logo Flip BG Small")
+            images.append(UIImage(named: "RentSpace Logo Flip BG Small")!)
+            pagerView.reloadData()
             
-            pageController.isHidden = true
         }
         
         if space.viewOnMap == false {
@@ -166,7 +166,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
         
         pagerView.transformer = FSPagerViewTransformer(type: .invertedFerrisWheel)
-//        pagerView.addSubview(pageControl)
         self.pagerView.bringSubviewToFront(self.pageControl)
 
         
@@ -191,24 +190,23 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 self.pageControl.numberOfPages = self.images.count
 
                 
-                let imageView = UIImageView()
-                let xPosition = self.view.frame.size.width * CGFloat(i)
-                imageView.frame = CGRect(x: xPosition, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height)
-                imageView.contentMode = .scaleAspectFill
-
-                imageView.image = image
-
-                self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
-                self.scrollView.addSubview(imageView)
-
-                self.scrollView.backgroundColor = Settings.flipsideBlackColour
-                
-                imageView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 1.0).isActive = true
-                imageView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 1.0).isActive = true
+//                let imageView = UIImageView()
+//                let xPosition = self.view.frame.size.width * CGFloat(i)
+//                imageView.frame = CGRect(x: xPosition, y: 0, width: self.view.frame.width, height: self.scrollView.frame.height)
+//                imageView.contentMode = .scaleAspectFill
+//
+//                imageView.image = image
+//
+//                self.scrollView.contentSize.width = self.scrollView.frame.width * CGFloat(i + 1)
+//                self.scrollView.addSubview(imageView)
+//
+//                self.scrollView.backgroundColor = Settings.flipsideBlackColour
+//
+//                imageView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 1.0).isActive = true
+//                imageView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 1.0).isActive = true
 
                 i += 1
             }
-            self.pageController.numberOfPages = self.imagesDictionary.count
         }
         
         if space.postedByUser == Auth.auth().currentUser?.uid {
@@ -237,12 +235,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     
     //MARK: - Private Methods
-    
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width
-        pageController.currentPage = Int(pageIndex)
-    }
     
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         activityView.startAnimating()
@@ -432,8 +424,16 @@ extension AdvertDetailsViewController: FSPagerViewDataSource, FSPagerViewDelegat
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
-        cell.imageView?.image = images[index]
+        let image = images[index]
+        cell.imageView?.image = image
         cell.imageView?.contentMode = .scaleAspectFill
+        
+        let logoImage = UIImage(named: "RentSpace Logo Flip BG Small")
+        if image == logoImage! {
+            cell.imageView?.contentMode = .scaleAspectFit
+            cell.backgroundColor = Settings.flipsideBlackColour
+        }
+
         
         return cell
     }

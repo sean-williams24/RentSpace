@@ -1448,7 +1448,7 @@ Long press and drag to reorder.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1194"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1175"/>
                                         <subviews>
                                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayR-Fd-bHX" customClass="FSPagerView" customModule="FSPagerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
@@ -1459,11 +1459,25 @@ Long press and drag to reorder.</string>
                                                             <constraint firstAttribute="height" constant="20" id="Cfb-wd-rJb"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpm-89-5YW" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                                        <rect key="frame" x="87" y="111" width="240" height="128"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballClipRotateMultiple"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="3MX-cd-JCm"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="top" secondItem="ayR-Fd-bHX" secondAttribute="top" constant="111" id="4jk-rR-11f"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="centerX" secondItem="ayR-Fd-bHX" secondAttribute="centerX" id="FbN-GB-byb"/>
                                                     <constraint firstItem="8LJ-7I-DAF" firstAttribute="leading" secondItem="ayR-Fd-bHX" secondAttribute="leading" id="LqE-FB-5aj"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="leading" secondItem="ayR-Fd-bHX" secondAttribute="leading" constant="87" id="PbD-xl-5jD"/>
+                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="centerY" secondItem="ayR-Fd-bHX" secondAttribute="centerY" id="Q9N-hu-q9e"/>
                                                     <constraint firstAttribute="bottom" secondItem="8LJ-7I-DAF" secondAttribute="bottom" id="U1U-5X-6XL"/>
                                                     <constraint firstAttribute="trailing" secondItem="8LJ-7I-DAF" secondAttribute="trailing" id="uEL-Te-nAa"/>
                                                 </constraints>
@@ -1478,42 +1492,8 @@ Long press and drag to reorder.</string>
                                                     <outlet property="delegate" destination="tUY-Ky-QDR" id="LLv-1o-TFm"/>
                                                 </connections>
                                             </view>
-                                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
-                                                <rect key="frame" x="0.0" y="354.66666666666674" width="414" height="350"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpm-89-5YW" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                                        <rect key="frame" x="87" y="111" width="240" height="128"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballClipRotateMultiple"/>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="350" id="1oK-Yi-AvJ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="qpm-89-5YW" secondAttribute="trailing" constant="87" id="3Fx-QK-msW"/>
-                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="leading" secondItem="Cw3-H8-wUH" secondAttribute="leading" constant="87" id="Hcy-SD-zsw"/>
-                                                    <constraint firstAttribute="bottom" secondItem="qpm-89-5YW" secondAttribute="bottom" constant="111" id="bs6-Jw-7lN"/>
-                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="centerX" secondItem="Cw3-H8-wUH" secondAttribute="centerX" id="byD-Dd-P0u"/>
-                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="centerY" secondItem="Cw3-H8-wUH" secondAttribute="centerY" id="ebK-3m-umG"/>
-                                                    <constraint firstItem="qpm-89-5YW" firstAttribute="top" secondItem="Cw3-H8-wUH" secondAttribute="top" constant="111" id="rXQ-u1-s2p"/>
-                                                </constraints>
-                                                <viewLayoutGuide key="contentLayoutGuide" id="fua-bQ-k3o"/>
-                                                <viewLayoutGuide key="frameLayoutGuide" id="eXZ-Tc-spn"/>
-                                            </scrollView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="UKD-xj-gbZ">
-                                                <rect key="frame" x="0.0" y="359" width="414" height="10"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="10" id="oiy-0k-UTf"/>
-                                                </constraints>
-                                                <color key="currentPageIndicatorTintColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            </pageControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aa7-8r-g9r">
-                                                <rect key="frame" x="0.0" y="378" width="414" height="30"/>
+                                                <rect key="frame" x="0.0" y="359" width="414" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pirate Studios" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="d3q-aY-7vC">
                                                         <rect key="frame" x="5" y="0.0" width="409" height="30"/>
@@ -1535,7 +1515,7 @@ Long press and drag to reorder.</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-6M-LyC">
-                                                <rect key="frame" x="0.0" y="417" width="414" height="40"/>
+                                                <rect key="frame" x="0.0" y="398" width="414" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gB-wV-fgr">
                                                         <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
@@ -1599,14 +1579,14 @@ Long press and drag to reorder.</string>
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2x-jo-Tk4">
-                                                <rect key="frame" x="0.0" y="466" width="414" height="2"/>
+                                                <rect key="frame" x="0.0" y="447" width="414" height="2"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="GFe-h7-KaW"/>
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-IP-VZw">
-                                                <rect key="frame" x="0.0" y="477" width="414" height="379"/>
+                                                <rect key="frame" x="0.0" y="458" width="414" height="379"/>
                                                 <color key="backgroundColor" red="0.11502255798450685" green="0.12089633670673536" blue="0.13153725136355099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="uIt-MQ-ARt"/>
@@ -1628,7 +1608,7 @@ Only the best gear here.</string>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="CV6-2b-oKf">
-                                                <rect key="frame" x="0.0" y="865" width="414" height="30"/>
+                                                <rect key="frame" x="0.0" y="846" width="414" height="30"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin-orange" translatesAutoresizingMaskIntoConstraints="NO" id="AIm-s0-uiG">
                                                         <rect key="frame" x="0.0" y="5" width="40" height="20"/>
@@ -1667,7 +1647,7 @@ Only the best gear here.</string>
                                                 </subviews>
                                             </stackView>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Ul-2MJ">
-                                                <rect key="frame" x="0.0" y="904" width="414" height="290"/>
+                                                <rect key="frame" x="0.0" y="885" width="414" height="290"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="290" id="3po-QG-QmH"/>
                                                 </constraints>
@@ -1711,18 +1691,16 @@ Only the best gear here.</string>
                         <outlet property="directionsButton" destination="X8L-yX-097" id="V37-mF-hUP"/>
                         <outlet property="emailButton" destination="KoP-UV-CRU" id="2Kq-uh-jhn"/>
                         <outlet property="favouritesButton" destination="5vp-YR-fEc" id="HHD-B5-pR3"/>
-                        <outlet property="imageScrollViewHeight" destination="1oK-Yi-AvJ" id="cqB-3f-QGV"/>
                         <outlet property="locationIcon" destination="AIm-s0-uiG" id="s0G-Ao-O1z"/>
                         <outlet property="locationLabel" destination="EdI-6D-t79" id="dqw-bP-0ga"/>
                         <outlet property="mainScrollView" destination="r8C-Bg-Nlw" id="Qzr-v4-bTK"/>
                         <outlet property="mapView" destination="HoM-Ul-2MJ" id="Byw-fF-wFH"/>
                         <outlet property="messagesButton" destination="9JS-xD-q20" id="Cn3-5A-WvM"/>
                         <outlet property="pageControl" destination="8LJ-7I-DAF" id="nVu-eV-S8r"/>
-                        <outlet property="pageController" destination="UKD-xj-gbZ" id="0sO-kz-trD"/>
                         <outlet property="pagerView" destination="ayR-Fd-bHX" id="Lve-0y-MpR"/>
+                        <outlet property="pagerViewHeight" destination="3MX-cd-JCm" id="Jzq-ob-a6s"/>
                         <outlet property="phoneButton" destination="oH1-e6-cRV" id="pJH-ll-SMH"/>
                         <outlet property="priceLabel" destination="l7i-Cl-7qW" id="T1v-qV-7hH"/>
-                        <outlet property="scrollView" destination="Cw3-H8-wUH" id="olM-wY-96P"/>
                         <outlet property="scrollViewTopConstraint" destination="izg-So-Ku5" id="FvP-ZH-kvP"/>
                         <outlet property="titleLabel" destination="d3q-aY-7vC" id="6AU-nh-Mjg"/>
                     </connections>
