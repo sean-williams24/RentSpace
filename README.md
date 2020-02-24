@@ -17,3 +17,5 @@ Podfiles included in repo:
 - NVActivityIndicatorView
 - FSPagerView
 
+## License
+RentSpace is Copyright © 2020 Sean Williams. It is free software, and may be redistributed under the terms specified in the LICENSE file.
