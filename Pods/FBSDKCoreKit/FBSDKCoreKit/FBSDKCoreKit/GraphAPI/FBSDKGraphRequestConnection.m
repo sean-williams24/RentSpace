@@ -78,7 +78,8 @@ static FBSDKAccessToken *_CreateExpiredAccessToken(FBSDKAccessToken *accessToken
                                                 userID:accessToken.userID
                                         expirationDate:expirationDate
                                            refreshDate:expirationDate
-                                           dataAccessExpirationDate:expirationDate];
+                                           dataAccessExpirationDate:expirationDate
+                                           graphDomain:accessToken.graphDomain];
 }
 #endif
 
@@ -104,7 +105,6 @@ NSURLSessionDataDelegate
 #endif
 >
 
-@property (nonatomic, strong) FBSDKURLSession *session;
 @property (nonatomic, retain) NSMutableArray *requests;
 @property (nonatomic, assign) FBSDKGraphRequestConnectionState state;
 @property (nonatomic, strong) FBSDKLogger *logger;
@@ -120,6 +120,7 @@ NSURLSessionDataDelegate
   NSString *_overrideVersionPart;
   NSUInteger _expectingResults;
   NSOperationQueue *_delegateQueue;
+  FBSDKURLSession *_session;
 #if !TARGET_OS_TV
   FBSDKGraphRequestMetadata *_recoveringRequestMetadata;
   FBSDKGraphErrorRecoveryProcessor *_errorRecoveryProcessor;
@@ -272,6 +273,11 @@ NSURLSessionDataDelegate
 {
   _session.delegateQueue = queue;
   _delegateQueue = queue;
+}
+
+- (FBSDKURLSession *)session
+{
+    return _session;
 }
 
 #pragma mark - Private methods (request generation)

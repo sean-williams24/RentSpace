@@ -1436,7 +1436,7 @@ Long press and drag to reorder.</string>
             </objects>
             <point key="canvasLocation" x="3744.9275362318845" y="-1416.2946428571429"/>
         </scene>
-        <!--Advert Details View Controller-->
+        <!--Data Source-->
         <scene sceneID="03k-2v-FNG">
             <objects>
                 <viewController storyboardIdentifier="AdvertDetailsVC" id="tUY-Ky-QDR" customClass="AdvertDetailsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
@@ -1450,8 +1450,25 @@ Long press and drag to reorder.</string>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1194"/>
                                         <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
+                                            <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayR-Fd-bHX" customClass="FSPagerView" customModule="FSPagerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="350" id="3MX-cd-JCm"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="automaticSlidingInterval">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isInfinite" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="tUY-Ky-QDR" id="nqb-zY-8b7"/>
+                                                    <outlet property="delegate" destination="tUY-Ky-QDR" id="LLv-1o-TFm"/>
+                                                </connections>
+                                            </view>
+                                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw3-H8-wUH">
+                                                <rect key="frame" x="0.0" y="354.66666666666674" width="414" height="350"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpm-89-5YW" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                                         <rect key="frame" x="87" y="111" width="240" height="128"/>
@@ -1690,6 +1707,7 @@ Only the best gear here.</string>
                         <outlet property="mapView" destination="HoM-Ul-2MJ" id="Byw-fF-wFH"/>
                         <outlet property="messagesButton" destination="9JS-xD-q20" id="Cn3-5A-WvM"/>
                         <outlet property="pageController" destination="UKD-xj-gbZ" id="0sO-kz-trD"/>
+                        <outlet property="pagerView" destination="ayR-Fd-bHX" id="Lve-0y-MpR"/>
                         <outlet property="phoneButton" destination="oH1-e6-cRV" id="pJH-ll-SMH"/>
                         <outlet property="priceLabel" destination="l7i-Cl-7qW" id="T1v-qV-7hH"/>
                         <outlet property="scrollView" destination="Cw3-H8-wUH" id="olM-wY-96P"/>
@@ -3292,8 +3310,8 @@ Only the best gear here.</string>
         <image name="addPhotos1" width="80" height="80"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="arrow.up" catalog="system" width="60" height="64"/>
-        <image name="camera" width="170.66667175292969" height="170.66667175292969"/>
         <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="camera" width="170.66667175292969" height="170.66667175292969"/>
         <image name="checkmark.circle.fill" catalog="system" width="64" height="60"/>
         <image name="desktopcomputer" catalog="system" width="64" height="50"/>
         <image name="edit" width="16" height="16"/>

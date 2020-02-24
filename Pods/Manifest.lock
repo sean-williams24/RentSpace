@@ -297,6 +297,7 @@ PODS:
   - FirebaseUI/Storage (8.4.1):
     - Firebase/Storage (~> 6.0)
     - SDWebImage (~> 5.0)
+  - FSPagerView (0.8.3)
   - GoogleAppMeasurement (6.2.2):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -380,6 +381,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - FirebaseUI
+  - FSPagerView
   - GoogleSignIn
   - NVActivityIndicatorView
   - YPImagePicker
@@ -406,6 +408,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseStorage
     - FirebaseUI
+    - FSPagerView
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -445,6 +448,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 031d7d0c8e7b5c030bbeb4d2a690550375e83fec
   FirebaseStorage: 6c5263796af3b1be82ed173598aade47535fe125
   FirebaseUI: 69f7e480265758a9a9ea39915694b0949bcab23f
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GoogleAppMeasurement: d0560d915abf15e692e8538ba1d58442217b6aff
   GoogleDataTransport: 47fe3b8e1673e5187dfd615656a3c5034f150d69
   GoogleDataTransportCCTSupport: 36f69887fd212db6d7ef4dd45ba44523717a434e
@@ -463,6 +467,6 @@ SPEC CHECKSUMS:
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   YPImagePicker: accf310f9526641a84372c0ecf943547d9b1e52c
 
-PODFILE CHECKSUM: c7bb39d03827fa79234657e9361026d62234fffa
+PODFILE CHECKSUM: 35602aed0daa01ccb3fae89a237c2ea10e9f00b5
 
 COCOAPODS: 1.8.4

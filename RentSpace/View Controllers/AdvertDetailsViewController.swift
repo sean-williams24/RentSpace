@@ -9,6 +9,7 @@
 import Firebase
 import MapKit
 import NVActivityIndicatorView
+import FSPagerView
 import UIKit
 
 class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
@@ -32,6 +33,13 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var imageScrollViewHeight: NSLayoutConstraint!
     @IBOutlet var scrollViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var mainScrollView: UIScrollView!
+    @IBOutlet weak var pagerView: FSPagerView! {
+        didSet {
+            self.pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell")
+        }
+    }
+    let pageControl = FSPageControl(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
+
     
     
     // MARK: - Properties
@@ -148,6 +156,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             descriptionTextView.text = space.description
         }
         
+        pagerView.transformer = FSPagerViewTransformer(type: .zoomOut)
+        pagerView.addSubview(pageControl)
+        
         downloadFirebaseImages {
             // Add images to scrollView
             self.activityView.stopAnimating()
@@ -163,7 +174,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
 
-                
+                self.images.append(image)
+                self.pagerView.reloadData()
+                self.pageControl.numberOfPages = self.images.count
                 
                 let imageView = UIImageView()
                 let xPosition = self.view.frame.size.width * CGFloat(i)
@@ -395,4 +408,26 @@ extension AdvertDetailsViewController: MKMapViewDelegate {
             }
         }
     }
+}
+
+
+extension AdvertDetailsViewController: FSPagerViewDataSource, FSPagerViewDelegate {
+    
+    public func numberOfItems(in pagerView: FSPagerView) -> Int {
+        return images.count
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
+        cell.imageView?.image = images[index]
+        cell.imageView?.contentMode = .scaleAspectFill
+        
+        return cell
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, shouldHighlightItemAt index: Int) -> Bool {
+        false
+    }
+
+    
 }
