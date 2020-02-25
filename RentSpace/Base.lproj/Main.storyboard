@@ -732,7 +732,7 @@ Long press and drag to reorder.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ofe-bV-dtz">
-                                <rect key="frame" x="0.0" y="221" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="176" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -745,7 +745,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dNX-df-tru">
-                                <rect key="frame" x="0.0" y="168" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="123" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -758,7 +758,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-8O-tc3">
-                                <rect key="frame" x="20" y="286" width="374" height="50"/>
+                                <rect key="frame" x="20" y="241" width="374" height="50"/>
                                 <color key="backgroundColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="23A-eW-z0P"/>
@@ -772,13 +772,13 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdX-wC-fyU">
-                                <rect key="frame" x="197.66666666666666" y="385.33333333333331" width="19" height="15.333333333333314"/>
+                                <rect key="frame" x="197.66666666666666" y="340.33333333333331" width="19" height="15.333333333333314"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bSN-xd-ry2">
-                                <rect key="frame" x="87" y="418" width="240" height="23.666666666666686"/>
+                                <rect key="frame" x="87" y="373" width="240" height="23.666666666666686"/>
                                 <color key="tintColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Oag-AQ-mcw"/>
@@ -786,11 +786,11 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sFC-Iu-AGT">
-                                <rect key="frame" x="198" y="357.33333333333331" width="18" height="3.6666666666666856"/>
+                                <rect key="frame" x="198" y="312.33333333333331" width="18" height="3.6666666666666856"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOf-dR-Tuc">
-                                <rect key="frame" x="224" y="344" width="171" height="28"/>
+                                <rect key="frame" x="224" y="299" width="171" height="28"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                 <state key="normal" title="FORGOT">
                                     <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -800,20 +800,20 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pg7-Si-lqp" customClass="GIDSignInButton">
-                                <rect key="frame" x="20" y="457.66666666666669" width="374" height="40"/>
+                                <rect key="frame" x="20" y="412.66666666666669" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jbf-QT-jKh"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please sign in to enable chat with space owners, favourite spaces and post your own spaces." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZX-Xd-Fqd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please sign in to enable chat with space owners, favourite spaces and post your own spaces." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="iZX-Xd-Fqd">
                                 <rect key="frame" x="20" y="801.66666666666663" width="374" height="40.333333333333371"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfk-nD-k8Y">
-                                <rect key="frame" x="20" y="344" width="170" height="28"/>
+                                <rect key="frame" x="20" y="299" width="170" height="28"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                 <state key="normal" title="REGISTER">
                                     <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -830,7 +830,7 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="iZX-Xd-Fqd" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="4jl-22-eBk"/>
                             <constraint firstItem="iZX-Xd-Fqd" firstAttribute="bottom" secondItem="TV2-Un-BpR" secondAttribute="bottom" constant="-20" id="7lM-v3-Xnz"/>
                             <constraint firstItem="sFC-Iu-AGT" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="7lm-gD-ubv"/>
-                            <constraint firstItem="dNX-df-tru" firstAttribute="top" secondItem="TV2-Un-BpR" secondAttribute="top" constant="80" id="GAz-Xc-Yzn"/>
+                            <constraint firstItem="dNX-df-tru" firstAttribute="top" secondItem="TV2-Un-BpR" secondAttribute="top" constant="35" id="GAz-Xc-Yzn"/>
                             <constraint firstItem="bSN-xd-ry2" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="Hu5-RR-wNA"/>
                             <constraint firstItem="mfk-nD-k8Y" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="8" id="IfZ-6T-5Du"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="LOf-dR-Tuc" secondAttribute="trailing" constant="19" id="JYJ-gG-Ixt"/>
@@ -853,6 +853,7 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="top" secondItem="ofe-bV-dtz" secondAttribute="bottom" constant="15" id="uOJ-L4-EaZ"/>
                             <constraint firstItem="Pg7-Si-lqp" firstAttribute="top" secondItem="bSN-xd-ry2" secondAttribute="bottom" constant="15" id="w64-Zk-KKr"/>
                             <constraint firstItem="NdX-wC-fyU" firstAttribute="top" secondItem="sFC-Iu-AGT" secondAttribute="bottom" constant="16" id="xNQ-V2-atw"/>
+                            <constraint firstItem="iZX-Xd-Fqd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Pg7-Si-lqp" secondAttribute="bottom" constant="70" id="xn0-T4-32w"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="dNX-df-tru" secondAttribute="trailing" id="y3J-Br-JlD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TV2-Un-BpR"/>
@@ -1010,7 +1011,7 @@ Long press and drag to reorder.</string>
                                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzC-ci-avM" userLabel="Success View">
                                             <rect key="frame" x="55" y="268.33333333333331" width="304" height="215.33333333333331"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration Success" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imb-hS-4dk">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration Success" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="imb-hS-4dk">
                                                     <rect key="frame" x="20" y="33" width="264" height="20"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
