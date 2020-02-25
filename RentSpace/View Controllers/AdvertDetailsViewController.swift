@@ -39,7 +39,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var pageControl: FSPageControl! {
         didSet {
             self.pageControl.numberOfPages = images.count
-            print(images.count)
             self.pageControl.contentHorizontalAlignment = .right
             self.pageControl.contentInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             self.pageControl.hidesForSinglePage = true
@@ -365,7 +364,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
 extension AdvertDetailsViewController: MKMapViewDelegate {
     
     func setLocationOnMap() {
-        CLGeocoder().geocodeAddressString(space.city + ", " + postcode) { (placemark, error) in
+        CLGeocoder().geocodeAddressString(space.city + ", " + postcode + ", " + space.subAdminArea) { (placemark, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
             }
