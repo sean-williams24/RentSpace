@@ -97,7 +97,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Nb7-eZ-pqt">
                                 <rect key="frame" x="0.0" y="131" width="414" height="350"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
                                 <connections>
@@ -319,6 +319,7 @@
                         <outlet property="signInButton" destination="ham-JV-sYS" id="avp-DA-Dss"/>
                         <outlet property="signedOutView" destination="zIk-Do-vXS" id="XKy-Qn-AUI"/>
                         <outlet property="spaceTypePicker" destination="PPq-ku-dP1" id="XFf-dI-EGC"/>
+                        <outlet property="stackView" destination="bni-hu-Fa6" id="dfX-Z9-96P"/>
                         <outlet property="titleTextField" destination="4Fh-BY-k5N" id="a4t-dt-SoD"/>
                         <outlet property="uploadView" destination="1w7-kO-6Ag" id="b7C-iH-rjB"/>
                     </connections>
@@ -536,7 +537,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DQX-SC-Dlv">
-                                <rect key="frame" x="0.0" y="88" width="414" height="634.66666666666663"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="641.66666666666663"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nPm-rx-yH1">
                                     <size key="itemSize" width="200" height="200"/>
@@ -574,12 +575,12 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQT-Sm-Kfw">
-                                <rect key="frame" x="10" y="742.66666666666663" width="394" height="60.333333333333371"/>
+                                <rect key="frame" x="10" y="749.66666666666663" width="394" height="53.333333333333371"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <string key="text">Add up to 9 photos.
 Tap photos to delete.
 Long press and drag to reorder.</string>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>

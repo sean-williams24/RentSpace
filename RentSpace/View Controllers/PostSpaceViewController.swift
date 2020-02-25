@@ -30,6 +30,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet var signedOutView: UIView!
     @IBOutlet var signInButton: UIButton!
     @IBOutlet var imagesActivityView: NVActivityIndicatorView!
+    @IBOutlet weak var stackView: UIStackView!
     
     
     // MARK: - Properties
@@ -57,6 +58,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     var uniqueAdvertID = ""
     var firebaseImageURLsDict: [String:String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
+    let hideKeyboardButtonSpacePicker = UIButton()
+    let hideKeyboardButtonPricePicker = UIButton()
+
     
     
     //MARK: - Life Cycle
@@ -103,6 +107,17 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.resignFirstResponder()
+        let height = priceRatePicker.frame.height
+
+        hideKeyboardButtonSpacePicker.frame = CGRect(x: 0, y: descriptionTextView.frame.maxY + 3, width: view.frame.width, height: height)
+        hideKeyboardButtonSpacePicker.addTarget(self, action: #selector(tapAndHideKeyboard), for: .touchUpInside)
+        hideKeyboardButtonSpacePicker.isUserInteractionEnabled = false
+        view.addSubview(hideKeyboardButtonSpacePicker)
+        
+        hideKeyboardButtonPricePicker.frame = CGRect(x: view.frame.width / 2, y: descriptionTextView.frame.maxY + height + 6, width: view.frame.width / 2, height: height)
+        hideKeyboardButtonPricePicker.addTarget(self, action: #selector(tapAndHideKeyboard), for: .touchUpInside)
+        hideKeyboardButtonPricePicker.isUserInteractionEnabled = false
+        view.addSubview(hideKeyboardButtonPricePicker)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -164,6 +179,8 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         } else {
             loadUDImages(for: "Images")
             descriptionTextView.text = defaults.string(forKey: "Description") ?? descriptionViewPlaceholder
+            descriptionTextView.textColor = descriptionTextView.text == descriptionViewPlaceholder ? .lightGray : .white
+
             email = defaults.string(forKey: "Email") ?? ""
             city = defaults.string(forKey: "City") ?? ""
             location = defaults.string(forKey: "Country") ?? ""
@@ -288,12 +305,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     fileprivate func configureUI() {
         // Title textfield
         addLeftPadding(for: titleTextField, placeholderText: "Title", placeholderColour: .lightGray)
+        titleTextField.tintColor = .black
         
         // Description textView
         descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 4, right: 4)
-        descriptionTextView.textColor = .lightGray
         descriptionTextView.text = descriptionViewPlaceholder
         descriptionTextView.delegate = self
+        descriptionTextView.tintColor = .black
+
+        descriptionTextView.textColor = descriptionTextView.text == descriptionViewPlaceholder ? .lightGray : .white
         
         // Location Button
         addDisclosureAccessoryView(for: locationButton)
@@ -306,6 +326,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         spaceTypePickerContent = ["Art Studio", "Photography Studio", "Music Studio", "Desk Space"]
         priceRatePickerContent = ["Hourly", "Daily", "Weekly", "Monthly", "Annually"]
         priceTextField.attributedPlaceholder = NSAttributedString(string: "Price", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        priceTextField.tintColor = .black
         
         signInButton.layer.cornerRadius = Settings.cornerRadius
         uploadView.isHidden = true
@@ -313,6 +334,14 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         let insets = UIEdgeInsets(top: 45, left: 0, bottom: 55, right: 0)
         addPhotosButton.imageEdgeInsets = insets
         addPhotosButton.imageView?.contentMode = .scaleAspectFit
+        
+
+    }
+    
+    @objc func tapAndHideKeyboard(sender: UIButton!) {
+        view.endEditing(true)
+        hideKeyboardButtonSpacePicker.isUserInteractionEnabled = false
+        hideKeyboardButtonPricePicker.isUserInteractionEnabled = false
     }
     
     
@@ -592,9 +621,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
 extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        if view.frame.origin.y != 0 {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                self.view.frame.origin.y = 0
+            })
+        }
+        
         if descriptionTextView.text == descriptionViewPlaceholder {
             descriptionTextView.text = ""
-            descriptionTextView.textColor = .black
+            descriptionTextView.textColor = .white
         }
     }
     
@@ -612,8 +647,6 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
             defaults.set(descriptionTextView.text, forKey: "\(update)Description")
         }
         
-        
-        
         descriptionTextView.resignFirstResponder()
     }
     
@@ -626,6 +659,9 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
         if priceTextField.isEditing {
             view.frame.origin.y = -getKeyboardHeight(notifictation) + 70
         }
+        
+        hideKeyboardButtonSpacePicker.isUserInteractionEnabled = true
+        hideKeyboardButtonPricePicker.isUserInteractionEnabled = true
     }
 }
 
@@ -696,7 +732,7 @@ extension PostSpaceViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         let label = UILabel()
         label.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = Settings.orangeTint
         label.layer.borderWidth = .zero
         
         if pickerView.tag == 1 {

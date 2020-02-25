@@ -156,7 +156,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             descriptionTextView.text = space.description
         }
         
-        pagerView.transformer = FSPagerViewTransformer(type: .invertedFerrisWheel)
+        pagerView.transformer = FSPagerViewTransformer(type: .overlap)
         self.pagerView.bringSubviewToFront(self.pageControl)
 
         
