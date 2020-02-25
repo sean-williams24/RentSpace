@@ -20,7 +20,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var phoneNumberTextField: UITextField!
-    @IBOutlet var streetLabel: UITextField!
     @IBOutlet var townLabel: UITextField!
     @IBOutlet var cityLabel: UITextField!
     @IBOutlet var countyLabel: UITextField!
@@ -59,7 +58,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         
         addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
         addLeftPadding(for: phoneNumberTextField, placeholderText: "Phone", placeholderColour: .gray)
-        addLeftPadding(for: streetLabel, placeholderText: "Street", placeholderColour: .gray)
         addLeftPadding(for: townLabel, placeholderText: "Town", placeholderColour: .gray)
         addLeftPadding(for: cityLabel, placeholderText: "City", placeholderColour: .gray)
         addLeftPadding(for: countyLabel, placeholderText: "County", placeholderColour: .gray)
