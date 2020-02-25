@@ -117,7 +117,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             if arrivedFromFavourites { favouritesButton.isHidden = true }
         }
         
-        titleLabel.text = space.title.uppercased()
+        titleLabel.text = space.title
         priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         locationLabel.text = formatAddress(for: space)
         postcode = space.postcode

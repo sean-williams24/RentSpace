@@ -80,22 +80,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     }
     
     
-    func renderCirlularImage(for image: UIImage?) -> UIImage {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 100))
-        let img = renderer.image { (ctx) in
-            
-            image?.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
-            
-            let rectangle = CGRect(x: -25, y: -25, width: 150, height: 150)
-            ctx.cgContext.setStrokeColor(Settings.flipsideBlackColour.cgColor)
-            ctx.cgContext.setLineWidth(50)
-            ctx.cgContext.strokeEllipse(in: rectangle)
-            ctx.cgContext.drawPath(using: .stroke)
-        }
-        return img
-    }
-    
-    
     // MARK: - Action Methods
     
     @IBAction func signInButtonTapped(_ sender: Any) {

@@ -113,12 +113,11 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
         } else {
             // New chat initiated
-            let advertTitle = space.title
-            advertTitleLabel.text = advertTitle
+            advertTitleLabel.text = space.title
             locationLabel.text = formatAddress(for: space)
             priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         }
-        imageView.image = thumbnail
+        imageView.image = renderCirlularImage(for: thumbnail)
     }
     
     

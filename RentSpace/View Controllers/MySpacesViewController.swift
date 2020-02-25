@@ -253,6 +253,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.activityView.startAnimating()
         cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
         cell.customImageView.layer.borderWidth = 1
+        cell.customImageView.layer.cornerRadius = 10
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category

@@ -28,6 +28,7 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         let request = MKLocalSearch.Request()
         let region = MKCoordinateRegion(center: Location.userCLLocation.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         request.naturalLanguageQuery = searchBarText
+    
         request.region = region
         
         let search = MKLocalSearch(request: request)
