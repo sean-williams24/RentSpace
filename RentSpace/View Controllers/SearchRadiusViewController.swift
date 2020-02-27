@@ -58,7 +58,8 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         searchButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         
         // LOCATION
-        let currentLocation = UserDefaults.standard.string(forKey: "Location")
+        let currentLocation = UserDefaults.standard.string(forKey: "Location") != nil ? UserDefaults.standard.string(forKey: "Location") : Location.userLocationCity
+        
         locationButton.setTitle(currentLocation, for: .normal)
         locationButton.layer.borderColor = Settings.orangeTint.cgColor
         locationButton.layer.borderWidth = 1
@@ -138,6 +139,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         self.location = location
         
         Location.customCLLocation = location
+        Location.savedLocationExists = true
         locationUpdated = true
         navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
     }

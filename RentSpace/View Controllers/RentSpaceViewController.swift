@@ -90,9 +90,6 @@ class RentSpaceViewController: UIViewController {
         }
     }
     
-
-    
- 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -111,7 +108,6 @@ class RentSpaceViewController: UIViewController {
                 self.arrow.blink(duration: 0.7, delay: 0, alpha: 0.05)
             }
         }
-        
     }
     
     

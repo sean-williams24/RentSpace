@@ -551,6 +551,7 @@
 			baseConfigurationReference = CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;
@@ -571,6 +572,7 @@
 			baseConfigurationReference = 47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;

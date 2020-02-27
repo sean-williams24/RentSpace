@@ -162,6 +162,8 @@ extension UIViewController {
     
     func showLoadingUI(_ loading: Bool, for activityView: NVActivityIndicatorView, label: UILabel) {
         if loading {
+            label.text = "Finding Spaces..."
+            label.alpha = 0
             activityView.startAnimating()
             UIView.animate(withDuration: 7) {
                 label.alpha = 1

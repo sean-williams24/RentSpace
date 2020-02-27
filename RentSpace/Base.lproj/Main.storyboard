@@ -1429,7 +1429,7 @@ Long press and drag to reorder.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Skl-mz-RrI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1144"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1162"/>
                                         <subviews>
                                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayR-Fd-bHX" customClass="FSPagerView" customModule="FSPagerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
@@ -1474,7 +1474,7 @@ Long press and drag to reorder.</string>
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aa7-8r-g9r">
-                                                <rect key="frame" x="0.0" y="353" width="414" height="35"/>
+                                                <rect key="frame" x="0.0" y="356" width="414" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pirate Studios" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="d3q-aY-7vC">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="35"/>
@@ -1497,7 +1497,7 @@ Long press and drag to reorder.</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PxR-6M-LyC">
-                                                <rect key="frame" x="0.0" y="391" width="414" height="40"/>
+                                                <rect key="frame" x="0.0" y="397" width="414" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gB-wV-fgr">
                                                         <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
@@ -1562,14 +1562,14 @@ Long press and drag to reorder.</string>
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2x-jo-Tk4">
-                                                <rect key="frame" x="0.0" y="434" width="414" height="2"/>
+                                                <rect key="frame" x="0.0" y="443" width="414" height="2"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="GFe-h7-KaW"/>
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-IP-VZw">
-                                                <rect key="frame" x="0.0" y="439" width="414" height="379"/>
+                                                <rect key="frame" x="0.0" y="451" width="414" height="379"/>
                                                 <color key="backgroundColor" red="0.11502255798450685" green="0.12089633670673536" blue="0.13153725136355099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="uIt-MQ-ARt"/>
@@ -1591,7 +1591,7 @@ Only the best gear here.</string>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="CV6-2b-oKf">
-                                                <rect key="frame" x="0.0" y="821" width="414" height="30"/>
+                                                <rect key="frame" x="0.0" y="836" width="414" height="30"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin-orange" translatesAutoresizingMaskIntoConstraints="NO" id="AIm-s0-uiG">
                                                         <rect key="frame" x="0.0" y="5" width="40" height="20"/>
@@ -1630,7 +1630,7 @@ Only the best gear here.</string>
                                                 </subviews>
                                             </stackView>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HoM-Ul-2MJ">
-                                                <rect key="frame" x="0.0" y="854" width="414" height="290"/>
+                                                <rect key="frame" x="0.0" y="872" width="414" height="290"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="290" id="3po-QG-QmH"/>
                                                 </constraints>
@@ -1791,7 +1791,7 @@ Only the best gear here.</string>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="3DY-EW-EmD" firstAttribute="top" secondItem="fW7-5d-pF2" secondAttribute="top" id="D5Z-TS-0ov"/>
                                             <constraint firstItem="7q9-fX-exj" firstAttribute="leading" secondItem="fW7-5d-pF2" secondAttribute="leading" id="QfM-YX-Krw"/>
@@ -1819,7 +1819,7 @@ Only the best gear here.</string>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="U8o-th-jq3" firstAttribute="top" secondItem="6Xs-tv-yvg" secondAttribute="top" id="0Bv-8H-a9Y"/>
                                             <constraint firstAttribute="trailing" secondItem="U8o-th-jq3" secondAttribute="trailing" id="EMr-AW-aTL"/>
@@ -1834,7 +1834,7 @@ Only the best gear here.</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNi-Jb-3gR">
                                         <rect key="frame" x="0.0" y="362.66666666666669" width="414" height="178.00000000000006"/>
                                         <subviews>
-                                            <button opaque="NO" alpha="0.14999999999999999" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cid-Hb-u6q">
+                                            <button opaque="NO" alpha="0.20000000000000001" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cid-Hb-u6q">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="178"/>
                                                 <state key="normal" title="Button" image="Music Studio"/>
                                                 <connections>
@@ -1847,7 +1847,7 @@ Only the best gear here.</string>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.030074014239115258" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Cid-Hb-u6q" firstAttribute="leading" secondItem="bNi-Jb-3gR" secondAttribute="leading" id="22D-J1-yny"/>
                                             <constraint firstAttribute="trailing" secondItem="chi-xL-81Q" secondAttribute="trailing" constant="20" symbolic="YES" id="A5y-P3-OPu"/>
@@ -1875,7 +1875,7 @@ Only the best gear here.</string>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="Xhl-K4-63A" secondAttribute="bottom" constant="31" id="81L-LQ-N5e"/>
                                             <constraint firstAttribute="bottom" secondItem="2jb-m5-bdF" secondAttribute="bottom" id="8B8-Rn-lGw"/>

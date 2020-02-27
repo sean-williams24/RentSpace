@@ -51,7 +51,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         
         let savedLocation = UserDefaults.standard.string(forKey: "Location")
         let savedLocationPostcode = UserDefaults.standard.string(forKey: "LocationPostcode") ?? ""
-        
+
         if let savedLocation = savedLocation {
             Location.savedLocationExists = true
             CLGeocoder().geocodeAddressString(savedLocation + " " + savedLocationPostcode) { (placemark, error) in
