@@ -18,6 +18,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     
     @IBOutlet var locationButton: UIButton!
     @IBOutlet var pickerView: UIPickerView!
+    @IBOutlet weak var searchButton: UIButton!
     
     
     // MARK: - Properties
@@ -34,7 +35,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     var locationUpdated = false
     var distanceUpdated = false
     var pickerDistances = [String]()
-    var searchButton: UIBarButtonItem!
     
     
     // MARK: - Life Cycle
@@ -54,8 +54,13 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         titleButton.addTarget(self, action: #selector(addressSearch), for: .touchUpInside)
         navigationItem.titleView = titleButton
         
-        searchButton = UIBarButtonItem(title: "Search", style: .plain, target: nil, action: nil)
-        searchButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.view.backgroundColor = .black
+        
+        searchButton.alpha = 0
+        searchButton.layer.cornerRadius = Settings.cornerRadius
         
         // LOCATION
         let currentLocation = UserDefaults.standard.string(forKey: "Location") != nil ? UserDefaults.standard.string(forKey: "Location") : Location.userLocationCity
@@ -83,21 +88,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
                 pickerView.selectRow(index, inComponent: 0, animated: true)
             }
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if locationUpdated {
-            delegate?.didUpdateLocation(town: town, city: city, county: county, postcode: postcode, country: country, location: location!, distance: searchDistance)
-        }
-        
-        if distanceUpdated {
-            delegate?.didUpdate(distance: searchDistance)
-            UserDefaults.standard.set(searchDistance, forKey: "Distance")
-        }
-        
-        navigationController?.children[1].navigationItem.backBarButtonItem = UIBarButtonItem(title: "-", style: .plain, target: nil, action: nil)
     }
     
     
@@ -141,7 +131,10 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         Location.customCLLocation = location
         Location.savedLocationExists = true
         locationUpdated = true
-        navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
+        
+        UIView.animate(withDuration: 1) {
+            self.searchButton.alpha = 1
+        }
     }
     
     
@@ -150,7 +143,12 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         let searchBar = resultsSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Enter Postcode or Address"
+        searchBar.tintColor = .white
         searchBar.keyboardAppearance = .dark
+        
+        let textfieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textfieldInsideSearchBar?.textColor = .white
+        
         self.navigationItem.titleView = self.resultsSearchController?.searchBar
         navigationController?.setNavigationBarHidden(false, animated: true)
         
@@ -163,6 +161,20 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     
     @IBAction func locationButtonTapped(_ sender: Any) {
         addressSearch()
+    }
+    
+    
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        if locationUpdated {
+            delegate?.didUpdateLocation(town: town, city: city, county: county, postcode: postcode, country: country, location: location!, distance: searchDistance)
+        }
+        
+        if distanceUpdated {
+            delegate?.didUpdate(distance: searchDistance)
+            UserDefaults.standard.set(searchDistance, forKey: "Distance")
+        }
+        
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -200,6 +212,9 @@ extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         searchDistance = Double(pickerDistances[row])!
         distanceUpdated = true
-        navigationController?.children[1].navigationItem.backBarButtonItem = searchButton
+        
+        UIView.animate(withDuration: 1) {
+            self.searchButton.alpha = 1
+        }
     }
 }

@@ -63,6 +63,7 @@ class RentSpaceViewController: UIViewController {
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = rightBarButton
+
         
         storageRef = FirebaseClient.storageRef
         ref = FirebaseClient.databaseRef

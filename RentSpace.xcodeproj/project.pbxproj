@@ -93,6 +93,7 @@
 		CEC0B93623D21CF4004DC4E6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		CEC0B93C23D72013004DC4E6 /* SenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderTableViewCell.swift; sourceTree = "<group>"; };
+		CEC1045F2407EE0A001A39C5 /* RentSpace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RentSpace.entitlements; sourceTree = "<group>"; };
 		CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesViewController.swift; sourceTree = "<group>"; };
 		CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesTableViewCell.swift; sourceTree = "<group>"; };
 		CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +168,7 @@
 		CE084078238D40B200DA57C8 /* RentSpace */ = {
 			isa = PBXGroup;
 			children = (
+				CEC1045F2407EE0A001A39C5 /* RentSpace.entitlements */,
 				CE084079238D40B200DA57C8 /* AppDelegate.swift */,
 				CE08407B238D40B200DA57C8 /* SceneDelegate.swift */,
 				CE084098238EA95800DA57C8 /* Model */,
@@ -551,6 +553,7 @@
 			baseConfigurationReference = CD8A875980191F6D936665A9 /* Pods-RentSpace.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RentSpace/RentSpace.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;
@@ -572,6 +575,7 @@
 			baseConfigurationReference = 47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RentSpace/RentSpace.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;

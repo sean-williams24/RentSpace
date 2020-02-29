@@ -1365,7 +1365,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISTANCE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWN-L4-zNy">
-                                <rect key="frame" x="20" y="334" width="374" height="20"/>
+                                <rect key="frame" x="20" y="274" width="374" height="20"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1380,7 +1380,7 @@ Long press and drag to reorder.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sOP-oZ-9Lf">
-                                <rect key="frame" x="0.0" y="362" width="414" height="85"/>
+                                <rect key="frame" x="0.0" y="302" width="414" height="85"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="nEn-0c-nwq"/>
@@ -1390,18 +1390,35 @@ Long press and drag to reorder.</string>
                                     <outlet property="delegate" destination="B67-Xa-RbB" id="uYt-3r-l8g"/>
                                 </connections>
                             </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUj-0c-FIg">
+                                <rect key="frame" x="20" y="784" width="374" height="50"/>
+                                <color key="backgroundColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="eNH-gc-kFy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="SEARCH">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchButtonTapped:" destination="B67-Xa-RbB" eventType="touchUpInside" id="5aO-0Y-Gf9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="sOP-oZ-9Lf" firstAttribute="top" secondItem="AWN-L4-zNy" secondAttribute="bottom" constant="8" id="Eua-4W-elB"/>
-                            <constraint firstItem="AWN-L4-zNy" firstAttribute="top" secondItem="m8y-ps-QGL" secondAttribute="bottom" constant="100" id="F8Y-Ch-7Xl"/>
+                            <constraint firstItem="AWN-L4-zNy" firstAttribute="top" secondItem="m8y-ps-QGL" secondAttribute="bottom" constant="40" id="F8Y-Ch-7Xl"/>
                             <constraint firstItem="m8y-ps-QGL" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="FC8-Cj-3SS"/>
                             <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="Rqa-6G-5aX" secondAttribute="trailing" constant="20" id="HWL-6P-KVq"/>
                             <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="m8y-ps-QGL" secondAttribute="trailing" constant="20" id="JDL-g5-bPW"/>
+                            <constraint firstItem="WUj-0c-FIg" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="W5I-p3-anb"/>
+                            <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="WUj-0c-FIg" secondAttribute="trailing" constant="20" id="WHR-OT-yEa"/>
                             <constraint firstItem="m8y-ps-QGL" firstAttribute="top" secondItem="Rqa-6G-5aX" secondAttribute="bottom" constant="26" id="Yhu-PM-lEB"/>
                             <constraint firstItem="Rqa-6G-5aX" firstAttribute="top" secondItem="AiR-nn-7rU" secondAttribute="top" constant="93" id="iGj-Z9-Mk1"/>
                             <constraint firstItem="sOP-oZ-9Lf" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" id="qm7-BQ-0qG"/>
                             <constraint firstItem="AiR-nn-7rU" firstAttribute="trailing" secondItem="AWN-L4-zNy" secondAttribute="trailing" constant="20" id="u77-Sq-rCl"/>
+                            <constraint firstItem="AiR-nn-7rU" firstAttribute="bottom" secondItem="WUj-0c-FIg" secondAttribute="bottom" constant="28" id="uHq-x6-Inb"/>
                             <constraint firstItem="sOP-oZ-9Lf" firstAttribute="trailing" secondItem="AiR-nn-7rU" secondAttribute="trailing" id="up1-wr-P9z"/>
                             <constraint firstItem="Rqa-6G-5aX" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="wyX-A9-lAr"/>
                             <constraint firstItem="AWN-L4-zNy" firstAttribute="leading" secondItem="AiR-nn-7rU" secondAttribute="leading" constant="20" id="zwi-zo-RKY"/>
@@ -1411,6 +1428,7 @@ Long press and drag to reorder.</string>
                     <connections>
                         <outlet property="locationButton" destination="m8y-ps-QGL" id="lL7-2J-5w5"/>
                         <outlet property="pickerView" destination="sOP-oZ-9Lf" id="am6-CX-yaA"/>
+                        <outlet property="searchButton" destination="WUj-0c-FIg" id="tQk-Lv-Mc9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RIL-6z-D1U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
