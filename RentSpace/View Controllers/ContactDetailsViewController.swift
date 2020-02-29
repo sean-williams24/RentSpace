@@ -41,7 +41,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(inUpdateMode)
+        
         let addressSearchTable = storyboard!.instantiateViewController(identifier: "AddressSearchTableVC") as! AddressSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable
@@ -50,7 +50,11 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         let searchBar = resultsSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Enter Postcode or Address"
-        searchBar.keyboardAppearance = .dark    
+        searchBar.keyboardAppearance = .dark
+        
+        let searchBarTextfield = searchBar.value(forKey: "searchField") as? UITextField
+        searchBarTextfield?.textColor = .white
+        
         navigationItem.titleView = resultsSearchController?.searchBar
         
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
@@ -97,6 +101,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             countryLabel.text = UserDefaults.standard.string(forKey: "Country")
             postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
             viewOnMapSwitch.isOn = UserDefaults.standard.bool(forKey: "ViewOnMap")
+            
+            navigationItem.hidesBackButton = true
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "SAVE  ", style: .plain, target: nil, action: #selector(navigationController?.popViewController(animated:)))
             
             dismissKeyboardOnViewTap()
         }

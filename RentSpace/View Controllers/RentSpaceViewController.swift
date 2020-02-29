@@ -94,7 +94,8 @@ class RentSpaceViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.arrow.alpha = 0
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if self.spaces.isEmpty {
                 UIView.animate(withDuration: 1) {
