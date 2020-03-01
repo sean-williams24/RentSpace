@@ -143,7 +143,9 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         UINavigationBar.appearance().tintColor = Settings.orangeTint // Left. bar buttons
      
         config.colors.tintColor = Settings.orangeTint // Right bar buttons (actions)
-        config.icons.multipleSelectionOnIcon.withTintColor(Settings.orangeTint)
+        if #available(iOS 13.0, *) {
+            config.icons.multipleSelectionOnIcon.withTintColor(Settings.orangeTint)
+        } 
         config.colors.multipleItemsSelectedCircleColor = Settings.orangeTint
         config.icons.capturePhotoImage = UIImage(named: "circle-button")!
         config.hidesStatusBar = false

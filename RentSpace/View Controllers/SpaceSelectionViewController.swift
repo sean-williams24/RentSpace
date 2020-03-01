@@ -64,7 +64,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         }
         
-        let registerVC = storyboard?.instantiateViewController(identifier: "RegisterVC") as! RegisterViewController
+        let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         registerVC.delegate = self
         appDelegate.delegate = self
@@ -164,6 +164,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill
+        
     }
     
     
@@ -195,7 +196,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     
     @IBAction func signInButtonTapped(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
         vc.delegate = self
         present(vc, animated: true)
     }    

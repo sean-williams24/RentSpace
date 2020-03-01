@@ -93,7 +93,11 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         scrollViewTopConstraint.constant = -height
         
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
-        editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
+        if #available(iOS 13.0, *) {
+            editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
+        } else {
+            editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAdvert))
+        }
         navigationItem.rightBarButtonItems = [trashButton, editButton]
         
         if editingMode {
@@ -240,7 +244,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     
     @objc func editAdvert() {
-        if let vc = storyboard?.instantiateViewController(identifier: "PostSpaceNavVC") {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "PostSpaceNavVC") {
             let postSpaceVC = vc.children[0] as! PostSpaceViewController
             postSpaceVC.space = self.space
             postSpaceVC.updatingAdvert = true
@@ -315,7 +319,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 favouritesButton.tintColor = Settings.orangeTint
             }
         } else {
-            let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+            let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)
         }
     }
@@ -323,12 +327,12 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func messageButtonTapped(_ sender: Any) {
         if Auth.auth().currentUser != nil {
-            let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
+            let vc = storyboard?.instantiateViewController(withIdentifier: "MessageVC") as! MessageViewController
             vc.space = space
             vc.thumbnail = thumbnail
             navigationController?.pushViewController(vc, animated: true)
         } else {
-            let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+            let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
             present(vc, animated: true)
         }
     }

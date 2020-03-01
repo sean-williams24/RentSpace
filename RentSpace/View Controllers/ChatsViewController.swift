@@ -159,7 +159,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(identifier: "MessageVC") as! MessageViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MessageVC") as! MessageViewController
         let chat = chats[indexPath.section]
         vc.chat = chat
         vc.viewingExistingChat = true

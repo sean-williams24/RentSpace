@@ -30,8 +30,8 @@ class UpdateCredentialsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var destination = UIViewController()
-        let updateVC = storyboard?.instantiateViewController(identifier: "UpdateDetailsVC") as! UpdateDetailsViewController
-        let deleteVC = storyboard?.instantiateViewController(identifier: "DeleteAccountVC") as! DeleteAccountViewController
+        let updateVC = storyboard?.instantiateViewController(withIdentifier: "UpdateDetailsVC") as! UpdateDetailsViewController
+        let deleteVC = storyboard?.instantiateViewController(withIdentifier: "DeleteAccountVC") as! DeleteAccountViewController
         destination = updateVC
         
         switch indexPath.row {

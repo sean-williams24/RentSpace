@@ -317,7 +317,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AdvertDetailsVC") as! AdvertDetailsViewController
         vc.space = mySpaces[indexPath.section]
         
         if viewingFavourites {

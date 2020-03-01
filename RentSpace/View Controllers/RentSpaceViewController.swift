@@ -34,7 +34,7 @@ class RentSpaceViewController: UIViewController {
     var location = ""
     var searchAreaButtonTitle = ""
     var rightBarButton = UIBarButtonItem()
-    var searchDistance = 20.00
+//    var searchDistance = 100.00
     
     
     // MARK: - Life Cycle
@@ -192,7 +192,7 @@ class RentSpaceViewController: UIViewController {
     
     
     @objc func setSearchRadius() {
-        let vc = storyboard?.instantiateViewController(identifier: "SearchRadiusVC") as! SearchRadiusViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SearchRadiusVC") as! SearchRadiusViewController
         vc.delegate = self
         show(vc, sender: self)
     }
@@ -298,7 +298,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(identifier: "AdvertDetailsVC") as! AdvertDetailsViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AdvertDetailsVC") as! AdvertDetailsViewController
         vc.space = spaces[indexPath.section]
         show(vc, sender: self)
     }

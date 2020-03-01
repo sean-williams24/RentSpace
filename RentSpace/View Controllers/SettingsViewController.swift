@@ -120,7 +120,7 @@ class SettingsViewController: UIViewController {
             
         } else {
             // If no user currently signed in, show signInVC and set delegates to update UI once signed in
-            let vc = storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+            let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             vc.delegate = self
             appDelegate.delegate = self

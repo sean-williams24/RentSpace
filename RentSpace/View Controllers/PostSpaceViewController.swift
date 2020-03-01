@@ -429,7 +429,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
                 self?.imagesSavedToDisk = []
                 self?.imagesToUpload = []
                 
-                let vc = self?.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                let vc = self?.storyboard?.instantiateViewController(withIdentifier: "PostConfirmationVC") as! PostConfirmationViewController
                 vc.modalPresentationStyle = .fullScreen
                 vc.updatingAdvert = true
                 self?.present(vc, animated: true)
@@ -452,7 +452,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
                     print("Upload Complete")
                     self?.resetUIandUserDefaults()
                     
-                    let vc = self?.storyboard?.instantiateViewController(identifier: "PostConfirmationVC") as! PostConfirmationViewController
+                    let vc = self?.storyboard?.instantiateViewController(withIdentifier: "PostConfirmationVC") as! PostConfirmationViewController
                     self?.present(vc, animated: true)
                 }
             }
@@ -610,7 +610,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     
     
     @IBAction func signInButtonTapped(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "SignInVC") as! SignInViewController
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
         self.present(vc, animated: true)
     }
 }

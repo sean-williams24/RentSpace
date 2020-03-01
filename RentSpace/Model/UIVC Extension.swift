@@ -187,17 +187,16 @@ extension UIViewController {
                 categoryImage = tintableImage
             }
         case "Photography Studio":
-            if let image = UIImage(systemName: "camera") {
-                let tintableImage = image.withRenderingMode(.alwaysTemplate)
-                categoryImage = tintableImage
-            }
+            if let image = UIImage(named: "camera") {
+                 categoryImage = image.withRenderingMode(.alwaysTemplate)
+             }
         case "Music Studio":
-            if let image = UIImage(systemName: "music.mic") {
+            if let image = UIImage(named: "music.mic") {
                 let tintableImage = image.withRenderingMode(.alwaysTemplate)
                 categoryImage = tintableImage
             }
         case "Desk Space":
-            if let image = UIImage(systemName: "desktopcomputer") {
+            if let image = UIImage(named: "desktopcomputer") {
                 let tintableImage = image.withRenderingMode(.alwaysTemplate)
                 categoryImage = tintableImage
             }

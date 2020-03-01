@@ -23,7 +23,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     
     // MARK: - Properties
     
-    var searchDistance: Double = 20.00
+    var searchDistance: Double = 100.00
     var resultsSearchController: UISearchController?
     var delegate: UpdateSearchLocationDelegate?
     var town: String!
@@ -42,7 +42,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let addressSearchTable = storyboard!.instantiateViewController(identifier: "ChangeSearchLocationTableVC") as! ChangeSearchLocationTableViewController
+        let addressSearchTable = storyboard!.instantiateViewController(withIdentifier: "ChangeSearchLocationTableVC") as! ChangeSearchLocationTableViewController
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable
         addressSearchTable.handleSetSearchLocationDelegate = self

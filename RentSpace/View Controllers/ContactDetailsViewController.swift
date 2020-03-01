@@ -42,7 +42,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let addressSearchTable = storyboard!.instantiateViewController(identifier: "AddressSearchTableVC") as! AddressSearchTableViewController
+        let addressSearchTable = storyboard!.instantiateViewController(withIdentifier: "AddressSearchTableVC") as! AddressSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable
         addressSearchTable.handleAddressSelectionDelegate = self
@@ -103,7 +103,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             viewOnMapSwitch.isOn = UserDefaults.standard.bool(forKey: "ViewOnMap")
             
             navigationItem.hidesBackButton = true
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "SAVE  ", style: .plain, target: nil, action: #selector(navigationController?.popViewController(animated:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save  ", style: .plain, target: nil, action: #selector(navigationController?.popViewController(animated:)))
             
             dismissKeyboardOnViewTap()
         }

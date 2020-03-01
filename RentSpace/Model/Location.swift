@@ -19,7 +19,7 @@ class Location {
     static var userCLLocation = CLLocation()
     static var userLocationAddress: CNPostalAddress?
     static var customCLLocation = CLLocation()
-    static var searchDistance: Double = 20
+    static var searchDistance: Double = 100.0
     static var savedLocationExists = false
 }
 
