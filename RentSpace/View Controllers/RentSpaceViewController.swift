@@ -24,6 +24,10 @@ class RentSpaceViewController: UIViewController {
     @IBOutlet var activityView: NVActivityIndicatorView!
     @IBOutlet var loadingLabel: UILabel!
     @IBOutlet var arrow: UIImageView!
+    @IBOutlet weak var firstLoadInfoView: UIView!
+    @IBOutlet weak var firstLoadViewCentre: NSLayoutConstraint!
+    @IBOutlet weak var firstLoadLabel: UILabel!
+    @IBOutlet weak var blurredView: UIVisualEffectView!
     
     // MARK: - Properties
     
@@ -34,7 +38,6 @@ class RentSpaceViewController: UIViewController {
     var location = ""
     var searchAreaButtonTitle = ""
     var rightBarButton = UIBarButtonItem()
-//    var searchDistance = 100.00
     
     
     // MARK: - Life Cycle
@@ -79,6 +82,23 @@ class RentSpaceViewController: UIViewController {
         }
         
         self.tableView.rowHeight = 150
+        
+        UIView.animate(withDuration: 0.3) {
+            self.blurredView.isHidden = false
+        }
+        let area = searchAreaButtonTitle.lowercased().capitalized
+        area.capitalized
+        firstLoadLabel.text = "Showing results for \(chosenCategory)'s in \(searchAreaButtonTitle.lowercased().capitalized) within a 100 mile radius. \n\nChange location and search radius by tapping the \(searchAreaButtonTitle.lowercased().capitalized) button above."
+        firstLoadInfoView.backgroundColor = Settings.flipsideBlackColour
+        firstLoadInfoView.layer.cornerRadius = 10
+        firstLoadInfoView.layer.borderWidth = 1
+//        firstLoadInfoView.layer.borderColor = UIColor.white.cgColor
+        firstLoadViewCentre.constant = 0
+        UIView.animate(withDuration: 0.9, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }) { _ in
+            //
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +118,7 @@ class RentSpaceViewController: UIViewController {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if self.spaces.isEmpty {
+                self.arrow.isHidden = false
                 UIView.animate(withDuration: 1) {
                     self.loadingLabel.alpha = 0
                     self.loadingLabel.text = "No spaces were found, try expanding your search radius and check your connection"
@@ -164,6 +185,7 @@ class RentSpaceViewController: UIViewController {
                                     $0.distance < $1.distance
                                 }
                                 self.tableView.reloadData()
+                                self.arrow.isHidden = true
                             }
                         }
                     }
@@ -196,7 +218,21 @@ class RentSpaceViewController: UIViewController {
         vc.delegate = self
         show(vc, sender: self)
     }
+    
+    
+    // MARK: - Action Methods
+
+    @IBAction func gotItButtonTapped(_ sender: Any) {
+        firstLoadViewCentre.constant = -1000
+        UIView.animate(withDuration: 0.9, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+             self.view.layoutIfNeeded()
+         }) { _ in
+            self.blurredView.isHidden = true
+         }
+
+    }
 }
+
 
 // MARK: - TableView Delegates & Datasource
 

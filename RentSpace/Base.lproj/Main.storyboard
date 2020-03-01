@@ -1312,20 +1312,79 @@ Long press and drag to reorder.</string>
                                     <constraint firstAttribute="height" constant="65" id="xm4-Ta-T86"/>
                                 </constraints>
                             </imageView>
+                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auZ-nj-gqG">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8Si-6V-2YK">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="systemUltraThinMaterial"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lr7-sm-Cmw" userLabel="First Load Info View">
+                                <rect key="frame" x="-745" y="173" width="304" height="109.66666666666669"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYa-U4-IVR">
+                                        <rect key="frame" x="0.0" y="59.666666666666657" width="304" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="xsO-AA-NNb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <state key="normal" title="Got It">
+                                            <color key="titleColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="gotItButtonTapped:" destination="T2e-aY-bb6" eventType="touchUpInside" id="Zpp-xw-pZo"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Searching" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="PUW-zK-2e3">
+                                        <rect key="frame" x="20" y="20" width="264" height="19"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FUf-Wg-Pek">
+                                        <rect key="frame" x="0.0" y="58.666666666666657" width="304" height="1"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="Zfg-AV-9JW"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="FUf-Wg-Pek" secondAttribute="trailing" id="5RH-dp-pHf"/>
+                                    <constraint firstItem="ZYa-U4-IVR" firstAttribute="top" secondItem="FUf-Wg-Pek" secondAttribute="bottom" id="91t-au-zjM"/>
+                                    <constraint firstItem="ZYa-U4-IVR" firstAttribute="leading" secondItem="lr7-sm-Cmw" secondAttribute="leading" id="Q3E-IE-dbq"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZYa-U4-IVR" secondAttribute="bottom" id="Qa2-Y7-jl2"/>
+                                    <constraint firstItem="PUW-zK-2e3" firstAttribute="leading" secondItem="lr7-sm-Cmw" secondAttribute="leading" constant="20" id="ZgG-FP-8EE"/>
+                                    <constraint firstItem="ZYa-U4-IVR" firstAttribute="top" secondItem="PUW-zK-2e3" secondAttribute="bottom" constant="20.5" id="ga7-3i-aVB"/>
+                                    <constraint firstAttribute="trailing" secondItem="PUW-zK-2e3" secondAttribute="trailing" constant="20" id="jpb-hh-3jh"/>
+                                    <constraint firstAttribute="width" constant="304" id="sry-oI-Qvo"/>
+                                    <constraint firstItem="FUf-Wg-Pek" firstAttribute="leading" secondItem="lr7-sm-Cmw" secondAttribute="leading" id="ueu-Ko-38L"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZYa-U4-IVR" secondAttribute="trailing" id="vSA-NN-pK2"/>
+                                    <constraint firstItem="PUW-zK-2e3" firstAttribute="top" secondItem="lr7-sm-Cmw" secondAttribute="top" constant="20" id="xpW-ae-1AZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="auZ-nj-gqG" firstAttribute="top" secondItem="Euz-Rl-Tla" secondAttribute="top" id="0BU-pO-rhc"/>
                             <constraint firstItem="kA7-Lq-uGw" firstAttribute="centerY" secondItem="Euz-Rl-Tla" secondAttribute="centerY" id="4Bl-uO-xHh"/>
+                            <constraint firstItem="auZ-nj-gqG" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" id="HZZ-Mo-syZ"/>
                             <constraint firstItem="gus-AO-6wg" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" constant="10" id="PEu-g4-xl1"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="bottom" secondItem="gus-AO-6wg" secondAttribute="bottom" constant="15" id="Q1P-4K-K1H"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="2qf-2o-eez" secondAttribute="trailing" id="Rml-g0-pj0"/>
                             <constraint firstItem="kA7-Lq-uGw" firstAttribute="centerX" secondItem="Euz-Rl-Tla" secondAttribute="centerX" id="TUS-iJ-XJo"/>
+                            <constraint firstItem="lr7-sm-Cmw" firstAttribute="top" secondItem="9CX-lo-ZJM" secondAttribute="bottom" constant="20" id="WSk-iq-MNB"/>
                             <constraint firstItem="2qf-2o-eez" firstAttribute="leading" secondItem="Euz-Rl-Tla" secondAttribute="leading" id="csg-kC-l0S"/>
                             <constraint firstItem="9CX-lo-ZJM" firstAttribute="top" secondItem="Euz-Rl-Tla" secondAttribute="top" id="gER-v7-jdY"/>
                             <constraint firstItem="2qf-2o-eez" firstAttribute="top" secondItem="Euz-Rl-Tla" secondAttribute="top" id="hYm-TN-kKE"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="bottom" secondItem="2qf-2o-eez" secondAttribute="bottom" id="jOH-a3-4NT"/>
+                            <constraint firstItem="Euz-Rl-Tla" firstAttribute="bottom" secondItem="auZ-nj-gqG" secondAttribute="bottom" id="lud-AG-Q54"/>
                             <constraint firstItem="9CX-lo-ZJM" firstAttribute="top" secondItem="Euz-Rl-Tla" secondAttribute="top" id="nJc-K2-QuP"/>
                             <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="gus-AO-6wg" secondAttribute="trailing" constant="10" id="wPY-Z0-a3p"/>
+                            <constraint firstItem="lr7-sm-Cmw" firstAttribute="centerX" secondItem="4xk-Cf-RQD" secondAttribute="centerX" constant="-800" id="wnM-k2-EYF"/>
+                            <constraint firstItem="Euz-Rl-Tla" firstAttribute="trailing" secondItem="auZ-nj-gqG" secondAttribute="trailing" id="xqv-zk-zyk"/>
                             <constraint firstItem="9CX-lo-ZJM" firstAttribute="trailing" secondItem="Euz-Rl-Tla" secondAttribute="trailing" constant="-40" id="yBI-bZ-sRh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Euz-Rl-Tla"/>
@@ -1336,6 +1395,10 @@ Long press and drag to reorder.</string>
                     <connections>
                         <outlet property="activityView" destination="kA7-Lq-uGw" id="H4c-tE-hWG"/>
                         <outlet property="arrow" destination="9CX-lo-ZJM" id="vEh-mm-Wcp"/>
+                        <outlet property="blurredView" destination="auZ-nj-gqG" id="XqQ-5E-Coh"/>
+                        <outlet property="firstLoadInfoView" destination="lr7-sm-Cmw" id="8Ff-QX-Aml"/>
+                        <outlet property="firstLoadLabel" destination="PUW-zK-2e3" id="I0G-X8-QoQ"/>
+                        <outlet property="firstLoadViewCentre" destination="wnM-k2-EYF" id="ZRd-ld-xof"/>
                         <outlet property="loadingLabel" destination="gus-AO-6wg" id="vZQ-hT-eWa"/>
                         <outlet property="tableView" destination="2qf-2o-eez" id="r2m-ei-gvF"/>
                     </connections>
