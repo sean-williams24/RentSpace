@@ -63,9 +63,6 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
         subscribeToKeyboardNotifications()
-        
-//        messagesTableView.estimatedRowHeight = 57
-//        messagesTableView.rowHeight = UITableView.automaticDimension
     }
     
     
@@ -337,6 +334,7 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
                     // if message was within the last hour, don't show time
                     if lastHour.contains(messageDate) {
                         cell.dateLabel.text = ""
+                        cell.dateLabel.isHidden = true
                     }
                 }
             }
