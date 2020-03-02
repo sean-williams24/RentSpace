@@ -44,9 +44,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>RentSpace requires camera access for you to add photos to your ad.</string>
+	<string>RentSpace requires camera access for you to add photos to your advert.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location required to taylor search results to your area.</string>
+	<string>Location required to tailor search results to your area.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>RentSpace requires access to your photo library for you to add photos to your ad.</string>
 	<key>UIApplicationSceneManifest</key>

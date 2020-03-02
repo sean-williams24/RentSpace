@@ -132,7 +132,7 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         Location.savedLocationExists = true
         locationUpdated = true
         
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.5) {
             self.searchButton.alpha = 1
         }
     }
@@ -213,7 +213,7 @@ extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSour
         searchDistance = Double(pickerDistances[row])!
         distanceUpdated = true
         
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.5) {
             self.searchButton.alpha = 1
         }
     }

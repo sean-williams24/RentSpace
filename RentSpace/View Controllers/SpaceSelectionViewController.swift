@@ -39,19 +39,20 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         configure(deskButton, text: "Desk Space")
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self.showAlert(title: "Notifications", message: "Without notifications on you may miss messages from customers. Notifications can be turned on in the Settings App.")
+            if error != nil || granted == false {
+
+                if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages from studios or customers. Notifications can be turned on in the Settings App.")
+                    }
                 }
             }
         }
         
-        
-        // If a custom user location exists - store to Location class
-        
+        // Get saved location - store to Location class
         let savedLocation = UserDefaults.standard.string(forKey: "Location")
         let savedLocationPostcode = UserDefaults.standard.string(forKey: "LocationPostcode") ?? ""
-
+        
         if let savedLocation = savedLocation {
             Location.savedLocationExists = true
             CLGeocoder().geocodeAddressString(savedLocation + " " + savedLocationPostcode) { (placemark, error) in
@@ -64,6 +65,14 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         }
         
+        // Request location authorization on first app launch - if denied, set location to london
+        if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        }
+        
         let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         registerVC.delegate = self
@@ -71,49 +80,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     }
     
     
-    fileprivate func checkForMessages() {
-        if let UID = Auth.auth().currentUser?.uid {
-            let ref = FirebaseClient.databaseRef
-            
-            // Check for unread messages
-            ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
-                var unread = 0
-                var read = 0
-                let messageTab = self.tabBarController?.tabBar.items?[3]
-                for child in dataSnapshot.children {
-                    if let snapshot = child as? DataSnapshot {
-                        if let chat = Chat(snapshot: snapshot) {
-                            if chat.read == "false" {
-                                unread += 1
-                                messageTab?.badgeColor = Settings.orangeTint
-                                messageTab?.badgeValue = "\(unread)"
-                                UIApplication.shared.applicationIconBadgeNumber = unread
-                            } else if chat.read == "true"{
-                                read += 1
-                                if read == dataSnapshot.childrenCount {
-                                    messageTab?.badgeValue = nil
-                                    UIApplication.shared.applicationIconBadgeNumber = 0
-                                }
-                            }
-                        }
-                    }
-                }
-            })
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-        }
-        
+    
         for constraint in self.view.constraints {
             if constraint.identifier == "stackViewBottom" {
                 constraint.constant = 3
@@ -159,12 +128,77 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         locationManager.stopUpdatingLocation()
     }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .denied, .restricted:
+            print("No location access, denied or restricted")
+            if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+                showAlert(title: "Location Services Disabled", message: "Location set to London, this can be changed by tapping the London button on the next screen. Location services can be enabled at anytime from the Apple Settings app.")
+            }
+            
+            CLGeocoder().geocodeAddressString("London") { (placemarks, error) in
+                if error != nil {
+                    self.showAlert(title: "Location Error", message: "Please set a new search location by tapping the London button on the next screen")
+                }
+                
+                if let address = placemarks?[0].postalAddress {
+                    Location.userLocationTown = address.subLocality
+                    Location.userLocationCity = address.city
+                    Location.userLocationCountry = address.country
+                    Location.userLocationAddress = address
+                    if let location = placemarks?[0].location {
+                        Location.userCLLocation = location
+                    }
+                }
+            }
+        case .notDetermined:
+            print("Not determined")
+        
+        case .authorizedAlways, .authorizedWhenInUse :
+            print("Access")
+            locationManager.startUpdatingLocation()
+            
+        @unknown default:
+            break
+        }
+    }
     
     // MARK: - Private Methods
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill
-        
+    }
+    
+    
+    fileprivate func checkForMessages() {
+        if let UID = Auth.auth().currentUser?.uid {
+            let ref = FirebaseClient.databaseRef
+            
+            // Check for unread messages
+            ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
+                var unread = 0
+                var read = 0
+                let messageTab = self.tabBarController?.tabBar.items?[3]
+                for child in dataSnapshot.children {
+                    if let snapshot = child as? DataSnapshot {
+                        if let chat = Chat(snapshot: snapshot) {
+                            if chat.read == "false" {
+                                unread += 1
+                                messageTab?.badgeColor = Settings.orangeTint
+                                messageTab?.badgeValue = "\(unread)"
+                                UIApplication.shared.applicationIconBadgeNumber = unread
+                            } else if chat.read == "true"{
+                                read += 1
+                                if read == dataSnapshot.childrenCount {
+                                    messageTab?.badgeValue = nil
+                                    UIApplication.shared.applicationIconBadgeNumber = 0
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        }
     }
     
     

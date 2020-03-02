@@ -42,7 +42,6 @@ class RentSpaceViewController: UIViewController {
     
     // MARK: - Life Cycle
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,10 +62,10 @@ class RentSpaceViewController: UIViewController {
             }
         }
         
+        if searchAreaButtonTitle == "" { searchAreaButtonTitle = "Set Location" }
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = rightBarButton
-
         
         storageRef = FirebaseClient.storageRef
         ref = FirebaseClient.databaseRef
@@ -82,24 +81,10 @@ class RentSpaceViewController: UIViewController {
         }
         
         self.tableView.rowHeight = 150
-        
-        UIView.animate(withDuration: 0.3) {
-            self.blurredView.isHidden = false
-        }
-        let area = searchAreaButtonTitle.lowercased().capitalized
-        area.capitalized
-        firstLoadLabel.text = "Showing results for \(chosenCategory)'s in \(searchAreaButtonTitle.lowercased().capitalized) within a 100 mile radius. \n\nChange location and search radius by tapping the \(searchAreaButtonTitle.lowercased().capitalized) button above."
-        firstLoadInfoView.backgroundColor = Settings.flipsideBlackColour
-        firstLoadInfoView.layer.cornerRadius = 10
-        firstLoadInfoView.layer.borderWidth = 1
-//        firstLoadInfoView.layer.borderColor = UIColor.white.cgColor
-        firstLoadViewCentre.constant = 0
-        UIView.animate(withDuration: 0.9, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-        }) { _ in
-            //
-        }
+        self.blurredView.isHidden = true
+        self.blurredView.effect = nil
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -115,7 +100,7 @@ class RentSpaceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.arrow.alpha = 0
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if self.spaces.isEmpty {
                 self.arrow.isHidden = false
@@ -139,15 +124,37 @@ class RentSpaceViewController: UIViewController {
         UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
     }
     
-
+    
     
     // MARK: - Private Methods
+    
+    fileprivate func firstAppLoadInfoView() {
+        self.blurredView.isHidden = false
+        firstLoadLabel.text = "Searching for \(chosenCategory)'s in \(searchAreaButtonTitle.lowercased().capitalized) within a 100 mile radius. \n\nChange location and search radius by tapping the \(searchAreaButtonTitle.lowercased().capitalized) button above."
+        firstLoadInfoView.backgroundColor = Settings.flipsideBlackColour
+        firstLoadInfoView.layer.cornerRadius = 10
+        firstLoadInfoView.layer.borderWidth = 1
+        firstLoadViewCentre.constant = 0
+        
+        UIView.animate(withDuration: 0.9, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+            self.blurredView.alpha = 0.9
+            
+            if #available(iOS 13.0, *) {
+                self.blurredView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+            } else {
+                self.blurredView.effect = UIBlurEffect(style: .regular)
+            }
+        })
+    }
+    
     
     fileprivate func startCellLoadingActivityView() {
         let indexPath = IndexPath(row: 0, section: self.tableView.numberOfSections - 1)
         guard let cell = self.tableView.cellForRow(at: indexPath) as? AdvertTableViewCell else { return }
         cell.activityView.startAnimating()
     }
+    
     
     fileprivate func getDistancesOfAdverts(for snapshot: DataSnapshot, from userLocation: CLLocation, within setMiles: Double, filtering: Bool) {
         let spaceCount = snapshot.children.allObjects.count
@@ -159,7 +166,7 @@ class RentSpaceViewController: UIViewController {
                 var space = Space(snapshot: spaceSnapshot) {
                 var address = ""
                 address = space.postcode + " " + space.city + " " + space.subAdminArea + " " + space.state
-
+                
                 // Get distance of advert location from users chosen location and add to table if within search radius
                 CLGeocoder().geocodeAddressString(address) { (placemark, error) in
                     if let placemark = placemark?.first {
@@ -186,6 +193,12 @@ class RentSpaceViewController: UIViewController {
                                 }
                                 self.tableView.reloadData()
                                 self.arrow.isHidden = true
+                                
+                                if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+                                    self.firstAppLoadInfoView()
+                                    UserDefaults.standard.set(true, forKey: "launchedBefore")
+                                }
+
                             }
                         }
                     }
@@ -194,9 +207,9 @@ class RentSpaceViewController: UIViewController {
         }
     }
     
+    
     func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
-        
         spaces.removeAll()
         tableView.reloadData()
         
@@ -221,15 +234,18 @@ class RentSpaceViewController: UIViewController {
     
     
     // MARK: - Action Methods
-
+    
     @IBAction func gotItButtonTapped(_ sender: Any) {
-        firstLoadViewCentre.constant = -1000
+        UIView.animate(withDuration: 0.5) {
+            self.blurredView.effect = nil
+        }
+        
+        firstLoadViewCentre.constant = 1500
         UIView.animate(withDuration: 0.9, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-             self.view.layoutIfNeeded()
-         }) { _ in
+            self.view.layoutIfNeeded()
+        }) { _ in
             self.blurredView.isHidden = true
-         }
-
+        }
     }
 }
 
