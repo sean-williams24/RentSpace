@@ -39,6 +39,8 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
         }
+        
+        
     }
     
     
@@ -53,9 +55,11 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath)
         let address = matchingItems[indexPath.row].placemark
         cell.textLabel?.text = address.name
+        cell.textLabel?.backgroundColor = .clear
         
         if let postalAddress = address.postalAddress {
             cell.detailTextLabel?.text = formatter.string(from: postalAddress).replacingOccurrences(of: "\n", with: ", ")
+            cell.detailTextLabel?.backgroundColor = .clear
         }
         return cell
     }

@@ -14,7 +14,7 @@ protocol RegisterDelegate {
     func adjustViewAfterRegistration()
 }
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UINavigationBarDelegate {
     
     //MARK: - Outlets
 
@@ -34,6 +34,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet var excellentButton: UIButton!
     @IBOutlet var blurredView: UIVisualEffectView!
     @IBOutlet var successViewCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textfieldTopConstraint: NSLayoutConstraint!
     
     
     //MARK: - Properties
@@ -83,11 +84,28 @@ class RegisterViewController: UIViewController {
             checkmark2.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
             checkmark3.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
             checkmark4.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
+            addNavBar()
         }
     }
     
     
     // MARK: - Private Methods
+    
+    fileprivate func addNavBar() {
+        textfieldTopConstraint.constant = 64
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 20, width: self.view.frame.size.width, height: 44))
+        navigationBar.isTranslucent = true
+        navigationBar.barTintColor = .black
+        navigationBar.tintColor = Settings.orangeTint
+        navigationBar.delegate = self
+        
+        let navigationItem = UINavigationItem()
+        let leftButton =  UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissModalVC))
+        navigationItem.leftBarButtonItem = leftButton
+        navigationBar.items = [navigationItem]
+        self.view.addSubview(navigationBar)
+    }
+    
     
     @objc func textFieldTyping(textField: UITextField) {
         switch textField.tag {

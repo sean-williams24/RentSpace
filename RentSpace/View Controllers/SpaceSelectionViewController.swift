@@ -256,7 +256,10 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     @IBAction func signInButtonTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
         vc.delegate = self
-        present(vc, animated: true)
+        
+        if let navVC = storyboard?.instantiateViewController(withIdentifier: "SignInNavVC") {
+            present(navVC, animated: true)
+        }
     }    
 }
 

@@ -191,8 +191,11 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
             locationButton.setTitle("  Contact & Address", for: .normal)
         }
     }
+
     
     func loadAdvertToUpdate() {
+        
+        showCancelButton()
         
         // Remove any existing temp images from documents
         if let imageFilePaths = UserDefaults.standard.data(forKey: "UpdateImages") {

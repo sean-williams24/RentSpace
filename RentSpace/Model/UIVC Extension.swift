@@ -301,7 +301,18 @@ extension UIViewController {
     }
     
     
-    //MARK: - Switch Tab
+    //MARK: - View Controller Dimissmissals
+    
+    func showCancelButton() {
+        if #available(iOS 13.0, *) {
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissModalVC))
+        }
+    }
+    
+    @objc func dismissModalVC() {
+        dismiss(animated: true)
+    }
 
     func popToRootController(ofTab index: Int) {
         UIApplication.shared.windows[0].rootViewController?.dismiss(animated: true, completion: {

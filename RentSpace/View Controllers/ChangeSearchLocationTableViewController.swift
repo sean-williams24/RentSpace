@@ -53,6 +53,8 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCell", for: indexPath)
         let address = matchingItems[indexPath.row].placemark
+        cell.textLabel?.backgroundColor = .clear
+        cell.detailTextLabel?.backgroundColor = .clear
         
         if let postalAddress = address.postalAddress {
             cell.textLabel?.text = postalAddress.subLocality

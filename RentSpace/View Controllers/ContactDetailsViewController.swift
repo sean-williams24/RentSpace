@@ -53,8 +53,12 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         searchBar.keyboardAppearance = .dark
         
         let searchBarTextfield = searchBar.value(forKey: "searchField") as? UITextField
-        searchBarTextfield?.textColor = .white
-        
+        if #available(iOS 13.0, *) {
+            searchBarTextfield?.textColor = .white
+        } else {
+            searchBarTextfield?.textColor = .black
+        }
+                
         navigationItem.titleView = resultsSearchController?.searchBar
         
         resultsSearchController?.hidesNavigationBarDuringPresentation = false

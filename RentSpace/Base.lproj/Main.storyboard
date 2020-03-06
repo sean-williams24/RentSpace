@@ -850,7 +850,6 @@ Long press and drag to reorder.</string>
                         <viewLayoutGuide key="safeArea" id="TV2-Un-BpR"/>
                     </view>
                     <navigationItem key="navigationItem" id="D7x-Mi-jht"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="dNX-df-tru" id="d3G-o1-YDZ"/>
@@ -872,7 +871,7 @@ Long press and drag to reorder.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUr-5D-245">
-                                <rect key="frame" x="0.0" y="182" width="413" height="50"/>
+                                <rect key="frame" x="0.0" y="126" width="413" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -885,7 +884,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gme-oF-OL0">
-                                <rect key="frame" x="0.0" y="129" width="413" height="50"/>
+                                <rect key="frame" x="0.0" y="73" width="413" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -898,7 +897,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6l-al-EXb">
-                                <rect key="frame" x="20" y="300" width="374" height="50"/>
+                                <rect key="frame" x="20" y="244" width="374" height="50"/>
                                 <color key="backgroundColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="iaa-yP-1f0"/>
@@ -913,7 +912,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zGC-NH-GGr">
-                                <rect key="frame" x="0.0" y="235" width="413" height="50"/>
+                                <rect key="frame" x="0.0" y="179" width="413" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -926,7 +925,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password must contain at least 6 characters, 1 uppercase letter, 1 lowercase letter and 1 number." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btF-tq-Tjj">
-                                <rect key="frame" x="20" y="350" width="374" height="67"/>
+                                <rect key="frame" x="20" y="294" width="374" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="La8-iB-NvH"/>
                                 </constraints>
@@ -935,7 +934,7 @@ Long press and drag to reorder.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Display Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RL4-WB-krJ">
-                                <rect key="frame" x="0.0" y="76" width="413" height="50"/>
+                                <rect key="frame" x="0.0" y="20" width="413" height="50"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93333333330000001" green="0.47843137250000001" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -948,7 +947,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="h7N-AX-sng">
-                                <rect key="frame" x="349" y="140" width="65" height="28"/>
+                                <rect key="frame" x="349" y="84" width="65" height="28"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="ONS-7p-pdF"/>
@@ -956,7 +955,7 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="e7o-pG-1Fm">
-                                <rect key="frame" x="349" y="193" width="65" height="28"/>
+                                <rect key="frame" x="349" y="137" width="65" height="28"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="PeT-Am-RUd"/>
@@ -964,7 +963,7 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="DTy-ZQ-ojS">
-                                <rect key="frame" x="349" y="246" width="65" height="28"/>
+                                <rect key="frame" x="349" y="190" width="65" height="28"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="65" id="Z8m-iu-JEo"/>
@@ -972,7 +971,7 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="az1-AG-aQe">
-                                <rect key="frame" x="349" y="87" width="65" height="28"/>
+                                <rect key="frame" x="349" y="31" width="65" height="28"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Dlg-tZ-E7l"/>
@@ -980,13 +979,13 @@ Long press and drag to reorder.</string>
                                 </constraints>
                             </imageView>
                             <visualEffectView hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UY-oy-gUY">
-                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Row-B2-lV6" userLabel="Loading View">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ffd-uv-B8R" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                            <rect key="frame" x="87" y="312" width="240" height="128"/>
+                                            <rect key="frame" x="87" y="340" width="240" height="128"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="128" id="7e4-WE-KSD"/>
@@ -1000,7 +999,7 @@ Long press and drag to reorder.</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzC-ci-avM" userLabel="Success View">
-                                            <rect key="frame" x="55" y="268.33333333333331" width="304" height="215.33333333333331"/>
+                                            <rect key="frame" x="55" y="296.33333333333331" width="304" height="215.33333333333331"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration Success" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="imb-hS-4dk">
                                                     <rect key="frame" x="20" y="33" width="264" height="20"/>
@@ -1106,7 +1105,6 @@ Long press and drag to reorder.</string>
                     <navigationItem key="navigationItem" title="Register" id="DLU-Jy-ieP">
                         <barButtonItem key="backBarButtonItem" title="-" id="r4o-Kx-qYc"/>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
                         <outlet property="activityView" destination="Ffd-uv-B8R" id="igy-cL-RUR"/>
                         <outlet property="blurredView" destination="4UY-oy-gUY" id="5I4-i9-IiJ"/>
@@ -1124,6 +1122,7 @@ Long press and drag to reorder.</string>
                         <outlet property="registerButton" destination="I6l-al-EXb" id="OXL-hv-FB0"/>
                         <outlet property="successView" destination="kzC-ci-avM" id="eF7-xj-N2d"/>
                         <outlet property="successViewCenterYConstraint" destination="tNY-o2-4eD" id="cEo-bj-9ub"/>
+                        <outlet property="textfieldTopConstraint" destination="bxs-Dl-zeD" id="Ff3-VR-VUr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t3d-7m-VUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

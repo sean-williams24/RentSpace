@@ -147,7 +147,11 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
         searchBar.keyboardAppearance = .dark
         
         let textfieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
-        textfieldInsideSearchBar?.textColor = .white
+        if #available(iOS 13.0, *) {
+            textfieldInsideSearchBar?.textColor = .white
+        } else {
+            textfieldInsideSearchBar?.textColor = .black
+        }
         
         self.navigationItem.titleView = self.resultsSearchController?.searchBar
         navigationController?.setNavigationBarHidden(false, animated: true)

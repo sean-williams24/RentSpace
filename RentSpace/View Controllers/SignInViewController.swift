@@ -55,7 +55,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate {
         signInButton.layer.cornerRadius = Settings.cornerRadius
         addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
         addLeftPadding(for: passwordTextField, placeholderText: "Password", placeholderColour: .gray)
-        
+        showCancelButton()
         passwordTextField.isSecureTextEntry = true
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
