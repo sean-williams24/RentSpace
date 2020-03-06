@@ -45,8 +45,6 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-
-    
     
     // MARK: - Properties
     
@@ -59,7 +57,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     var arrivedFromFavourites = false
     var trashButton: UIBarButtonItem!
     var editButton: UIBarButtonItem!
-    var ref = FirebaseClient.databaseRef
+    var ref: DatabaseReference!
     var imageURLsDict: [String: String] = [:]
     var imagesDictionary: [String: UIImage] = [:]
     var thumbnail = UIImage()
@@ -93,12 +91,24 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         scrollViewTopConstraint.constant = -height
         
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
+
         if #available(iOS 13.0, *) {
             editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.tip"), style: .done, target: self, action: #selector(editAdvert))
+            messagesButton.setImage(UIImage(systemName: "bubble.left.and.bubble.right"), for: .normal)
+            favouritesButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            phoneButton.setImage(UIImage(systemName: "phone"), for: .normal)
+            emailButton.setImage(UIImage(systemName: "envelope"), for: .normal)
         } else {
             editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAdvert))
+            messagesButton.setImage(renderTemplateImage(imageName: "Bubble Left And Bubble Right"), for: .normal)
+            favouritesButton.setImage(renderTemplateImage(imageName: "Heart Fill"), for: .normal)
+            phoneButton.setImage(renderTemplateImage(imageName: "Phone"), for: .normal)
+            emailButton.setImage(renderTemplateImage(imageName: "Envelope"), for: .normal)
+
         }
         navigationItem.rightBarButtonItems = [trashButton, editButton]
+        
+        ref = Database.database().reference()
         
         if editingMode {
             trashButton.isEnabled = true

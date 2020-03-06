@@ -28,7 +28,7 @@ class UpdateDetailsViewController: UIViewController {
     var emailAddress: String!
     var userDetailToUpdate: String!
     var refHandle: DatabaseHandle!
-    var ref = FirebaseClient.databaseRef
+    var ref: DatabaseReference!
     var UID = ""
     
     
@@ -44,7 +44,7 @@ class UpdateDetailsViewController: UIViewController {
         addLeftPadding(for: confirmPasswordTextfield, placeholderText: "Confirm Password", placeholderColour: .darkGray)
         confirmPasswordTextfield.isHidden = true
         UID = Auth.auth().currentUser?.uid ?? ""
-        
+        ref = Database.database().reference()
         
         if userDetailToUpdate == "Display Name" {
             updateTextfield.text = Auth.auth().currentUser?.displayName

@@ -72,6 +72,18 @@ class RegisterViewController: UIViewController {
         displayNameTextField.addTarget(self, action: #selector(textFieldTyping), for: .editingChanged)
         
         dismissKeyboardOnViewTap()
+        
+        if #available(iOS 13.0, *) {
+            checkmark1.image = UIImage(systemName: "checkmark.circle.fill")
+            checkmark2.image = UIImage(systemName: "checkmark.circle.fill")
+            checkmark3.image = UIImage(systemName: "checkmark.circle.fill")
+            checkmark4.image = UIImage(systemName: "checkmark.circle.fill")
+        } else {
+            checkmark1.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
+            checkmark2.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
+            checkmark3.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
+            checkmark4.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
+        }
     }
     
     

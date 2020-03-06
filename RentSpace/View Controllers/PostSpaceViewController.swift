@@ -384,7 +384,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     
     
     fileprivate func uploadAdvertToFirebase(_ imageURLs: [String : String]? = nil) {
-        let ref = FirebaseClient.databaseRef
+        let ref = Database.database().reference()
         let descriptionText = descriptionTextView.text == descriptionViewPlaceholder ? "" : descriptionTextView.text
         let update = updatingAdvert ? "Update" : ""
         
@@ -509,7 +509,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         var imageURLs: [String : String] = [:]
         var uploadedImagesCount = 0
         var imageIndex = 1
-        let storageRef = FirebaseClient.storageRef
+        let storageRef = Storage.storage().reference()
         
         for image in imagesToUpload {
             let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)

@@ -67,8 +67,8 @@ class RentSpaceViewController: UIViewController {
         rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = rightBarButton
         
-        storageRef = FirebaseClient.storageRef
-        ref = FirebaseClient.databaseRef
+        storageRef = Storage.storage().reference()
+        ref = Database.database().reference()
         
         if UserDefaults.standard.double(forKey: "Distance") != 0.0 {
             Location.searchDistance = UserDefaults.standard.double(forKey: "Distance")
@@ -100,6 +100,12 @@ class RentSpaceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.arrow.alpha = 0
+        
+        if #available(iOS 13.0, *) {
+            arrow.image = UIImage(systemName: "arrow.up")
+        } else {
+            arrow.image = UIImage(named: "Arrow Up")
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             if self.spaces.isEmpty {
@@ -327,9 +333,13 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                 view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
                 view.layer.borderColor = UIColor.darkGray.cgColor
                 view.layer.borderWidth = 1
+                view.layer.cornerRadius = 10
                 cell.addSubview(view)
                 
-                cell.customImageView.image = iconThumbnail(for: space.category)
+                if let image = UIImage(named: space.category) {
+                    cell.customImageView.image = image.withRenderingMode(.alwaysTemplate)
+                }
+                
                 cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 0
@@ -337,7 +347,22 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.activityView.stopAnimating()
                 cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                cell.customImageView.image = iconThumbnail(for: space.category)
+
+                var sfSymbol = ""
+                switch space.category {
+                 case "Photography Studio": sfSymbol = "camera"
+                 case "Music Studio": sfSymbol = "music.mic"
+                 case "Desk Space": sfSymbol = "studentdesk"
+                default:
+                    sfSymbol = "camera"
+                }
+    
+                if #available(iOS 13.0, *) {
+                    cell.customImageView.image = renderTemplateImage(imageName: sfSymbol)
+                } else {
+                    cell.customImageView.image = renderTemplateImage(imageName: space.category)
+                }
+                
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 1
             }

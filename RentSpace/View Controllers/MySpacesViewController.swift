@@ -22,12 +22,13 @@ class MySpacesViewController: UIViewController {
     @IBOutlet var loadingLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var favouritesButton: UIBarButtonItem!
+    @IBOutlet weak var settingsButton: UIBarButtonItem!
     
     
     // MARK: - Properties
     
     var mySpaces: [Space] = []
-    var ref = FirebaseClient.databaseRef
+    var ref: DatabaseReference!
     fileprivate var authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var refHandle: DatabaseHandle!
     var UID = ""
@@ -42,6 +43,14 @@ class MySpacesViewController: UIViewController {
         signInButton.layer.cornerRadius = Settings.cornerRadius
         favouritesButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         self.infoLabel.text = ""
+        
+        if #available(iOS 13.0, *) {
+            settingsButton.setBackgroundImage(UIImage(systemName: "gear"), for: .normal, style: .plain, barMetrics: .default)
+        } else {
+            settingsButton.setBackgroundImage(UIImage(named: "Gear"), for: .normal, style: .plain, barMetrics: .default)
+        }
+        
+        ref = Database.database().reference()
         
         authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
             
@@ -294,15 +303,33 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
                 view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
                 view.layer.borderColor = UIColor.darkGray.cgColor
                 view.layer.borderWidth = 1
+                view.layer.cornerRadius = 10
                 cell.addSubview(view)
                 
-                cell.customImageView.image = iconThumbnail(for: space.category)
+                if let image = UIImage(named: space.category) {
+                    cell.customImageView.image = image.withRenderingMode(.alwaysTemplate)
+                }
+
                 cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 0
                 
             } else {
-                cell.customImageView.image = iconThumbnail(for: space.category)
+                var sfSymbol = ""
+                switch space.category {
+                 case "Photography Studio": sfSymbol = "camera"
+                 case "Music Studio": sfSymbol = "music.mic"
+                 case "Desk Space": sfSymbol = "studentdesk"
+                default:
+                    sfSymbol = "camera"
+                }
+    
+                if #available(iOS 13.0, *) {
+                    cell.customImageView.image = renderTemplateImage(imageName: sfSymbol)
+                } else {
+                    cell.customImageView.image = renderTemplateImage(imageName: space.category)
+                }
+
                 cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 cell.customImageView.contentMode = .scaleAspectFit
                 cell.customImageView.layer.borderWidth = 1

@@ -13,7 +13,7 @@ class DeleteAccountViewController: UIViewController {
     
     //MARK: - Properties
 
-    let ref = FirebaseClient.databaseRef
+    var ref: DatabaseReference!
     fileprivate var refHandle: DatabaseHandle!
     var spacesToDelete: [Space] = []
     var UID = ""
@@ -24,7 +24,7 @@ class DeleteAccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ref = Database.database().reference()
         UID = Auth.auth().currentUser?.uid ?? ""
         advertPath = "users/\(UID)/adverts"
     }

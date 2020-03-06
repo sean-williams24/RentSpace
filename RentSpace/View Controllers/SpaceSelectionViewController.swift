@@ -21,6 +21,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     @IBOutlet var deskButton: UIButton!
     @IBOutlet var signInButton: UIBarButtonItem!
     @IBOutlet var stackView: UIStackView!
+    @IBOutlet weak var musicImageview: UIImageView!
+    @IBOutlet weak var photographyImageview: UIImageView!
+    @IBOutlet weak var deskImageview: UIImageView!
     
     
     // MARK: - Properties
@@ -37,6 +40,27 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         configure(photographyButton, text: "Photography")
         configure(musicButton, text: "Music")
         configure(deskButton, text: "Desk Space")
+        
+        if #available(iOS 13.0, *) {
+            photographyImageview.image = UIImage(systemName: "camera")
+            musicImageview.image = UIImage(systemName: "music.mic")
+            deskImageview.image = UIImage(systemName: "studentdesk")
+        } else {
+            photographyImageview.image = UIImage(named: "Photography Studio")
+            musicImageview.image = UIImage(named: "Music Studio")
+            deskImageview.image = UIImage(named: "Desk Space")
+        }
+        
+        if #available(iOS 13.0, *) {
+            self.tabBarController?.tabBar.items?[0].image = UIImage(systemName: "eye")
+            self.tabBarController?.tabBar.items?[0].selectedImage = UIImage(systemName: "eye")
+            self.tabBarController?.tabBar.items?[1].image = UIImage(systemName: "studentdesk")
+            self.tabBarController?.tabBar.items?[1].selectedImage = UIImage(systemName: "studentdesk")
+            self.tabBarController?.tabBar.items?[2].image = UIImage(systemName: "person")
+            self.tabBarController?.tabBar.items?[2].selectedImage = UIImage(systemName: "person")
+            self.tabBarController?.tabBar.items?[3].image = UIImage(systemName: "bubble.left.and.bubble.right")
+            self.tabBarController?.tabBar.items?[3].selectedImage = UIImage(systemName: "bubble.left.and.bubble.right")
+        }
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
             if error != nil || granted == false {
@@ -172,7 +196,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     fileprivate func checkForMessages() {
         if let UID = Auth.auth().currentUser?.uid {
-            let ref = FirebaseClient.databaseRef
+            let ref = Database.database().reference()
             
             // Check for unread messages
             ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in

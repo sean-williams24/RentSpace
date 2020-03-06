@@ -26,7 +26,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     
     var chats: [Chat] = []
     var refHandle: DatabaseHandle!
-    var ref = FirebaseClient.databaseRef
+    var ref: DatabaseReference!
     var authHandle: AuthStateDidChangeListenerHandle!
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -40,7 +40,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
-        
+        ref = Database.database().reference()
         authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 self.signedOutView.isHidden = true
@@ -128,6 +128,12 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.latestMessageLabel.text = "\(you)\(chat.messageBody)"
         
         // If chat is unread and the latest sender of the message is not signed in user - display unread UI
+        if #available(iOS 13.0, *) {
+            cell.newMessageImageView.image = UIImage(systemName: "circle.fill")
+        } else {
+            cell.newMessageImageView.image = UIImage(named: "Circle Fill")
+        }
+        
         if chat.read == "false" && chat.latestSender != Auth.auth().currentUser?.uid {
             cell.newMessageImageView.isHidden = false
         } else {

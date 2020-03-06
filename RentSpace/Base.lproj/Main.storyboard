@@ -704,7 +704,7 @@ Long press and drag to reorder.</string>
         <scene sceneID="t25-wg-0oy">
             <objects>
                 <navigationController storyboardIdentifier="PostSpaceNavVC" automaticallyAdjustsScrollViewInsets="NO" id="YRc-DE-pac" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Post Space" image="studentdesk" id="lVT-b8-n7d"/>
+                    <tabBarItem key="tabBarItem" title="Post Space" image="Studentdesk" id="lVT-b8-n7d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DGn-48-iiF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -778,14 +778,6 @@ Long press and drag to reorder.</string>
                                 <color key="textColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" translatesAutoresizingMaskIntoConstraints="NO" id="bSN-xd-ry2">
-                                <rect key="frame" x="87" y="353.33333333333331" width="240" height="26"/>
-                                <color key="tintColor" red="0.79594868419999998" green="0.7769952416" blue="0.73724848030000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="Oag-AQ-mcw"/>
-                                    <constraint firstAttribute="height" constant="26" id="b4g-Ku-qKU"/>
-                                </constraints>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="minus" translatesAutoresizingMaskIntoConstraints="NO" id="sFC-Iu-AGT">
                                 <rect key="frame" x="200" y="304" width="14" height="2"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -801,7 +793,7 @@ Long press and drag to reorder.</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pg7-Si-lqp" customClass="GIDSignInButton">
-                                <rect key="frame" x="20" y="394.33333333333331" width="374" height="40"/>
+                                <rect key="frame" x="20" y="367.33333333333331" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jbf-QT-jKh"/>
@@ -832,10 +824,9 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="iZX-Xd-Fqd" firstAttribute="bottom" secondItem="TV2-Un-BpR" secondAttribute="bottom" constant="-20" id="7lM-v3-Xnz"/>
                             <constraint firstItem="sFC-Iu-AGT" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="7lm-gD-ubv"/>
                             <constraint firstItem="dNX-df-tru" firstAttribute="top" secondItem="TV2-Un-BpR" secondAttribute="top" constant="35" id="GAz-Xc-Yzn"/>
-                            <constraint firstItem="bSN-xd-ry2" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="Hu5-RR-wNA"/>
+                            <constraint firstItem="Pg7-Si-lqp" firstAttribute="top" secondItem="NdX-wC-fyU" secondAttribute="bottom" constant="30" id="GpR-MQ-nQE"/>
                             <constraint firstItem="mfk-nD-k8Y" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="8" id="IfZ-6T-5Du"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="LOf-dR-Tuc" secondAttribute="trailing" constant="19" id="JYJ-gG-Ixt"/>
-                            <constraint firstItem="bSN-xd-ry2" firstAttribute="top" secondItem="NdX-wC-fyU" secondAttribute="bottom" constant="16" id="Jpw-CH-cPE"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="iZX-Xd-Fqd" secondAttribute="trailing" constant="20" id="LAr-53-kWr"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="LFJ-GS-ZMg"/>
                             <constraint firstItem="NdX-wC-fyU" firstAttribute="centerX" secondItem="uke-cJ-Y74" secondAttribute="centerX" id="MSP-6a-WUO"/>
@@ -852,7 +843,6 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="LOf-dR-Tuc" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="8" id="tYY-cm-ois"/>
                             <constraint firstItem="Pg7-Si-lqp" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="tgA-sE-8cZ"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="top" secondItem="ofe-bV-dtz" secondAttribute="bottom" constant="15" id="uOJ-L4-EaZ"/>
-                            <constraint firstItem="Pg7-Si-lqp" firstAttribute="top" secondItem="bSN-xd-ry2" secondAttribute="bottom" constant="15" id="w64-Zk-KKr"/>
                             <constraint firstItem="NdX-wC-fyU" firstAttribute="top" secondItem="sFC-Iu-AGT" secondAttribute="bottom" constant="16" id="xNQ-V2-atw"/>
                             <constraint firstItem="iZX-Xd-Fqd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Pg7-Si-lqp" secondAttribute="bottom" constant="70" id="xn0-T4-32w"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="dNX-df-tru" secondAttribute="trailing" id="y3J-Br-JlD"/>
@@ -1605,7 +1595,7 @@ Long press and drag to reorder.</string>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vp-YR-fEc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="51.666666666666664" height="40"/>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" image="heart.fill"/>
+                                                                <state key="normal" image="Heart Fill"/>
                                                                 <connections>
                                                                     <action selector="favouritesButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="TUe-JZ-uGp"/>
                                                                 </connections>
@@ -1614,7 +1604,7 @@ Long press and drag to reorder.</string>
                                                                 <rect key="frame" x="51.666666666666686" y="0.0" width="52" height="40"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <color key="tintColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="bubble.left.and.bubble.right"/>
+                                                                <state key="normal" image="Bubble Left And Bubble Right"/>
                                                                 <connections>
                                                                     <action selector="messageButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="SX3-Lg-tEz"/>
                                                                 </connections>
@@ -1622,7 +1612,7 @@ Long press and drag to reorder.</string>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oH1-e6-cRV">
                                                                 <rect key="frame" x="103.6666666666667" y="0.0" width="51.666666666666671" height="40"/>
                                                                 <color key="tintColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="phone"/>
+                                                                <state key="normal" image="Phone"/>
                                                                 <connections>
                                                                     <action selector="phoneButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="kJL-W8-42k"/>
                                                                 </connections>
@@ -1630,7 +1620,7 @@ Long press and drag to reorder.</string>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoP-UV-CRU">
                                                                 <rect key="frame" x="155.33333333333331" y="0.0" width="51.666666666666657" height="40"/>
                                                                 <color key="tintColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="envelope"/>
+                                                                <state key="normal" image="Envelope"/>
                                                                 <connections>
                                                                     <action selector="emailButtonTapped:" destination="tUY-Ky-QDR" eventType="touchUpInside" id="JNS-lC-Byr"/>
                                                                 </connections>
@@ -1823,7 +1813,7 @@ Only the best gear here.</string>
         <scene sceneID="K6O-EV-dmd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="d8u-Aa-oNO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rent Space" image="eye" selectedImage="eye" id="uj0-as-IS3"/>
+                    <tabBarItem key="tabBarItem" title="Rent Space" image="Eye" id="uj0-as-IS3"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="0jz-ox-ACf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tF4-K0-ztZ">
@@ -1890,12 +1880,12 @@ Only the best gear here.</string>
                                         <subviews>
                                             <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8o-th-jq3">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="178.33333333333334"/>
-                                                <state key="normal" title="Button" image="Photography Studio"/>
+                                                <state key="normal" title="Button" image="Photography Studio BG"/>
                                                 <connections>
                                                     <segue destination="T2e-aY-bb6" kind="show" id="EiX-kw-otY"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="PET-Tm-ZqF">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Photography Studio" translatesAutoresizingMaskIntoConstraints="NO" id="PET-Tm-ZqF">
                                                 <rect key="frame" x="0.0" y="29.999999999999993" width="414" height="118.33333333333331"/>
                                                 <color key="tintColor" red="0.8901960784313725" green="0.39215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
@@ -1918,14 +1908,14 @@ Only the best gear here.</string>
                                         <subviews>
                                             <button opaque="NO" alpha="0.20000000000000001" tag="2" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cid-Hb-u6q">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="178"/>
-                                                <state key="normal" title="Button" image="Music Studio"/>
+                                                <state key="normal" title="Button" image="Music Studio Background"/>
                                                 <connections>
                                                     <segue destination="T2e-aY-bb6" kind="show" id="vhj-rm-nTy"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.mic" translatesAutoresizingMaskIntoConstraints="NO" id="chi-xL-81Q">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Music Studio" translatesAutoresizingMaskIntoConstraints="NO" id="chi-xL-81Q">
                                                 <rect key="frame" x="20" y="31.000000000000007" width="374" height="116.66666666666669"/>
-                                                <color key="tintColor" red="0.8901960784313725" green="0.39215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" red="0.89019607840000003" green="0.3921568627" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="ultraLight"/>
                                             </imageView>
                                         </subviews>
@@ -1946,12 +1936,12 @@ Only the best gear here.</string>
                                         <subviews>
                                             <button opaque="NO" alpha="0.20000000000000001" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2jb-m5-bdF">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="178.33333333333334"/>
-                                                <state key="normal" title="Button" image="Desk Space"/>
+                                                <state key="normal" title="Button" image="Desk Space BG"/>
                                                 <connections>
                                                     <segue destination="T2e-aY-bb6" kind="show" id="ieF-Sa-3Ff"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="desktopcomputer" translatesAutoresizingMaskIntoConstraints="NO" id="Xhl-K4-63A">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Desk Space" translatesAutoresizingMaskIntoConstraints="NO" id="Xhl-K4-63A">
                                                 <rect key="frame" x="20" y="29.999999999999993" width="374" height="117.33333333333331"/>
                                                 <color key="tintColor" red="0.8901960784313725" green="0.39215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="ultraLight"/>
@@ -1993,8 +1983,11 @@ Only the best gear here.</string>
                     <connections>
                         <outlet property="artButton" destination="3DY-EW-EmD" id="dSa-oj-zkt"/>
                         <outlet property="deskButton" destination="2jb-m5-bdF" id="hW8-3B-mj0"/>
+                        <outlet property="deskImageview" destination="Xhl-K4-63A" id="sBC-Im-VWF"/>
                         <outlet property="musicButton" destination="Cid-Hb-u6q" id="df5-8o-x6E"/>
+                        <outlet property="musicImageview" destination="chi-xL-81Q" id="xhl-UC-YdC"/>
                         <outlet property="photographyButton" destination="U8o-th-jq3" id="eHg-RA-Qfy"/>
+                        <outlet property="photographyImageview" destination="PET-Tm-ZqF" id="QbP-ys-UZY"/>
                         <outlet property="signInButton" destination="yxF-IJ-jAK" id="lDk-DH-9Jk"/>
                         <outlet property="stackView" destination="2I0-NO-R4A" id="Efg-rx-zXn"/>
                     </connections>
@@ -2273,6 +2266,7 @@ Only the best gear here.</string>
                         <outlet property="favouritesButton" destination="9vt-BK-xkz" id="zTc-RX-F8y"/>
                         <outlet property="infoLabel" destination="GjU-9r-ZxO" id="IsR-sE-IR9"/>
                         <outlet property="loadingLabel" destination="LWn-rU-Kxv" id="L6v-Iz-EK8"/>
+                        <outlet property="settingsButton" destination="1Hd-EE-wqX" id="zwk-nG-Tqj"/>
                         <outlet property="signInButton" destination="dp3-iE-oYe" id="soy-Ai-Iuo"/>
                         <outlet property="signedOutView" destination="OLo-YL-EO3" id="iNL-NC-bRA"/>
                         <outlet property="tableView" destination="xgz-i9-e0u" id="TZO-d0-6yq"/>
@@ -2757,7 +2751,7 @@ Only the best gear here.</string>
         <scene sceneID="bxg-cS-8PX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KHT-aA-5pI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Spaces" image="person" selectedImage="person.fill" id="Yim-1Z-iDL"/>
+                    <tabBarItem key="tabBarItem" title="My Spaces" image="Person" id="Yim-1Z-iDL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CWd-qK-ATK">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -3311,7 +3305,7 @@ Only the best gear here.</string>
         <scene sceneID="SNg-jJ-72Q">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mU9-NI-0M7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" image="bubble.left.and.bubble.right" selectedImage="bubble.left.and.bubble.right" id="8Kt-eW-dh6"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="Bubble Left And Bubble Right" id="8Kt-eW-dh6"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="I66-Go-uox">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -3358,35 +3352,33 @@ Only the best gear here.</string>
         <image name="003-desk" width="512" height="512"/>
         <image name="Art" width="1200" height="684"/>
         <image name="Art Studio" width="200" height="195"/>
-        <image name="Desk Space" width="1200" height="800"/>
+        <image name="Bubble Left And Bubble Right" width="27" height="27"/>
+        <image name="Desk Space" width="100" height="100"/>
+        <image name="Desk Space BG" width="1200" height="800"/>
+        <image name="Envelope" width="27" height="27"/>
+        <image name="Eye" width="27" height="27"/>
         <image name="FS Rec Logo" width="166.66667175292969" height="166.66667175292969"/>
-        <image name="Music Studio" width="1200" height="800"/>
-        <image name="Photography Studio" width="1200" height="674"/>
+        <image name="Heart Fill" width="27" height="27"/>
+        <image name="Music Studio" width="100" height="100"/>
+        <image name="Music Studio Background" width="1200" height="800"/>
+        <image name="Person" width="27" height="27"/>
+        <image name="Phone" width="27" height="27"/>
+        <image name="Photography Studio" width="100" height="100"/>
+        <image name="Photography Studio BG" width="1200" height="674"/>
         <image name="RentSpace Logo Black BG Small" width="300" height="300"/>
+        <image name="Studentdesk" width="27" height="27"/>
         <image name="addPhotos1" width="80" height="80"/>
-        <image name="arrow.down" width="13" height="16"/>
         <image name="arrow.up" width="13" height="16"/>
-        <image name="bubble.left.and.bubble.right" width="24" height="19"/>
-        <image name="camera" width="20" height="16"/>
         <image name="cameraPlus" width="170.66667175292969" height="170.66667175292969"/>
         <image name="checkmark.circle.fill" width="17" height="17"/>
         <image name="circle.fill" width="17" height="17"/>
-        <image name="desktopcomputer" width="20" height="17"/>
         <image name="edit" width="16" height="16"/>
-        <image name="envelope" width="19" height="15"/>
-        <image name="eye" width="23" height="15"/>
         <image name="gear" width="19" height="19"/>
         <image name="handshake-2" width="512" height="512"/>
-        <image name="heart.fill" width="17" height="16"/>
         <image name="imagePlaceholder" width="200" height="200"/>
         <image name="minus" width="14" height="2"/>
-        <image name="music.mic" width="17" height="18"/>
-        <image name="person" width="15" height="16"/>
-        <image name="person.fill" width="14" height="15"/>
-        <image name="phone" width="17" height="17"/>
         <image name="pin-black" width="64" height="64"/>
         <image name="pin-orange" width="64" height="64"/>
-        <image name="studentdesk" width="16" height="19"/>
         <image name="warning" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>

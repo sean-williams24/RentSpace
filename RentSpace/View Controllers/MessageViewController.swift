@@ -30,7 +30,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var messages: [Message] = []
     var space: Space!
-    var ref = FirebaseClient.databaseRef
+    var ref: DatabaseReference!
     var refHandle: DatabaseHandle!
     var chatID = ""
     var customerUID = ""
@@ -50,7 +50,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ref = Database.database().reference()
         if let UID = Auth.auth().currentUser?.uid { customerUID = UID }
         
         // If arriving from AdvertDetailsVC, this is a new chat - create new unique chat ID using current users UID + advert key

@@ -15,13 +15,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var delegate: UpdateSignInDelegate?
-
-
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        UITabBarItem.appearance().setTitleTextAttributes(Settings.tabBarAttributes, for: .normal)
         
         FirebaseApp.configure()
+        UITabBarItem.appearance().setTitleTextAttributes(Settings.tabBarAttributes, for: .normal)
+        
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
