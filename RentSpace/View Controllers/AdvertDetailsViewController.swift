@@ -329,8 +329,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
                 favouritesButton.tintColor = Settings.orangeTint
             }
         } else {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
-            present(vc, animated: true)
+            if let navVC = storyboard?.instantiateViewController(withIdentifier: "SignInNavVC") {
+                present(navVC, animated: true)
+            }
         }
     }
     
@@ -342,8 +343,9 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
             vc.thumbnail = thumbnail
             navigationController?.pushViewController(vc, animated: true)
         } else {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
-            present(vc, animated: true)
+            if let navVC = storyboard?.instantiateViewController(withIdentifier: "SignInNavVC") {
+                present(navVC, animated: true)
+            }
         }
     }
     

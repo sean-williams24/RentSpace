@@ -29,5 +29,7 @@ struct Settings {
 
     // Firebase
     static var currentUser: User?
+    
+    static var signingOut = false
 
 }

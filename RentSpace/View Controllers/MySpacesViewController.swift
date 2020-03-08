@@ -44,9 +44,7 @@ class MySpacesViewController: UIViewController {
         favouritesButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         self.infoLabel.text = ""
         
-        if #available(iOS 13.0, *) {
-            settingsButton.setBackgroundImage(UIImage(systemName: "gear"), for: .normal, style: .plain, barMetrics: .default)
-        } else {
+        if #available(iOS 13.0, *) {} else {
             settingsButton.setBackgroundImage(UIImage(named: "Gear"), for: .normal, style: .plain, barMetrics: .default)
         }
         

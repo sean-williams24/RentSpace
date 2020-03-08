@@ -304,8 +304,7 @@ extension UIViewController {
     //MARK: - View Controller Dimissmissals
     
     func showCancelButton() {
-        if #available(iOS 13.0, *) {
-        } else {
+        if #available(iOS 13.0, *) {} else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissModalVC))
         }
     }

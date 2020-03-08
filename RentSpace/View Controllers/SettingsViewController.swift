@@ -118,6 +118,15 @@ class SettingsViewController: UIViewController {
             LoginManager().logOut()
             Settings.currentUser = nil
             
+            let index = 0
+            let window = (UIApplication.shared.delegate as? AppDelegate)?.window
+            let tabBar :UITabBarController? =  window?.rootViewController as? UITabBarController
+            tabBar?.selectedIndex = index
+            
+            if let nav = tabBar?.viewControllers?[index] as? UINavigationController {
+                nav.popToRootViewController(animated: true)
+                Settings.signingOut = true
+            }
         } else {
             // If no user currently signed in, show signInVC and set delegates to update UI once signed in
             let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController

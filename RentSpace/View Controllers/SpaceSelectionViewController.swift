@@ -45,13 +45,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             photographyImageview.image = UIImage(systemName: "camera")
             musicImageview.image = UIImage(systemName: "music.mic")
             deskImageview.image = UIImage(systemName: "studentdesk")
-        } else {
-            photographyImageview.image = UIImage(named: "Photography Studio")
-            musicImageview.image = UIImage(named: "Music Studio")
-            deskImageview.image = UIImage(named: "Desk Space")
-        }
-        
-        if #available(iOS 13.0, *) {
             self.tabBarController?.tabBar.items?[0].image = UIImage(systemName: "eye")
             self.tabBarController?.tabBar.items?[0].selectedImage = UIImage(systemName: "eye")
             self.tabBarController?.tabBar.items?[1].image = UIImage(systemName: "studentdesk")
@@ -60,7 +53,15 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             self.tabBarController?.tabBar.items?[2].selectedImage = UIImage(systemName: "person")
             self.tabBarController?.tabBar.items?[3].image = UIImage(systemName: "bubble.left.and.bubble.right")
             self.tabBarController?.tabBar.items?[3].selectedImage = UIImage(systemName: "bubble.left.and.bubble.right")
+            
+            // Setting to true to prevent tab bar adjustment for pre iOS 13
+            Settings.signingOut = true
+        } else {
+            photographyImageview.image = UIImage(named: "Photography Studio")
+            musicImageview.image = UIImage(named: "Music Studio")
+            deskImageview.image = UIImage(named: "Desk Space")
         }
+
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
             if error != nil || granted == false {
@@ -101,6 +102,28 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         registerVC.delegate = self
         appDelegate.delegate = self
+        
+        Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                Settings.currentUser = user
+                self.tabBarController?.tabBar.isHidden = false
+                self.signInButton.isEnabled = false
+                self.signInButton.tintColor = .clear
+                self.checkForMessages()
+
+            } else {
+                Settings.currentUser = nil
+                self.signInButton.isEnabled = true
+                self.signInButton.tintColor = Settings.orangeTint
+                
+                self.tabBarController?.tabBar.isHidden = true
+                
+                if Settings.signingOut == false {
+                    self.adjustViewForHiddenTabBar()
+                }
+                
+            }
+        })
     }
     
     
@@ -113,21 +136,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         }
         
-        Auth.auth().addStateDidChangeListener({ (auth, user) in
-            if user != nil {
-                Settings.currentUser = user
-                self.tabBarController?.tabBar.isHidden = false
-                self.signInButton.isEnabled = false
-                self.signInButton.tintColor = .clear
-                self.checkForMessages()
-
-            } else {
-                Settings.currentUser = nil
-                self.tabBarController?.tabBar.isHidden = true
-                self.signInButton.isEnabled = true
-                self.signInButton.tintColor = Settings.orangeTint
-            }
-        })
     }
 
     
@@ -288,6 +296,17 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
         for constraint in self.view.constraints {
             if constraint.identifier == "stackViewBottom" {
                 constraint.constant = tabBarHeight
+            }
+        }
+        stackView.layoutIfNeeded()
+    }
+    
+    func adjustViewForHiddenTabBar() {
+        let frame = self.tabBarController?.tabBar.frame
+        let height = frame?.size.height
+        for constraint in self.view.constraints {
+            if constraint.identifier == "stackViewBottom" {
+                constraint.constant = (-height! + 3)
             }
         }
         stackView.layoutIfNeeded()
