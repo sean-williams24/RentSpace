@@ -44,7 +44,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         if #available(iOS 13.0, *) {
             photographyImageview.image = UIImage(systemName: "camera")
             musicImageview.image = UIImage(systemName: "music.mic")
-            deskImageview.image = UIImage(systemName: "studentdesk")
+            deskImageview.image = UIImage(systemName: "desktopcomputer")
             self.tabBarController?.tabBar.items?[0].image = UIImage(systemName: "eye")
             self.tabBarController?.tabBar.items?[0].selectedImage = UIImage(systemName: "eye")
             self.tabBarController?.tabBar.items?[1].image = UIImage(systemName: "studentdesk")
@@ -110,18 +110,15 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 self.signInButton.isEnabled = false
                 self.signInButton.tintColor = .clear
                 self.checkForMessages()
-
             } else {
                 Settings.currentUser = nil
                 self.signInButton.isEnabled = true
                 self.signInButton.tintColor = Settings.orangeTint
-                
                 self.tabBarController?.tabBar.isHidden = true
                 
                 if Settings.signingOut == false {
                     self.adjustViewForHiddenTabBar()
                 }
-                
             }
         })
     }
@@ -135,7 +132,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 constraint.constant = 3
             }
         }
-        
     }
 
     
