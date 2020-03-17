@@ -262,7 +262,11 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         vc.delegate = self
         
         if let navVC = storyboard?.instantiateViewController(withIdentifier: "SignInNavVC") {
-            present(navVC, animated: true)
+            if #available(iOS 13.0, *) {
+                present(vc, animated: true)
+            } else {
+                present(navVC, animated: true)
+            }
         }
     }    
 }

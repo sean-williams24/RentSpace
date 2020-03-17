@@ -792,13 +792,6 @@ Long press and drag to reorder.</string>
                                     <action selector="forgotButtonTapped:" destination="8FH-2D-ozG" eventType="touchUpInside" id="XPP-fO-vT5"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pg7-Si-lqp" customClass="GIDSignInButton">
-                                <rect key="frame" x="20" y="367.33333333333331" width="374" height="40"/>
-                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="jbf-QT-jKh"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please sign in to enable chat with space owners, favourite spaces and post your own spaces." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="iZX-Xd-Fqd">
                                 <rect key="frame" x="20" y="801.66666666666663" width="374" height="40.333333333333371"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
@@ -815,6 +808,13 @@ Long press and drag to reorder.</string>
                                     <segue destination="XN8-Fk-fre" kind="presentation" identifier="Register" modalTransitionStyle="flipHorizontal" id="E0h-qH-FRP"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pg7-Si-lqp" customClass="GIDSignInButton">
+                                <rect key="frame" x="20" y="364.33333333333331" width="374" height="40"/>
+                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="jbf-QT-jKh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -824,27 +824,26 @@ Long press and drag to reorder.</string>
                             <constraint firstItem="iZX-Xd-Fqd" firstAttribute="bottom" secondItem="TV2-Un-BpR" secondAttribute="bottom" constant="-20" id="7lM-v3-Xnz"/>
                             <constraint firstItem="sFC-Iu-AGT" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="7lm-gD-ubv"/>
                             <constraint firstItem="dNX-df-tru" firstAttribute="top" secondItem="TV2-Un-BpR" secondAttribute="top" constant="35" id="GAz-Xc-Yzn"/>
-                            <constraint firstItem="Pg7-Si-lqp" firstAttribute="top" secondItem="NdX-wC-fyU" secondAttribute="bottom" constant="30" id="GpR-MQ-nQE"/>
                             <constraint firstItem="mfk-nD-k8Y" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="8" id="IfZ-6T-5Du"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="LOf-dR-Tuc" secondAttribute="trailing" constant="19" id="JYJ-gG-Ixt"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="iZX-Xd-Fqd" secondAttribute="trailing" constant="20" id="LAr-53-kWr"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="LFJ-GS-ZMg"/>
                             <constraint firstItem="NdX-wC-fyU" firstAttribute="centerX" secondItem="uke-cJ-Y74" secondAttribute="centerX" id="MSP-6a-WUO"/>
+                            <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="Pg7-Si-lqp" secondAttribute="trailing" constant="20" id="O25-T4-RTe"/>
                             <constraint firstItem="LOf-dR-Tuc" firstAttribute="leading" secondItem="sFC-Iu-AGT" secondAttribute="trailing" constant="8" id="OEV-4A-mZ2"/>
                             <constraint firstItem="sFC-Iu-AGT" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="13" id="PrS-lx-nQy"/>
                             <constraint firstItem="dNX-df-tru" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" id="R1C-pp-xha"/>
+                            <constraint firstItem="Pg7-Si-lqp" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="Rco-pQ-3uq"/>
                             <constraint firstItem="ofe-bV-dtz" firstAttribute="top" secondItem="dNX-df-tru" secondAttribute="bottom" constant="3" id="RwZ-lO-SPz"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gM7-8O-tc3" secondAttribute="trailing" id="W6v-Rt-zMK"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="centerX" secondItem="TV2-Un-BpR" secondAttribute="centerX" id="khZ-nT-3Pm"/>
-                            <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="Pg7-Si-lqp" secondAttribute="trailing" constant="20" id="l1Z-lN-gMp"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="ofe-bV-dtz" secondAttribute="trailing" id="psr-bB-gjK"/>
                             <constraint firstItem="mfk-nD-k8Y" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="rJ3-TJ-CMm"/>
                             <constraint firstItem="ofe-bV-dtz" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" id="rZZ-CF-Li2"/>
                             <constraint firstItem="LOf-dR-Tuc" firstAttribute="top" secondItem="gM7-8O-tc3" secondAttribute="bottom" constant="8" id="tYY-cm-ois"/>
-                            <constraint firstItem="Pg7-Si-lqp" firstAttribute="leading" secondItem="TV2-Un-BpR" secondAttribute="leading" constant="20" id="tgA-sE-8cZ"/>
                             <constraint firstItem="gM7-8O-tc3" firstAttribute="top" secondItem="ofe-bV-dtz" secondAttribute="bottom" constant="15" id="uOJ-L4-EaZ"/>
+                            <constraint firstItem="Pg7-Si-lqp" firstAttribute="top" secondItem="NdX-wC-fyU" secondAttribute="bottom" constant="27" id="wsX-9l-XSD"/>
                             <constraint firstItem="NdX-wC-fyU" firstAttribute="top" secondItem="sFC-Iu-AGT" secondAttribute="bottom" constant="16" id="xNQ-V2-atw"/>
-                            <constraint firstItem="iZX-Xd-Fqd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Pg7-Si-lqp" secondAttribute="bottom" constant="70" id="xn0-T4-32w"/>
                             <constraint firstItem="TV2-Un-BpR" firstAttribute="trailing" secondItem="dNX-df-tru" secondAttribute="trailing" id="y3J-Br-JlD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TV2-Un-BpR"/>
