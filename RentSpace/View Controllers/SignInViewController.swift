@@ -35,7 +35,6 @@ class SignInViewController: UIViewController, LoginButtonDelegate, ASAuthorizati
     
     fileprivate var handle: AuthStateDidChangeListenerHandle!
     var delegate: UpdateSignInDelegate?
-    // Unhashed nonce.
     fileprivate var currentNonce: String?
     
     // MARK: - Life Cycle

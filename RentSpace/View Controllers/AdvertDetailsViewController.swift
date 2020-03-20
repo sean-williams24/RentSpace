@@ -12,7 +12,7 @@ import NVActivityIndicatorView
 import FSPagerView
 import UIKit
 
-class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
+class AdvertDetailsViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -29,6 +29,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var directionsButton: UIButton!
     @IBOutlet var favouritesButton: UIButton!
     @IBOutlet weak var pagerViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var pagerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var scrollViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var mainScrollView: UIScrollView!
     @IBOutlet weak var pagerView: FSPagerView! {
@@ -70,9 +71,13 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
         return false
     }
-    var hideStatusBar = true
+    var pagerViewMaxHeight: CGFloat!
+    var pagerViewMinHeight: CGFloat!
+    var topBarHeight: CGFloat!
     
-    
+    var previousScrollOffset: CGFloat = 0
+    var titlePosition: CGFloat = 50
+
     
     // MARK: - Life Cycle
     
@@ -87,9 +92,14 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let navBarHeight = navigationController?.navigationBar.frame.height ?? 0
-        let height = statusBarHeight + navBarHeight
-        scrollViewTopConstraint.constant = -height
+        topBarHeight = statusBarHeight + navBarHeight
+        pagerViewTopConstraint.constant = -10
+        pagerViewMaxHeight = 350
+        pagerViewMinHeight = topBarHeight + 10
         
+        self.navigationController?.navigationBar.titleTextAttributes = Settings.navBarTitleAttributes
+ 
+
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
 
         if #available(iOS 13.0, *) {
@@ -138,7 +148,7 @@ class AdvertDetailsViewController: UIViewController, UIScrollViewDelegate {
         
         if space.photos == nil {
             pagerViewHeight.constant = 170
-            scrollViewTopConstraint.constant = 0
+            pagerViewTopConstraint.constant = (topBarHeight - statusBarHeight) + 3
             activityView.stopAnimating()
             images.append(UIImage(named: "RentSpace Logo Flip BG Small")!)
             pagerView.reloadData()
@@ -432,5 +442,44 @@ extension AdvertDetailsViewController: FSPagerViewDataSource, FSPagerViewDelegat
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
         self.pageControl.currentPage = targetIndex
     }
+}
+
+
+// MARK: - UIScrollViewDelegate
+
+extension AdvertDetailsViewController: UIScrollViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height;
+
+        let range = self.pagerViewMaxHeight - self.pagerViewMinHeight
+        let openAmount = self.pagerViewHeight.constant - self.pagerViewMinHeight
+        let percentage = openAmount / range
+        
+        let scrollViewOffsetY = scrollView.contentOffset.y
+        let newPagerViewHeight = pagerViewHeight.constant - scrollViewOffsetY
+        let titleHeight = titleLabel.frame.height
+        
+        if newPagerViewHeight > pagerViewMaxHeight {
+            pagerViewHeight.constant = pagerViewMaxHeight
+        } else if newPagerViewHeight < pagerViewMinHeight && scrollViewOffsetY < absoluteBottom {
+            pagerViewHeight.constant = pagerViewMinHeight
+
+            if newPagerViewHeight < (topBarHeight - titleHeight) {
+                self.title = space.title
+            } else {
+                self.title = ""
+            }
+            
+            // if scrollview offset is less than its absolute bottom, adjust pagerView height
+        } else if scrollViewOffsetY < absoluteBottom && Int(scrollViewOffsetY) != Int(absoluteBottom) {
+
+            pagerViewHeight.constant = newPagerViewHeight
+            scrollView.contentOffset.y = 0
+            pagerView.alpha = percentage
+
+        } else {
+            return
+        }
+    }
 }
