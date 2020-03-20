@@ -29,7 +29,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     // MARK: - Properties
     
     var locationManager: CLLocationManager!
-    
+    var ref: DatabaseReference!
     
     // MARK: - Life Cycle
     
@@ -62,6 +62,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             deskImageview.image = UIImage(named: "Desk Space")
         }
 
+        ref = Database.database().reference()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
             if error != nil || granted == false {
@@ -110,6 +111,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 self.signInButton.isEnabled = false
                 self.signInButton.tintColor = .clear
                 self.checkForMessages()
+                self.downloadFavouritesSpace()
             } else {
                 Settings.currentUser = nil
                 self.signInButton.isEnabled = true
@@ -197,10 +199,24 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         button.imageView?.contentMode = .scaleAspectFill
     }
     
+    fileprivate func downloadFavouritesSpace() {
+        // Load and listen for changes to Favourites
+        let UID = Auth.auth().currentUser?.uid ?? ""
+        self.ref.child("users/\(UID)/favourites").observe(.value) { (snapshot) in
+            var newItems: [FavouriteSpace] = []
+            for child in snapshot.children {
+                if let favSnap = child as? DataSnapshot {
+                    if let favourite = FavouriteSpace(snapshot: favSnap) {
+                        newItems.append(favourite)
+                    }
+                }
+            }
+            Favourites.spaces = newItems
+        }
+    }
     
     fileprivate func checkForMessages() {
         if let UID = Auth.auth().currentUser?.uid {
-            let ref = Database.database().reference()
             
             // Check for unread messages
             ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in

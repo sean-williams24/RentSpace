@@ -1593,7 +1593,7 @@ Long press and drag to reorder.</string>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmj-IP-VZw">
                                                 <rect key="frame" x="0.0" y="87" width="414" height="379"/>
-                                                <color key="backgroundColor" red="0.11502255798450685" green="0.12089633670673536" blue="0.13153725136355099" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="uIt-MQ-ARt"/>
                                                 </constraints>

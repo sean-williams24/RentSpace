@@ -74,10 +74,6 @@ class AdvertDetailsViewController: UIViewController {
     var pagerViewMaxHeight: CGFloat!
     var pagerViewMinHeight: CGFloat!
     var topBarHeight: CGFloat!
-    
-//    var previousScrollOffset: CGFloat = 0
-//    var titlePosition: CGFloat = 50
-    var titleScale: CGFloat = 1
 
     
     // MARK: - Life Cycle
@@ -99,8 +95,7 @@ class AdvertDetailsViewController: UIViewController {
         pagerViewMinHeight = topBarHeight + 10
         
         self.navigationController?.navigationBar.titleTextAttributes = Settings.navBarTitleAttributes
- 
-
+        
         trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAdvert))
 
         if #available(iOS 13.0, *) {

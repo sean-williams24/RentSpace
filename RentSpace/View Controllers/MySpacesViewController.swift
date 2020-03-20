@@ -61,7 +61,6 @@ class MySpacesViewController: UIViewController {
                 self.signedIn = true
                 self.UID = user!.uid
                 self.loadUserSpaces()
-                self.downloadFavouritesSpace()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                     if self.mySpaces.isEmpty {
@@ -100,21 +99,6 @@ class MySpacesViewController: UIViewController {
     
     
     // MARK: - Private Methods
-    
-    fileprivate func downloadFavouritesSpace() {
-        // Load and listen for changes to Favourites
-        self.ref.child("users/\(self.UID)/favourites").observe(.value) { (snapshot) in
-            var newItems: [FavouriteSpace] = []
-            for child in snapshot.children {
-                if let favSnap = child as? DataSnapshot {
-                    if let favourite = FavouriteSpace(snapshot: favSnap) {
-                        newItems.append(favourite)
-                    }
-                }
-            }
-            Favourites.spaces = newItems
-        }
-    }
     
     
     fileprivate func loadUserSpaces() {
