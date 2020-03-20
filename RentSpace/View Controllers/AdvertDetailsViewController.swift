@@ -75,8 +75,9 @@ class AdvertDetailsViewController: UIViewController {
     var pagerViewMinHeight: CGFloat!
     var topBarHeight: CGFloat!
     
-    var previousScrollOffset: CGFloat = 0
-    var titlePosition: CGFloat = 50
+//    var previousScrollOffset: CGFloat = 0
+//    var titlePosition: CGFloat = 50
+    var titleScale: CGFloat = 1
 
     
     // MARK: - Life Cycle
@@ -147,11 +148,9 @@ class AdvertDetailsViewController: UIViewController {
         postcode = space.postcode
         
         if space.photos == nil {
-            pagerViewHeight.constant = 170
+            pagerViewHeight.constant = 0
             pagerViewTopConstraint.constant = (topBarHeight - statusBarHeight) + 3
             activityView.stopAnimating()
-            images.append(UIImage(named: "RentSpace Logo Flip BG Small")!)
-            pagerView.reloadData()
         }
         
         if space.viewOnMap == false {
@@ -452,28 +451,32 @@ extension AdvertDetailsViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height;
 
-        let range = self.pagerViewMaxHeight - self.pagerViewMinHeight
+        let range = (self.pagerViewMaxHeight - 100) - self.pagerViewMinHeight
         let openAmount = self.pagerViewHeight.constant - self.pagerViewMinHeight
         let percentage = openAmount / range
         
         let scrollViewOffsetY = scrollView.contentOffset.y
         let newPagerViewHeight = pagerViewHeight.constant - scrollViewOffsetY
-        let titleHeight = titleLabel.frame.height
         
         if newPagerViewHeight > pagerViewMaxHeight {
             pagerViewHeight.constant = pagerViewMaxHeight
         } else if newPagerViewHeight < pagerViewMinHeight && scrollViewOffsetY < absoluteBottom {
             pagerViewHeight.constant = pagerViewMinHeight
 
-            if newPagerViewHeight < (topBarHeight - titleHeight) {
+            if newPagerViewHeight < topBarHeight {
+                UIView.animate(withDuration: 0.3) {
+                    self.titleLabel.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+                }
                 self.title = space.title
             } else {
                 self.title = ""
+                UIView.animate(withDuration: 0.3) {
+                    self.titleLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
             }
             
             // if scrollview offset is less than its absolute bottom, adjust pagerView height
         } else if scrollViewOffsetY < absoluteBottom && Int(scrollViewOffsetY) != Int(absoluteBottom) {
-
             pagerViewHeight.constant = newPagerViewHeight
             scrollView.contentOffset.y = 0
             pagerView.alpha = percentage
