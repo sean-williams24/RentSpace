@@ -453,9 +453,15 @@ extension AdvertDetailsViewController: UIScrollViewDelegate {
         let scrollViewOffsetY = scrollView.contentOffset.y
         let newPagerViewHeight = pagerViewHeight.constant - scrollViewOffsetY
         
+        
+//        print("Absolute bottom: \(absoluteBottom)")
+//        print("Offset: \(scrollViewOffsetY)")
+        
         if newPagerViewHeight > pagerViewMaxHeight {
+//            print("if 1")
             pagerViewHeight.constant = pagerViewMaxHeight
         } else if newPagerViewHeight < pagerViewMinHeight && scrollViewOffsetY < absoluteBottom {
+//            print("if 2")
             pagerViewHeight.constant = pagerViewMinHeight
 
             if newPagerViewHeight < topBarHeight {
@@ -463,21 +469,52 @@ extension AdvertDetailsViewController: UIScrollViewDelegate {
                     self.titleLabel.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
                 }
                 self.title = space.title
-            } else {
+            }
+            
+            // if scrollview offset is less than its absolute bottom, adjust pagerView height
+        } else if scrollViewOffsetY < absoluteBottom && Int(scrollViewOffsetY) != Int(absoluteBottom) {
+            print("if 3")
+            pagerViewHeight.constant = newPagerViewHeight
+            scrollView.contentOffset.y = 0
+            
+            if scrollView.contentSize.height > view.frame.height {
+                pagerView.alpha = percentage
+            }
+
+            if newPagerViewHeight > topBarHeight {
                 self.title = ""
                 UIView.animate(withDuration: 0.3) {
                     self.titleLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
                 }
             }
-            
-            // if scrollview offset is less than its absolute bottom, adjust pagerView height
-        } else if scrollViewOffsetY < absoluteBottom && Int(scrollViewOffsetY) != Int(absoluteBottom) {
-            pagerViewHeight.constant = newPagerViewHeight
-            scrollView.contentOffset.y = 0
-            pagerView.alpha = percentage
 
+            
         } else {
+//            print("else")
+            
+            if scrollViewOffsetY == absoluteBottom && (scrollView.contentSize.height - scrollView.frame.size.height) > 5 && scrollView.contentSize.height < view.frame.height {
+                print("Title is hidden")
+                self.pagerView.alpha = 1
+
+                let scrollViewHeight = scrollView.contentSize.height - 2
+                let pagerViewTargetHeight = view.frame.height - scrollViewHeight
+                UIView.animate(withDuration: 0.4) {
+                    self.pagerViewHeight.constant = pagerViewTargetHeight + 10
+                    self.view.layoutIfNeeded()
+                }
+            }
+            
             return
         }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        print(scrollView.contentSize.height)
+        print(scrollView.frame.size.height)
+        print(pagerView.frame.height)
+        print(view.frame.height)
+        print("")
+        
+        
     }
 }
