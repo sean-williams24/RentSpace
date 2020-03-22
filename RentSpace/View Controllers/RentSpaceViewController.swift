@@ -62,7 +62,9 @@ class RentSpaceViewController: UIViewController {
             }
         }
         
+        if searchAreaButtonTitle == "" { searchAreaButtonTitle = Location.userLocationCountry }
         if searchAreaButtonTitle == "" { searchAreaButtonTitle = "Set Location" }
+        
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
         navigationItem.rightBarButtonItem = rightBarButton
@@ -74,10 +76,16 @@ class RentSpaceViewController: UIViewController {
             Location.searchDistance = UserDefaults.standard.double(forKey: "Distance")
         } 
         
-        if Location.savedLocationExists == true {
+        if Location.savedLocationExists {
             getAdverts(for: Location.customCLLocation, within: Location.searchDistance)
         } else {
-            getAdverts(for: Location.userCLLocation, within: Location.searchDistance)
+            if searchAreaButtonTitle == Location.userLocationCountry {
+                getAdverts(for: Location.userCLLocation, within: 310.0)
+                UserDefaults.standard.set(310.0, forKey: "Distance")
+
+            } else {
+                getAdverts(for: Location.userCLLocation, within: Location.searchDistance)
+            }
         }
         
         self.tableView.rowHeight = 150
@@ -136,7 +144,7 @@ class RentSpaceViewController: UIViewController {
     
     fileprivate func firstAppLoadInfoView() {
         self.blurredView.isHidden = false
-        firstLoadLabel.text = "Searching for \(chosenCategory)'s in \(searchAreaButtonTitle.lowercased().capitalized) within a 100 mile radius. \n\nChange location and search radius by tapping the \(searchAreaButtonTitle.lowercased().capitalized) button above."
+        firstLoadLabel.text = "Searching for \(chosenCategory)'s in \(searchAreaButtonTitle.lowercased().capitalized). \n\nChange location and search radius by tapping the \(searchAreaButtonTitle.lowercased().capitalized) button above."
         firstLoadInfoView.backgroundColor = Settings.flipsideBlackColour
         firstLoadInfoView.layer.cornerRadius = 10
         firstLoadInfoView.layer.borderWidth = 1

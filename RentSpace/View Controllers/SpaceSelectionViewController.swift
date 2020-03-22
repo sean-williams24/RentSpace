@@ -30,6 +30,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     var locationManager: CLLocationManager!
     var ref: DatabaseReference!
+    var deviceRegionCountry = ""
     
     // MARK: - Life Cycle
     
@@ -91,12 +92,24 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         }
         
-        // Request location authorization on first app launch - if denied, set location to london
+        let locale = Locale.current
+        let regionCode = locale.regionCode ?? "No code"
+        deviceRegionCountry = locale.localizedString(forRegionCode: regionCode) ?? "United Kingdom"
+
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        
+        // Request location authorization on first app launch - if denied, set location to user device country
         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
-            locationManager = CLLocationManager()
-            locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        } else {
+            if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                  locationManager.startUpdatingLocation()
+              } else {
+                locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                locationManager.requestWhenInUseAuthorization()
+              }
         }
         
         let registerVC = storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterViewController
@@ -162,13 +175,16 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         switch status {
         case .denied, .restricted:
             print("No location access, denied or restricted")
-            if !UserDefaults.standard.bool(forKey: "launchedBefore") {
-                showAlert(title: "Location Services Disabled", message: "Location set to London, this can be changed by tapping the London button on the next screen. Location services can be enabled at anytime from the Apple Settings app.")
-            }
             
-            CLGeocoder().geocodeAddressString("London") { (placemarks, error) in
+            if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+                showAlert(title: "Location Services Disabled", message: "RentSpace works best when location services are enabled. Location set to \(deviceRegionCountry), this can be changed by tapping the \(deviceRegionCountry) button on the next screen. \n\nPlease go to Apple Settings > RentSpace > Location and allow location 'While Using The App' for accurate results.")
+            } else {
+                showAlert(title: "Location Services Disabled", message: "Country set to \(deviceRegionCountry). \n\nPlease go to Apple Settings > RentSpace > Location and allow location 'While Using The App' for accurate results.")
+            }
+
+            CLGeocoder().geocodeAddressString(deviceRegionCountry) { (placemarks, error) in
                 if error != nil {
-                    self.showAlert(title: "Location Error", message: "Please set a new search location by tapping the London button on the next screen")
+                    self.showAlert(title: "Location Error", message: "Please set a new search location by tapping the location button on the next screen")
                 }
                 
                 if let address = placemarks?[0].postalAddress {
@@ -176,6 +192,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                     Location.userLocationCity = address.city
                     Location.userLocationCountry = address.country
                     Location.userLocationAddress = address
+                    
                     if let location = placemarks?[0].location {
                         Location.userCLLocation = location
                     }
@@ -183,6 +200,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             }
         case .notDetermined:
             print("Not determined")
+
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         case .authorizedAlways, .authorizedWhenInUse :
             print("Access")

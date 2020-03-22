@@ -15,7 +15,7 @@ class Location {
     
     static var userLocationTown = ""
     static var userLocationCity = ""
-    static var userLocationCountry = "United Kingdom"
+    static var userLocationCountry = ""
     static var userCLLocation = CLLocation()
     static var userLocationAddress: CNPostalAddress?
     static var customCLLocation = CLLocation()

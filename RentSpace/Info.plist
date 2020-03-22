@@ -46,7 +46,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>RentSpace requires camera access for you to add photos to your advert.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location required to tailor search results to your area.</string>
+	<string>Your location is required to find creative spaces in your area.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>RentSpace requires access to your photo library for you to add photos to your ad.</string>
 	<key>UIApplicationSceneManifest</key>

@@ -40,6 +40,7 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
                     self.matchingItems.append(item)
                 }
             }
+
             self.tableView.reloadData()
         }
     }
