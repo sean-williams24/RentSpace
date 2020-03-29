@@ -1,7 +1,9 @@
 # RentSpace
 An app which lets users advertise and search for art, photography, music studio and desk space to rent.
 
-![Search for studio Spaces](gifs/gif1.gif)
+![Search for studio Spaces](gifs/gif1.gif) ![Search for studio Spaces](gifs/gif2.gif)
+
+
 
 ## Getting Started
 Clone or download the project and run the xcworkspace file. Podfiles are included but if there are any issues the required pods are listed below. 
