@@ -19,8 +19,10 @@ On first launch the app will establish the users location and search for spaces 
 
 Users can access full functionality by registering an email address and password or signing in with Facbook or Google. This will enable the user to post/advertise their own spaces. On successful post the adverts will immediately appear in the 'MySpaces' tab. By selecting a space in MySpaces, the user is able to edit or delete their advert. Chats appear in the 'Messages' tab and can be removed by swiping to delete. 
 
+RentSpace is availabe to download from the [App Store.](https://apps.apple.com/gb/app/rentspace/id1500549065#?platform=iphone)
+
 ## Support
-https://wilmslo.wixsite.com/rentspace 
+(https://wilmslo.wixsite.com/rentspace "RentSpace Website")
 
 ## License
 RentSpace is Copyright © 2020 Sean Williams. It is free software, and may be redistributed under the terms specified in the LICENSE file.
