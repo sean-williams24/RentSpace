@@ -3,7 +3,7 @@ An app which lets users advertise and search for art, photography, music studio 
 
 ![Search for studio Spaces](gifs/gif1.gif =100x100) 
 
-
+<img src="gifs/gif1.gif" data-canonical-src="gifs/gif1.gif" width="200" height="400" />
 
 ## Getting Started
 Clone or download the project and run the xcworkspace file. Podfiles are included but if there are any issues the required pods are listed below. 
