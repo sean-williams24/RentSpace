@@ -22,7 +22,7 @@ Users can access full functionality by registering an email address and password
 RentSpace is availabe to download from the [App Store.](https://apps.apple.com/gb/app/rentspace/id1500549065#?platform=iphone)
 
 ## Support
-(https://wilmslo.wixsite.com/rentspace "RentSpace Website")
+[RentSpace Website](https://wilmslo.wixsite.com/rentspace)
 
 ## License
 RentSpace is Copyright © 2020 Sean Williams. It is free software, and may be redistributed under the terms specified in the LICENSE file.
