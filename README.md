@@ -1,7 +1,7 @@
 # RentSpace
 An app which lets users advertise and search for art, photography, music studio and desk space to rent.
 
-![Search for studio Spaces](gifs/gif1.gif | width=400) 
+![Search for studio Spaces](gifs/gif1.gif =100x100) 
 
 
 
