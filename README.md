@@ -23,7 +23,8 @@ RentSpace is availabe to download from the [App Store.](https://apps.apple.com/g
 
 ## Support
 [RentSpace Website](https://wilmslo.wixsite.com/rentspace)
-[Watch Demo Video On YouTube](https://www.youtube.com/watch?v=44AcKI1WNXg&feature=youtu.be)
+
+Watch demo video on [YouTube](https://www.youtube.com/watch?v=44AcKI1WNXg&feature=youtu.be)
 
 ## License
 RentSpace is Copyright © 2020 Sean Williams. It is free software, and may be redistributed under the terms specified in the LICENSE file.
