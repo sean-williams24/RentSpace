@@ -111,11 +111,25 @@ class SignInViewController: UIViewController, LoginButtonDelegate, ASAuthorizati
         guard let accessTokenString = AccessToken.current?.tokenString else { return }
         let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
         
-        Auth.auth().signIn(with: credentials) { (FBuser, error) in
-            if error != nil {
-                print("Problem signing into FireBase with Facebook:", error?.localizedDescription as Any)
-                self.showAlert(title: "Sign-In Error", message: "We encountered a problem signing you in through Facebook; Please try again or use a different sign-in method.")
-                return
+        Auth.auth().signIn(with: credentials) { (FBuser, FireBaseError) in
+            if FireBaseError != nil {
+                
+                if let fireBaseError = FireBaseError {
+                    let authError = fireBaseError as NSError
+                    
+                    let emailAddress = FBuser?.user.email ?? "your Facebook email address"
+                    if authError.code == 17012 {
+                        self.showAlert(title: "Email already registered", message: "An account already exists with \(emailAddress) - please sign-in with it using your password you created at registration. Or use a different sign-in method.")
+                        LoginManager().logOut()
+                        return
+
+                    } else {
+                        print("Problem signing into FireBase with Facebook:", FireBaseError?.localizedDescription as Any)
+                        self.showAlert(title: "Sign-In Error", message: FireBaseError?.localizedDescription ?? "We encountered a problem signing you in through Facebook; Please try again or use a different sign-in method.")
+                        LoginManager().logOut()
+                        return
+                    }
+                }
             }
             print("Successfully logged into FireBase with Facebook user:", FBuser as Any)
             self.delegate?.adjustViewForTabBar?()
