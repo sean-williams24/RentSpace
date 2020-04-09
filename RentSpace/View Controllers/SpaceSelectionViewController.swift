@@ -65,16 +65,19 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 
         ref = Database.database().reference()
         
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
-            if error != nil || granted == false {
-
-                if !UserDefaults.standard.bool(forKey: "launchedBefore") {
-                    DispatchQueue.main.async {
-                        self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages from studios or customers. Notifications can be turned on in the Settings App.")
-                    }
-                }
-            }
-        }
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
+//            if error != nil || granted == false {
+//
+//                if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+//                    DispatchQueue.main.async {
+//                        self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages from studios or customers. Notifications can be turned on in the Settings App.")
+//                    }
+//                }
+//            }
+//        }
+        
+        
+        
         
         // Get saved location - store to Location class
         let savedLocation = UserDefaults.standard.string(forKey: "Location")
@@ -125,6 +128,13 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 self.signInButton.tintColor = .clear
                 self.checkForMessages()
                 self.downloadFavouritesSpace()
+                
+                if let uid = user?.uid {
+                    print(uid)
+                    let pushManager = PushNotificationManager(userID: uid)
+                    pushManager.registerForPushNotifications()
+                }
+                
             } else {
                 Settings.currentUser = nil
                 self.signInButton.isEnabled = true

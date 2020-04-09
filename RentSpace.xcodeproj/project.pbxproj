@@ -32,6 +32,7 @@
 		CE6583AA239A6F00001FFA8A /* SpaceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */; };
 		CE6583AC239A8A13001FFA8A /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AB239A8A13001FFA8A /* Location.swift */; };
 		CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */; };
+		CE6896E6243F6CEB00B37A90 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6896E5243F6CEB00B37A90 /* PushNotificationManager.swift */; };
 		CE6BFB30239F9B44006D2ACC /* PostConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */; };
 		CE6BFB3223A24A73006D2ACC /* SearchRadiusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */; };
 		CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */; };
@@ -83,6 +84,7 @@
 		CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSelectionViewController.swift; sourceTree = "<group>"; };
 		CE6583AB239A8A13001FFA8A /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE6583AD239AAAC9001FFA8A /* AdvertDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertDetailsViewController.swift; sourceTree = "<group>"; };
+		CE6896E5243F6CEB00B37A90 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		CE6BFB2F239F9B44006D2ACC /* PostConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostConfirmationViewController.swift; sourceTree = "<group>"; };
 		CE6BFB3123A24A73006D2ACC /* SearchRadiusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRadiusViewController.swift; sourceTree = "<group>"; };
 		CE6BFB3323A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSearchLocationTableViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
 				CE79981823E1BF840017E39A /* Favourites.swift */,
 				CE3BFE5E23FD5DDF0023186C /* Legal.swift */,
+				CE6896E5243F6CEB00B37A90 /* PushNotificationManager.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			files = (
 				CE6BFB3423A3A055006D2ACC /* ChangeSearchLocationTableViewController.swift in Sources */,
 				CE79981F23E6D82D0017E39A /* UpdateDetailsViewController.swift in Sources */,
+				CE6896E6243F6CEB00B37A90 /* PushNotificationManager.swift in Sources */,
 				CE6583AE239AAAC9001FFA8A /* AdvertDetailsViewController.swift in Sources */,
 				CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */,
 				CE084090238E78D300DA57C8 /* RentSpaceViewController.swift in Sources */,
@@ -556,7 +560,7 @@
 				CODE_SIGN_ENTITLEMENTS = RentSpace/RentSpace.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -564,7 +568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.RentSpace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -580,7 +584,7 @@
 				CODE_SIGN_ENTITLEMENTS = RentSpace/RentSpace.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -588,7 +592,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.RentSpace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
