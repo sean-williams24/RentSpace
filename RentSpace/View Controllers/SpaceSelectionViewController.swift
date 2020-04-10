@@ -130,7 +130,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 self.downloadFavouritesSpace()
                 
                 if let uid = user?.uid {
-                    print(uid)
                     let pushManager = PushNotificationManager(userID: uid)
                     pushManager.registerForPushNotifications()
                 }
@@ -333,6 +332,7 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     }
     
     func adjustViewForTabBar() {
+        print("Adjust view for tab bar called")
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
         let safeArea = self.view.safeAreaLayoutGuide.layoutFrame

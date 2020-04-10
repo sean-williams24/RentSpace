@@ -224,6 +224,23 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.showAlert(title: "Oh Dear", message: "Something went wrong, please try sending the message again.")
                     return
                 } else {
+                    
+                    // Recipient has successfully received message - send push notification
+                    // If logged in user is advert owner, message recipient is customer, if logged in user is customer, message recipient would be advert owner
+                    let recipientUsername = Auth.auth().currentUser?.uid == advertOwnerUID ? advertOwnerDisplayName : customerDisplayName
+                    let recipientUID = Auth.auth().currentUser?.uid == advertOwnerUID ? self.customerUID : advertOwnerUID
+
+                    self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
+                        let value = fcmSnapshot.value as? NSDictionary
+                        let token = value?["fcmToken"] as? String ?? "No Token"
+                        print("Recipent token: \(token)")
+                        let sender = PushNotificationSender()
+                        sender.sendPushNotification(to: token, title: recipientUsername, body: self.messageTextField.text ?? "No Text")
+                    }
+                    
+
+                    
+                    
                     customerDB.setValue(chatData) { (error, chatRef) in
                         if error != nil {
                             print("Error sending message: \(error?.localizedDescription as Any)")
