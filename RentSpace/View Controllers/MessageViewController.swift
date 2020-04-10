@@ -227,8 +227,11 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                     
                     // Recipient has successfully received message - send push notification
                     // If logged in user is advert owner, message recipient is customer, if logged in user is customer, message recipient would be advert owner
-                    let recipientUsername = Auth.auth().currentUser?.uid == advertOwnerUID ? advertOwnerDisplayName : customerDisplayName
+                    var recipientUsername = Auth.auth().currentUser?.uid == advertOwnerUID ? advertOwnerDisplayName : customerDisplayName
                     let recipientUID = Auth.auth().currentUser?.uid == advertOwnerUID ? self.customerUID : advertOwnerUID
+                    if recipientUsername == "" {
+//                        recipientUsername == 
+                    }
 
                     self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
                         let value = fcmSnapshot.value as? NSDictionary

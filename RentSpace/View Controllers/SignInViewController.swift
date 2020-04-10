@@ -300,9 +300,34 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 }
                 // User is signed in to Firebase with Apple.
                 print("User signing into firebase with Apple")
-                self.dismiss(animated: true)
-                self.delegate?.updateSignInButton()
-                self.delegate?.adjustViewForTabBar?()
+                
+                if authResult?.user.displayName == nil {
+                    let ac = UIAlertController(title: "Please create a username", message: nil, preferredStyle: .alert)
+                    ac.addTextField { (textfield) in
+                        textfield.placeholder = "Username"
+                    }
+                    
+                    ac.addAction(UIAlertAction(title: "SAVE", style: .default, handler: { (_) in
+                        guard let username = ac.textFields?[0].text else { return }
+                        
+                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                        changeRequest?.displayName = username
+                        changeRequest?.commitChanges { [weak self] (displayNameError) in
+                            if displayNameError != nil {
+                                self?.showAlert(title: "Oops", message: "Problem saving username, please go to account settings on the My Spaces tab to update.")
+                            } else {
+                                print("Username saved")
+                                self?.dismiss(animated: true)
+                                self?.delegate?.updateSignInButton()
+                                self?.delegate?.adjustViewForTabBar?()
+                            }
+                        }
+                      }))
+                    
+                    self.present(ac, animated: true) {
+
+                    }
+                }
             }
         }
     }
