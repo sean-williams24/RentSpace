@@ -175,6 +175,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                 // If this is a new chat, set advertOwner details from advert object
                 advertOwnerUID = space.postedByUser
                 advertOwnerDisplayName = space.userDisplayName
+
                 if let imageURLsDict = space.photos {
                     thumbURL = imageURLsDict["image 1"] ?? space.category
                 }
@@ -227,18 +228,16 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                     
                     // Recipient has successfully received message - send push notification
                     // If logged in user is advert owner, message recipient is customer, if logged in user is customer, message recipient would be advert owner
-                    var recipientUsername = Auth.auth().currentUser?.uid == advertOwnerUID ? advertOwnerDisplayName : customerDisplayName
+                    let senderUsername = Auth.auth().currentUser?.displayName ?? "New Message"
                     let recipientUID = Auth.auth().currentUser?.uid == advertOwnerUID ? self.customerUID : advertOwnerUID
-                    if recipientUsername == "" {
-//                        recipientUsername == 
-                    }
+
 
                     self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
                         let value = fcmSnapshot.value as? NSDictionary
                         let token = value?["fcmToken"] as? String ?? "No Token"
                         print("Recipent token: \(token)")
                         let sender = PushNotificationSender()
-                        sender.sendPushNotification(to: token, title: recipientUsername, body: self.messageTextField.text ?? "No Text")
+                        sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "No Text")
                     }
                     
 
