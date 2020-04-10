@@ -65,16 +65,16 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 
         ref = Database.database().reference()
         
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
-//            if error != nil || granted == false {
-//
-//                if !UserDefaults.standard.bool(forKey: "launchedBefore") {
-//                    DispatchQueue.main.async {
-//                        self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages from studios or customers. Notifications can be turned on in the Settings App.")
-//                    }
-//                }
-//            }
-//        }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { (granted, error) in
+            if error != nil || granted == false {
+
+                if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages from studios or customers. Notifications can be turned on in the Settings App.")
+                    }
+                }
+            }
+        }
         
         
         

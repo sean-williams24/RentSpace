@@ -122,7 +122,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate, ASAuthorizati
                         self.showAlert(title: "Email already registered", message: "An account already exists with \(emailAddress) - please sign-in with it using your password you created at registration. Or use a different sign-in method.")
                         LoginManager().logOut()
                         return
-
+                        
                     } else {
                         print("Problem signing into FireBase with Facebook:", FireBaseError?.localizedDescription as Any)
                         self.showAlert(title: "Sign-In Error", message: FireBaseError?.localizedDescription ?? "We encountered a problem signing you in through Facebook; Please try again or use a different sign-in method.")
@@ -322,11 +322,15 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                                 self?.delegate?.adjustViewForTabBar?()
                             }
                         }
-                      }))
+                    }))
                     
                     self.present(ac, animated: true) {
-
+                        
                     }
+                } else {
+                    self.dismiss(animated: true)
+                    self.delegate?.updateSignInButton()
+                    self.delegate?.adjustViewForTabBar?()
                 }
             }
         }
@@ -339,7 +343,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
             showAlert(title: "Apple Sign-In Error", message: "Please try again or try signing in via another method.")
         case .canceled:
             print("User Cancelled Apple Sign in")
-
+            
         default:
             print("Unknown error")
         }

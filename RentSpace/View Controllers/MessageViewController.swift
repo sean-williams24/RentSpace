@@ -56,6 +56,11 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         // If arriving from AdvertDetailsVC, this is a new chat - create new unique chat ID using current users UID + advert key
         if !viewingExistingChat {
             chatID = customerUID + "-" + space.key
+            
+            let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
+            if !isRegisteredForRemoteNotifications {
+                 self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages. Notifications can be turned on in the Settings App.")
+            }
         }
                 
         configureUI()
