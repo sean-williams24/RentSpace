@@ -315,6 +315,19 @@ class AdvertDetailsViewController: UIViewController {
         }
     }
     
+    fileprivate func showSignInVC() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
+        
+        if let navVC = storyboard?.instantiateViewController(withIdentifier: "SignInNavVC") {
+            if #available(iOS 13.0, *) {
+                present(vc, animated: true)
+            } else {
+                present(navVC, animated: true)
+            }
+        }
+    }
+    
+    
     //MARK: - Action Methods
     
     @IBAction func favouritesButtonTapped(_ sender: Any) {
@@ -333,9 +346,7 @@ class AdvertDetailsViewController: UIViewController {
                 favouritesButton.tintColor = Settings.orangeTint
             }
         } else {
-            if let navVC = storyboard?.instantiateViewController(withIdentifier: "SignInNavVC") {
-                present(navVC, animated: true)
-            }
+            showSignInVC()
         }
     }
     
@@ -347,9 +358,7 @@ class AdvertDetailsViewController: UIViewController {
             vc.thumbnail = thumbnail
             navigationController?.pushViewController(vc, animated: true)
         } else {
-            if let navVC = storyboard?.instantiateViewController(withIdentifier: "SignInNavVC") {
-                present(navVC, animated: true)
-            }
+            showSignInVC()
         }
     }
     

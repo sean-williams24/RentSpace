@@ -119,7 +119,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate, ASAuthorizati
                     
                     let emailAddress = FBuser?.user.email ?? "your Facebook email address"
                     if authError.code == 17012 {
-                        self.showAlert(title: "Email already registered", message: "An account already exists with \(emailAddress) - please sign-in with it using your password you created at registration. Or use a different sign-in method.")
+                        self.showAlert(title: "Email already registered", message: "An account already exists with \(emailAddress) - please sign-in using the method you previously used with that email address.")
                         LoginManager().logOut()
                         return
                         

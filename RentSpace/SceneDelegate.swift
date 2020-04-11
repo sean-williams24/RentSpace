@@ -26,6 +26,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         annotation: [UIApplication.OpenURLOptionsKey.annotation])
 
     }
-        
+    
+    @available(iOS 13.0, *)
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        print("Did bceome active")
+        playerViewController.pinStackViewToBottom()
+
+    }
+    
+    
+    var playerViewController: SpaceSelectionViewController {
+        get {
+            let navController = self.window?.rootViewController?.children[0] as! UINavigationController
+            return navController.topViewController as! SpaceSelectionViewController
+        }
+    }
+
 }
 

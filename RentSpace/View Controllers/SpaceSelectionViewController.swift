@@ -36,7 +36,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("View did load")
         configure(artButton, text: "Art")
         configure(photographyButton, text: "Photography")
         configure(musicButton, text: "Music")
@@ -75,8 +75,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 }
             }
         }
-        
-        
         
         
         // Get saved location - store to Location class
@@ -148,15 +146,22 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    
+    func pinStackViewToBottom() {
+        print("Pin stack view called")
         for constraint in self.view.constraints {
             if constraint.identifier == "stackViewBottom" {
                 constraint.constant = 3
             }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("View will appear")
+        pinStackViewToBottom()
+    }
+    
+    
 
     
     // MARK: - Location Methods
@@ -326,6 +331,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
 
 extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     func adjustViewAfterRegistration() {
+        print("Adjust view after registration")
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
         let safeArea = self.view.safeAreaLayoutGuide.layoutFrame
@@ -355,6 +361,7 @@ extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     }
     
     func adjustViewForHiddenTabBar() {
+        print("Adjust view for hidden tab bar")
         let frame = self.tabBarController?.tabBar.frame
         let height = frame?.size.height
         for constraint in self.view.constraints {
