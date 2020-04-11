@@ -41,9 +41,7 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
     }
     
     func updateFirebaseRTDatabasePushTokenIfNeeded() {
-        print("Update database called")
         if let token = Messaging.messaging().fcmToken {
-            print("Current user token: \(token)")
             let usersRef = ref.child("users/\(userID)/tokens/fcmToken")
             usersRef.setValue(token)
         }

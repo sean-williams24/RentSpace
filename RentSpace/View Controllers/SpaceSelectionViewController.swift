@@ -252,7 +252,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 var unread = 0
                 var read = 0
                 var i = 0
-                print("Number of chats: \(dataSnapshot.children.allObjects.count)")
                 
                 let messageTab = self.tabBarController?.tabBar.items?[3]
                 for child in dataSnapshot.children {
@@ -275,9 +274,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                     }
                     i += 1
                     if i == dataSnapshot.children.allObjects.count {
-                        print("All chats have been checked")
-                        print("Number of unread messahes = \(unread)")
-                        
                         self.ref.child("users/\(UID)/tokens/badgeCount").setValue(unread)
                     }
                 }

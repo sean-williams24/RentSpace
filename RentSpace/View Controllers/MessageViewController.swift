@@ -236,15 +236,18 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                     let senderUsername = Auth.auth().currentUser?.displayName ?? "New Message"
                     let recipientUID = Auth.auth().currentUser?.uid == advertOwnerUID ? self.customerUID : advertOwnerUID
 
-
+                    // Get recipients messaging token and badge count from database and send push notification
                     self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
                         let value = fcmSnapshot.value as? NSDictionary
                         let token = value?["fcmToken"] as? String ?? "No Token"
                         let badgeCount = value?["badgeCount"] as? Int ?? 9
-                        print("Recipent token: \(token)")
-                        print(badgeCount)
+                        
                         let sender = PushNotificationSender()
                         sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "No Text", badgeCount: badgeCount + 1)
+                        
+                        // update recipients badge count on database
+                        self.ref.child("users/\(recipientUID)/tokens/badgeCount").setValue(badgeCount + 1)
+
                     }
                     
 
