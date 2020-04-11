@@ -10,12 +10,12 @@ import UIKit
 
 class PushNotificationSender {
     
-    func sendPushNotification(to token: String, title: String, body: String) {
+    func sendPushNotification(to token: String, title: String, body: String, badgeCount: Int) {
         
         let urlString = "https://fcm.googleapis.com/fcm/send"
         let url = NSURL(string: urlString)!
         let paramString: [String : Any] = ["to" : token,
-                                           "notification" : ["title" : title, "body" : body, "sound": "default", "badge": 1],
+                                           "notification" : ["title" : title, "body" : body, "sound": "default", "badge": badgeCount],
                                            "data" : ["user" : "test_id"]
         ]
         

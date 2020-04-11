@@ -251,6 +251,9 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
             ref.child("users/\(UID)/chats").observe(.value, with: { (dataSnapshot) in
                 var unread = 0
                 var read = 0
+                var i = 0
+                print("Number of chats: \(dataSnapshot.children.allObjects.count)")
+                
                 let messageTab = self.tabBarController?.tabBar.items?[3]
                 for child in dataSnapshot.children {
                     if let snapshot = child as? DataSnapshot {
@@ -260,14 +263,22 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                                 messageTab?.badgeColor = Settings.orangeTint
                                 messageTab?.badgeValue = "\(unread)"
                                 UIApplication.shared.applicationIconBadgeNumber = unread
-                            } else if chat.read == "true"{
+                            } else if chat.read == "true" {
                                 read += 1
                                 if read == dataSnapshot.childrenCount {
+                                    // All messages have been read
                                     messageTab?.badgeValue = nil
                                     UIApplication.shared.applicationIconBadgeNumber = 0
                                 }
                             }
                         }
+                    }
+                    i += 1
+                    if i == dataSnapshot.children.allObjects.count {
+                        print("All chats have been checked")
+                        print("Number of unread messahes = \(unread)")
+                        
+                        self.ref.child("users/\(UID)/tokens/badgeCount").setValue(unread)
                     }
                 }
             })

@@ -160,9 +160,9 @@ extension UIViewController {
     
     //MARK: - Show/Hide loading animations
     
-    func showLoadingUI(_ loading: Bool, for activityView: NVActivityIndicatorView, label: UILabel) {
+    func showLoadingUI(_ loading: Bool, for activityView: NVActivityIndicatorView, label: UILabel, text: String) {
         if loading {
-            label.text = "Finding Spaces..."
+            label.text = text
             label.alpha = 0
             activityView.startAnimating()
             UIView.animate(withDuration: 7) {

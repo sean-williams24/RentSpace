@@ -192,12 +192,12 @@ class RentSpaceViewController: UIViewController {
                                 if distanceInMiles < setMiles {
                                     space.distance = distanceInMiles
                                     newSpaces.append(space)
-                                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                                    self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel, text: "Loading Spaces...")
                                 }
                             } else {
                                 space.distance = distanceInMiles
                                 newSpaces.append(space)
-                                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                                self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel, text: "Loading Spaces...")
                             }
                             
                             index += 1
@@ -223,7 +223,7 @@ class RentSpaceViewController: UIViewController {
     
     
     func getAdverts(for userLocation: CLLocation, within setMiles: Double) {
-        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
+        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel, text: "Loading Spaces...")
         spaces.removeAll()
         tableView.reloadData()
         

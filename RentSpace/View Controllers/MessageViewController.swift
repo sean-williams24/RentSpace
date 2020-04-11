@@ -115,7 +115,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             advertTitleLabel.text = chat.title
             locationLabel.text = chat.location
             priceLabel.text = chat.price
-            self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
+            self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel, text: "Loading Messages...")
         } else {
             // New chat initiated
             advertTitleLabel.text = space.title
@@ -146,7 +146,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
             }
             self.messages = newMessages
-            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel, text: "Loading Messages...")
             self.messagesTableView.reloadData()
             self.scrollToBottomMessage()
         })
@@ -240,9 +240,11 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
                         let value = fcmSnapshot.value as? NSDictionary
                         let token = value?["fcmToken"] as? String ?? "No Token"
+                        let badgeCount = value?["badgeCount"] as? Int ?? 9
                         print("Recipent token: \(token)")
+                        print(badgeCount)
                         let sender = PushNotificationSender()
-                        sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "No Text")
+                        sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "No Text", badgeCount: badgeCount + 1)
                     }
                     
 

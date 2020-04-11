@@ -44,8 +44,8 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         print("Update database called")
         if let token = Messaging.messaging().fcmToken {
             print("Current user token: \(token)")
-            let usersRef = ref.child("users/\(userID)/tokens")
-            usersRef.setValue(["fcmToken": token])
+            let usersRef = ref.child("users/\(userID)/tokens/fcmToken")
+            usersRef.setValue(token)
         }
     }
     

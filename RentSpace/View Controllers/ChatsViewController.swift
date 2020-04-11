@@ -40,6 +40,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = Settings.cornerRadius
+        loadingLabel.text = "Loading Chats..."
         ref = Database.database().reference()
         authHandle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
@@ -57,7 +58,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     // MARK: - Private Methods
     
     fileprivate func downloadChats() {
-        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
+        self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel, text: "Loading Chats...")
         let UID = Settings.currentUser!.uid
         
         refHandle = ref.child("users/\(UID)/chats").queryOrdered(byChild: "timestamp").observe(.value, with: { (dataSnapshot) in
@@ -72,7 +73,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 }
             }
             
-            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel, text: "Loading Chats...")
             self.chats = newChats.reversed()
             self.tableView.reloadData()
             self.infoLabel.text = self.chats.isEmpty ? "Your conversations will appear here once chatting begins." : ""

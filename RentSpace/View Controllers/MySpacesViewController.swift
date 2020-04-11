@@ -64,7 +64,7 @@ class MySpacesViewController: UIViewController {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                     if self.mySpaces.isEmpty {
-                        self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+                        self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel, text: "Loading Your Spaces...")
                         
                         if self.viewingFavourites {
                             self.showEmptySpacesInfo(for: "favourites")
@@ -107,7 +107,7 @@ class MySpacesViewController: UIViewController {
         self.infoLabel.text = ""
         
         refHandle = ref.child("users/\(self.UID)/adverts").queryOrdered(byChild: "timestamp").observe(.value, with: { (snapShot) in
-            self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel)
+            self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel, text: "Loading Your Spaces...")
             
             for child in snapShot.children {
                 if let snapshot = child as? DataSnapshot,
@@ -116,7 +116,7 @@ class MySpacesViewController: UIViewController {
                 }
             }
             
-            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel)
+            self.showLoadingUI(false, for: self.activityView, label: self.loadingLabel, text: "Loading Your Spaces...")
             self.tableView.reloadData()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
