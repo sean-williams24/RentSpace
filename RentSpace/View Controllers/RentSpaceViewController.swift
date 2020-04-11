@@ -179,7 +179,7 @@ class RentSpaceViewController: UIViewController {
             if let spaceSnapshot = child as? DataSnapshot,
                 var space = Space(snapshot: spaceSnapshot) {
                 var address = ""
-                address = space.postcode + " " + space.city + " " + space.subAdminArea + " " + space.state
+                address = space.postcode + " " + space.city + " " + space.town + " " + space.subAdminArea + " " + space.state + " " + space.country
                 
                 // Get distance of advert location from users chosen location and add to table if within search radius
                 CLGeocoder().geocodeAddressString(address) { (placemark, error) in
