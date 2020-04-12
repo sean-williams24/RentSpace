@@ -223,7 +223,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             let chatData = viewingExistingChat ? existingChatData.toAnyObject() : firstChatData.toAnyObject()
             let messageData = ["sender": Auth.auth().currentUser?.uid, "message": messageTextField.text!, "messageDate": fullDateFormatter.string(from: Date())]
             
-            // Upload messages to advert owners and customers chats pathes, as well as messages path.
+            // Upload message to advert owners chat path and customers chats pathes, as well as messages path.
             advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
                 if recipientError != nil {
                     print("Error uploading to recipient DB: \(recipientError?.localizedDescription as Any)")
@@ -231,6 +231,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                     return
                 } else {
                     
+                    // -- PUSH NOTIFICATIONS -- //
                     // Recipient has successfully received message - send push notification
                     // If logged in user is advert owner, message recipient is customer, if logged in user is customer, message recipient would be advert owner
                     let senderUsername = Auth.auth().currentUser?.displayName ?? "New Message"
@@ -240,19 +241,17 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
                         let value = fcmSnapshot.value as? NSDictionary
                         let token = value?["fcmToken"] as? String ?? "No Token"
-                        let badgeCount = value?["badgeCount"] as? Int ?? 9
+                        let badgeCount = value?["badgeCount"] as? Int ?? 1
                         
                         let sender = PushNotificationSender()
-                        sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "No Text", badgeCount: badgeCount + 1)
+                        sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "", badgeCount: badgeCount + 1)
                         
                         // update recipients badge count on database
                         self.ref.child("users/\(recipientUID)/tokens/badgeCount").setValue(badgeCount + 1)
 
                     }
                     
-
-                    
-                    
+                    // Upload message to customers chats path, as well as messages path.
                     customerDB.setValue(chatData) { (error, chatRef) in
                         if error != nil {
                             print("Error sending message: \(error?.localizedDescription as Any)")

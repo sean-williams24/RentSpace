@@ -73,14 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             self.delegate?.adjustViewForTabBar?()
         }
     }
-    
-//    func applicationWillEnterForeground(_ application: UIApplication) {
-//        print("Enter foreground")
-//    }
-//    
-//    func applicationDidBecomeActive(_ application: UIApplication) {
-//        print("Did become active")
-//    }
 }
 
 
