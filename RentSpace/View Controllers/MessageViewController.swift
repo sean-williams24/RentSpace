@@ -122,6 +122,12 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             locationLabel.text = formatAddress(for: space)
             priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         }
+        
+        if thumbnail.size.height == 0.0 {
+            if let image = UIImage(named: "RentSpace Icon Small Black BG") {
+                thumbnail = image
+            }
+        }
         imageView.image = renderCirlularImage(for: thumbnail)
     }
     
