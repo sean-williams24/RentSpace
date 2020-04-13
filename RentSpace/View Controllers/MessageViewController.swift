@@ -44,6 +44,8 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         formatter.dateFormat = "HH:mm:ss E, d MMM, yyyy"
         return formatter
     }()
+    var recipientUID = ""
+    var recipientHasReadAllMessages = ""
     
     
     // MARK: - Life Cycle
@@ -59,15 +61,17 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             
             let isRegisteredForRemoteNotifications = UIApplication.shared.isRegisteredForRemoteNotifications
             if !isRegisteredForRemoteNotifications {
-                 self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages. Notifications can be turned on in the Settings App.")
+                self.showAlert(title: "Notifications Off", message: "\nWithout notifications turned on you may miss messages. Notifications can be turned on in the Settings App.")
             }
         }
-                
+        
         configureUI()
         listenForNewMessages()
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
         subscribeToKeyboardNotifications()
+        
+        checkIfRecipientHasUnreadMessages {}
     }
     
     
@@ -86,6 +90,25 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     // MARK: - Private Methods
+    
+    fileprivate func checkIfRecipientHasUnreadMessages(completion: @escaping() -> Void) {
+        var advertOwnerUID = ""
+        if viewingExistingChat {
+            advertOwnerUID = chat.advertOwnerUID
+        } else {
+            // If this is a new chat, set advertOwner details from advert object
+            advertOwnerUID = space.postedByUser
+        }
+        
+        // Before sending messages check to see if recipient already has unread message from this chat
+        recipientUID = Auth.auth().currentUser?.uid == advertOwnerUID ? self.customerUID : advertOwnerUID
+        self.ref.child("users/\(recipientUID)/chats").child(self.chatID).observeSingleEvent(of: .value) { (chatSnapshot) in
+            let value = chatSnapshot.value as? NSDictionary
+            self.recipientHasReadAllMessages = value?["read"] as? String ?? "true"
+            completion()
+        }
+    }
+    
     
     // Pin new messages(rows) to bottom of tableView
     func updateTableContentInset() {
@@ -186,7 +209,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
                 // If this is a new chat, set advertOwner details from advert object
                 advertOwnerUID = space.postedByUser
                 advertOwnerDisplayName = space.userDisplayName
-
+                
                 if let imageURLsDict = space.photos {
                     thumbURL = imageURLsDict["image 1"] ?? space.category
                 }
@@ -229,60 +252,68 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
             let chatData = viewingExistingChat ? existingChatData.toAnyObject() : firstChatData.toAnyObject()
             let messageData = ["sender": Auth.auth().currentUser?.uid, "message": messageTextField.text!, "messageDate": fullDateFormatter.string(from: Date())]
             
-            // Upload message to advert owners chat path and customers chats pathes, as well as messages path.
-            advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
-                if recipientError != nil {
-                    print("Error uploading to recipient DB: \(recipientError?.localizedDescription as Any)")
-                    self.showAlert(title: "Oh Dear", message: "Something went wrong, please try sending the message again.")
-                    return
-                } else {
-                    
-                    // -- PUSH NOTIFICATIONS -- //
-                    // Recipient has successfully received message - send push notification
-                    // If logged in user is advert owner, message recipient is customer, if logged in user is customer, message recipient would be advert owner
-                    let senderUsername = Auth.auth().currentUser?.displayName ?? "New Message"
-                    let recipientUID = Auth.auth().currentUser?.uid == advertOwnerUID ? self.customerUID : advertOwnerUID
-
-                    // Get recipients messaging token and badge count from database and send push notification
-                    self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
-                        let value = fcmSnapshot.value as? NSDictionary
-                        let token = value?["fcmToken"] as? String ?? "No Token"
-                        let badgeCount = value?["badgeCount"] as? Int ?? 1
+            self.checkIfRecipientHasUnreadMessages {
+                // Upload message to advert owners chat path and customers chats pathes, as well as messages path.
+                advertOwnerDB.setValue(chatData) { (recipientError, recipientRef) in
+                    if recipientError != nil {
+                        print("Error uploading to recipient DB: \(recipientError?.localizedDescription as Any)")
+                        self.showAlert(title: "Oh Dear", message: "Something went wrong, please try sending the message again.")
+                        return
+                    } else {
                         
-                        let sender = PushNotificationSender()
-                        sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "", badgeCount: badgeCount + 1)
+                        // -- PUSH NOTIFICATIONS -- //
+                        // Recipient has successfully received message - send push notification
+                        // If logged in user is advert owner, message recipient is customer, if logged in user is customer, message recipient would be advert owner
+                        let senderUsername = Auth.auth().currentUser?.displayName ?? "New Message"
+                        let recipientUID = Auth.auth().currentUser?.uid == advertOwnerUID ? self.customerUID : advertOwnerUID
                         
-                        // update recipients badge count on database
-                        self.ref.child("users/\(recipientUID)/tokens/badgeCount").setValue(badgeCount + 1)
-
-                    }
-                    
-                    // Upload message to customers chats path, as well as messages path.
-                    customerDB.setValue(chatData) { (error, chatRef) in
-                        if error != nil {
-                            print("Error sending message: \(error?.localizedDescription as Any)")
-                            self.showAlert(title: "Oh Dear", message: "Something went wrong, please try sending the message again.")
-                            return
-                        } else {
-                            messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
-                                if error != nil {
-                                    print("Error sending message: \(error?.localizedDescription as Any)")
-                                    return
-                                } else {
-                                    let senderUID = Auth.auth().currentUser?.uid
-                                    self.ref.child("users/\(senderUID!)/chats").child(self.chatID).updateChildValues(["read": "true"])
-                                    
-                                    self.sendMessageButton.isEnabled = true
-                                    self.messageTextField.text = ""
+                        // Get recipients messaging token and badge count from database and send push notification
+                        self.ref.child("users/\(recipientUID)").child("tokens").observeSingleEvent(of: .value) { (fcmSnapshot) in
+                            let value = fcmSnapshot.value as? NSDictionary
+                            let token = value?["fcmToken"] as? String ?? "No Token"
+                            var badgeCount = value?["badgeCount"] as? Int ?? 1
+                            
+                            if self.recipientHasReadAllMessages == "true" {
+                                // update recipients badge count on database
+                                badgeCount += 1
+                                self.ref.child("users/\(recipientUID)/tokens/badgeCount").setValue(badgeCount)
+                                self.recipientHasReadAllMessages = "false"
+                            } else {
+                                self.ref.child("users/\(recipientUID)/tokens/badgeCount").setValue(badgeCount)
+                            }
+                            
+                            let sender = PushNotificationSender()
+                            sender.sendPushNotification(to: token, title: senderUsername, body: self.messageTextField.text ?? "", badgeCount: badgeCount)
+                        }
+                        
+                        // Upload message to customers chats path, as well as messages path.
+                        customerDB.setValue(chatData) { (error, chatRef) in
+                            if error != nil {
+                                print("Error sending message: \(error?.localizedDescription as Any)")
+                                self.showAlert(title: "Oh Dear", message: "Something went wrong, please try sending the message again.")
+                                return
+                            } else {
+                                messagesDB.childByAutoId().setValue(messageData) { (error, reference) in
+                                    if error != nil {
+                                        print("Error sending message: \(error?.localizedDescription as Any)")
+                                        return
+                                    } else {
+                                        let senderUID = Auth.auth().currentUser?.uid
+                                        self.ref.child("users/\(senderUID!)/chats").child(self.chatID).updateChildValues(["read": "true"])
+                                        
+                                        self.sendMessageButton.isEnabled = true
+                                        self.messageTextField.text = ""
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            
         }
     }
-
+    
     
     // MARK: - Action Methods    
     
