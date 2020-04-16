@@ -111,18 +111,30 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     @objc func addOrDeletePhotosTapped(_ sender: Any) {
         if deleting {
-            for indexPath in selectedImagesIndexPathes.reversed() {
+            var numberOfPlaceholdersToAdd = 0
+            for indexPath in selectedImagesIndexPathes.sorted().reversed() {
                 let image = images[indexPath.item]
                 let imageURL = getDocumentsDirectory().appendingPathComponent(image.imageName)
                 deleteFileFromDisk(at: imageURL)
                 
                 images.remove(at: indexPath.item)
-                writeImageFileToDisk(image: placeHolderImage!, name: "placeholder", at: images.count, in: &images)
+                numberOfPlaceholdersToAdd += 1
             }
-            collectionView.reloadData()
+            
+            self.collectionView.performBatchUpdates({
+                self.collectionView.deleteItems(at: selectedImagesIndexPathes)
+            }) { _ in
+                self.selectedImagesIndexPathes.removeAll()
+                
+                for _ in 0..<numberOfPlaceholdersToAdd {
+                    self.writeImageFileToDisk(image: self.placeHolderImage!, name: "placeholder", at: self.images.count, in: &self.images)
+                    self.collectionView.insertItems(at: [IndexPath(item: self.images.count - 1, section: 0)])
+                }
+                self.save()
+            }
+            
             save()
             deleting = false
-            selectedImagesIndexPathes.removeAll()
             if !photoAlbumIsFull() {
                 navigationItem.rightBarButtonItem?.isEnabled = true
             }
