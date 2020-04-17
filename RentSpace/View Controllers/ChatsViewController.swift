@@ -118,9 +118,11 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessagesCell", for: indexPath) as! MessagesTableViewCell
         let chat = chats[indexPath.section]
+        cell.customImageView.image = nil
         cell.activityView.startAnimating()
-        cell.customImageView.image = renderCirlularImage(for: UIImage(named: "RentSpace Icon Small Black BG"))
-        cell.customImageView.alpha = 0.2
+//        cell.customImageView.image = renderCirlularImage(for: UIImage(named: "RentSpace Icon Small Black BG"))
+        cell.customImageView.alpha = 1
+        cell.customImageView.layer.cornerRadius = 30
         
         // If logged in user is advert owner, chat recipient is customer, if logged in user is customer, chat recipient would be advert owner
         let recipient = Auth.auth().currentUser?.uid == chat.advertOwnerUID ? chat.customerDisplayName : chat.advertOwnerDisplayName
@@ -143,6 +145,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.newMessageImageView.isHidden = true
         }
         
+        let circleLogo = self.renderCirlularImage(for: UIImage(named: "RentSpace Icon Small Black BG"))
         if chat.thumbnailURL != "" {
             
             Storage.storage().reference(forURL: chat.thumbnailURL).downloadURL { (url, error) in
@@ -150,22 +153,22 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                     print("Error downloading image: \(error.localizedDescription)")
                 } else {
                     if let url = url {
-                        let processor = DownsamplingImageProcessor(size: cell.customImageView.bounds.size)
+                        let processor = DownsamplingImageProcessor(size: CGSize(width: 300, height: 300))
                         cell.activityView.stopAnimating()
-                        cell.customImageView.alpha = 1
                         cell.customImageView.kf.setImage(
                             with: url,
-//                            placeholder: self.renderCirlularImage(for: UIImage(named: "RentSpace Icon Small Black BG")),
+                            placeholder:(circleLogo),
                             options: [
                                 .processor(processor),
-                                .transition(.fade(0.3)),
+                                .transition(.fade(0.4)),
+                                .scaleFactor(UIScreen.main.scale),
                                 .cacheOriginalImage
                             ])
                         {
                             result in
                             switch result {
-                            case .success(let value):
-                                cell.customImageView.image = self.renderCirlularImage(for: value.image)
+                            case .success:
+                                cell.customImageView.contentMode = .scaleAspectFill
 //                                print("Task done for: \(value.source.url?.absoluteString ?? "")")
                             case .failure(let error):
                                 print("Job failed: \(error.localizedDescription)")
@@ -174,8 +177,6 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             }
-
-            
             // Download image
 //            Storage.storage().reference(forURL: chat.thumbnailURL).getData(maxSize: INT64_MAX) { (data, error) in
 //                if error != nil {
