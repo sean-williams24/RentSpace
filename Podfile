@@ -7,7 +7,8 @@ target 'RentSpace' do
 #  use_modular_headers!
 
   # Pods for RentSpace
-  pod 'YPImagePicker'
+
+  pod 'FacebookLogin'
   pod 'Firebase/Analytics'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
@@ -15,9 +16,10 @@ target 'RentSpace' do
   pod 'Firebase/Storage'
   pod 'FirebaseUI'
   pod 'Firebase/Auth'
-  pod 'GoogleSignIn'
-  pod 'FacebookLogin'
-  pod 'NVActivityIndicatorView'
   pod 'FSPagerView'
+  pod 'GoogleSignIn'
+  pod 'Kingfisher', '~> 5.0'
+  pod 'NVActivityIndicatorView'
+  pod 'YPImagePicker'
 
 end

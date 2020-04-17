@@ -82,7 +82,6 @@ class RentSpaceViewController: UIViewController {
             if searchAreaButtonTitle == Location.userLocationCountry {
                 getAdverts(for: Location.userCLLocation, within: 310.0)
                 UserDefaults.standard.set(310.0, forKey: "Distance")
-
             } else {
                 getAdverts(for: Location.userCLLocation, within: Location.searchDistance)
             }
