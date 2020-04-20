@@ -64,6 +64,9 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
         resultsSearchController?.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
         
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save  ", style: .plain, target: nil, action: #selector(navigationController?.popViewController(animated:)))
+        
         addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
         addLeftPadding(for: phoneNumberTextField, placeholderText: "Phone", placeholderColour: .gray)
         addLeftPadding(for: townLabel, placeholderText: "Town", placeholderColour: .gray)
@@ -106,9 +109,6 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
             postcodeLabel.text = UserDefaults.standard.string(forKey: "PostCode")
             viewOnMapSwitch.isOn = UserDefaults.standard.bool(forKey: "ViewOnMap")
             
-            navigationItem.hidesBackButton = true
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save  ", style: .plain, target: nil, action: #selector(navigationController?.popViewController(animated:)))
-            
             dismissKeyboardOnViewTap()
         }
     }
@@ -147,6 +147,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
         if town == "" {
             townLabel.isHidden = true
+            townLabel.text = town
         } else {
             townLabel.isHidden = false
             townLabel.text = town
