@@ -27,6 +27,7 @@ class FirebaseClient {
             storRef.delete { (error) in
                 if let error = error {
                     print(error.localizedDescription)
+                    completion()
                 } else {
                     deletedImagesCount += 1
                     print("Image Deleted: \(deletedImagesCount)")
