@@ -138,7 +138,7 @@ class AdvertDetailsViewController: UIViewController {
         }
         
         titleLabel.text = space.title
-        priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
+        priceLabel.text = "\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         locationLabel.text = formatAddress(for: space)
         postcode = space.postcode
         

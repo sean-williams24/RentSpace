@@ -33,6 +33,7 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet weak var stackView: UIStackView!
     
     
+    
     // MARK: - Properties
     
     var spaceTypePickerContent = [String]()
@@ -634,6 +635,30 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
             descriptionTextView.text = ""
             descriptionTextView.textColor = .white
         }
+        
+    }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.locale = .current
+        currencyFormatter.minimumFractionDigits = 0
+        currencyFormatter.maximumFractionDigits = 2
+        
+        if textField.tag == 9 {
+            if let text = textField.text {
+                if let double = Double(text.withoutSpecialCharacters.replacingOccurrences(of: ",", with: "")) {
+                    let number = NSNumber(value: double)
+                    textField.text = currencyFormatter.string(from: number)
+                } else {
+                    textField.text = textField.text?.withoutSpecialCharacters
+                }
+
+
+            }
+        }
     }
     
     
@@ -762,5 +787,9 @@ extension String {
     func deletingPrefix(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
+    }
+    
+    var withoutSpecialCharacters: String {
+        return self.components(separatedBy: CharacterSet.symbols).joined(separator: "")
     }
 }

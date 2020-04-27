@@ -249,7 +249,7 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category
         cell.locationLabel.text = formatAddress(for: space)
-        cell.priceLabel.text = "£\(space.price) \(priceRateFormatter(rate: space.priceRate))"
+        cell.priceLabel.text = "\(space.price) \(priceRateFormatter(rate: space.priceRate))"
         
         if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {
