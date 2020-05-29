@@ -44,6 +44,7 @@
 		CEC0B93723D21CF4004DC4E6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93623D21CF4004DC4E6 /* Message.swift */; };
 		CEC0B93923D62007004DC4E6 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */; };
 		CEC0B93D23D72013004DC4E6 /* SenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0B93C23D72013004DC4E6 /* SenderTableViewCell.swift */; };
+		CEC69AC22476913200D2E447 /* RentSpaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC69AC12476913200D2E447 /* RentSpaceTests.swift */; };
 		CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */; };
 		CEF5CBD923C1DD650011243D /* MySpacesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */; };
 		CEF5CBDB23C1F5E10011243D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */; };
@@ -54,6 +55,16 @@
 		CEF5CBE723C243A80011243D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE623C243A80011243D /* RegisterViewController.swift */; };
 		CEF5CBE923C7258C0011243D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5CBE823C7258C0011243D /* Settings.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CEC69AC42476913200D2E447 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE08406E238D40B200DA57C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE084075238D40B200DA57C8;
+			remoteInfo = RentSpace;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		47AD5D96B1E02FDA62C55B2F /* Pods-RentSpace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentSpace.release.xcconfig"; path = "Target Support Files/Pods-RentSpace/Pods-RentSpace.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +109,9 @@
 		CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		CEC0B93C23D72013004DC4E6 /* SenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderTableViewCell.swift; sourceTree = "<group>"; };
 		CEC1045F2407EE0A001A39C5 /* RentSpace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RentSpace.entitlements; sourceTree = "<group>"; };
+		CEC69ABF2476913200D2E447 /* RentSpaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RentSpaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEC69AC12476913200D2E447 /* RentSpaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentSpaceTests.swift; sourceTree = "<group>"; };
+		CEC69AC32476913200D2E447 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF5CBD623C1DBC80011243D /* MySpacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesViewController.swift; sourceTree = "<group>"; };
 		CEF5CBD823C1DD650011243D /* MySpacesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySpacesTableViewCell.swift; sourceTree = "<group>"; };
 		CEF5CBDA23C1F5E10011243D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +129,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				21E83E98F41224101F699D65 /* Pods_RentSpace.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEC69ABC2476913200D2E447 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				CE084078238D40B200DA57C8 /* RentSpace */,
+				CEC69AC02476913200D2E447 /* RentSpaceTests */,
 				CE084077238D40B200DA57C8 /* Products */,
 				8196D7B40550ABD2C336BD7A /* Pods */,
 				9999E9AF206C130EB94AB04D /* Frameworks */,
@@ -167,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				CE084076238D40B200DA57C8 /* RentSpace.app */,
+				CEC69ABF2476913200D2E447 /* RentSpaceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,6 +265,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		CEC69AC02476913200D2E447 /* RentSpaceTests */ = {
+			isa = PBXGroup;
+			children = (
+				CEC69AC12476913200D2E447 /* RentSpaceTests.swift */,
+				CEC69AC32476913200D2E447 /* Info.plist */,
+			);
+			path = RentSpaceTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -265,18 +297,40 @@
 			productReference = CE084076238D40B200DA57C8 /* RentSpace.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CEC69ABE2476913200D2E447 /* RentSpaceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEC69AC82476913200D2E447 /* Build configuration list for PBXNativeTarget "RentSpaceTests" */;
+			buildPhases = (
+				CEC69ABB2476913200D2E447 /* Sources */,
+				CEC69ABC2476913200D2E447 /* Frameworks */,
+				CEC69ABD2476913200D2E447 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEC69AC52476913200D2E447 /* PBXTargetDependency */,
+			);
+			name = RentSpaceTests;
+			productName = RentSpaceTests;
+			productReference = CEC69ABF2476913200D2E447 /* RentSpaceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		CE08406E238D40B200DA57C8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1120;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Sean Williams";
 				TargetAttributes = {
 					CE084075238D40B200DA57C8 = {
 						CreatedOnToolsVersion = 11.2.1;
+					};
+					CEC69ABE2476913200D2E447 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = CE084075238D40B200DA57C8;
 					};
 				};
 			};
@@ -294,6 +348,7 @@
 			projectRoot = "";
 			targets = (
 				CE084075238D40B200DA57C8 /* RentSpace */,
+				CEC69ABE2476913200D2E447 /* RentSpaceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -307,6 +362,13 @@
 				CE6583A32397C0E6001FFA8A /* GoogleService-Info.plist in Resources */,
 				CEB683FA23EF0C8F00C3C0E3 /* Assets.xcassets in Resources */,
 				CE084081238D40B200DA57C8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEC69ABD2476913200D2E447 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,7 +482,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEC69ABB2476913200D2E447 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEC69AC22476913200D2E447 /* RentSpaceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CEC69AC52476913200D2E447 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE084075238D40B200DA57C8 /* RentSpace */;
+			targetProxy = CEC69AC42476913200D2E447 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CE08407F238D40B200DA57C8 /* Main.storyboard */ = {
@@ -564,7 +642,7 @@
 				CODE_SIGN_ENTITLEMENTS = RentSpace/RentSpace.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -572,7 +650,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.RentSpace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -588,7 +666,7 @@
 				CODE_SIGN_ENTITLEMENTS = RentSpace/RentSpace.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DN4729AK8V;
 				INFOPLIST_FILE = RentSpace/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -596,11 +674,53 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.RentSpace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CEC69AC62476913200D2E447 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DN4729AK8V;
+				INFOPLIST_FILE = RentSpaceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.RentSpaceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RentSpace.app/RentSpace";
+			};
+			name = Debug;
+		};
+		CEC69AC72476913200D2E447 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DN4729AK8V;
+				INFOPLIST_FILE = RentSpaceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.RentSpaceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RentSpace.app/RentSpace";
 			};
 			name = Release;
 		};
@@ -621,6 +741,15 @@
 			buildConfigurations = (
 				CE08408B238D40B500DA57C8 /* Debug */,
 				CE08408C238D40B500DA57C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEC69AC82476913200D2E447 /* Build configuration list for PBXNativeTarget "RentSpaceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEC69AC62476913200D2E447 /* Debug */,
+				CEC69AC72476913200D2E447 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,11 +8,11 @@
 import MapKit
 import UIKit
 
-protocol handleSetSearchLocation {
+protocol HandleSetSearchLocation {
     func setNewLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation)
 }
 
-class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
+class SearchRadiusViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -96,50 +96,6 @@ class SearchRadiusViewController: UIViewController, handleSetSearchLocation {
     
     // MARK: - Private Methods
     
-    func setNewLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation) {
-
-        let subAdminArea = county
-        let state = country
-        var newLocation = ""
-        
-        if city == subAdminArea {
-            newLocation = "\(town), \(city)"
-            if town == "" {
-                newLocation = "\(city)"
-            }
-        } else {
-            newLocation = "\(town), \(city), \(subAdminArea)"
-            if town == "" {
-                newLocation = "\(city), \(subAdminArea)"
-            }
-        }
-        
-        if city == "" && town == "" {
-            newLocation = subAdminArea
-            
-            if subAdminArea == "" {
-                newLocation = state
-            }
-        }
-        
-        locationButton.setTitle(newLocation, for: .normal)
-        
-        self.town = town
-        self.city = city
-        self.county = county
-        self.postcode = postcode
-        self.country = country
-        self.location = location
-        
-        Location.customCLLocation = location
-        Location.savedLocationExists = true
-        locationUpdated = true
-        
-        UIView.animate(withDuration: 0.5) {
-            self.searchButton.alpha = 1
-        }
-    }
-    
     
     @objc func addressSearch() {
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -219,6 +175,54 @@ extension SearchRadiusViewController: UIPickerViewDelegate, UIPickerViewDataSour
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         searchDistance = Double(pickerDistances[row])!
         distanceUpdated = true
+        
+        UIView.animate(withDuration: 0.5) {
+            self.searchButton.alpha = 1
+        }
+    }
+}
+
+
+extension SearchRadiusViewController: HandleSetSearchLocation {
+    
+    func setNewLocation(town: String, city: String, county: String, postcode: String, country: String, location: CLLocation) {
+
+        let subAdminArea = county
+        let state = country
+        var newLocation = ""
+        
+        if city == subAdminArea {
+            newLocation = "\(town), \(city)"
+            if town == "" {
+                newLocation = "\(city)"
+            }
+        } else {
+            newLocation = "\(town), \(city), \(subAdminArea)"
+            if town == "" {
+                newLocation = "\(city), \(subAdminArea)"
+            }
+        }
+        
+        if city == "" && town == "" {
+            newLocation = subAdminArea
+            
+            if subAdminArea == "" {
+                newLocation = state
+            }
+        }
+        
+        locationButton.setTitle(newLocation, for: .normal)
+        
+        self.town = town
+        self.city = city
+        self.county = county
+        self.postcode = postcode
+        self.country = country
+        self.location = location
+        
+        Location.customCLLocation = location
+        Location.savedLocationExists = true
+        locationUpdated = true
         
         UIView.animate(withDuration: 0.5) {
             self.searchButton.alpha = 1

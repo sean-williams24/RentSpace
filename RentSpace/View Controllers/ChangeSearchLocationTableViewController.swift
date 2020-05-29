@@ -15,7 +15,7 @@ class ChangeSearchLocationTableViewController: UITableViewController, UISearchRe
     // MARK: - Properties
     
     var matchingItems: [MKMapItem] = []
-    var handleSetSearchLocationDelegate: handleSetSearchLocation?
+    var handleSetSearchLocationDelegate: HandleSetSearchLocation?
     
     
     // MARK: - Search Results

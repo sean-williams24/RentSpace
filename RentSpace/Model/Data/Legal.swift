@@ -180,7 +180,7 @@ enum LegalContent: String {
     
     
     CONTACT US
-    If you have questions or comments about this Privacy Policy or any other issues regarding the app, please contact us by email at wilmslo@gmail.com.
+    If you have questions or comments about this Privacy Policy or any other issues regarding the app, please contact us by email at rentspace.team@gmail.com.
                                                                                                                                  
     """
     

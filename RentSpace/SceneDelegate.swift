@@ -29,12 +29,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     @available(iOS 13.0, *)
     func sceneDidBecomeActive(_ scene: UIScene) {
-        playerViewController?.pinStackViewToBottom()
+        spaceSelectionViewController?.pinStackViewToBottom()
 
     }
     
     
-    var playerViewController: SpaceSelectionViewController? {
+    var spaceSelectionViewController: SpaceSelectionViewController? {
         get {
             let navController = self.window?.rootViewController?.children[0] as! UINavigationController
             return navController.topViewController as? SpaceSelectionViewController
