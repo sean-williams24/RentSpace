@@ -168,8 +168,6 @@
 				CEC0B93623D21CF4004DC4E6 /* Message.swift */,
 				CE79981823E1BF840017E39A /* Favourites.swift */,
 				CE3BFE5E23FD5DDF0023186C /* Legal.swift */,
-				CE6896E5243F6CEB00B37A90 /* PushNotificationManager.swift */,
-				CE6896E724405E7D00B37A90 /* PushNotificationSender.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -200,9 +198,10 @@
 				CEC1045F2407EE0A001A39C5 /* RentSpace.entitlements */,
 				CE084079238D40B200DA57C8 /* AppDelegate.swift */,
 				CE08407B238D40B200DA57C8 /* SceneDelegate.swift */,
-				CE084098238EA95800DA57C8 /* Model */,
-				CE084097238EA93700DA57C8 /* View Controllers */,
-				CE6583A623981451001FFA8A /* Cells */,
+				CE084098238EA95800DA57C8 /* Models */,
+				CE6583A623981451001FFA8A /* Views */,
+				CE084097238EA93700DA57C8 /* Controllers */,
+				CEEE0B75248E56A100320223 /* Networking */,
 				CE08407F238D40B200DA57C8 /* Main.storyboard */,
 				CE084084238D40B500DA57C8 /* LaunchScreen.storyboard */,
 				CEB683F923EF0C8E00C3C0E3 /* Assets.xcassets */,
@@ -212,7 +211,7 @@
 			path = RentSpace;
 			sourceTree = "<group>";
 		};
-		CE084097238EA93700DA57C8 /* View Controllers */ = {
+		CE084097238EA93700DA57C8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				CE6583A9239A6F00001FFA8A /* SpaceSelectionViewController.swift */,
@@ -236,22 +235,23 @@
 				CEF5CBE223C214CC0011243D /* MessageViewController.swift */,
 				CE3BFE5C23FD5A420023186C /* LegaInformationViewController.swift */,
 			);
-			path = "View Controllers";
+			path = Controllers;
 			sourceTree = "<group>";
 		};
-		CE084098238EA95800DA57C8 /* Model */ = {
+		CE084098238EA95800DA57C8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				CE02CECE23EB2DED003B96A9 /* Data */,
+				CE6896E5243F6CEB00B37A90 /* PushNotificationManager.swift */,
+				CE6896E724405E7D00B37A90 /* PushNotificationSender.swift */,
 				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
 				CE6583AB239A8A13001FFA8A /* Location.swift */,
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
-				CE02CECC23E88873003B96A9 /* FirebaseClient.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		CE6583A623981451001FFA8A /* Cells */ = {
+		CE6583A623981451001FFA8A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				CE084091238E86F200DA57C8 /* PhotoCollectionViewCell.swift */,
@@ -262,7 +262,7 @@
 				CEC0B93823D62007004DC4E6 /* MessageTableViewCell.swift */,
 				CEC0B93C23D72013004DC4E6 /* SenderTableViewCell.swift */,
 			);
-			path = Cells;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CEC69AC02476913200D2E447 /* RentSpaceTests */ = {
@@ -272,6 +272,14 @@
 				CEC69AC32476913200D2E447 /* Info.plist */,
 			);
 			path = RentSpaceTests;
+			sourceTree = "<group>";
+		};
+		CEEE0B75248E56A100320223 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				CE02CECC23E88873003B96A9 /* FirebaseClient.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

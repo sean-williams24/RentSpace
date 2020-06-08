@@ -76,6 +76,8 @@ class RentSpaceViewController: UIViewController {
             Location.searchDistance = UserDefaults.standard.double(forKey: "Distance")
         } 
         
+        
+        // Download adverts from Firebase
         if Location.savedLocationExists {
             getAdverts(for: Location.customCLLocation, within: Location.searchDistance)
         } else {
