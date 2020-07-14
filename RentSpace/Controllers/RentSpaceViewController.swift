@@ -29,6 +29,7 @@ class RentSpaceViewController: UIViewController {
     @IBOutlet weak var firstLoadLabel: UILabel!
     @IBOutlet weak var blurredView: UIVisualEffectView!
     
+    
     // MARK: - Properties
     
     var ref: DatabaseReference!
@@ -62,8 +63,13 @@ class RentSpaceViewController: UIViewController {
             }
         }
         
-        if searchAreaButtonTitle == "" { searchAreaButtonTitle = Location.userLocationCountry }
-        if searchAreaButtonTitle == "" { searchAreaButtonTitle = "Set Location" }
+        if searchAreaButtonTitle == "" {
+            searchAreaButtonTitle = Location.userLocationCountry
+        }
+        
+        if searchAreaButtonTitle == "" {
+            searchAreaButtonTitle = "Set Location"
+        }
         
         rightBarButton = UIBarButtonItem(title: searchAreaButtonTitle, style: .done, target: self, action: #selector(setSearchRadius))
         rightBarButton.setTitleTextAttributes(Settings.barButtonAttributes, for: .normal)
@@ -138,7 +144,6 @@ class RentSpaceViewController: UIViewController {
         super.viewDidDisappear(animated)
         UserDefaults.standard.set(rightBarButton.title, forKey: "Location")
     }
-    
     
     
     // MARK: - Private Methods
@@ -309,6 +314,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
             cell.distanceLabel.text = "Less than a mile"
         }
         
+        // Load primary studio image into imageView
         if let imageURLsDict = space.photos {
             if let imageURL = imageURLsDict["image 1"] {
                 
@@ -334,6 +340,7 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         } else {
+            // No images for studio - populate with icon
             cell.activityView.stopAnimating()
             if space.category == "Art Studio" {
                 

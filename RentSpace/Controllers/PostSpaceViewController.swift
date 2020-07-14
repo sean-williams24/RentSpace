@@ -284,9 +284,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
             imagesActivityView.startAnimating()
             
             for key in imageURLsDict.keys.sorted()  {
-                guard let value = imageURLsDict[key] else { break }
+                guard let imageURL = imageURLsDict[key] else { break }
                 
-                Storage.storage().reference(forURL: value).getData(maxSize: INT64_MAX) { [weak self] (data, error) in
+                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { [weak self] (data, error) in
                     guard error == nil else {
                         print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
                         return

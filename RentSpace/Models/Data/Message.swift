@@ -15,7 +15,6 @@ class Message {
     var sender: String
     var messageDate: String
     
-    
     init?(snapshot: DataSnapshot) {
         guard
             let message = snapshot.value as? [String:String],
@@ -25,7 +24,6 @@ class Message {
         
         self.messageBody = messageBody
         self.sender = sender
-        self.messageDate = messageDate
-            
+        self.messageDate = messageDate   
     }
 }

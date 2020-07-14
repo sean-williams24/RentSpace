@@ -14,5 +14,4 @@ class SenderTableViewCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var messageWidthConsraint: NSLayoutConstraint!
     @IBOutlet var messageContainerView: UIView!
-    
 }

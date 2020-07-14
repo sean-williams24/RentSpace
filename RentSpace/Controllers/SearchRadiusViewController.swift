@@ -42,11 +42,13 @@ class SearchRadiusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Setup search controller
         let addressSearchTable = storyboard!.instantiateViewController(withIdentifier: "ChangeSearchLocationTableVC") as! ChangeSearchLocationTableViewController
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable
         addressSearchTable.handleSetSearchLocationDelegate = self
         
+        // Navigation bar button
         let titleButton = UIButton()
         let attributedTitle = NSAttributedString(string: "Set Location", attributes: Settings.navBarTitleAttributes)
         titleButton.tintColor = Settings.orangeTint
@@ -95,7 +97,6 @@ class SearchRadiusViewController: UIViewController {
     
     
     // MARK: - Private Methods
-    
     
     @objc func addressSearch() {
         navigationController?.setNavigationBarHidden(true, animated: true)

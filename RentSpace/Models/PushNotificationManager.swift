@@ -7,13 +7,14 @@
 //
 
 import Firebase
-//import FirebaseFirestore
 import FirebaseMessaging
 import UIKit
 import UserNotifications
 
 
 class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCenterDelegate {
+    
+    // MARK: - Properties
     
     let ref = Database.database().reference()
     let userID: String
@@ -22,6 +23,8 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         super.init()
     }
     
+    // MARK: - Methods
+
     func registerForPushNotifications() {
         
         if #available(iOS 10.0, *) {

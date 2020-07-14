@@ -32,6 +32,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     var ref: DatabaseReference!
     var deviceRegionCountry = ""
     
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -118,6 +119,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         registerVC.delegate = self
         appDelegate.delegate = self
         
+        // Listen for Firebase auth changes
         Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 Settings.currentUser = user
@@ -145,21 +147,10 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         })
     }
     
-    
-    func pinStackViewToBottom() {
-        for constraint in self.view.constraints {
-            if constraint.identifier == "stackViewBottom" {
-                constraint.constant = 3
-            }
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         pinStackViewToBottom()
     }
-    
-    
 
     
     // MARK: - Location Methods
@@ -231,6 +222,14 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         button.imageView?.contentMode = .scaleAspectFill
     }
     
+    func pinStackViewToBottom() {
+        for constraint in self.view.constraints {
+            if constraint.identifier == "stackViewBottom" {
+                constraint.constant = 3
+            }
+        }
+    }
+    
     fileprivate func downloadFavouritesSpace() {
         // Load and listen for changes to Favourites
         let UID = Auth.auth().currentUser?.uid ?? ""
@@ -255,8 +254,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
                 var unread = 0
                 var read = 0
                 var i = 0
-                
                 let messageTab = self.tabBarController?.tabBar.items?[3]
+                
                 for child in dataSnapshot.children {
                     if let snapshot = child as? DataSnapshot {
                         if let chat = Chat(snapshot: snapshot) {
@@ -311,7 +310,6 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     
     // MARK: - Action Methods
     
-    
     @IBAction func signInButtonTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "SignInVC") as! SignInViewController
         vc.delegate = self
@@ -326,6 +324,8 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
     }    
 }
 
+    
+    // MARK: - Extensions
 
 extension SpaceSelectionViewController: UpdateSignInDelegate, RegisterDelegate {
     func adjustViewAfterRegistration() {
