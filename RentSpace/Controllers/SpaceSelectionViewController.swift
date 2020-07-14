@@ -216,7 +216,7 @@ class SpaceSelectionViewController: UIViewController, CLLocationManagerDelegate 
         }
     }
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     func configure(_ button: UIButton, text: String) {
         button.imageView?.contentMode = .scaleAspectFill

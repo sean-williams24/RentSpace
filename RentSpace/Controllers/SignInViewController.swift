@@ -54,15 +54,20 @@ class SignInViewController: UIViewController, LoginButtonDelegate, ASAuthorizati
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup UI
         signInButton.layer.cornerRadius = Settings.cornerRadius
         addLeftPadding(for: emailTextField, placeholderText: "Email", placeholderColour: .gray)
         addLeftPadding(for: passwordTextField, placeholderText: "Password", placeholderColour: .gray)
         showCancelButton()
         passwordTextField.isSecureTextEntry = true
         
+        // Google
         GIDSignIn.sharedInstance()?.presentingViewController = self
         googleSignInButton.style = .wide
         googleSignInButton.contentHorizontalAlignment = .center
+        
+        // Facebook
         let loginButton = FBLoginButton(permissions: [ .publicProfile, .email ])
         loginButton.permissions = ["email"]
         
@@ -73,7 +78,6 @@ class SignInViewController: UIViewController, LoginButtonDelegate, ASAuthorizati
         }
         
         loginButton.delegate = self
-        
         view.addSubview(loginButton)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -185,7 +189,7 @@ class SignInViewController: UIViewController, LoginButtonDelegate, ASAuthorizati
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
@@ -316,7 +320,6 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                             if displayNameError != nil {
                                 self?.showAlert(title: "Oops", message: "Problem saving username, please go to account settings on the My Spaces tab to update.")
                             } else {
-                                print("Username saved")
                                 self?.dismiss(animated: true)
                                 self?.delegate?.updateSignInButton()
                                 self?.delegate?.adjustViewForTabBar?()
@@ -325,7 +328,6 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                     }))
                     
                     self.present(ac, animated: true) {
-                        
                     }
                 } else {
                     self.dismiss(animated: true)

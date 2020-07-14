@@ -96,7 +96,7 @@ class SearchRadiusViewController: UIViewController {
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     @objc func addressSearch() {
         navigationController?.setNavigationBarHidden(true, animated: true)

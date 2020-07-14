@@ -39,7 +39,6 @@ class SettingsViewController: UIViewController {
         addDisclosureAccessoryView(for: termsAndConditionsButton)
         addDisclosureAccessoryView(for: privacyPolicyButton)
         addDisclosureAccessoryView(for: legalInfoButton)
-
     }
     
     
@@ -56,10 +55,8 @@ class SettingsViewController: UIViewController {
                 self.updateDetailsButton.isHidden = false
                 
             } else {
-                
                 Favourites.spaces.removeAll()
                 self.delegate?.removeUserData()
-                
                 self.signInOrOutButton.setTitle("SIGN IN", for: .normal)
                 self.updateDetailsButton.isHidden = true
                 self.popToRootController(ofTab: 0)
@@ -95,10 +92,8 @@ class SettingsViewController: UIViewController {
                 vc.displayingDataFor = "Privacy Policy"
             }
         }
-
     }
 
-    
     
     // MARK: - Action Methods
     

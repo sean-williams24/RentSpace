@@ -56,7 +56,7 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     fileprivate func downloadChats() {
         self.showLoadingUI(true, for: self.activityView, label: self.loadingLabel, text: "Loading Chats...")
@@ -70,7 +70,6 @@ class ChatsViewController: UIViewController, UNUserNotificationCenterDelegate {
                 if let snapshot = child as? DataSnapshot,
                     let chat = Chat(snapshot: snapshot) {
                     newChats.append(chat)
-                    
                 }
             }
             
@@ -120,7 +119,6 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
         let chat = chats[indexPath.section]
         cell.customImageView.image = nil
         cell.activityView.startAnimating()
-//        cell.customImageView.image = renderCirlularImage(for: UIImage(named: "RentSpace Icon Small Black BG"))
         cell.customImageView.alpha = 1
         cell.customImageView.layer.cornerRadius = 30
         
@@ -155,9 +153,7 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                     if let url = url {
                         let processor = DownsamplingImageProcessor(size: CGSize(width: 300, height: 300))
                         cell.activityView.stopAnimating()
-                        cell.customImageView.kf.setImage(
-                            with: url,
-                            placeholder:(circleLogo),
+                        cell.customImageView.kf.setImage(with: url, placeholder:(circleLogo),
                             options: [
                                 .processor(processor),
                                 .transition(.fade(0.4)),
@@ -169,7 +165,6 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                             switch result {
                             case .success:
                                 cell.customImageView.contentMode = .scaleAspectFill
-//                                print("Task done for: \(value.source.url?.absoluteString ?? "")")
                             case .failure(let error):
                                 print("Job failed: \(error.localizedDescription)")
                             }
@@ -177,19 +172,6 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             }
-            // Download image
-//            Storage.storage().reference(forURL: chat.thumbnailURL).getData(maxSize: INT64_MAX) { (data, error) in
-//                if error != nil {
-//                    print("Error downloading image: \(error?.localizedDescription as Any)")
-//                } else {
-//                    if let data = data {
-//                        let image = UIImage(data: data)
-//                        cell.activityView.stopAnimating()
-//                        cell.customImageView.alpha = 1
-//                        cell.customImageView.image = self.renderCirlularImage(for: image)
-//                    }
-//                }
-//            }
         } else {
             let image = UIImage(named: "RentSpace Icon Small Black BG")
             cell.activityView.stopAnimating()
@@ -245,7 +227,6 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             }))
             ac.addAction(UIAlertAction(title: "Cancel", style: .default))
-            
             present(ac, animated: true)
         }
     }

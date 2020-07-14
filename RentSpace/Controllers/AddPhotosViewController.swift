@@ -68,7 +68,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
     
     
     
-    //MARK: - Private methods
+    //MARK: - Helper methods
     
     fileprivate func loadImagesFromUserDefaults(forKey UDimages: String) {
         // Load saved images into images array
@@ -143,9 +143,7 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
     }
     
-    
-    //MARK: - Image Picker Delegates
-    
+        
     func addPhotos() {
         var config = YPImagePickerConfiguration()
         let attributes = [NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-Light", size: 16) as Any ]
@@ -196,8 +194,6 @@ class AddPhotosViewController: UIViewController, UIImagePickerControllerDelegate
         }
         present(picker, animated: true)
     }
-    
-    
     
     
     //MARK: - Collection View delegates and data source

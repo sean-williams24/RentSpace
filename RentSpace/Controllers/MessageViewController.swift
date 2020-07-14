@@ -70,7 +70,6 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         scrollToBottomMessage()
         dismissKeyboardOnViewTap()
         subscribeToKeyboardNotifications()
-        
         checkIfRecipientHasUnreadMessages {}
     }
     
@@ -79,6 +78,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidAppear(animated)
         updateTableContentInset()
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -89,7 +89,7 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     fileprivate func checkIfRecipientHasUnreadMessages(completion: @escaping() -> Void) {
         var advertOwnerUID = ""
@@ -370,7 +370,6 @@ extension MessageViewController: UITableViewDataSource, UITableViewDelegate {
                     if lastHour.contains(messageDate) {
                         cell.dateLabel.text = ""
                         cell.dateLabel.isHidden = true
-                        
                     }
                 }
             }

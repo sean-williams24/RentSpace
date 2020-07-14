@@ -50,6 +50,8 @@ class RegisterViewController: UIViewController, UINavigationBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup UI
         registerButton.isEnabled = false
         registerButton.backgroundColor = .darkGray
         registerButton.layer.cornerRadius = Settings.cornerRadius
@@ -89,7 +91,7 @@ class RegisterViewController: UIViewController, UINavigationBarDelegate {
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     fileprivate func addNavBar() {
         textfieldTopConstraint.constant = 64

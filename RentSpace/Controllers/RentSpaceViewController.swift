@@ -146,7 +146,7 @@ class RentSpaceViewController: UIViewController {
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     fileprivate func firstAppLoadInfoView() {
         self.blurredView.isHidden = false

@@ -221,7 +221,7 @@ class AdvertDetailsViewController: UIViewController {
     }
     
     
-    //MARK: - Private Methods
+    //MARK: - Helper Methods
     
     func downloadFirebaseImages(completion: @escaping () -> ()) {
         activityView.startAnimating()
@@ -306,7 +306,6 @@ class AdvertDetailsViewController: UIViewController {
                     print(error.localizedDescription)
                 } else {
                     deletedImagesCount += 1
-                    print("Image Deleted: \(deletedImagesCount)")
                     if deletedImagesCount == self.imageURLsDict.count {
                         completion()
                     }
@@ -413,6 +412,7 @@ extension AdvertDetailsViewController: MKMapViewDelegate {
     }
 }
 
+// MARK:- FSPagerView Delegates
 
 extension AdvertDetailsViewController: FSPagerViewDataSource, FSPagerViewDelegate {
     
@@ -431,16 +431,12 @@ extension AdvertDetailsViewController: FSPagerViewDataSource, FSPagerViewDelegat
             cell.imageView?.contentMode = .scaleAspectFit
             cell.backgroundColor = Settings.flipsideBlackColour
         }
-
-        
         return cell
     }
     
     func pagerView(_ pagerView: FSPagerView, shouldHighlightItemAt index: Int) -> Bool {
         false
     }
-
-    // MARK:- FSPagerViewDelegate
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
         self.pageControl.currentPage = targetIndex

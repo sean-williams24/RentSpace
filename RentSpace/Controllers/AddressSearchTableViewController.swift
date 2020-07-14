@@ -39,8 +39,6 @@ class AddressSearchTableViewController: UITableViewController, UISearchResultsUp
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
         }
-        
-        
     }
     
     

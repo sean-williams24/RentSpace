@@ -67,9 +67,9 @@ class UpdateDetailsViewController: UIViewController {
     }
     
     
-    //MARK: - Private Methods
+    //MARK: - Helper Methods
     
-    fileprivate func handleUpdateCompletion(for type: String, for newCredential: String, _ error: Error?) {
+    fileprivate func handleUpdateCompletion(for type: String, with newCredential: String, _ error: Error?) {
         updateLoadingUI(false)
         
         if error != nil {
@@ -144,7 +144,7 @@ class UpdateDetailsViewController: UIViewController {
                 let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                 changeRequest?.displayName = self.updateTextfield.text
                 changeRequest?.commitChanges { [weak self] (error) in
-                    self?.handleUpdateCompletion(for: "Display Name", for: newCredential, error)
+                    self?.handleUpdateCompletion(for: "Display Name", with: newCredential, error)
                 }
             } else {
                 updateLoadingUI(false)
@@ -153,7 +153,7 @@ class UpdateDetailsViewController: UIViewController {
         } else if userDetailToUpdate == "Email" {
             if isValidEmail(newCredential) {
                 Auth.auth().currentUser?.updateEmail(to: newCredential) { (error) in
-                    self.handleUpdateCompletion(for: "Email", for: newCredential, error)
+                    self.handleUpdateCompletion(for: "Email", with: newCredential, error)
                     
                 }
             } else {
@@ -163,7 +163,7 @@ class UpdateDetailsViewController: UIViewController {
         } else {
             if isValidPassword(newCredential) && newCredential == confirmPasswordTextfield.text {
                 Auth.auth().currentUser?.updatePassword(to: newCredential) { (error) in
-                    self.handleUpdateCompletion(for: "Password", for: newCredential, error)
+                    self.handleUpdateCompletion(for: "Password", with: newCredential, error)
                 }
             } else {
                 updateLoadingUI(false)

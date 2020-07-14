@@ -38,7 +38,7 @@ class DeleteAccountViewController: UIViewController {
     }
     
     
-    //MARK: - Private Methods
+    //MARK: - Helper Methods
 
     func deleteUserData(completion: @escaping () -> Void) {
         // Get all of users spaces and add to array

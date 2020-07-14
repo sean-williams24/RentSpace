@@ -51,7 +51,6 @@ class MySpacesViewController: UIViewController {
         ref = Database.database().reference()
         
         authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            
             if user != nil {
                 Settings.currentUser = user
                 self.mySpaces.removeAll()
@@ -97,9 +96,7 @@ class MySpacesViewController: UIViewController {
     }
     
     
-    
-    // MARK: - Private Methods
-    
+    // MARK: - Helper Methods
     
     fileprivate func loadUserSpaces() {
         mySpaces.removeAll()
@@ -179,7 +176,6 @@ class MySpacesViewController: UIViewController {
         vc.delegate = self
     }
 
-    
     
     //MARK: - Action Methods
     

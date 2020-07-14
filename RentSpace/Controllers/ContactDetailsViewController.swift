@@ -42,6 +42,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Setup search controller
         let addressSearchTable = storyboard!.instantiateViewController(withIdentifier: "AddressSearchTableVC") as! AddressSearchTableViewController
         resultsSearchController = UISearchController(searchResultsController: addressSearchTable)
         resultsSearchController?.searchResultsUpdater = addressSearchTable
@@ -142,7 +143,7 @@ class ContactDetailsViewController: UIViewController, HandleAddressSelection {
     }
     
     
-    // MARK: - Private Methods
+    // MARK: - Helper Methods
     
     func addAddress(name: String, address: String, town: String, city: String, subAdminArea: String, state: String, country: String, postCode: String) {
         if town == "" {

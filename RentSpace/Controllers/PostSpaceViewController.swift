@@ -138,11 +138,9 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
     
     
     
-    //MARK: - Private Methods
+    //MARK: - Helper Methods
 
-    
     fileprivate func deleteImagesInDocumentsDirectory() {
-        
         for image in imagesToUpload {
             if image.imageName != "placeholder" {
                 let imageURLInDocuments = getDocumentsDirectory().appendingPathComponent(image.imageName)
@@ -195,7 +193,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
 
     
     func loadAdvertToUpdate() {
-        
         showCancelButton()
         
         // Remove any existing temp images from documents
@@ -635,7 +632,6 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
             descriptionTextView.text = ""
             descriptionTextView.textColor = .white
         }
-        
     }
     
     
@@ -655,8 +651,6 @@ extension PostSpaceViewController: UITextFieldDelegate, UITextViewDelegate {
                 } else {
                     textField.text = textField.text?.withoutSpecialCharacters
                 }
-
-
             }
         }
     }
