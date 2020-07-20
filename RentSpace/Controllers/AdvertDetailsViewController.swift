@@ -449,7 +449,7 @@ extension AdvertDetailsViewController: FSPagerViewDataSource, FSPagerViewDelegat
 extension AdvertDetailsViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height;
+        let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
 
         let range = (self.pagerViewMaxHeight - 100) - self.pagerViewMinHeight
         let openAmount = self.pagerViewHeight.constant - self.pagerViewMinHeight
