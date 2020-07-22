@@ -415,16 +415,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
             var childUpdates = ["\(advertsPath)-\(space.key)": data.toAnyObject(),
                                 "\(userAdvertsPath)/\(space.key)": data.toAnyObject()]
             
-            // If user has changed categories - add another path to dictionary to delete old advert
+            // If user has changed categories - add another path to dictionary and set to Null to delete old advert
             if category != originalCategory {
                 childUpdates["adverts/\(Location.userLocationCountry)/\(originalCategory)/\(UID)-\(space.key)"] = NSNull()
             }
             
             ref.updateChildValues(childUpdates) { [weak self] (error, databaseRef) in
                 if error != nil {
-                    print(error?.localizedDescription as Any)
+                    self?.showAlert(title: "Oh No!", message: "There was a problem uploading your advert; we apologise for the inconvenience. Please try posting your space again.")
                 }
-                print("update completion")
                 
                 self?.deleteImagesInDocumentsDirectory()
                 self?.imagesSavedToDisk = []
@@ -438,19 +437,15 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         } else {
             ref.child("\(advertsPath)-\(uniqueAdvertID)").setValue(data.toAnyObject()) { [weak self] (error, reference) in
                 if error != nil {
-                    print(error?.localizedDescription as Any)
                     self?.showAlert(title: "Oh No!", message: "There was a problem uploading your advert; we apologise for the inconvenience. Please try posting your space again.")
                     return
                 }
                 
                 ref.child("\(self?.userAdvertsPath ?? "")/\(self?.uniqueAdvertID ?? "")").setValue(data.toAnyObject()) { (userError, ref) in
                     if userError != nil {
-                        print(userError as Any)
                         self?.showAlert(title: "Oh No!", message: "There was a problem uploading your advert; we apologise for the inconvenience. Please try posting your space again.")
                         return
                     }
-                    
-                    print("Upload Complete")
                     self?.resetUIandUserDefaults()
                     
                     let vc = self?.storyboard?.instantiateViewController(withIdentifier: "PostConfirmationVC") as! PostConfirmationViewController
