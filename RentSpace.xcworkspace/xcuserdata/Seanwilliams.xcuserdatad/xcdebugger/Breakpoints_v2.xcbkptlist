@@ -5,109 +5,101 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.IDEConstraintErrorBreakpoint">
          <BreakpointContent
-            uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F"
-            shouldBeEnabled = "No"
+            uuid = "FC832F71-C1D9-437C-93A4-D2F1DB51E693"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RentSpace/View Controllers/PostSpaceViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "PostSpaceViewController"
-            landmarkType = "3">
+            breakpointStackSelectionBehavior = "1">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            uuid = "C41B8EED-BA4E-4DB2-BF4B-48AC38A8EB1B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = "-[UIView(UIConstraintBasedLayout) _viewHierarchyUnpreparedForConstraint:]"
+            moduleName = "">
             <Locations>
                <Location
-                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - 8366a6c38d494ef2"
-                  shouldBeEnabled = "No"
+                  uuid = "C41B8EED-BA4E-4DB2-BF4B-48AC38A8EB1B - 8e8d68a44b352a15"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "RentSpace.PostSpaceViewController.uploadView.getter : Swift.Optional&lt;__C.UIView&gt;"
-                  moduleName = "RentSpace"
+                  symbolName = "-[UIView(UIConstraintBasedLayout) _viewHierarchyUnpreparedForConstraint:]"
+                  moduleName = "UIKitCore"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "144">
+                  offsetFromSymbolStart = "0">
                </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            uuid = "39063274-845F-47C5-B0BD-BD793B7FDE00"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = "UICollectionViewFlowLayoutBreakForInvalidSizes"
+            moduleName = "">
+            <Locations>
                <Location
-                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - d2519dda5eef268e"
-                  shouldBeEnabled = "No"
+                  uuid = "39063274-845F-47C5-B0BD-BD793B7FDE00 - 6a6cfc8d24631f32"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "RentSpace.PostSpaceViewController.uploadView.setter : Swift.Optional&lt;__C.UIView&gt;"
-                  moduleName = "RentSpace"
+                  symbolName = "UICollectionViewFlowLayoutBreakForInvalidSizes"
+                  moduleName = "UIKitCore"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "196">
+                  offsetFromSymbolStart = "0">
                </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            uuid = "FA6C6E1A-5E7A-4AB1-BD01-9E00732C672B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            symbolName = "-[UIApplication main]"
+            moduleName = "">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "expr @import UIKit">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+            <Locations>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            uuid = "38AA3B77-F307-4308-81EF-DBA36688388E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = "UIViewAlertForUnsatisfiableConstraints"
+            moduleName = "">
+            <Locations>
                <Location
-                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - 25a945a5eaa410ff"
-                  shouldBeEnabled = "No"
+                  uuid = "38AA3B77-F307-4308-81EF-DBA36688388E - ba3ad5676a792f38"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "RentSpace.PostSpaceViewController.uploadView.modify : Swift.Optional&lt;__C.UIView&gt;"
-                  moduleName = "RentSpace"
+                  symbolName = "UIViewAlertForUnsatisfiableConstraints"
+                  moduleName = "UIKitCore"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - cdb46a71080a1371"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RentSpace.PostSpaceViewController.uploadView.modify : Swift.Optional&lt;__C.UIView&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "RentSpace"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - 4f2a4280267eeffa"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RentSpace.PostSpaceViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; RentSpace.PostSpaceViewController"
-                  moduleName = "RentSpace"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "876">
-               </Location>
-               <Location
-                  uuid = "DB3CF1B7-17B3-440A-A9A7-88E4105EB74F - edef606bec08f538"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RentSpace.PostSpaceViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;RentSpace.PostSpaceViewController&gt;"
-                  moduleName = "RentSpace"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Sean%20Williams/Documents/iOS%20Development/RentSpace/RentSpace/View%20Controllers/PostSpaceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "820">
+                  offsetFromSymbolStart = "0">
                </Location>
             </Locations>
          </BreakpointContent>
