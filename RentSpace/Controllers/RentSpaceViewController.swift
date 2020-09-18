@@ -307,8 +307,8 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = space.title.uppercased()
         cell.descriptionLabel.text = space.description
         cell.categoryLabel.text = space.category
-        cell.locationLabel.text = formatAddress(for: space)
-        cell.priceLabel.text = "\(space.price) \(priceRateFormatter(rate: space.priceRate))"
+        cell.locationLabel.text = Formatting.formatAddress(for: space)
+        cell.priceLabel.text = "\(space.price) \(Formatting.priceRateFormatter(rate: space.priceRate))"
         cell.distanceLabel.text = "\(Int(space.distance)) miles"
         if space.distance < 1 {
             cell.distanceLabel.text = "Less than a mile"

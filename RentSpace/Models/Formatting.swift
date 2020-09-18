@@ -27,5 +27,56 @@ class Formatting {
         return nil
     }
     
+    //MARK: - Format address for location labels from address data
     
+    class func formatAddress(for advert: Space) -> String {
+        
+        var location = ""
+        let city = advert.city
+        let subAdminArea = advert.subAdminArea
+        let town = advert.town
+        let state = advert.state
+        
+        if city == subAdminArea {
+            location = "\(town), \(city)"
+            if town == "" {
+                location = "\(city)"
+            }
+        } else {
+            location = "\(town), \(city), \(subAdminArea)"
+            if town == "" {
+                location = "\(city), \(subAdminArea)"
+            }
+        }
+        
+        if city == "" && town == "" {
+            location = subAdminArea
+            
+            if subAdminArea == "" {
+                location = state
+            }
+        }
+        
+        return location
+    }
+    
+    
+    //MARK: - Format price rates
+
+    class func priceRateFormatter(rate: String) -> String {
+        switch rate {
+        case "Hourly":
+            return "P/H"
+        case "Daily":
+            return "P/D"
+        case "Weekly":
+            return "P/W"
+        case "Monthly":
+            return "P/M"
+        case "Annually":
+            return "P/Y"
+        default:
+            return "P/H"
+        }
+    }
 }

@@ -43,8 +43,8 @@ class MySpacesTableViewCell: UITableViewCell {
             titleLabel.text = space?.title.uppercased()
             descriptionLabel.text = space?.description
             categoryLabel.text = space?.category
-            //            locationLabel.text = formatAddress(for: space)
-            //            priceLabel.text = "\(space.price) \(priceRateFormatter(rate: space.priceRate))"
+            locationLabel.text = Formatting.formatAddress(for: space)
+            priceLabel.text = "\(space.price) \(Formatting.priceRateFormatter(rate: space.priceRate))"
             
             if let imageURLsDict = space?.photos {
                 if let imageURL = imageURLsDict["image 1"] {

@@ -142,8 +142,8 @@ class MessageViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             // New chat initiated
             advertTitleLabel.text = space.title
-            locationLabel.text = formatAddress(for: space)
-            priceLabel.text = "\(space.price) \(priceRateFormatter(rate: space.priceRate))"
+            locationLabel.text = Formatting.formatAddress(for: space)
+            priceLabel.text = "\(space.price) \(Formatting.priceRateFormatter(rate: space.priceRate))"
         }
         
         if thumbnail.size.height == 0.0 {
