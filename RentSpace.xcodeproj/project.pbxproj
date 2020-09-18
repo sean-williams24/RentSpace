@@ -25,6 +25,7 @@
 		CE5D27D1238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */; };
 		CE5D27D3239107D10098B0FA /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */; };
 		CE5D27D723912E8B0098B0FA /* AddressSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */; };
+		CE5DDBAB2515100200E61679 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DDBAA2515100100E61679 /* Formatting.swift */; };
 		CE6583A123941302001FFA8A /* UIVC Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A023941302001FFA8A /* UIVC Extension.swift */; };
 		CE6583A32397C0E6001FFA8A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE6583A22397C0E6001FFA8A /* GoogleService-Info.plist */; };
 		CE6583A52397E26C001FFA8A /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6583A42397E26C001FFA8A /* Space.swift */; };
@@ -89,6 +90,7 @@
 		CE5D27D0238FB3BF0098B0FA /* PreviewPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE5D27D2239107D10098B0FA /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		CE5D27D623912E8B0098B0FA /* AddressSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchTableViewController.swift; sourceTree = "<group>"; };
+		CE5DDBAA2515100100E61679 /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
 		CE6583A023941302001FFA8A /* UIVC Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVC Extension.swift"; sourceTree = "<group>"; };
 		CE6583A22397C0E6001FFA8A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CE6583A42397E26C001FFA8A /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
@@ -244,9 +246,10 @@
 				CE02CECE23EB2DED003B96A9 /* Data */,
 				CE6896E5243F6CEB00B37A90 /* PushNotificationManager.swift */,
 				CE6896E724405E7D00B37A90 /* PushNotificationSender.swift */,
-				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
 				CE6583AB239A8A13001FFA8A /* Location.swift */,
 				CEF5CBE823C7258C0011243D /* Settings.swift */,
+				CE6583A023941302001FFA8A /* UIVC Extension.swift */,
+				CE5DDBAA2515100100E61679 /* Formatting.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				CE08407C238D40B200DA57C8 /* SceneDelegate.swift in Sources */,
 				CE084092238E86F200DA57C8 /* PhotoCollectionViewCell.swift in Sources */,
 				CE6583A823981473001FFA8A /* AdvertTableViewCell.swift in Sources */,
+				CE5DDBAB2515100200E61679 /* Formatting.swift in Sources */,
 				CEC0B93923D62007004DC4E6 /* MessageTableViewCell.swift in Sources */,
 				CEF5CBE923C7258C0011243D /* Settings.swift in Sources */,
 				CEF5CBD723C1DBC80011243D /* MySpacesViewController.swift in Sources */,

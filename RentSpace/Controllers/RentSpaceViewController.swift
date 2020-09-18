@@ -180,7 +180,7 @@ class RentSpaceViewController: UIViewController {
         let spaceCount = snapshot.children.allObjects.count
         var index = 0
         var newSpaces: [Space] = []
-        
+                
         for child in snapshot.children {
             if let spaceSnapshot = child as? DataSnapshot,
                 var space = Space(snapshot: spaceSnapshot) {
@@ -374,9 +374,9 @@ extension RentSpaceViewController: UITableViewDelegate, UITableViewDataSource {
                 }
     
                 if #available(iOS 13.0, *) {
-                    cell.customImageView.image = renderTemplateImage(imageName: sfSymbol)
+                    cell.customImageView.image = Formatting.renderTemplateImage(imageName: sfSymbol)
                 } else {
-                    cell.customImageView.image = renderTemplateImage(imageName: space.category)
+                    cell.customImageView.image = Formatting.renderTemplateImage(imageName: space.category)
                 }
                 
                 cell.customImageView.contentMode = .scaleAspectFit

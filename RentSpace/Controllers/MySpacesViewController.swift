@@ -226,97 +226,10 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "My Spaces Cell", for: indexPath) as! MySpacesTableViewCell
         let space = mySpaces[indexPath.section]
         cell.layer.borderWidth = 1
-        
-        if viewingFavourites {
-            cell.backgroundColor = .darkGray
-            cell.layer.borderWidth = 0
-        } else {
-            cell.backgroundColor = Settings.flipsideBlackColour
-            cell.layer.borderColor = UIColor.black.cgColor
-        }
-        
-        cell.customImageView.image = nil
-        cell.customImageView.alpha = 1
-        cell.activityView.startAnimating()
-        cell.customImageView.layer.borderColor = Settings.flipsideBlackColour.cgColor
-        cell.customImageView.layer.borderWidth = 1
-        cell.customImageView.layer.cornerRadius = 10
-        cell.titleLabel.text = space.title.uppercased()
-        cell.descriptionLabel.text = space.description
-        cell.categoryLabel.text = space.category
-        cell.locationLabel.text = formatAddress(for: space)
-        cell.priceLabel.text = "\(space.price) \(priceRateFormatter(rate: space.priceRate))"
-        
-        if let imageURLsDict = space.photos {
-            if let imageURL = imageURLsDict["image 1"] {
-                
-                DispatchQueue.global(qos: .background).async {
-                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
-                        guard error == nil else {
-                            print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
-                            return
-                        }
-                        let cellImage = UIImage.init(data: data!, scale: 0.1)
-                        
-                        // Check to see if cell is still on screen, if so update cell
-                        if cell == tableView.cellForRow(at: indexPath) {
-                            DispatchQueue.main.async {
-                                cell.activityView.stopAnimating()
-                                cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                cell.customImageView.contentMode = .scaleAspectFill
-                                cell.customImageView?.image = cellImage
-                                cell.setNeedsLayout()
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            cell.activityView.stopAnimating()
-
-            if space.category == "Art Studio" {
-                
-                // Scale Art studio image down to match SFSymbol icons and add another view to get matching image border
-                let view = UIView()
-                view.frame = CGRect(x: 10, y: 10, width: 130, height: 130)
-                view.layer.borderColor = UIColor.darkGray.cgColor
-                view.layer.borderWidth = 1
-                view.layer.cornerRadius = 10
-                cell.addSubview(view)
-                
-                if let image = UIImage(named: space.category) {
-                    cell.customImageView.image = image.withRenderingMode(.alwaysTemplate)
-                }
-
-                cell.customImageView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-                cell.customImageView.contentMode = .scaleAspectFit
-                cell.customImageView.layer.borderWidth = 0
-                
-            } else {
-                var sfSymbol = ""
-                switch space.category {
-                 case "Photography Studio": sfSymbol = "camera"
-                 case "Music Studio": sfSymbol = "music.mic"
-                 case "Desk Space": sfSymbol = "studentdesk"
-                default:
-                    sfSymbol = "camera"
-                }
-    
-                if #available(iOS 13.0, *) {
-                    cell.customImageView.image = renderTemplateImage(imageName: sfSymbol)
-                } else {
-                    cell.customImageView.image = renderTemplateImage(imageName: space.category)
-                }
-
-                cell.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                cell.customImageView.contentMode = .scaleAspectFit
-                cell.customImageView.layer.borderWidth = 1
-            }
-            cell.customImageView.tintColor = UIColor.darkGray
-            cell.customImageView.layer.borderColor = UIColor.darkGray.cgColor
-            cell.customImageView.alpha = 0.7
-            
-        }
+        cell.viewingFavourites = viewingFavourites
+        cell.space = space
+        cell.tableView = tableView
+        cell.indexPath = indexPath
         return cell
     }
     
@@ -331,7 +244,6 @@ extension MySpacesViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             vc.editingMode = true
         }
-        
         show(vc, sender: self)
     }
     

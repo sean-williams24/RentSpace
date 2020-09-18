@@ -82,10 +82,10 @@ class RegisterViewController: UIViewController, UINavigationBarDelegate {
             checkmark3.image = UIImage(systemName: "checkmark.circle.fill")
             checkmark4.image = UIImage(systemName: "checkmark.circle.fill")
         } else {
-            checkmark1.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
-            checkmark2.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
-            checkmark3.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
-            checkmark4.image = renderTemplateImage(imageName: "Checkmark Circle Fill")
+            checkmark1.image = Formatting.renderTemplateImage(imageName: "Checkmark Circle Fill")
+            checkmark2.image = Formatting.renderTemplateImage(imageName: "Checkmark Circle Fill")
+            checkmark3.image = Formatting.renderTemplateImage(imageName: "Checkmark Circle Fill")
+            checkmark4.image = Formatting.renderTemplateImage(imageName: "Checkmark Circle Fill")
             addNavBar()
         }
     }

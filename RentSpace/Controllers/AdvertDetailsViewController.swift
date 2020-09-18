@@ -106,10 +106,10 @@ class AdvertDetailsViewController: UIViewController {
             emailButton.setImage(UIImage(systemName: "envelope"), for: .normal)
         } else {
             editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAdvert))
-            messagesButton.setImage(renderTemplateImage(imageName: "Bubble Left And Bubble Right"), for: .normal)
-            favouritesButton.setImage(renderTemplateImage(imageName: "Heart Fill"), for: .normal)
-            phoneButton.setImage(renderTemplateImage(imageName: "Phone"), for: .normal)
-            emailButton.setImage(renderTemplateImage(imageName: "Envelope"), for: .normal)
+            messagesButton.setImage(Formatting.renderTemplateImage(imageName: "Bubble Left And Bubble Right"), for: .normal)
+            favouritesButton.setImage(Formatting.renderTemplateImage(imageName: "Heart Fill"), for: .normal)
+            phoneButton.setImage(Formatting.renderTemplateImage(imageName: "Phone"), for: .normal)
+            emailButton.setImage(Formatting.renderTemplateImage(imageName: "Envelope"), for: .normal)
 
         }
         navigationItem.rightBarButtonItems = [trashButton, editButton]

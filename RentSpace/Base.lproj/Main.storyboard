@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXc-mm-7Pb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wXc-mm-7Pb">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1482,7 +1482,7 @@ Long press and drag to reorder.</string>
             </objects>
             <point key="canvasLocation" x="3744.9275362318845" y="-1416.2946428571429"/>
         </scene>
-        <!--Data Source-->
+        <!--Advert Details View Controller-->
         <scene sceneID="03k-2v-FNG">
             <objects>
                 <viewController storyboardIdentifier="AdvertDetailsVC" id="tUY-Ky-QDR" customClass="AdvertDetailsViewController" customModule="RentSpace" customModuleProvider="target" sceneMemberID="viewController">
@@ -3345,6 +3345,10 @@ Only the best gear here.</string>
             <point key="canvasLocation" x="4762" y="2023"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fSN-mm-Zry"/>
+        <segue reference="EiX-kw-otY"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="002-spotlight" width="512" height="512"/>
         <image name="002-spotlight 2" width="512" height="512"/>
@@ -3380,8 +3384,4 @@ Only the best gear here.</string>
         <image name="pin-orange" width="64" height="64"/>
         <image name="warning" width="256" height="256"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="fSN-mm-Zry"/>
-        <segue reference="EiX-kw-otY"/>
-    </inferredMetricsTieBreakers>
 </document>

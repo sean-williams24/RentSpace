@@ -176,22 +176,22 @@ extension UIViewController {
         }
     }
     
-    //MARK: - Tintable category icon method
-    
-    func renderTemplateImage(imageName: String) -> UIImage? {
-        if #available(iOS 13.0, *) {
-            if let image = UIImage(systemName: imageName) {
-                let templateImage = image.withRenderingMode(.alwaysTemplate)
-                return templateImage
-            }
-        } else {
-            if let image = UIImage(named: imageName) {
-                let templateImage = image.withRenderingMode(.alwaysTemplate)
-                return templateImage
-            }
-        }
-        return nil
-    }
+//    //MARK: - Tintable category icon method
+//    
+//    func renderTemplateImage(imageName: String) -> UIImage? {
+//        if #available(iOS 13.0, *) {
+//            if let image = UIImage(systemName: imageName) {
+//                let templateImage = image.withRenderingMode(.alwaysTemplate)
+//                return templateImage
+//            }
+//        } else {
+//            if let image = UIImage(named: imageName) {
+//                let templateImage = image.withRenderingMode(.alwaysTemplate)
+//                return templateImage
+//            }
+//        }
+//        return nil
+//    }
     
     
     // MARK: - Validation Methods

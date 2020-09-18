@@ -335,8 +335,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
         let insets = UIEdgeInsets(top: 45, left: 0, bottom: 55, right: 0)
         addPhotosButton.imageEdgeInsets = insets
         addPhotosButton.imageView?.contentMode = .scaleAspectFit
-        
-
     }
     
     @objc func tapAndHideKeyboard(sender: UIButton!) {
@@ -408,7 +406,6 @@ class PostSpaceViewController: UIViewController, UINavigationControllerDelegate,
                          postedByUser: Settings.currentUser?.uid ?? "",
                          userDisplayName: Settings.currentUser?.displayName ?? "",
                          timestamp: Date().timeIntervalSince1970 as Double)
-        
         
         // Write to Adverts firebase pathes
         if updatingAdvert {
