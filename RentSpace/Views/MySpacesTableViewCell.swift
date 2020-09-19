@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import Kingfisher
 import NVActivityIndicatorView
 import UIKit
 
@@ -50,23 +51,24 @@ class MySpacesTableViewCell: UITableViewCell {
                 if let imageURL = imageURLsDict["image 1"] {
                     
                     DispatchQueue.global(qos: .background).async {
-                        Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX) { (data, error) in
+                        Storage.storage().reference(forURL: imageURL).downloadURL { (url, error) in
                             guard error == nil else {
-                                print("error downloading: \(error?.localizedDescription ?? error.debugDescription)")
                                 return
                             }
-                            let cellImage = UIImage.init(data: data!, scale: 0.1)
                             
-                            // Check to see if cell is still on screen, if so update cell
-                            if self == self.tableView.cellForRow(at: self.indexPath) {
-                                DispatchQueue.main.async {
-                                    self.activityView.stopAnimating()
-                                    self.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                    self.customImageView.contentMode = .scaleAspectFill
-                                    self.customImageView?.image = cellImage
-                                    self.setNeedsLayout()
-                                }
-                            }
+                            self.activityView.stopAnimating()
+                            let processor = DownsamplingImageProcessor(size: CGSize(width: 300, height: 300))
+                            self.customImageView.kf.setImage(with: url,
+                                 options: [
+                                     .processor(processor),
+                                     .transition(.fade(0.4)),
+                                     .scaleFactor(UIScreen.main.scale),
+                                     .cacheOriginalImage
+                                 ])
+                            
+                            self.customImageView.contentMode = .scaleAspectFill
+                            self.customImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            self.setNeedsLayout()
                         }
                     }
                 }
